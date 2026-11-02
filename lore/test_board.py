@@ -153,6 +153,18 @@ class Pages(unittest.TestCase):
         self.assertTrue(a.endswith(tail) and b.endswith(tail))
 
 
+class Seeds(unittest.TestCase):
+    def test_every_seed_fits_a_signed_32_bit_int(self):
+        # Gemini rejects generation_config.seed outside TYPE_INT32 with HTTP 400
+        seeds = [B.call_seed(b, x["id"], n) for b in B.BOARDS.values()
+                 for x in S["sources"] + S["targets"] for n in range(2, B.POSTS + 1)]
+        self.assertTrue(all(0 <= s <= 2 ** 31 - 1 for s in seeds))
+        self.assertGreater(len(set(seeds)), len(seeds) * 0.99)
+
+    def test_the_seed_that_gemini_refused(self):
+        self.assertLessEqual(B.call_seed("/x/", "s13", 2), 2 ** 31 - 1)
+
+
 class Generation(unittest.TestCase):
     def spec(self):
         t = S["targets"][0]

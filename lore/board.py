@@ -192,7 +192,8 @@ def stops(board, cast, source_cast):
 
 
 def call_seed(board, thread_id, n):
-    return int(hashlib.sha256(("%s|%s|%d" % (board, thread_id, n)).encode()).hexdigest()[:8], 16)
+    """Gemini's seed is a signed 32-bit int (anything larger is HTTP 400), hence 31 bits."""
+    return int(hashlib.sha256(("%s|%s|%d" % (board, thread_id, n)).encode()).hexdigest()[:8], 16) & 0x7FFFFFFF
 
 
 # ---- generation ----
