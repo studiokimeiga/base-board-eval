@@ -199,3 +199,23 @@ The OpenRouter key had $82.48 of its $100 limit left when this was written.
 - Public: `spike/judging/r9/key.json`, `scaffold.json` (handles only), every score, tag and usage
   file, the prompts in `spike/judging/prompts/`, `raw-stats.json`, `LEDGER.md`, and a short section
   in `BAKEOFF.md`.
+
+## Events after registration
+
+Added during the run. Nothing above this heading changed after the pre-registration was pushed
+(`f468fe4`, 16:02Z on 2026-11-02).
+
+- **16:05Z, approval.** The owner approved up to $10.
+- **Smoke run.** The first attempt crashed on this side before anything ran remotely (the Modal
+  CLI printed a "✓" into a Windows console encoding that can't hold it). The rerun wrote one thread
+  per arm and passed every plumbing check: the headers, the small model's posts 6, 11 and 22, and
+  a withheld post's quarantine record. Gemini cost $0.19. The threads are set aside, unjudged.
+- **Accounting fix (`6e68377`).** The gpt-5.4 usage log now counts every paid try of a call that
+  was asked again. What is asked and how replies are checked did not change.
+- **16:12–16:18Z, the full run stopped on HTTP 402.** The OpenRouter account had $1.05 of its $20
+  credit left. The "$82.48 of its $100 limit" in the cost section was the key's own cap, not the
+  account's balance, and OpenRouter reserves worst-case credit for each request in flight (about
+  $0.27 per Gemini call, $1.92 per gpt-5.4 call with no max_tokens). One thread was finished and
+  kept (`rolesshort9`, opener 1). The other arms' threads in progress were lost ($0.21 of Gemini
+  logged); one of them had a withheld post, whose quarantine record is kept privately in
+  `spike/remote/r9-stopped-run/` and is not counted. Spend so far, Modal included: about $0.57.
