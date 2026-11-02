@@ -352,7 +352,8 @@ the **original local gemma-4-E4B** workload with dated August 2026 assumptions.
 1. **Calibrate against the reader, blind.** Mix BEST-OF threads with Gemini, temperament and Qwen
    samples; rate believable, keep reading, deliberate humour, deadpan humour, would repost, and
    flag threads seen before. Run the same items through both AI judge families and measure agreement.
-   Built and pre-registered in [`calibration/`](calibration/README.md); the Claude side is done.
+   Built and pre-registered in [`calibration/`](calibration/README.md); both AI judge families have
+   rated it (neither separates BEST-OF threads from unselected small-model output), the reader not yet.
 2. **Get the reader's verdict on round 8** (plain vs. long roles vs. short roles), the round where
    the two AI judge families disagree: `spike/rate.html?round=8`.
 3. **Narrower hybrids.** An occasional small-model post instead of fixed slots; seeding a shared
