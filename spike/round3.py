@@ -13,10 +13,14 @@
 
   py -3.12 spike/round3.py mix          writes spike/remote/bakeoff-mix.json
 
+Rounds 4-8 added arms below. Round 9's five arms (gemini9, rolesshort9, rolesshort9naif,
+gemini9neutral, rolesshort9neutral) are pre-registered in spike/PREREGISTRATION-ROUND9.md;
+`spike/round3.py plan` prints where the small model posts, without generating anything.
+
 Keys come from the repo's .env (gitignored). gpt-5.4 usage is logged per UTC day in
 spike/openai_budget.json and the picker stops before the free daily allowance (250k).
 """
-import json, os, re, sys, threading, time, urllib.request, urllib.error
+import contextlib, io, json, os, random, re, sys, threading, time, urllib.request, urllib.error
 from concurrent.futures import ThreadPoolExecutor
 
 SPIKE = os.path.dirname(os.path.abspath(__file__))
@@ -268,7 +272,9 @@ def hermes_arm(penalties, guard, pick):
     return complete
 
 
-def gemini_arm(temperature=1.0, roles=False, short=False):
+def gemini_arm(temperature=1.0, roles=False, short=False, finish=False):
+    """finish=True (round 9) logs the API's finish_reason as the post's stop ("length" = cut off
+    by max_tokens); earlier rounds logged "eos" for every post."""
     def complete(port, prompt, stops):
         m = HEADER.search(prompt)
         doc, author = prompt[:m.start()], m.group(1)
@@ -288,7 +294,8 @@ def gemini_arm(temperature=1.0, roles=False, short=False):
                                        ENV["OPENROUTER_API_KEY"], body))
         with LOCK:
             SPEND["usd"] += (d.get("usage") or {}).get("cost", 0) or 0
-        return cut(clean_chat(d["choices"][0]["message"].get("content") or ""), stops).strip(), "eos"
+        text = cut(clean_chat(d["choices"][0]["message"].get("content") or ""), stops).strip()
+        return text, (d["choices"][0].get("finish_reason") or "?") if finish else "eos"
     return complete
 
 
@@ -352,7 +359,109 @@ def gemini_pick_arm():
     return complete
 
 
+# ---- round 9: pre-registered in spike/PREREGISTRATION-ROUND9.md ----
+# Five fresh arms with new names, so no earlier file is overwritten. All five gate a post before
+# it enters the context, as jp_bakeoff.py and live_board.py do; rounds 3-8 gated only the saved file.
+X_HEADER, NEUTRAL_HEADER = G.BOARD_HEADER, "thread 4471"
+R9 = {"gemini9": X_HEADER, "rolesshort9": X_HEADER, "rolesshort9naif": X_HEADER,
+      "gemini9neutral": NEUTRAL_HEADER, "rolesshort9neutral": NEUTRAL_HEADER}
+WITHHELD = "[post withheld]"
+GEMINI_LABEL = "google/gemini-3.8-flash"
+NAIF_LABEL = G.VOICES["gemma"]["label"] + ", XTC + DRY"
+NAIF_SEED = 9090
+NAIF_BLOCKS = [(2, 9), (10, 17), (18, 24)]     # one small-model post in each third of the replies
+POST_HEADER = re.compile(r"\n\n\S+ \d\d/\d\d/\d\d\(\w{3}\)\d\d:\d\d:\d\d\n")
+
+
+def post_number(prompt):
+    """The number of the post being written: every post has a header, the last one is its own.
+    Posts can't contain a blank line (every arm stops at one), so headers can't be faked."""
+    return len(POST_HEADER.findall(prompt))
+
+
+def opener_of(prompt):
+    return prompt[POST_HEADER.search(prompt).end():].split("\n\n", 1)[0]
+
+
+def opener_index(text):
+    return [o["t"] for o in G.OPENERS].index(text)
+
+
+def scaffold():
+    """The bake-off's scaffold settings (rounds 1-9): 24 posts, OP back at 7 and 19, a newcomer at 13."""
+    G.POSTS_PER_THREAD = POSTS
+    G.CHECK_AT = 10**9
+    G.RETURN_AT, G.ARRIVE_AT = {7, 19}, {13}
+
+
+def naif_posts(oi):
+    """The posts the small model writes in opener oi's thread: in each third of the replies, one post
+    by someone other than the OP, drawn with its own seed. Authors never depend on model output, so
+    a dry run with a stub writer gives exactly the scaffold the real run will use."""
+    real = G.complete
+    G.complete = lambda port, prompt, stops: ("", "dry run")
+    try:
+        with contextlib.redirect_stdout(io.StringIO()):
+            posts = G.gen_thread(oi, 0, 0)["posts"]
+    finally:
+        G.complete = real
+    op, rng = posts[0]["who"], random.Random(NAIF_SEED + oi)
+    return sorted(rng.choice([p["n"] for p in posts if lo <= p["n"] <= hi and p["who"] != op])
+                  for lo, hi in NAIF_BLOCKS)
+
+
+def occasional_naif_arm():
+    """Round 9's narrower hybrid: rolesshort, except that 3 posts per thread (1 in 8 of the 24) come
+    from the small gemma-4-E4B base model with generate.py's XTC + DRY sampler, as round 7's naifs
+    did. Round 7 gave it 2 of the 7 posters for a whole thread; here it writes single posts by whoever
+    the scaffold has posting (never the OP), so no one poster is the confused one. Needs a
+    llama-server for arm1b.gguf on NAIF_PORT (Modal, see modal_board.py::r9)."""
+    naif_port = int(os.environ.get("NAIF_PORT", "8400"))
+    at = {text: set(naif_posts(opener_index(text))) for text in OPENER_PICKS}
+    gemini = gemini_arm(roles=True, short=True, finish=True)
+
+    def complete(port, prompt, stops):
+        if post_number(prompt) not in at[opener_of(prompt)]:
+            return gemini(port, prompt, stops)
+        for _ in range(3):
+            text, why = LLAMA_COMPLETE(naif_port, prompt, stops)
+            if why != "error":          # generate.complete turns any failure into ("", "error")
+                return text, why
+            time.sleep(5)
+        raise RuntimeError("the small-model server failed three times")
+    return complete
+
+
+def gate_first(complete, arm):
+    """Withhold a post before it enters the context. The withheld text goes to a private quarantine
+    file next to the arm's output, so the gate's false positives can be counted later."""
+    path = os.path.join(out_dir(), "quarantine-%s.jsonl" % arm)
+
+    def gated(port, prompt, stops):
+        text, why = complete(port, prompt, stops)
+        hits = [h for h in GATE if h in text.lower()]
+        if not hits:
+            return text, why
+        with LOCK:
+            with open(path, "a", encoding="utf-8") as f:
+                f.write(json.dumps({"arm": arm, "opener": opener_of(prompt), "n": post_number(prompt),
+                                    "who": HEADER.search(prompt).group(1), "matched": hits,
+                                    "stop": why, "text": text}, ensure_ascii=False) + "\n")
+        return WITHHELD, "withheld, " + why
+    return gated
+
+
+def out_dir():
+    return os.environ.get("BAKEOFF_OUT", os.path.join(SPIKE, "remote"))
+
+
 def build(arm):
+    if arm in R9:
+        G.BOARD_HEADER = R9[arm]
+        if arm == "rolesshort9naif":
+            return gate_first(occasional_naif_arm(), arm), 1      # one llama-server slot
+        roles = arm.startswith("rolesshort")
+        return gate_first(gemini_arm(roles=roles, short=roles, finish=True), arm), 4
     if arm == "geminipick":
         return gemini_pick_arm(), 3
     if arm == "roles":
@@ -393,38 +502,59 @@ def build(arm):
 
 def main():
     arm = sys.argv[1]
+    scaffold()
+    if arm == "plan":      # round 9: where the small model posts, without generating anything
+        for i, text in enumerate(OPENER_PICKS):
+            print("opener %d: posts %s" % (i + 1, naif_posts(opener_index(text))))
+        return
     complete, workers = build(arm)
     G.complete = complete
-    G.POSTS_PER_THREAD = POSTS
-    G.CHECK_AT = 10**9
-    G.RETURN_AT, G.ARRIVE_AT = {7, 19}, {13}
-    out = os.path.join(os.environ.get("BAKEOFF_OUT", os.path.join(SPIKE, "remote")),
-                       "bakeoff-%s.json" % arm)
+    out = os.path.join(out_dir(), "bakeoff-%s.json" % arm)
+    naif_at = {t: naif_posts(opener_index(t)) for t in OPENER_PICKS} if arm == "rolesshort9naif" else {}
     done = {}
+    if arm in R9 and os.path.exists(out):      # a rerun keeps finished threads, as jp_bakeoff.py does
+        with open(out, encoding="utf-8") as f:
+            old = json.load(f)
+        done = {OPENER_PICKS.index(t["opener"]): t for t in old["threads"]}
+        SPEND.update(old["spend"])
+        print("%s: resuming, %d threads already written" % (arm, len(done)), flush=True)
 
     def save():
         threads = [done[k] for k in sorted(done)]
+        meta = {"arm": arm, "posts_per_thread": POSTS, "spend": SPEND}
+        if arm in R9:
+            meta.update(header=G.BOARD_HEADER, gate="before context",
+                        saved_utc=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()))
         with open(out, "w", encoding="utf-8") as f:
-            json.dump({"arm": arm, "posts_per_thread": POSTS, "spend": SPEND,
-                       "threads": threads}, f, ensure_ascii=False, indent=1)
+            json.dump(dict(meta, threads=threads), f, ensure_ascii=False, indent=1)
 
     def one(i_text):
         i, text = i_text
-        oi = [o["t"] for o in G.OPENERS].index(text)
+        oi = opener_index(text)
         t0 = time.time()
         t = G.gen_thread(oi, 0, i + 1)
         for p in t["posts"][1:]:
             if any(h in p["text"].lower() for h in GATE):
                 p.update(text="[post withheld]", withheld=True)
+            if arm in R9:     # gen_thread labels posts by scaffold voice; record who really wrote them
+                p.pop("arm")
+                p["model"] = NAIF_LABEL if p["n"] in naif_at.get(text, ()) else GEMINI_LABEL
+                if p["stop"].startswith("withheld"):
+                    p["withheld"] = True
+        if arm in R9:
+            t["posts"][0]["model"] = "opener"
+            if naif_at:
+                t["naif_posts"] = naif_at[text]
         t.update(arm=arm, opener=text, secs=round(time.time() - t0))
         with LOCK:
             done[i] = t
             save()
         print("\n%s: thread %d done in %ds" % (arm, i + 1, t["secs"]), flush=True)
 
+    picks = OPENER_PICKS[:int(os.environ.get("BAKEOFF_THREADS", len(OPENER_PICKS)))]   # smoke runs: fewer
     try:
         with ThreadPoolExecutor(workers) as ex:
-            list(ex.map(one, enumerate(OPENER_PICKS)))
+            list(ex.map(one, [(i, t) for i, t in enumerate(picks) if i not in done]))
     except OutOfCredit as e:
         print("\n%s stopped: %s (kept %d finished threads)" % (arm, e, len(done)), flush=True)
     print("\n%s: %d threads  spend $%.3f  openai tokens %d"

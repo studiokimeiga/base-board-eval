@@ -50,6 +50,10 @@ OPENERS = [dict(t=x, seeded=(x not in UNSEEDED)) for x in OPENER_TEXTS]
 
 POSTS_PER_THREAD = 32
 
+# The document's first line. /x/ is the paranormal board; every thread in this repo before
+# bake-off round 9 was written under it. Round 9's neutral arms set "thread 4471".
+BOARD_HEADER = "/x/ — thread 4471"
+
 # EARLY STOPPING. Chant onsets in the 50-post run were at posts 6,6,6,8,12,19,22,34,38 --
 # five of nine decided inside the first dozen. So a thread's fate is largely set by
 # post ~10 and generating the other 22 is spending compute on threads already lost.
@@ -261,7 +265,7 @@ def gen_thread(oi, rep, tid):
     secs, author = 0, op
     posts = [{"n": 1, "who": op, "ts": stamp(0), "text": text,
               "voice": voice_of[op], "model": VOICES[voice_of[op]]["label"], "stop": "-"}]
-    doc = "/x/ — thread 4471\n\n%s %s\n%s" % (op, stamp(0), text)
+    doc = "%s\n\n%s %s\n%s" % (BOARD_HEADER, op, stamp(0), text)
 
     for n in range(2, POSTS_PER_THREAD + 1):
         secs += rng.randint(40, 9*60)

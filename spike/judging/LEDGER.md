@@ -241,6 +241,10 @@ Both on rubric v2. The gemini and roles threads are the same files judged in rou
 
 Judge agreement on overall: Spearman ρ = -0.17 over 24 threads; the two families' top thread (ties allowed) coincide in 4 of 8 packets.
 
+## Round 9: An occasional small-model post, and the /x/ label against a neutral header (pre-registered)
+
+Not run yet. Pre-registered in `spike/PREREGISTRATION-ROUND9.md`, with these contrasts (arm vs baseline): rolesshort9naif vs rolesshort9; gemini9neutral vs gemini9; rolesshort9neutral vs rolesshort9; rolesshort9 vs gemini9; rolesshort9neutral vs gemini9neutral.
+
 ## Round JP: Japanese: 5ch and named-handle formats
 
 Claude only, Japanese rubric (naturalness first). 6 openers x 2 formats; Sonnet ran in the 5ch format only.

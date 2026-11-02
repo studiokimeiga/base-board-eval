@@ -22,9 +22,65 @@ class Stats(unittest.TestCase):
         self.assertIsNone(L.spearman([2, 2, 2], [1, 2, 3]))
 
 
+    def test_kappa(self):
+        self.assertAlmostEqual(L.kappa([1, 1, 0, 0], [1, 1, 0, 0]), 1.0)
+        self.assertAlmostEqual(L.kappa([1, 0, 1, 0], [1, 1, 0, 0]), 0.0)
+        self.assertIsNone(L.kappa([1, 1], [1, 1]))
+
+
+class Round9Analysis(unittest.TestCase):
+    """The round 9 analysis on made-up scores, so it is fixed before any real ones exist."""
+    ARMS = ["a", "b", "c", "d", "e"]
+
+    def key(self):
+        key = {}
+        for p in (1, 2):
+            for v in range(5):
+                order = self.ARMS[v:] + self.ARMS[:v]
+                key["%d-v%d" % (p, v + 1)] = dict(zip("ABCDE", order))
+        return key
+
+    def test_collapse_averages_the_readings_and_keeps_every_note(self):
+        cells = {"claude": {("1-v1", "a"): {"overall": 2, "humour": 1, "main_failure": "x"},
+                            ("1-v2", "a"): {"overall": 4, "humour": 2, "main_failure": "y"}}}
+        c = L.collapse(cells)["claude"][("1", "a")]
+        self.assertEqual((c["overall"], c["humour"], c["reads"]), (3, 1.5, 2))
+        self.assertEqual(c["main_failure"], ["x", "y"])
+
+    def test_position_is_measured_within_thread(self):
+        key = self.key()
+        # every arm's thread scores 3, plus 1 whenever it is read first
+        cells = {"gpt": {(pk, arm): {"overall": 3 + (L == "A")}
+                         for pk, letters in key.items() for L, arm in letters.items()}}
+        pos, spread = L.latin_rows(cells, key)
+        self.assertEqual(pos, ["| gpt | +0.80 | -0.20 | -0.20 | -0.20 | -0.20 |"])
+        self.assertEqual(spread, ["gpt 0.32"])
+
+    def test_versioned_keys_and_openers(self):
+        self.assertTrue(L.versioned({"3-v1": {}}))
+        self.assertFalse(L.versioned({"3": {}, "5ch-opener-3": {}}))
+        self.assertEqual(L.opener("3-v2"), "3")
+        self.assertEqual(L.opener("5ch-opener-3"), "5ch-opener-3")
+
+    def test_note_patterns_on_round_8(self):
+        # the reference values quoted in PREREGISTRATION-ROUND9.md
+        key, cells = L.load_round("r8", {"claude": "scores-claude-*.json", "gpt": "scores-gpt.json"})
+        def count(judge, arm):
+            vs = [v for (p, a), v in cells[judge].items() if a == arm]
+            return [sum(bool(L.HORROR_NOTE.search(v["main_failure"])) for v in vs),
+                    sum(bool(L.HORROR_NOTE.search(v["main_failure"]) and L.SAME_NOTE.search(v["main_failure"]))
+                        for v in vs)]
+        self.assertEqual(count("claude", "gemini"), [6, 3])
+        self.assertEqual(count("gpt", "gemini"), [5, 2])
+        self.assertEqual(count("claude", "rolesshort"), [0, 0])
+        self.assertEqual(count("gpt", "rolesshort"), [1, 0])
+
+
 class Data(unittest.TestCase):
     def test_every_round_loads_and_letters_match_keys(self):
         for rnd, folder, judges, *_ in L.ROUNDS:
+            if not L.ran(folder):
+                continue
             key, cells = L.load_round(folder, judges)
             for judge, c in cells.items():
                 self.assertTrue(c, "%s/%s has no scores" % (rnd, judge))
@@ -34,8 +90,11 @@ class Data(unittest.TestCase):
 
     def test_contrast_arms_exist(self):
         for rnd, folder, judges, title, contrasts in L.ROUNDS:
-            key, _ = L.load_round(folder, judges)
-            arms = {a for letters in key.values() for a in letters.values()}
+            if not L.ran(folder):          # pre-registered: its arms must at least have names
+                arms = set(L.NAMES)
+            else:
+                key, _ = L.load_round(folder, judges)
+                arms = {a for letters in key.values() for a in letters.values()}
             for arm, base in contrasts:
                 self.assertIn(arm, arms, rnd)
                 self.assertIn(base, arms, rnd)
@@ -57,6 +116,8 @@ class Data(unittest.TestCase):
     def test_raw_stats_cover_every_judged_arm(self):
         raw = L.read_json(L.RAW_STATS)
         for rnd, folder, judges, *_ in L.ROUNDS:
+            if not L.ran(folder):
+                continue
             key, _ = L.load_round(folder, judges)
             for name, letters in key.items():
                 for arm in letters.values():

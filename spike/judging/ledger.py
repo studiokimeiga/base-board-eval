@@ -10,7 +10,7 @@ the ledger can be checked without the thread text, which stays private. The one 
 raw-stats.json (post lengths, withheld posts, file hashes and times), which `rawstats` computes
 from the private threads; it is committed like any other input.
 """
-import glob, hashlib, json, math, os, statistics, sys, time
+import glob, hashlib, json, math, os, re, statistics, sys, time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SPIKE = os.path.dirname(HERE)
@@ -42,6 +42,12 @@ ROUNDS = [
     ("8", "r8", {"claude": "scores-claude-*.json", "gpt": "scores-gpt.json"},
      "Temperaments with post length controlled, one rubric for both judges",
      [("roles", "gemini"), ("rolesshort", "gemini"), ("rolesshort", "roles")]),
+    # pre-registered in spike/PREREGISTRATION-ROUND9.md, contrasts included
+    ("9", "r9", {"claude": "scores-claude-*.json", "gpt": "scores-gpt.json"},
+     "An occasional small-model post, and the /x/ label against a neutral header (pre-registered)",
+     [("rolesshort9naif", "rolesshort9"), ("gemini9neutral", "gemini9"),
+      ("rolesshort9neutral", "rolesshort9"), ("rolesshort9", "gemini9"),
+      ("rolesshort9neutral", "gemini9neutral")]),
     ("JP", "jp", {"claude": "scores-claude-*.json"},
      "Japanese: 5ch and named-handle formats",
      [("gemini", "qwen235")]),
@@ -63,6 +69,10 @@ RUBRICS = {
          "on rubric v1, so it never scored variety.",
     "8": "Both on rubric v2. The gemini and roles threads are the same files judged in rounds 4 "
          "and 7; only rolesshort is new.",
+    "9": "Both on rubric v2, verbatim (`RUBRIC_V2`). Five new arms, generated together, with flagged "
+         "posts withheld before they entered the context. Every packet was read in five letter orders "
+         "(a Latin square per opener), so each family read each thread five times, once in each "
+         "position; a thread's scores here are the mean of its five readings.",
     "JP": "Claude only, Japanese rubric (naturalness first). 6 openers x 2 formats; Sonnet ran in "
           "the 5ch format only.",
     "JP-5": "Both on the Japanese rubric. gpt-5.4 also did the picking.",
@@ -85,6 +95,11 @@ NAMES = {
     "naif": "Gemini + 2 small-model (gemma-4-E4B) naif posters",
     "naifroles": "Gemini + naifs + temperaments",
     "rolesshort": "Gemini, temperaments + per-role post length",
+    "gemini9": "Gemini 3.8 Flash (chat), /x/ header",
+    "rolesshort9": "Gemini, short temperaments, /x/ header",
+    "rolesshort9naif": "short temperaments + 1 post in 8 by gemma-4-E4B base, /x/ header",
+    "gemini9neutral": "Gemini 3.8 Flash (chat), neutral header",
+    "rolesshort9neutral": "Gemini, short temperaments, neutral header",
     "swallow70": "Llama-3.3-Swallow-70B base, raw", "swallow70dry": "Swallow-70B base + XTC/DRY",
     "deepseek": "DeepSeek V4 Flash (chat)", "gpt54": "GPT-5.4 (chat)",
     "sonnet": "Claude Sonnet 5.5 (chat)",
@@ -165,6 +180,34 @@ def load_round(folder, judges):
             for letter, v in threads.items():
                 cells[judge][(pk, key[pk][letter])] = v
     return key, cells
+
+
+def ran(folder):
+    """A round enters the ledger once its packets exist; round 9 was listed before it ran."""
+    return os.path.exists(os.path.join(HERE, folder, "key.json"))
+
+
+def versioned(key):
+    """Round 9 read every opener's packet in five letter orders, keyed '3-v1' to '3-v5'."""
+    return any("-v" in pk for pk in key)
+
+
+def opener(pk):
+    return pk.split("-v")[0]
+
+
+def collapse(cells):
+    """A thread read in several letter orders scores the mean of its readings, so a packet is again
+    one opener. The readings' main_failure notes are kept, as a list."""
+    out = {}
+    for judge, c in cells.items():
+        reads = {}
+        for (pk, arm), v in c.items():
+            reads.setdefault((opener(pk), arm), []).append(v)
+        out[judge] = {k: dict({d: mean([v[d] for v in vs]) for d in DIMS if d in vs[0]},
+                              main_failure=[v["main_failure"] for v in vs], reads=len(vs))
+                      for k, vs in reads.items()}
+    return out
 
 
 # ---- report ----
@@ -269,6 +312,8 @@ def position_rows(rounds_cells, keys):
     for judge in ("claude", "gpt"):
         by = {"first": [], "middle": [], "last": []}
         for (rnd, folder, cells), key in zip(rounds_cells, keys):
+            if versioned(key):
+                continue          # balanced by design, and measured on its own in its round
             for pk, letters in key.items():
                 sc = {L: cells.get(judge, {}).get((pk, a)) for L, a in letters.items()}
                 sc = {L: v["overall"] for L, v in sc.items() if v}
@@ -282,6 +327,138 @@ def position_rows(rounds_cells, keys):
         out.append("| %s | %s |" % (judge, " | ".join("%s (n=%d)" % (signed(mean(by[p])), len(by[p]))
                                                      for p in ("first", "middle", "last"))))
     return out
+
+
+def latin_rows(cells, key):
+    """A round read in every letter order (round 9): each reading's overall minus the mean of the
+    same thread's readings, by position, isolates position; how far the readings of one thread
+    spread is the judge's own noise."""
+    pos_rows, noise = [], []
+    for judge in ("claude", "gpt"):
+        reads = {}
+        for (pk, arm), v in cells.get(judge, {}).items():
+            letter = next(L for L, a in key[pk].items() if a == arm)
+            reads.setdefault((opener(pk), arm), []).append(("ABCDE".index(letter), v["overall"]))
+        if not reads:
+            continue
+        by_pos, spread = [[] for _ in range(5)], []
+        for rs in reads.values():
+            m = mean([s for p, s in rs])
+            for p, s in rs:
+                by_pos[p].append(s - m)
+            spread.append(mean([abs(s - m) for p, s in rs]))
+        pos_rows.append("| %s | %s |" % (judge, " | ".join(signed(mean(x)) for x in by_pos)))
+        noise.append("%s %.2f" % (judge, mean(spread)))
+    return pos_rows, noise
+
+
+# ---- round 9: creepypasta drift ----
+# A judge's main_failure note names the horror register / says the posters sound the same.
+HORROR_NOTE = re.compile(r"ominous|creep|horror|dread|cryptic|oracle|eerie|spooky|sinister|occult|"
+                         r"paranormal|supernatural|ghost|haunt|menac|portent|doom|uncanny|macabre", re.I)
+SAME_NOTE = re.compile(r"\bsame\b|alike|uniform|one-note|monoton|homogen|samey|interchangeable", re.I)
+LABEL_PAIRS = [("gemini9neutral", "gemini9"), ("rolesshort9neutral", "rolesshort9")]
+R9_ORDER = ["gemini9", "gemini9neutral", "rolesshort9", "rolesshort9neutral", "rolesshort9naif"]
+
+
+def notes(v):
+    """The main_failure notes behind a cell: one per reading."""
+    m = v["main_failure"]
+    return m if isinstance(m, list) else [m]
+
+
+def note_shares(v):
+    ns = notes(v)
+    return (mean([bool(HORROR_NOTE.search(n)) for n in ns]),
+            mean([bool(HORROR_NOTE.search(n) and SAME_NOTE.search(n)) for n in ns]))
+
+
+def load_tags(folder, key):
+    """{tagger family: {(opener, arm): set of HORROR post numbers}}. Tag files are named by the
+    thread's letter in version 1 of its packet: tag-3-B is key['3-v1']['B']."""
+    d, tags = os.path.join(HERE, folder), {}
+    for fam, pattern in (("claude", "tags-claude-*.json"), ("gpt", "tags-gpt.json")):
+        got = {}
+        for f in sorted(glob.glob(os.path.join(d, pattern))):
+            got.update(read_json(f))
+        for name, v in got.items():
+            _, p, letter = name.split("-")
+            tags.setdefault(fam, {})[(p, key["%s-v1" % p][letter])] = set(v["horror"]) & set(range(2, 25))
+    return tags
+
+
+def kappa(a, b):
+    """Cohen's kappa for two raters' yes/no labels of the same items."""
+    n = len(a)
+    po = sum(x == y for x, y in zip(a, b)) / n
+    pa, pb = sum(a) / n, sum(b) / n
+    pe = pa * pb + (1 - pa) * (1 - pb)
+    return (po - pe) / (1 - pe) if pe < 1 else None
+
+
+def drift_section(folder, key, cells, arms):
+    """Round 9's drift measures, pre-registered: the share of posts 2-24 that the blind taggers label
+    HORROR (primary, the two families' mean), the share of non-OP posters with a HORROR post, and
+    how often the judges' main_failure names the horror register."""
+    scaffold = read_json(os.path.join(HERE, folder, "scaffold.json"))
+    tags = load_tags(folder, key)
+    fams = [f for f in ("gpt", "claude") if f in tags]
+    out = ["**Creepypasta drift** (pre-registered measures). HORROR posts: the share of posts 2–24 "
+           "a blind tagger labelled HORROR (`TAG_DEFINITION` in `round3_judge.py`; each thread "
+           "labelled once by gpt-5.4 and once by a Claude subagent, neither told the arm). Posters: "
+           "the share of non-OP posters with at least one HORROR post. Notes: the share of a "
+           "family's 40 readings per arm whose main_failure names the horror register, and the "
+           "share that also says the posters sound the same (the \"single ominous voice\").", ""]
+    if not fams:
+        return out + ["Tags pending.", ""]
+
+    def share(fam, p, arm):
+        return len(tags[fam][(p, arm)]) / 23
+
+    def posters(fam, p, arm):
+        who = scaffold[p]
+        non_op = {w for w in who[1:] if w != who[0]}
+        return len({who[n - 1] for n in tags[fam][(p, arm)] if who[n - 1] != who[0]}) / len(non_op)
+
+    openers = sorted({opener(pk) for pk in key}, key=int)
+    both = {(p, a): mean([share(f, p, a) for f in fams]) for p in openers for a in arms}
+    head = ["HORROR posts, %s" % f for f in fams] + ["mean"] + ["posters, %s" % f for f in fams] + \
+           ["horror notes, %s" % j for j in ("claude", "gpt")] + ["horror + same, %s" % j for j in ("claude", "gpt")]
+    out += ["| arm | %s |" % " | ".join(head), "|---|%s" % ("---:|" * len(head))]
+    for arm in arms:
+        cols = [mean([share(f, p, arm) for p in openers]) for f in fams]
+        cols += [mean([both[(p, arm)] for p in openers])]
+        cols += [mean([posters(f, p, arm) for p in openers]) for f in fams]
+        ns = {j: [note_shares(cells[j][(p, arm)]) for p in openers if (p, arm) in cells.get(j, {})]
+              for j in ("claude", "gpt")}
+        cols += [mean([h for h, s in ns[j]]) if ns[j] else None for j in ("claude", "gpt")]
+        cols += [mean([s for h, s in ns[j]]) if ns[j] else None for j in ("claude", "gpt")]
+        out.append("| %s | %s |" % (NAMES.get(arm, arm), " | ".join(
+            "–" if c is None else "%.0f%%" % (100 * c) for c in cols)))
+    out += ["", "| drift measure | paired | openers | Δ | W/T/L | p |", "|---|---|---:|---:|---|---:|"]
+
+    def row(measure, label, diffs):
+        w, t, l = sum(x > 0 for x in diffs), sum(x == 0 for x in diffs), sum(x < 0 for x in diffs)
+        return "| %s | %s | %d | %+.0f pts | %d/%d/%d | %.3f |" % (
+            measure, label, len(diffs), 100 * mean(diffs), w, t, l, sign_test(w, l))
+    pooled = []
+    for arm, base in LABEL_PAIRS:
+        diffs = [both[(p, arm)] - both[(p, base)] for p in openers]
+        pooled += diffs
+        out.append(row("HORROR posts (taggers' mean)", "%s vs %s" % (arm, base), diffs))
+    out.append(row("HORROR posts (taggers' mean)", "**neutral vs /x/, both pairs (primary)**", pooled))
+    for j in ("claude", "gpt"):
+        for arm, base in LABEL_PAIRS:
+            if all((p, a) in cells.get(j, {}) for p in openers for a in (arm, base)):
+                out.append(row("horror notes, %s" % j, "%s vs %s" % (arm, base),
+                               [note_shares(cells[j][(p, arm)])[0] - note_shares(cells[j][(p, base)])[0]
+                                for p in openers]))
+    if len(fams) == 2:
+        a = [n in tags["gpt"][(p, arm)] for p in openers for arm in arms for n in range(2, 25)]
+        b = [n in tags["claude"][(p, arm)] for p in openers for arm in arms for n in range(2, 25)]
+        out += ["", "The two taggers agree on %d of %d post labels (Cohen's κ = %s)."
+                % (sum(x == y for x, y in zip(a, b)), len(a), f2(kappa(a, b)))]
+    return out + [""]
 
 
 def raw_section():
@@ -313,6 +490,20 @@ def raw_section():
             name, s["modified"], s["threads"], s["posts"], s["withheld"], s["empty"],
             s["mean_chars"], s["median_chars"], s["p90_chars"],
             "–" if s["spend_usd"] is None else "%.3f" % s["spend_usd"]))
+    r9 = [(name, s) for name, s in sorted(raw["files"].items()) if "header" in s]
+    if r9:
+        out += ["", "**Round 9 files** also record the board header, posts cut off by the token limit "
+                "(Gemini's `finish_reason` \"length\", llama-server's \"limit\"), who wrote each post, and "
+                "which gate terms the withheld posts matched (from the arm's private quarantine file, "
+                "which keeps the withheld text).", "",
+                "| file | header | saved (UTC) | cut by token limit | posts by writer: n, withheld, mean chars | withheld terms |",
+                "|---|---|---|---:|---|---|"]
+        for name, s in r9:
+            out.append("| %s | `%s` | %s | %d | %s | %s |" % (
+                name, s["header"], s["saved_utc"], s["cut_by_max_tokens"],
+                "; ".join("%s: %d, %d, %.0f" % (m, v["posts"], v["withheld"], v["mean_chars"])
+                          for m, v in s["by_model"].items()),
+                ", ".join("%s ×%d" % kv for kv in s["withheld_terms"].items()) or "none"))
     return out
 
 
@@ -332,12 +523,18 @@ def build():
              "not as proof.", ""]
     rounds_cells, keys = [], []
     for rnd, folder, judges, title, contrasts in ROUNDS:
-        key, cells = load_round(folder, judges)
+        lines += ["## Round %s: %s" % (rnd, title), ""]
+        if not ran(folder):
+            lines += ["Not run yet. Pre-registered in `spike/PREREGISTRATION-ROUND%s.md`, with these "
+                      "contrasts (arm vs baseline): %s." % (rnd, "; ".join("%s vs %s" % c for c in contrasts)), ""]
+            continue
+        key, by_reading = load_round(folder, judges)
+        cells = collapse(by_reading) if versioned(key) else by_reading
         rounds_cells.append((rnd, folder, cells))
         keys.append(key)
         arms = sorted({a for letters in key.values() for a in letters.values()})
-        packets = sorted(key)
-        lines += ["## Round %s: %s" % (rnd, title), "", RUBRICS[rnd], ""]
+        packets = sorted({opener(pk) for pk in key})
+        lines += [RUBRICS[rnd], ""]
         for judge in judges:
             c = cells[judge]
             got = sorted({p for p, a in c})
@@ -358,6 +555,13 @@ def build():
             lines += ["Judge agreement on overall: Spearman ρ = %s over %d threads; the two "
                       "families' top thread (ties allowed) coincide in %d of %d packets."
                       % (f2(rho), n, same, np_), ""]
+        if versioned(key):
+            pos, spread = latin_rows(by_reading, key)
+            lines += ["**Readings.** On average a thread's five overall scores sat this far from their "
+                      "own mean: %s. Position, as each reading's overall minus the mean of the same "
+                      "thread's five readings, by letter (A is read first):" % ", ".join(spread), "",
+                      "| judge | A | B | C | D | E |", "|---|---:|---:|---:|---:|---:|"] + pos + [""]
+            lines += drift_section(folder, key, cells, [a for a in R9_ORDER if a in arms])
     lines += ["## Same threads, different rounds", "",
               "Arms that reappear were re-judged from the same file in `spike/remote/` (checked "
               "against the packets in the next section). Movement mixes judge noise with changes "
@@ -367,6 +571,9 @@ def build():
               "|---|---|---|---:|---:|---|"] + rejudged(rounds_cells) + [""]
     firsts = []
     for (rnd, folder, cells), key in zip(rounds_cells, keys):
+        if versioned(key):
+            firsts.append("round %s: every arm equally often, by design (left out of this table)" % rnd)
+            continue
         counts = {}
         for letters in key.values():
             a = letters[min(letters)]
@@ -414,6 +621,8 @@ def verify_packets():
     """Is every packet byte-identical to one rebuilt from today's raw files?"""
     result = {}
     for rnd, folder, *_ in ROUNDS:
+        if not ran(folder):
+            continue
         d = os.path.join(HERE, folder)
         key = read_json(os.path.join(d, "key.json"))
         same, bad = 0, []
@@ -422,11 +631,9 @@ def verify_packets():
             data = read_bytes(os.path.join(d, name + ".txt"))
             header = data.decode("utf-8").splitlines()[0]
             text = rebuild_packet(folder, name, letters, header)
-            # the packets were written in text mode on Windows, which turns every "\n",
-            # including one inside a post's own "\r\n", into "\r\n"
-            if b"\r\n" in data:
-                text = text.replace("\n", "\r\n")
-            if text.encode("utf-8") == data:
+            # rounds 1-8 were written in text mode on Windows, which turns every "\n", including
+            # one inside a post's own "\r\n", into "\r\n"; round 9 writes "\n" on every platform
+            if data in (text.encode("utf-8"), text.replace("\n", "\r\n").encode("utf-8")):
                 same += 1
             else:
                 bad.append(name)
@@ -440,6 +647,30 @@ def spend_of(d):
     s = d.get("spend")
     usd = s.get("usd", s.get("cost")) if isinstance(s, dict) else d.get("spend_usd")
     return round(usd, 4) if usd else None
+
+
+def round9_stats(d, remote):
+    """What round 9's files record beyond the rest: the board header, when the file was last saved,
+    posts cut off by max_tokens (the API's finish_reason), each writer's posts, and which gate
+    terms the withheld posts matched (from the arm's private quarantine file)."""
+    posts = [p for t in d["threads"] for p in t["posts"][1:]]
+    by_model = {}
+    for p in posts:
+        by_model.setdefault(p["model"], []).append(p)
+    terms = {}
+    q = os.path.join(remote, "quarantine-%s.jsonl" % d["arm"])
+    if os.path.exists(q):
+        with open(q, encoding="utf-8") as f:
+            for line in f:
+                for h in json.loads(line)["matched"]:
+                    terms[h.strip()] = terms.get(h.strip(), 0) + 1
+    return {"header": d["header"], "saved_utc": d.get("saved_utc"),
+            # Gemini's finish_reason "length", llama-server's stop_type "limit"
+            "cut_by_max_tokens": sum(p["stop"].split(", ")[-1] in ("length", "limit") for p in posts),
+            "by_model": {m: {"posts": len(ps), "withheld": sum(bool(p.get("withheld")) for p in ps),
+                             "mean_chars": round(mean([len(p["text"]) for p in ps]), 1)}
+                         for m, ps in sorted(by_model.items())},
+            "withheld_terms": dict(sorted(terms.items()))}
 
 
 def rawstats():
@@ -460,10 +691,15 @@ def rawstats():
             "empty": sum(not p["text"] for p in posts),
             "mean_chars": round(mean(lens), 1), "median_chars": lens[len(lens) // 2],
             "p90_chars": lens[int(len(lens) * 0.9)], "spend_usd": spend_of(d)}
+        if d.get("gate") == "before context":        # round 9 on
+            files[os.path.basename(f)].update(round9_stats(d, remote))
+    # a checkout resets key.json's file time, so a round keeps the time first recorded for it
+    old = read_json(RAW_STATS).get("packets_built", {}) if os.path.exists(RAW_STATS) else {}
     keys = {}
     for rnd, folder, *_ in ROUNDS:
-        k = os.path.join(HERE, folder, "key.json")
-        keys[rnd] = time.strftime("%Y-%m-%dT%H:%MZ", time.gmtime(os.path.getmtime(k)))
+        if ran(folder):
+            k = os.path.join(HERE, folder, "key.json")
+            keys[rnd] = old.get(rnd) or time.strftime("%Y-%m-%dT%H:%MZ", time.gmtime(os.path.getmtime(k)))
     packets = verify_packets()
     with open(RAW_STATS, "w", encoding="utf-8", newline="\n") as f:
         json.dump({"files": files, "packets_built": keys, "packets_vs_raw": packets}, f,
