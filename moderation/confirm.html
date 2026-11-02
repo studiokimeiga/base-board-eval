@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Confirm moderation labels</title>
+<style>
+:root {
+  --bg: #f4f5f8; --panel: #ffffff; --ink: #1b1d2a; --muted: #62667a; --line: #d9dce6;
+  --accent: #3651d4; --on: #e8ecff; --ok: #117743; --warn: #a3470d;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #14161c; --panel: #1d2029; --ink: #e2e5ec; --muted: #8e93a6; --line: #313545;
+          --accent: #8fa2ff; --on: #262c45; --ok: #5fd39a; --warn: #ffab70; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink);
+       font: 15px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+header { padding: 16px; border-bottom: 1px solid var(--line); }
+header h1 { margin: 0 0 4px; font-size: 20px; }
+header p { margin: 4px 0; color: var(--muted); max-width: 860px; }
+main { padding: 16px; max-width: 900px; }
+button, input[type=file] { font: inherit; }
+button { border: 1px solid var(--line); background: var(--panel); color: var(--ink);
+         border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+button.on { background: var(--on); outline: 2px solid var(--accent); }
+.bar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 8px 0; }
+.meta { color: var(--muted); font-size: 13px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px; }
+.ctx { color: var(--muted); white-space: pre-wrap; overflow-wrap: anywhere; font-size: 14px;
+       border-left: 3px solid var(--line); padding-left: 8px; margin: 6px 0; }
+.post { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 16px; margin: 10px 0; }
+.done { color: var(--ok); }
+.changed { color: var(--warn); }
+kbd { border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: 12px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Confirm moderation labels</h1>
+  <p>Load <code>moderation/private/sheet.json</code> (written by <code>modeval.py sheet</code>). Each
+     post starts with the AI pre-label selected; change it if it's wrong, then confirm. Decisive items
+     come first, so stopping early still covers what matters. Progress stays in this browser;
+     <b>Export</b> saves <code>owner-labels.json</code> for <code>modeval.py import-owner</code>.
+     Rules: <code>moderation/LABELLING.md</code>.</p>
+  <p><kbd>1</kbd>–<kbd>5</kbd> toggle a category, <kbd>0</kbd> none, <kbd>Enter</kbd> confirm and
+     next, <kbd>←</kbd>/<kbd>→</kbd> move, <kbd>n</kbd> next unconfirmed.</p>
+  <div class="bar"><input type="file" id="file" accept=".json,application/json">
+    <button id="export">Export</button><span id="progress" class="meta"></span></div>
+</header>
+<main id="main"><p class="meta">No sheet loaded.</p></main>
+<script>
+"use strict";
+const REASONS = {1: "AI pre-label: harmful", 2: "AI unsure, or its two passes disagree",
+                 3: "decisive for the metrics", 4: "spot check"};
+let sheet = null, at = 0, done = {}, draft = null;
+const KEY = "modeval-owner-labels-v1";
+const load = () => { try { return JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { return {}; } };
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) { /* private window */ } };
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls;
+                                 if (text !== undefined) e.textContent = text; return e; };
+const same = (a, b) => JSON.stringify([...a].sort()) === JSON.stringify([...b].sort());
+
+function current() { return sheet.items[at]; }
+function startDraft() {
+  const it = current();
+  draft = new Set(done[it.id] || it.owner || it.ai);
+}
+function toggle(cat) {
+  if (cat === "none") { draft = new Set(["none"]); }
+  else {
+    draft.delete("none");
+    draft.has(cat) ? draft.delete(cat) : draft.add(cat);
+    if (cat === "sexual_minors" && draft.has(cat)) draft.add("sexual");
+    if (!draft.size) draft.add("none");
+  }
+  render();
+}
+function confirmItem() {
+  done[current().id] = [...draft].sort();
+  save();
+  go(at + 1);
+}
+function go(i) { at = Math.max(0, Math.min(sheet.items.length - 1, i)); startDraft(); render(); }
+function nextOpen() {
+  for (let k = 1; k <= sheet.items.length; k++) {
+    const i = (at + k) % sheet.items.length;
+    if (!done[sheet.items[i].id]) return go(i);
+  }
+}
+function render() {
+  const it = current(), main = document.getElementById("main");
+  main.replaceChildren();
+  const n = sheet.items.filter(x => done[x.id]).length;
+  const g = sheet.items.filter(x => x.group === it.group);
+  document.getElementById("progress").textContent =
+    `${n} of ${sheet.items.length} confirmed · group ${it.group}: ` +
+    `${g.filter(x => done[x.id]).length} of ${g.length}`;
+  const card = el("div", "card");
+  card.append(el("div", "meta", `${at + 1}/${sheet.items.length} · ${REASONS[it.group]} · ` +
+                                `${it.lang} · ${it.stratum} · ${it.id}`));
+  if (it.context.length) {
+    card.append(el("div", "meta", "earlier in the thread:"));
+    it.context.forEach(c => card.append(el("div", "ctx", c)));
+  }
+  card.append(el("div", "post", it.text));
+  card.append(el("div", "meta", "AI pre-label: " + it.ai.join(", ") + (it.unsure ? " (unsure)" : "")));
+  const bar = el("div", "bar");
+  ["none"].concat(sheet.cats).forEach((c, k) => {
+    const b = el("button", draft.has(c) ? "on" : "", `${k} ${c === "none" ? "none" : sheet.names[c]}`);
+    b.onclick = () => toggle(c);
+    bar.append(b);
+  });
+  card.append(bar);
+  const status = done[it.id] ? (same(done[it.id], it.ai) ? ["done", "confirmed as the AI said"]
+                                                         : ["changed", "confirmed, changed from the AI"])
+                             : ["meta", "not confirmed yet"];
+  card.append(el("div", status[0], status[1]));
+  const nav = el("div", "bar");
+  [["← back", () => go(at - 1)], ["confirm ⏎", confirmItem], ["skip →", () => go(at + 1)],
+   ["next unconfirmed", nextOpen]].forEach(([t, f]) => { const b = el("button", "", t); b.onclick = f; nav.append(b); });
+  card.append(nav);
+  main.append(card);
+}
+document.getElementById("file").onchange = e => {
+  const f = e.target.files[0];
+  if (!f) return;
+  e.target.blur();                       // keys go to the page, not back to the file picker
+  f.text().then(t => {
+    sheet = JSON.parse(t); done = load();
+    const i = sheet.items.findIndex(x => !done[x.id]);
+    go(i < 0 ? 0 : i);
+  });
+};
+document.getElementById("export").onclick = () => {
+  const blob = new Blob([JSON.stringify(done, null, 1)], {type: "application/json"});
+  const a = el("a"); a.href = URL.createObjectURL(blob); a.download = "owner-labels.json"; a.click();
+};
+document.addEventListener("keydown", e => {
+  if (!sheet || e.target.tagName === "INPUT") return;
+  const cats = ["none"].concat(sheet.cats), k = Number(e.key);
+  if (e.key >= "0" && e.key <= "9" && k < cats.length) toggle(cats[k]);
+  else if (e.key === "Enter") confirmItem();
+  else if (e.key === "ArrowRight") go(at + 1);
+  else if (e.key === "ArrowLeft") go(at - 1);
+  else if (e.key === "n") nextOpen();
+  else return;
+  e.preventDefault();
+});
+</script>
+</body>
+</html>

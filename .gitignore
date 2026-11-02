@@ -16,3 +16,6 @@ INTEGRATION.md
 
 # Secrets
 .env
+
+# Moderation eval: post text and owner sheets (moderation/README.md)
+moderation/private/
