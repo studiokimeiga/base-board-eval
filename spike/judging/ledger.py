@@ -120,8 +120,10 @@ def read_bytes(path):
 
 
 # ---- statistics (exact, small-n) ----
+# Float sums use math.fsum, which rounds the exact sum: Python 3.12's sum() compensates and older
+# ones don't, so round 9's averaged readings (3.925 and the like) printed differently by version.
 def mean(xs):
-    return sum(xs) / len(xs) if xs else float("nan")
+    return math.fsum(xs) / len(xs) if xs else float("nan")
 
 
 def sign_test(wins, losses):
@@ -151,9 +153,9 @@ def ranks(xs):
 def spearman(x, y):
     rx, ry = ranks(x), ranks(y)
     mx, my = mean(rx), mean(ry)
-    sxy = sum((a - mx) * (b - my) for a, b in zip(rx, ry))
-    sxx = sum((a - mx) ** 2 for a in rx)
-    syy = sum((b - my) ** 2 for b in ry)
+    sxy = math.fsum((a - mx) * (b - my) for a, b in zip(rx, ry))
+    sxx = math.fsum((a - mx) ** 2 for a in rx)
+    syy = math.fsum((b - my) ** 2 for b in ry)
     return sxy / math.sqrt(sxx * syy) if sxx and syy else None
 
 

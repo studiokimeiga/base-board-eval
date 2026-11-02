@@ -22,6 +22,11 @@ class Stats(unittest.TestCase):
         self.assertIsNone(L.spearman([2, 2, 2], [1, 2, 3]))
 
 
+    def test_means_do_not_depend_on_the_python_version(self):
+        # builtin sum() gives 0.9999999999999999 here before Python 3.12 and 1.0 from 3.12 on
+        self.assertEqual(L.mean([0.1] * 10), 0.1)
+        self.assertEqual("%.2f" % L.mean([3.8, 4.2, 3.6, 4.0, 4.0, 3.8, 3.8, 4.2]), "3.92")
+
     def test_kappa(self):
         self.assertAlmostEqual(L.kappa([1, 1, 0, 0], [1, 1, 0, 0]), 1.0)
         self.assertAlmostEqual(L.kappa([1, 0, 1, 0], [1, 1, 0, 0]), 0.0)
