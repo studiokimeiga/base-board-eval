@@ -21,18 +21,19 @@ run, and the claims that were wrong are written down too.
 
 The full config and evidence are in [FINDINGS.md](FINDINGS.md).
 
-A later hosted-model and multilingual comparison is documented in [BAKEOFF.md](BAKEOFF.md).
-It reports follow-up session results (Gemini, Qwen, Japanese, pickers, temperature, poster
-roles, and emergent board behaviour), but the raw follow-up runs are not yet in this repo;
-its numeric results should be treated as provisional pending reproducible artifacts and
-human blind ratings.
+A later hosted-model and multilingual comparison is documented in [BAKEOFF.md](BAKEOFF.md):
+Gemini, Qwen, Japanese, pickers, temperature, poster temperaments, and emergent board behaviour.
+Its code, judge prompts and every judge's scores are in [spike/](spike/README.md), and
+`spike/judging/ledger.py` recomputes every number from them. Its scores are AI judges' only;
+none has been checked against the reader's blind ratings yet.
 
 ## Documents
 
 | file | what it is |
 |---|---|
 | [FINDINGS.md](FINDINGS.md) | What works, why, and the claims that had to be withdrawn |
-| [BAKEOFF.md](BAKEOFF.md) | Later hosted-model and multilingual experiments, provisional scores and open questions |
+| [BAKEOFF.md](BAKEOFF.md) | Later hosted-model and multilingual experiments, AI-judged, and open questions |
+| [spike/](spike/README.md) | The bake-off and live-board code, judge prompts, scores, and the ledger that recomputes them |
 | [BEST-OF.md](BEST-OF.md) | Hand-picked threads, with model and config for each |
 | [board.html](board.html) | The same picks rendered as a board, built by `build_board.py` |
 | [PREREGISTRATION.md](PREREGISTRATION.md) | Outcome measures fixed before reading run 5 |
@@ -73,6 +74,9 @@ The full corpora are on Hugging Face as a gated dataset,
 [kimeiga/base-board-eval-threads](https://huggingface.co/datasets/kimeiga/base-board-eval-threads).
 You have to accept a content warning before downloading. Threads the automatic filter caught
 are withheld there too.
+
+The hosted-model threads behind [BAKEOFF.md](BAKEOFF.md) are not public either; they are not in
+the dataset yet, and `spike/MANIFEST.sha256` records each file by hash.
 
 If you run the generators yourself, expect the same kind of output. Don't publish it without a
 classifier and a human check in between.

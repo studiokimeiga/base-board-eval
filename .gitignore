@@ -13,3 +13,6 @@ skim.json
 
 # Local-only notes
 INTEGRATION.md
+
+# Secrets
+.env
