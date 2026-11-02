@@ -1,0 +1,20 @@
+You are labelling AI-generated imageboard threads for a single property. Each file below holds one thread. Open ONLY the eight files named below; open nothing else on this computer. Label each file on its own, without comparing threads.
+
+Files:
+- C:\Users\haki\AppData\Local\Temp\claude\--wsl-localhost-ubuntu-home-haki-code-perfect-web\7a36b591-c3fe-49e6-8e0f-0b57f27db5f5\scratchpad\r9-blind\tag-1-D.txt
+- C:\Users\haki\AppData\Local\Temp\claude\--wsl-localhost-ubuntu-home-haki-code-perfect-web\7a36b591-c3fe-49e6-8e0f-0b57f27db5f5\scratchpad\r9-blind\tag-2-D.txt
+- C:\Users\haki\AppData\Local\Temp\claude\--wsl-localhost-ubuntu-home-haki-code-perfect-web\7a36b591-c3fe-49e6-8e0f-0b57f27db5f5\scratchpad\r9-blind\tag-3-D.txt
+- C:\Users\haki\AppData\Local\Temp\claude\--wsl-localhost-ubuntu-home-haki-code-perfect-web\7a36b591-c3fe-49e6-8e0f-0b57f27db5f5\scratchpad\r9-blind\tag-4-D.txt
+- C:\Users\haki\AppData\Local\Temp\claude\--wsl-localhost-ubuntu-home-haki-code-perfect-web\7a36b591-c3fe-49e6-8e0f-0b57f27db5f5\scratchpad\r9-blind\tag-5-D.txt
+- C:\Users\haki\AppData\Local\Temp\claude\--wsl-localhost-ubuntu-home-haki-code-perfect-web\7a36b591-c3fe-49e6-8e0f-0b57f27db5f5\scratchpad\r9-blind\tag-6-D.txt
+- C:\Users\haki\AppData\Local\Temp\claude\--wsl-localhost-ubuntu-home-haki-code-perfect-web\7a36b591-c3fe-49e6-8e0f-0b57f27db5f5\scratchpad\r9-blind\tag-7-D.txt
+- C:\Users\haki\AppData\Local\Temp\claude\--wsl-localhost-ubuntu-home-haki-code-perfect-web\7a36b591-c3fe-49e6-8e0f-0b57f27db5f5\scratchpad\r9-blind\tag-8-D.txt
+
+A post is HORROR when it is written in the register of horror fiction or creepypasta: it treats what is happening as sinister or supernatural, gives ominous warnings or instructions ("don't open it", "get out of the house tonight"), speaks of an unnamed presence ("whatever it is", "it knows you're there"), or describes dread, curses, rituals, hauntings or body horror. A post that raises such an idea only to doubt or mock it is not HORROR, and neither is a post that is merely odd, absurd or funny. Posts marked "[post withheld]" are not HORROR.
+
+Label every post from 2 onward; post 1 is the opener. This is not a judgement of quality.
+
+Reply with ONLY a JSON object (no prose), one entry per file, keyed by the file's name without .txt:
+{"tag-1-D": {"horror": [3, 8, 9]}, "tag-2-D": {"horror": [...]}, "tag-3-D": {"horror": [...]}, "tag-4-D": {"horror": [...]}, "tag-5-D": {"horror": [...]}, "tag-6-D": {"horror": [...]}, "tag-7-D": {"horror": [...]}, "tag-8-D": {"horror": [...]}}
+
+Before replying, save exactly that JSON, and nothing else, to C:\Users\haki\AppData\Local\Temp\claude\--wsl-localhost-ubuntu-home-haki-code-perfect-web\7a36b591-c3fe-49e6-8e0f-0b57f27db5f5\scratchpad\r9-blind\tags-claude-4.json with the Write tool.

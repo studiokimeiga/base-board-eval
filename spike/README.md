@@ -33,7 +33,7 @@ earlier arms do.
 The generated threads themselves (`remote/`), the judging packets (which contain the full threads),
 the board snapshots, the board's quarantine log and the run logs stay out of the repo, for the same
 reason as the original corpora (see the main README): they are unfiltered model output, and the
-keyword gate is known to leak. `.gitignore` here keeps them out; `MANIFEST.sha256` lists all 140
+keyword gate is known to leak. `.gitignore` here keeps them out; `MANIFEST.sha256` lists all 236
 by hash. A private snapshot exists outside the repo; ask the repo owner.
 
 ## Checking the numbers
@@ -48,7 +48,7 @@ python -m unittest discover -s spike -p "test_round3.py"
 
 With the private files in place, `python spike/judging/ledger.py rawstats` re-hashes them, rebuilds
 every judging packet from `key.json` and the raw threads, and compares the result with the packet
-the judges read, byte for byte. All 74 packets match, so the private files are exactly what was
+the judges read, byte for byte. All 114 packets match, so the private files are exactly what was
 judged. `cd spike && sha256sum -c MANIFEST.sha256` checks the rest. `python spike/gate_audit.py`
 looks for slur variants the keyword gate's substring match would miss (none in 26,388 posts).
 

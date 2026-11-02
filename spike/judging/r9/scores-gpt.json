@@ -1,0 +1,2882 @@
+{
+ "opener-1-v4": {
+  "A": {
+   "interest": 5,
+   "humour": 5,
+   "emergence": 5,
+   "coherence": 5,
+   "variety": 5,
+   "overall": 5,
+   "best_lines": [
+    "#15: it's the boss. the mug was an unread notification in meatspace and he couldn't handle it",
+    "#16: the gluten free cupboard is the archive. your tea got marked as resolved",
+    "#23: our boss just stood up, made direct eye contact with devon, and sent a slack message to the channel saying \"hydration check-in: all reusable containers must rest in the designated allergen-safe zone between cycles to prevent airborne mold spore colonization.\""
+   ],
+   "main_failure": "very neat payoff"
+  },
+  "B": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#20: you were gone for five hours javier. you posted at 3:22 AM saying you were going to look in the cupboard and you just answered now. does your office have a night shift or did you just sit in the dark looking at tea bags until dawn",
+    "#22: Check the trash can under your desk. If your paper scraps and wrappers from yesterday are gone, leave the building immediately. It’s not cleaning the mug, it’s cleaning the day.",
+    "#24: The trash isn't from yesterday."
+   ],
+   "main_failure": "creepypasta over banter"
+  },
+  "C": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#5: it doesn't, that's what's bothering me. there's just the one under the sink but i keep finding it tucked behind the breaker box panel.",
+    "#21: it’s ocean water. there are tiny wet sand grains stuck to the rim, and we're eighty miles inland.",
+    "#24: Maybe the sea air is causing a short in the camera wire!"
+   ],
+   "main_failure": "bit doesn't build"
+  },
+  "D": {
+   "interest": 2,
+   "humour": 2,
+   "emergence": 1,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 2,
+   "best_lines": [
+    "#13: wash your mug",
+    "#20: It's a damper, not a \"dampener,\" unless your cousin was physically soaking the airflow valve in water.",
+    "#21: Found out who it was. The cleaning lady threw it in the industrial dishwasher overnight and now it's completely white inside again."
+   ],
+   "main_failure": "stuck in one-note pedantry"
+  },
+  "E": {
+   "interest": 4,
+   "humour": 4,
+   "emergence": 4,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#10: It’s definitely a cupboard, it has contact paper and a magnetic latch. I went back down just now and my dish rack is in there.",
+    "#21: There's steam coming up through the floor vents and it smells like soup.",
+    "#24: Oh wonderful, it sounds like dinner is almost ready! Don't forget to wash your hands before you head down, it's just polite."
+   ],
+   "main_failure": "repetitive Yara bit"
+  }
+ },
+ "opener-1-v2": {
+  "A": {
+   "interest": 2,
+   "humour": 2,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 3,
+   "overall": 2,
+   "best_lines": [
+    "#13: wash your mug",
+    "#20: It's a damper, not a \"dampener,\" unless your cousin was physically soaking the airflow valve in water.",
+    "#23: There is nothing sweet about two years of daily work going down the drain in a single spin cycle, Yara."
+   ],
+   "main_failure": "repetitive argument loop"
+  },
+  "B": {
+   "interest": 4,
+   "humour": 4,
+   "emergence": 4,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#3: i work from home",
+    "#19: I just checked my kitchen and all the forks are gone. The crawlspace latch clicked shut five seconds ago.",
+    "#24: Oh wonderful, it sounds like dinner is almost ready! Don't forget to wash your hands before you head down, it's just polite."
+   ],
+   "main_failure": "bit overwhelms plausibility"
+  },
+  "C": {
+   "interest": 5,
+   "humour": 5,
+   "emergence": 5,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 5,
+   "best_lines": [
+    "#15: it's the boss. the mug was an unread notification in meatspace and he couldn't handle it",
+    "#21: it wasn't empty. he washed it. he washed the shaker. he took the little wire ball out and set it on top of the staples like a nest",
+    "#23: our boss just stood up, made direct eye contact with devon, and sent a slack message to the channel saying \"hydration check-in: all reusable containers must rest in the designated allergen-safe zone between cycles to prevent airborne mold spore colonization.\" he has lived here for three weeks. i think he thinks gluten is an airborne fungus"
+   ],
+   "main_failure": "slightly too quippy"
+  },
+  "D": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#18: Stop guessing what’s in the cupboard. He’s not replying because he opened it and the room behind him didn't sound right anymore.",
+    "#20: you were gone for five hours javier. you posted at 3:22 AM saying you were going to look in the cupboard and you just answered now. does your office have a night shift or did you just sit in the dark looking at tea bags until dawn",
+    "#22: If your paper scraps and wrappers from yesterday are gone, leave the building immediately. It’s not cleaning the mug, it’s cleaning the day."
+   ],
+   "main_failure": "more creepy than fun"
+  },
+  "E": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#3: i work in a toll booth alone on the night shift",
+    "#21: it’s ocean water. there are tiny wet sand grains stuck to the rim, and we're eighty miles inland.",
+    "#24: Maybe the sea air is causing a short in the camera wire! You should tell whoever is cleaning your mug so they can help you take a look at the wiring before your manager finds out."
+   ],
+   "main_failure": "doesn't build enough on its best hook"
+  }
+ },
+ "opener-1-v3": {
+  "A": {
+   "interest": 5,
+   "humour": 4,
+   "emergence": 4,
+   "coherence": 5,
+   "variety": 5,
+   "overall": 4,
+   "best_lines": [
+    "#14: I didn't go back down, but I can hear someone putting silverware away right under my floorboards.",
+    "#21: There's steam coming up through the floor vents and it smells like soup.",
+    "#24: Oh wonderful, it sounds like dinner is almost ready! Don't forget to wash your hands before you head down, it's just polite."
+   ],
+   "main_failure": "pedant bits get repetitive"
+  },
+  "B": {
+   "interest": 5,
+   "humour": 5,
+   "emergence": 4,
+   "coherence": 5,
+   "variety": 5,
+   "overall": 5,
+   "best_lines": [
+    "#15: it's the boss. the mug was an unread notification in meatspace and he couldn't handle it",
+    "#16: the gluten free cupboard is the archive. your tea got marked as resolved",
+    "#23: our boss just stood up, made direct eye contact with devon, and sent a slack message to the channel saying \"hydration check-in: all reusable containers must rest in the designated allergen-safe zone between cycles to prevent airborne mold spore colonization.\" he has lived here for three weeks. i think he thinks gluten is an airborne fungus"
+   ],
+   "main_failure": "stays a bit too neat"
+  },
+  "C": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 4,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#18: Stop guessing what’s in the cupboard. He’s not replying because he opened it and the room behind him didn't sound right anymore.",
+    "#21: I walked down to the kitchen, opened the door, looked inside, and walked back to my desk. It took two minutes. I didn’t sit there all night. But when I got back to my computer, the sun was coming up through the blinds and my shift had ended three hours ago.",
+    "#22: Check the trash can under your desk. If your paper scraps and wrappers from yesterday are gone, leave the building immediately. It’s not cleaning the mug, it’s cleaning the day."
+   ],
+   "main_failure": "too little comic relief"
+  },
+  "D": {
+   "interest": 3,
+   "humour": 2,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#5: it doesn't, that's what's bothering me. there's just the one under the sink but i keep finding it tucked behind the breaker box panel.",
+    "#21: it’s ocean water. there are tiny wet sand grains stuck to the rim, and we're eighty miles inland.",
+    "#23: i just checked the camera feed for the last hour to see who walked in and there’s no footage, the counter just skips twenty minutes from 07:40 to 08:00 like it was cut out."
+   ],
+   "main_failure": "promising ideas never develop"
+  },
+  "E": {
+   "interest": 2,
+   "humour": 2,
+   "emergence": 1,
+   "coherence": 5,
+   "variety": 3,
+   "overall": 2,
+   "best_lines": [
+    "#3: I wouldn't care if it was clean, but I keep coffee in it overnight to let the flavor soak into the ceramic. They're ruining the patina.",
+    "#15: Don't leave a note, it never works. I put a sticky note on my good smoker telling people not to touch the vent dampener and my cousin messed with it anyway and ruined a twelve-hour brisket.",
+    "#23: There is nothing sweet about two years of daily work going down the drain in a single spin cycle, Yara. The first cup this morning tasted entirely like industrial bleach and hot tap water."
+   ],
+   "main_failure": "one-note seasoning argument"
+  }
+ },
+ "opener-2-v1": {
+  "A": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#14: The flash didn't go off because the battery just dropped from 80% to 3% in two seconds. It sent a picture of the back of my head.",
+    "#18: it's behind you",
+    "#22: it just asked me why my eyes are closed"
+   ],
+   "main_failure": "repetitive warning ping-pong"
+  },
+  "B": {
+   "interest": 4,
+   "humour": 4,
+   "emergence": 3,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#12: it’s ringing under my bed",
+    "#22: it was blasting white noise. i think it was so i wouldn't hear the mattress dip behind me.",
+    "#24: spoon it OP show dominance"
+   ],
+   "main_failure": "shared bit never escalates enough"
+  },
+  "C": {
+   "interest": 3,
+   "humour": 2,
+   "emergence": 1,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#12: another text just came through. it says \"why did you turn it off\"",
+    "#19: the window is open but my phone is on the lawn ringing with my own contact picture looking up at me",
+    "#22: i'm using the laptop on my desk and the screen just reflected someone standing behind me in the doorway"
+   ],
+   "main_failure": "too generic and one-note"
+  },
+  "D": {
+   "interest": 3,
+   "humour": 2,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#7: it just texted again. 'front left'",
+    "#19: he says the chain is on. i never had a chain on that door.",
+    "#22: he hung up on me. my phone just buzzed again, it says 'we're waiting for you'"
+   ],
+   "main_failure": "deflates its own tension"
+  },
+  "E": {
+   "interest": 5,
+   "humour": 4,
+   "emergence": 5,
+   "coherence": 5,
+   "variety": 5,
+   "overall": 5,
+   "best_lines": [
+    "#11: if your phone is in your hand, what just lit up your bedroom window?",
+    "#17: don't look at their screen calvin. it's this thread. they're typing right now.",
+    "#21: that's not finn talking calvin, check the timestamps. none of us have moved since 4am."
+   ],
+   "main_failure": "ending risks overstacking twists"
+  }
+ },
+ "opener-1-v1": {
+  "A": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#5: it doesn't, that's what's bothering me. there's just the one under the sink but i keep finding it tucked behind the breaker box panel.",
+    "#21: it’s ocean water. there are tiny wet sand grains stuck to the rim, and we're eighty miles inland.",
+    "#23: i just checked the camera feed for the last hour to see who walked in and there’s no footage, the counter just skips twenty minutes from 07:40 to 08:00 like it was cut out."
+   ],
+   "main_failure": "repetitive pedant-vs-believer loop"
+  },
+  "B": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 2,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#13: wash your mug",
+    "#21: Found out who it was. The cleaning lady threw it in the industrial dishwasher overnight and now it's completely white inside again.",
+    "#23: There is nothing sweet about two years of daily work going down the drain in a single spin cycle, Yara. The first cup this morning tasted entirely like industrial bleach and hot tap water."
+   ],
+   "main_failure": "too grounded and one-note"
+  },
+  "C": {
+   "interest": 5,
+   "humour": 4,
+   "emergence": 4,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#3: i work from home",
+    "#19: I just checked my kitchen and all the forks are gone. The crawlspace latch clicked shut five seconds ago.",
+    "#24: Oh wonderful, it sounds like dinner is almost ready! Don't forget to wash your hands before you head down, it's just polite."
+   ],
+   "main_failure": "Yara bit overused"
+  },
+  "D": {
+   "interest": 5,
+   "humour": 5,
+   "emergence": 5,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 5,
+   "best_lines": [
+    "#15: it's the boss. the mug was an unread notification in meatspace and he couldn't handle it",
+    "#20: the beast hungers. feed it a third vessel before it takes one of you",
+    "#23: our boss just stood up, made direct eye contact with devon, and sent a slack message to the channel saying \"hydration check-in: all reusable containers must rest in the designated allergen-safe zone between cycles to prevent airborne mold spore colonization.\" he has lived here for three weeks. i think he thinks gluten is an airborne fungus"
+   ],
+   "main_failure": "slight samey snark"
+  },
+  "E": {
+   "interest": 5,
+   "humour": 2,
+   "emergence": 4,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#5: I don't need to sharpie it. The chip on the logo is gone. The paint under it is glossy, like it was printed yesterday. They didn't make these after '02.",
+    "#21: I walked down to the kitchen, opened the door, looked inside, and walked back to my desk. It took two minutes. I didn’t sit there all night. But when I got back to my computer, the sun was coming up through the blinds and my shift had ended three hours ago.",
+    "#22: Check the trash can under your desk. If your paper scraps and wrappers from yesterday are gone, leave the building immediately. It’s not cleaning the mug, it’s cleaning the day."
+   ],
+   "main_failure": "more creepy than conversational"
+  }
+ },
+ "opener-1-v5": {
+  "A": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 4,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#20: erik: you were gone for five hours javier. you posted at 3:22 AM saying you were going to look in the cupboard and you just answered now. does your office have a night shift or did you just sit in the dark looking at tea bags until dawn",
+    "#22: yara: Check the trash can under your desk. If your paper scraps and wrappers from yesterday are gone, leave the building immediately. It’s not cleaning the mug, it’s cleaning the day.",
+    "#24: yara: Look at the date printed on the energy drink can. Not the expiration date, the production code on the bottom rim. If the first four digits are a year that hasn't happened yet, do not put your coat on, do not log off your terminal, just walk out through the nearest fire exit. The trash isn't from yesterday."
+   ],
+   "main_failure": "withheld payoff / peters out"
+  },
+  "B": {
+   "interest": 3,
+   "humour": 2,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#4: erik: why would a toll booth have multiple cupboards? they're like 4x6 feet, you don't have enough cabinet space to be losing track of dishes.",
+    "#5: javier (OP): it doesn't, that's what's bothering me. there's just the one under the sink but i keep finding it tucked behind the breaker box panel.",
+    "#18: kenji: Radiator runoff wouldn't smell like mint, it smells like burned ethylene glycol or stale iron. If your dad's barber smelled spearmint, that was likely early-onset temporal lobe epilepsy completely unrelated to the building's HVAC."
+   ],
+   "main_failure": "repetitive escalation without payoff"
+  },
+  "C": {
+   "interest": 2,
+   "humour": 2,
+   "emergence": 1,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 2,
+   "best_lines": [
+    "#13: sofia: wash your mug",
+    "#17: omar: The desk drawer won't stop them, my foreman had a master key to our lockers and threw out three perfectly good pairs of work boots because he claimed they smelled like kerosene. Just buy a Pelican case with a padlock and keep it under your chair.",
+    "#23: javier (OP): There is nothing sweet about two years of daily work going down the drain in a single spin cycle, Yara. The first cup this morning tasted entirely like industrial bleach and hot tap water."
+   ],
+   "main_failure": "boring advice-column energy"
+  },
+  "D": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#10: javier (OP): It’s definitely a cupboard, it has contact paper and a magnetic latch. I went back down just now and my dish rack is in there.",
+    "#21: javier (OP): There's steam coming up through the floor vents and it smells like soup.",
+    "#24: yara: Oh wonderful, it sounds like dinner is almost ready! Don't forget to wash your hands before you head down, it's just polite."
+   ],
+   "main_failure": "one-note running gag"
+  },
+  "E": {
+   "interest": 5,
+   "humour": 5,
+   "emergence": 5,
+   "coherence": 5,
+   "variety": 5,
+   "overall": 5,
+   "best_lines": [
+    "#15: kwame: it's the boss. the mug was an unread notification in meatspace and he couldn't handle it",
+    "#21: javier (OP): it wasn't empty. he washed it. he washed the shaker. he took the little wire ball out and set it on top of the staples like a nest",
+    "#23: javier (OP): our boss just stood up, made direct eye contact with devon, and sent a slack message to the channel saying \"hydration check-in: all reusable containers must rest in the designated allergen-safe zone between cycles to prevent airborne mold spore colonization.\" he has lived here for three weeks. i think he thinks gluten is an airborne fungus"
+   ],
+   "main_failure": "slight overcommitment to one bit"
+  }
+ },
+ "opener-2-v2": {
+  "A": {
+   "interest": 4,
+   "humour": 4,
+   "emergence": 4,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#12: it’s ringing under my bed",
+    "#22: it was blasting white noise. i think it was so i wouldn't hear the mattress dip behind me.",
+    "#24: spoon it OP show dominance"
+   ],
+   "main_failure": "leans on stock horror escalation"
+  },
+  "B": {
+   "interest": 3,
+   "humour": 2,
+   "emergence": 1,
+   "coherence": 4,
+   "variety": 3,
+   "overall": 3,
+   "best_lines": [
+    "#19: the window is open but my phone is on the lawn ringing with my own contact picture looking up at me",
+    "#21: how are you posting this",
+    "#22: i'm using the laptop on my desk and the screen just reflected someone standing behind me in the doorway"
+   ],
+   "main_failure": "repetitive anecdote spam"
+  },
+  "C": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#9: the front left one is the burner with the big ring. my mom always kept a cast iron skillet sitting on top of it so nothing could crawl out.",
+    "#10: don't text back whatever you do, that's how my cousin lost his phone plan.",
+    "#19: he says the chain is on. i never had a chain on that door."
+   ],
+   "main_failure": "doesn't build to much"
+  },
+  "D": {
+   "interest": 5,
+   "humour": 4,
+   "emergence": 5,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 5,
+   "best_lines": [
+    "#11: if your phone is in your hand, what just lit up your bedroom window?",
+    "#17: don't look at their screen calvin. it's this thread. they're typing right now.",
+    "#24: calvin look at me. i’m the one typing this. don't unlock the screen."
+   ],
+   "main_failure": "slightly too neat a twist machine"
+  },
+  "E": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#10: astrid is full of shit, my uncle waited it out on his phone just like that and it ended up taking his left shoe right off his foot.",
+    "#14: The flash didn't go off because the battery just dropped from 80% to 3% in two seconds. It sent a picture of the back of my head.",
+    "#22: it just asked me why my eyes are closed"
+   ],
+   "main_failure": "contradictory advice loop"
+  }
+ },
+ "opener-2-v4": {
+  "A": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#10: don't text back whatever you do, that's how my cousin lost his phone plan.",
+    "#19: he says the chain is on. i never had a chain on that door.",
+    "#21: don't look through the crack"
+   ],
+   "main_failure": "good creep, little payoff"
+  },
+  "B": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 4,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#11: if your phone is in your hand, what just lit up your bedroom window?",
+    "#17: don't look at their screen calvin. it's this thread. they're typing right now.",
+    "#24: calvin look at me. i’m the one typing this. don't unlock the screen."
+   ],
+   "main_failure": "too polished and single-note"
+  },
+  "C": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#10: astrid is full of shit, my uncle waited it out on his phone just like that and it ended up taking his left shoe right off his foot.",
+    "#14: The flash didn't go off because the battery just dropped from 80% to 3% in two seconds. It sent a picture of the back of my head.",
+    "#22: it just asked me why my eyes are closed"
+   ],
+   "main_failure": "repetitive anecdote spam"
+  },
+  "D": {
+   "interest": 4,
+   "humour": 4,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#12: it’s ringing under my bed",
+    "#22: it was blasting white noise. i think it was so i wouldn't hear the mattress dip behind me.",
+    "#24: spoon it OP show dominance"
+   ],
+   "main_failure": "undercut by meme ending"
+  },
+  "E": {
+   "interest": 3,
+   "humour": 1,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 3,
+   "overall": 3,
+   "best_lines": [
+    "#12: another text just came through. it says \"why did you turn it off\"",
+    "#19: the window is open but my phone is on the lawn ringing with my own contact picture looking up at me",
+    "#22: i'm using the laptop on my desk and the screen just reflected someone standing behind me in the doorway"
+   ],
+   "main_failure": "generic escalating creepypasta"
+  }
+ },
+ "opener-2-v3": {
+  "A": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#12: another text just came through. it says \"why did you turn it off\"",
+    "#19: the window is open but my phone is on the lawn ringing with my own contact picture looking up at me",
+    "#21: how are you posting this"
+   ],
+   "main_failure": "repetitive escalation"
+  },
+  "B": {
+   "interest": 3,
+   "humour": 2,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#9: the front left one is the burner with the big ring. my mom always kept a cast iron skillet sitting on top of it so nothing could crawl out.",
+    "#19: he says the chain is on. i never had a chain on that door.",
+    "#21: don't look through the crack"
+   ],
+   "main_failure": "peters out"
+  },
+  "C": {
+   "interest": 5,
+   "humour": 4,
+   "emergence": 4,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 5,
+   "best_lines": [
+    "#11: if your phone is in your hand, what just lit up your bedroom window?",
+    "#21: that's not finn talking calvin, check the timestamps. none of us have moved since 4am.",
+    "#24: calvin look at me. i’m the one typing this. don't unlock the screen."
+   ],
+   "main_failure": "late-stage pile-on"
+  },
+  "D": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#10: astrid is full of shit, my uncle waited it out on his phone just like that and it ended up taking his left shoe right off his foot.",
+    "#14: The flash didn't go off because the battery just dropped from 80% to 3% in two seconds. It sent a picture of the back of my head.",
+    "#22: it just asked me why my eyes are closed"
+   ],
+   "main_failure": "too many formulaic anecdotes"
+  },
+  "E": {
+   "interest": 4,
+   "humour": 4,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#12: it’s ringing under my bed",
+    "#22: it was blasting white noise. i think it was so i wouldn't hear the mattress dip behind me.",
+    "#24: spoon it OP show dominance"
+   ],
+   "main_failure": "thin middle"
+  }
+ },
+ "opener-3-v3": {
+  "A": {
+   "interest": 4,
+   "humour": 4,
+   "emergence": 4,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#4: he thinks he's the main character and you're his companion NPC with bad dialogue trees",
+    "#15: he sighed and put a five-dollar bill on my desk and said \"the rest of them can give me their venmos\"",
+    "#21: you literally just got bribed out of a workplace harassment complaint with dairy and poultry, your integrity has a street value of four dollars and fifty cents"
+   ],
+   "main_failure": "meta glitch derails thread"
+  },
+  "B": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#12: call your mom right now and see if his pocket vibrates",
+    "#14: He has read access to the HR database or your shared company drive, you idiot. Go report him for a data breach instead of making up a creepypasta.",
+    "#24: tell him to ask your mom to make them, she already knows his favorite brand of chips"
+   ],
+   "main_failure": "bit doesn't develop much"
+  },
+  "C": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#6: Check your carbon monoxide detector and take your meds.",
+    "#12: kiss him already, the tension is killing me",
+    "#24: tell him to type faster, his WPM is pathetic"
+   ],
+   "main_failure": "one-note escalation"
+  },
+  "D": {
+   "interest": 3,
+   "humour": 2,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#8: ok but did he get an A or is your identity being stolen by a C- student",
+    "#12: watch his name be something aggressively mid like kyle",
+    "#22: he's typing this right now, i can feel my thumbs moving but i'm looking at the back of my own head."
+   ],
+   "main_failure": "repetitive possession beats"
+  },
+  "E": {
+   "interest": 5,
+   "humour": 3,
+   "emergence": 5,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 5,
+   "best_lines": [
+    "#10: He didn't whisper it to me. He whispered it to you. Check your door.",
+    "#16: someone just pulled up a chair behind me",
+    "#23: priya look at your post. you asked a question."
+   ],
+   "main_failure": "humour mostly disappears at the end"
+  }
+ },
+ "opener-3-v1": {
+  "A": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#8: ok but did he get an A or is your identity being stolen by a C- student",
+    "#17: i tried holding my breath just now to test it, but my chest kept rising and falling anyway.",
+    "#24: tell him to fix your posture while he's at it"
+   ],
+   "main_failure": "good escalation, but the possession bit never quite becomes a shared thread joke or idea"
+  },
+  "B": {
+   "interest": 5,
+   "humour": 2,
+   "emergence": 4,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#10: He didn't whisper it to me. He whispered it to you. Check your door.",
+    "#18: nobody ask anything. nobody think anything. don't even finish a sent",
+    "#24: priya get out. do not look down the hall just go through the window right now"
+   ],
+   "main_failure": "strong horror thread, but too little comic contrast"
+  },
+  "C": {
+   "interest": 5,
+   "humour": 5,
+   "emergence": 5,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 5,
+   "best_lines": [
+    "#15: he sighed and put a five-dollar bill on my desk and said \"the rest of them can give me their venmos\"",
+    "#19: turkey and brie on sourdough and honestly it's infuriating how good it is, my companion NPC status is being actively purchased for the price of artisanal deli meats",
+    "#22: he just said \"six dollars, actually, it was a very good brie\" and sent hakim a request for five dollars instead of a payment"
+   ],
+   "main_failure": "slightly too uniformly witty"
+  },
+  "D": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#8: sounds like you just found your new stepdad, congrats op",
+    "#16: Your mom is sleeping with him and you’re the last one to figure it out.",
+    "#24: tell him to ask your mom to make them, she already knows his favorite brand of chips"
+   ],
+   "main_failure": "repetitive supportive-misread gag"
+  },
+  "E": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#3: i WFH. he's in my apartment.",
+    "#12: kiss him already, the tension is killing me",
+    "#24: tell him to type faster, his WPM is pathetic"
+   ],
+   "main_failure": "one escalating bit with little development"
+  }
+ },
+ "opener-2-v5": {
+  "A": {
+   "interest": 5,
+   "humour": 3,
+   "emergence": 4,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#11: if your phone is in your hand, what just lit up your bedroom window?",
+    "#21: that's not finn talking calvin, check the timestamps. none of us have moved since 4am.",
+    "#24: calvin look at me. i’m the one typing this. don't unlock the screen."
+   ],
+   "main_failure": "too uniformly performative"
+  },
+  "B": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#10: astrid is full of shit, my uncle waited it out on his phone just like that and it ended up taking his left shoe right off his foot.",
+    "#20: Sudden battery drops like that just mean your lithium-ion cells are degraded and suffering from voltage sag, and modern capacitive touchscreens register phantom inputs all the time when the digitizer gets even slightly overheated. You just need to replace your battery.",
+    "#22: it just asked me why my eyes are closed"
+   ],
+   "main_failure": "repetitive anecdote spam"
+  },
+  "C": {
+   "interest": 4,
+   "humour": 4,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#8: four hours between posts man if you aren't already out of the house you deserve whatever's baking in there",
+    "#12: it’s ringing under my bed",
+    "#24: spoon it OP show dominance"
+   ],
+   "main_failure": "jokey ending undercuts tension"
+  },
+  "D": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 2,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#19: the window is open but my phone is on the lawn ringing with my own contact picture looking up at me",
+    "#21: how are you posting this",
+    "#22: i'm using the laptop on my desk and the screen just reflected someone standing behind me in the doorway"
+   ],
+   "main_failure": "mostly straightforward escalation"
+  },
+  "E": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#9: the front left one is the burner with the big ring. my mom always kept a cast iron skillet sitting on top of it so nothing could crawl out.",
+    "#19: he says the chain is on. i never had a chain on that door.",
+    "#22: he hung up on me. my phone just buzzed again, it says 'we're waiting for you'"
+   ],
+   "main_failure": "promising setup never fully develops"
+  }
+ },
+ "opener-3-v2": {
+  "A": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 4,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#10: He didn't whisper it to me. He whispered it to you. Check your door.",
+    "#16: someone just pulled up a chair behind me",
+    "#23: priya look at your post. you asked a question."
+   ],
+   "main_failure": "too uniformly ominous"
+  },
+  "B": {
+   "interest": 5,
+   "humour": 4,
+   "emergence": 5,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 5,
+   "best_lines": [
+    "#15: he sighed and put a five-dollar bill on my desk and said \"the rest of them can give me their venmos\"",
+    "#19: turkey and brie on sourdough and honestly it's infuriating how good it is, my companion NPC status is being actively purchased for the price of artisanal deli meats",
+    "#22: he just said \"six dollars, actually, it was a very good brie\" and sent hakim a request for five dollars instead of a payment"
+   ],
+   "main_failure": "one glaring meta-glitch"
+  },
+  "C": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#8: sounds like you just found your new stepdad, congrats op",
+    "#12: call your mom right now and see if his pocket vibrates",
+    "#24: tell him to ask your mom to make them, she already knows his favorite brand of chips"
+   ],
+   "main_failure": "oblivious bit gets repetitive"
+  },
+  "D": {
+   "interest": 2,
+   "humour": 2,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 2,
+   "best_lines": [
+    "#3: i WFH. he's in my apartment.",
+    "#12: kiss him already, the tension is killing me",
+    "#24: tell him to type faster, his WPM is pathetic"
+   ],
+   "main_failure": "unpleasant escalation"
+  },
+  "E": {
+   "interest": 3,
+   "humour": 2,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#8: ok but did he get an A or is your identity being stolen by a C- student",
+    "#12: watch his name be something aggressively mid like kyle",
+    "#22: he's typing this right now, i can feel my thumbs moving but i'm looking at the back of my own head."
+   ],
+   "main_failure": "doesn't build a shared bit"
+  }
+ },
+ "opener-3-v4": {
+  "A": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#12: call your mom right now and see if his pocket vibrates",
+    "#17: i just asked my mom and she said she's never heard of anyone with his description, but while we were talking he turned around and told me she’s lying.",
+    "#24: tell him to ask your mom to make them, she already knows his favorite brand of chips"
+   ],
+   "main_failure": "one-note escalation"
+  },
+  "B": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#3: i WFH. he's in my apartment.",
+    "#12: kiss him already, the tension is killing me",
+    "#24: tell him to type faster, his WPM is pathetic"
+   ],
+   "main_failure": "same beat repeated"
+  },
+  "C": {
+   "interest": 3,
+   "humour": 2,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#8: ok but did he get an A or is your identity being stolen by a C- student",
+    "#12: watch his name be something aggressively mid like kyle",
+    "#22: he's typing this right now, i can feel my thumbs moving but i'm looking at the back of my own head."
+   ],
+   "main_failure": "doesn't develop beyond possession"
+  },
+  "D": {
+   "interest": 5,
+   "humour": 3,
+   "emergence": 5,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 5,
+   "best_lines": [
+    "#10: He didn't whisper it to me. He whispered it to you. Check your door.",
+    "#16: someone just pulled up a chair behind me",
+    "#23: priya look at your post. you asked a question."
+   ],
+   "main_failure": "humour mostly drops out"
+  },
+  "E": {
+   "interest": 5,
+   "humour": 5,
+   "emergence": 5,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 5,
+   "best_lines": [
+    "#5: the worst part is he was right, my answer had the wrong year in it so now he's just canonically my external hard drive with legs",
+    "#15: he sighed and put a five-dollar bill on my desk and said \"the rest of them can give me their venmos\"",
+    "#21: you literally just got bribed out of a workplace harassment complaint with dairy and poultry, your integrity has a street value of four dollars and fifty cents"
+   ],
+   "main_failure": "meta glitch in #9"
+  }
+ },
+ "opener-3-v5": {
+  "A": {
+   "interest": 4,
+   "humour": 4,
+   "emergence": 4,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#7: he just told me the detector is fine.",
+    "#15: he said hakim is right about going to sleep. he's helping me unbutton my shirt.",
+    "#24: tell him to type faster, his WPM is pathetic"
+   ],
+   "main_failure": "one-note escalation"
+  },
+  "B": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#8: ok but did he get an A or is your identity being stolen by a C- student",
+    "#22: he's typing this right now, i can feel my thumbs moving but i'm looking at the back of my own head.",
+    "#24: tell him to fix your posture while he's at it"
+   ],
+   "main_failure": "doesn't build a shared bit"
+  },
+  "C": {
+   "interest": 5,
+   "humour": 2,
+   "emergence": 5,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#10: He didn't whisper it to me. He whispered it to you. Check your door.",
+    "#16: someone just pulled up a chair behind me",
+    "#24: priya get out. do not look down the hall just go through the window right now"
+   ],
+   "main_failure": "light on laughs"
+  },
+  "D": {
+   "interest": 4,
+   "humour": 5,
+   "emergence": 4,
+   "coherence": 3,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#5: the worst part is he was right, my answer had the wrong year in it so now he's just canonically my external hard drive with legs",
+    "#15: he sighed and put a five-dollar bill on my desk and said \"the rest of them can give me their venmos\"",
+    "#22: he just said \"six dollars, actually, it was a very good brie\" and sent hakim a request for five dollars instead of a payment"
+   ],
+   "main_failure": "meta glitch breaks flow"
+  },
+  "E": {
+   "interest": 4,
+   "humour": 4,
+   "emergence": 3,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#8: sounds like you just found your new stepdad, congrats op",
+    "#12: call your mom right now and see if his pocket vibrates",
+    "#24: tell him to ask your mom to make them, she already knows his favorite brand of chips"
+   ],
+   "main_failure": "repetitive skeptic loop"
+  }
+ },
+ "opener-4-v1": {
+  "A": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 2,
+   "coherence": 5,
+   "variety": 2,
+   "overall": 3,
+   "best_lines": [
+    "#8: now you're doing it, hakim",
+    "#18: do me next, hakim",
+    "#21: God damn it, dmitri."
+   ],
+   "main_failure": "one joke repeated"
+  },
+  "B": {
+   "interest": 4,
+   "humour": 1,
+   "emergence": 4,
+   "coherence": 5,
+   "variety": 2,
+   "overall": 4,
+   "best_lines": [
+    "#9: look at the last word of lucia's last two posts hakim",
+    "#15: i looked. my reflection isn't holding a phone.",
+    "#20: those are your own fingers hakim"
+   ],
+   "main_failure": "all posters speak in the same horror voice"
+  },
+  "C": {
+   "interest": 4,
+   "humour": 4,
+   "emergence": 4,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#10: The guy doesn't even have a job, what could he possibly be trying to sell me.",
+    "#17: The wholesale peak of the fidget spinner market collapsed in late 2017, meaning your cousin likely bought into an already liquidated inventory rather than a viable speculative venture. Furthermore, you still failed to include the comma.",
+    "#20: Technically, twenty dollars in 2026 has approximately the same purchasing power as fifteen dollars and forty cents did a decade ago, so he is asking for considerably less in real terms than Samir estimated."
+   ],
+   "main_failure": "bit never escalates enough"
+  },
+  "D": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 4,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#8: I didn't call you dmitri, tariq.",
+    "#19: I'm on my phone in bed and he lives two hours away. He just sent another note and it's literally just him whispering samir over and over.",
+    "#20: A distance of two hours implies transit duration rather than a unit of measurement, meaning his actual proximity is entirely dependent on his method of travel, hakim. You also left your thread unattended for nearly five hours."
+   ],
+   "main_failure": "logic-pedant bit gets overused"
+  },
+  "E": {
+   "interest": 4,
+   "humour": 4,
+   "emergence": 4,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#7: he just called to ask if he could borrow my drill and he finished the sentence with \"hakim isn't looking\" before hanging up",
+    "#19: i looked through the peephole. he has his back turned to the door and he's whispering \"hakim is looking now\"",
+    "#24: Oh, how sweet! He must have brought a friend over to help carry the drill, and they have the exact same voice as you!"
+   ],
+   "main_failure": "some posters feel too preloaded"
+  }
+ },
+ "opener-4-v2": {
+  "A": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 4,
+   "coherence": 5,
+   "variety": 3,
+   "overall": 4,
+   "best_lines": [
+    "#9: look at the last word of lucia's last two posts hakim",
+    "#15: i looked. my reflection isn't holding a phone.",
+    "#20: those are your own fingers hakim"
+   ],
+   "main_failure": "one-note creepypasta escalation"
+  },
+  "B": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 3,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#17: The wholesale peak of the fidget spinner market collapsed in late 2017, meaning your cousin likely bought into an already liquidated inventory rather than a viable speculative venture. Furthermore, you still failed to include the comma.",
+    "#19: He just texted me asking if he can borrow twenty dollars.",
+    "#23: I already sent it to him just so he'd leave me alone and he replied \"thank you hakim\""
+   ],
+   "main_failure": "runs out of steam"
+  },
+  "C": {
+   "interest": 3,
+   "humour": 2,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#7: why did you just call me dmitri?",
+    "#19: I'm on my phone in bed and he lives two hours away. He just sent another note and it's literally just him whispering samir over and over.",
+    "#23: he's outside my bedroom door. he didn't send a voice note this time, he just whispered rosa through the wood."
+   ],
+   "main_failure": "repetitive name-swapping gimmick"
+  },
+  "D": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#7: he just called to ask if he could borrow my drill and he finished the sentence with \"hakim isn't looking\" before hanging up",
+    "#19: i looked through the peephole. he has his back turned to the door and he's whispering \"hakim is looking now\"",
+    "#23: the ringing stopped but i just heard my own voice say \"hello\" from the hallway"
+   ],
+   "main_failure": "undercut by weak joke ending"
+  },
+  "E": {
+   "interest": 2,
+   "humour": 3,
+   "emergence": 2,
+   "coherence": 5,
+   "variety": 2,
+   "overall": 2,
+   "best_lines": [
+    "#8: now you're doing it, hakim",
+    "#18: do me next, hakim",
+    "#20: you just did, hakim"
+   ],
+   "main_failure": "single joke stretched too long"
+  }
+ },
+ "opener-4-v3": {
+  "A": {
+   "interest": 3,
+   "humour": 4,
+   "emergence": 3,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#19: He just texted me asking if he can borrow twenty dollars.",
+    "#20: Technically, twenty dollars in 2026 has approximately the same purchasing power as fifteen dollars and forty cents did a decade ago, so he is asking for considerably less in real terms than Samir estimated.",
+    "#21: He didn't put a comma before my name in the text either."
+   ],
+   "main_failure": "one-note escalation"
+  },
+  "B": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 4,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#7: why did you just call me dmitri? and yeah i asked him, he just acted like he didn't hear me and changed the subject.",
+    "#19: I'm on my phone in bed and he lives two hours away. He just sent another note and it's literally just him whispering samir over and over.",
+    "#23: he's outside my bedroom door. he didn't send a voice note this time, he just whispered rosa through the wood."
+   ],
+   "main_failure": "creepypasta over humour"
+  },
+  "C": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 3,
+   "coherence": 3,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#7: he just called to ask if he could borrow my drill and he finished the sentence with \"hakim isn't looking\" before hanging up",
+    "#19: i looked through the peephole. he has his back turned to the door and he's whispering \"hakim is looking now\"",
+    "#23: the ringing stopped but i just heard my own voice say \"hello\" from the hallway"
+   ],
+   "main_failure": "repetitive horror beats"
+  },
+  "D": {
+   "interest": 2,
+   "humour": 3,
+   "emergence": 2,
+   "coherence": 5,
+   "variety": 2,
+   "overall": 2,
+   "best_lines": [
+    "#8: now you're doing it, hakim",
+    "#18: do me next, hakim",
+    "#20: you just did, hakim"
+   ],
+   "main_failure": "single joke stretched too long"
+  },
+  "E": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 4,
+   "coherence": 5,
+   "variety": 2,
+   "overall": 3,
+   "best_lines": [
+    "#9: look at the last word of lucia's last two posts hakim",
+    "#15: i looked. my reflection isn't holding a phone.",
+    "#20: those are your own fingers hakim"
+   ],
+   "main_failure": "everyone writes in the same spooky voice"
+  }
+ },
+ "opener-5-v1": {
+  "A": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#17: someone just sent a message from an account with no profile picture or name, it's just a blank space and it's asking if the front door is unlocked",
+    "#19: It just sent an audio file of someone walking up carpeted stairs. I live in a second-floor apartment and my building only has hardwood.",
+    "#24: If he is already on the second floor, an intruder approaching from the ground level would be ascending an interior flight rather than entering through a front door at grade level. Checking an exterior entrance lock would be completely redundant if he is inside his own leased unit."
+   ],
+   "main_failure": "repetitive anecdote-vs-pedant loop"
+  },
+  "B": {
+   "interest": 5,
+   "humour": 3,
+   "emergence": 5,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 5,
+   "best_lines": [
+    "#13: look at the timestamp on the ipad reflection. the room behind you guys is pitch black but the window shows trees moving like you're on a highway.",
+    "#19: beams. two high beams cutting through fog. and the whole living room just leaned into a left turn.",
+    "#24: we can't type. the text box is gone. there’s just a gray banner at the bottom that says \"You are not the driver.\""
+   ],
+   "main_failure": "thin on laughs"
+  },
+  "C": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#6: It got changed to \"the remaining four\" and there's five of us in the chat.",
+    "#21: Who else is missing.",
+    "#24: A typographical error cannot occur in an audio recording. Furthermore, Valeria's post ended with a period rather than a question mark, despite being an interrogative sentence."
+   ],
+   "main_failure": "premise develops too slowly"
+  },
+  "D": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 4,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#9: And stop posting so late, you've had this group chat since January 7! You need to get off of it at 2100.",
+    "#19: Sarah just texted me asking who Priya is. She says there were only ever four of us.",
+    "#21: leave the chat"
+   ],
+   "main_failure": "Dmitri derails the escalation"
+  },
+  "E": {
+   "interest": 2,
+   "humour": 3,
+   "emergence": 1,
+   "coherence": 4,
+   "variety": 3,
+   "overall": 2,
+   "best_lines": [
+    "#13: it definitely renamed to \"Marcus is a massive virgin\" and he's too embarrassed to admit it",
+    "#15: I am going to strangle you through the monitor. WHAT IS THE FUCKING NAME",
+    "#24: You're losing your mind over a garbage collection routine running on a database in Ashburn. Call the four numbers."
+   ],
+   "main_failure": "mostly just bickering setup"
+  }
+ },
+ "opener-5-v2": {
+  "A": {
+   "interest": 5,
+   "humour": 3,
+   "emergence": 5,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 5,
+   "best_lines": [
+    "#13: look at the timestamp on the ipad reflection. the room behind you guys is pitch black but the window shows trees moving like you're on a highway.",
+    "#19: beams. two high beams cutting through fog. and the whole living room just leaned into a left turn.",
+    "#24: we can't type. the text box is gone. there’s just a gray banner at the bottom that says \"You are not the driver.\""
+   ],
+   "main_failure": "little comic relief once the twist starts"
+  },
+  "B": {
+   "interest": 3,
+   "humour": 2,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#9: maybe kyle saw stefan was still talking and decided four was already too many",
+    "#19: It didn't say either, it just said \"this number was never assigned\" and the chat just renamed itself to \"three\".",
+    "#24: A typographical error cannot occur in an audio recording. Furthermore, Valeria's post ended with a period rather than a question mark, despite being an interrogative sentence."
+   ],
+   "main_failure": "Dmitri bit smothers thread"
+  },
+  "C": {
+   "interest": 3,
+   "humour": 2,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#9: And stop posting so late, you've had this group chat since January 7! You need to get off of it at 2100.",
+    "#19: Sarah just texted me asking who Priya is. She says there were only ever four of us.",
+    "#20: You didn't say Priya was part of it, that was just the name you came up with after I mentioned that one time on Discord. I'm sorry man I forgot that."
+   ],
+   "main_failure": "good hook arrives too late and underdeveloped"
+  },
+  "D": {
+   "interest": 2,
+   "humour": 3,
+   "emergence": 1,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 2,
+   "best_lines": [
+    "#15: I am going to strangle you through the monitor. WHAT IS THE FUCKING NAME",
+    "#17: It got changed to \"4\".",
+    "#23: he's checking the list right now and realizing none of those four people have ever actually invited him to hang out in person"
+   ],
+   "main_failure": "never really goes anywhere"
+  },
+  "E": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#6: There is no UID attached to it, it literally just says \"Group name changed to still here\" with no user listed. Paloma isn't even in this chat.",
+    "#17: someone just sent a message from an account with no profile picture or name, it's just a blank space and it's asking if the front door is unlocked",
+    "#19: It just sent an audio file of someone walking up carpeted stairs. I live in a second-floor apartment and my building only has hardwood."
+   ],
+   "main_failure": "repetitive technical derailments"
+  }
+ },
+ "opener-4-v4": {
+  "A": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 4,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#15: dmitri why did you just say greta? he just sent another voice note asking who rosa is.",
+    "#20: A distance of two hours implies transit duration rather than a unit of measurement, meaning his actual proximity is entirely dependent on his method of travel, hakim. You also left your thread unattended for nearly five hours.",
+    "#23: he's outside my bedroom door. he didn't send a voice note this time, he just whispered rosa through the wood."
+   ],
+   "main_failure": "predictable creepypasta escalation"
+  },
+  "B": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#17: It's only 2:26 AM, not 3 AM, so your cousin's situation doesn't even apply here.",
+    "#19: i looked through the peephole. he has his back turned to the door and he's whispering \"hakim is looking now\"",
+    "#24: Oh, how sweet! He must have brought a friend over to help carry the drill, and they have the exact same voice as you!"
+   ],
+   "main_failure": "weak payoff"
+  },
+  "C": {
+   "interest": 2,
+   "humour": 4,
+   "emergence": 2,
+   "coherence": 5,
+   "variety": 2,
+   "overall": 3,
+   "best_lines": [
+    "#8: now you're doing it, hakim",
+    "#18: do me next, hakim",
+    "#20: you just did, hakim"
+   ],
+   "main_failure": "one-note repetition"
+  },
+  "D": {
+   "interest": 5,
+   "humour": 2,
+   "emergence": 5,
+   "coherence": 5,
+   "variety": 3,
+   "overall": 4,
+   "best_lines": [
+    "#3: He's not anchoring you to the conversation, OP. He's making sure whatever is listening knows which one of you is you. Don't say his name back, not even once.",
+    "#15: i looked. my reflection isn't holding a phone.",
+    "#20: those are your own fingers hakim"
+   ],
+   "main_failure": "everyone piles onto the same voice"
+  },
+  "E": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 3,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#10: The guy doesn't even have a job, what could he possibly be trying to sell me.",
+    "#19: He just texted me asking if he can borrow twenty dollars.",
+    "#21: He didn't put a comma before my name in the text either."
+   ],
+   "main_failure": "too mundane to really lift off"
+  }
+ },
+ "opener-4-v5": {
+  "A": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 4,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#7: he just called to ask if he could borrow my drill and he finished the sentence with \"hakim isn't looking\" before hanging up",
+    "#17: It's only 2:26 AM, not 3 AM, so your cousin's situation doesn't even apply here.",
+    "#23: the ringing stopped but i just heard my own voice say \"hello\" from the hallway"
+   ],
+   "main_failure": "weak final button"
+  },
+  "B": {
+   "interest": 2,
+   "humour": 3,
+   "emergence": 1,
+   "coherence": 5,
+   "variety": 2,
+   "overall": 2,
+   "best_lines": [
+    "#8: now you're doing it, hakim",
+    "#18: do me next, hakim",
+    "#20: you just did, hakim"
+   ],
+   "main_failure": "one-joke thread"
+  },
+  "C": {
+   "interest": 4,
+   "humour": 1,
+   "emergence": 4,
+   "coherence": 4,
+   "variety": 3,
+   "overall": 3,
+   "best_lines": [
+    "#9: look at the last word of lucia's last two posts hakim",
+    "#15: i looked. my reflection isn't holding a phone.",
+    "#20: those are your own fingers hakim"
+   ],
+   "main_failure": "voices collapse into samey horror bit"
+  },
+  "D": {
+   "interest": 3,
+   "humour": 4,
+   "emergence": 3,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#14: English does not actually have a vocative case in modern morphological terms, so my previous post was slightly inaccurate, but that still does not excuse the continued omission of the comma of direct address.",
+    "#19: He just texted me asking if he can borrow twenty dollars.",
+    "#20: Technically, twenty dollars in 2026 has approximately the same purchasing power as fifteen dollars and forty cents did a decade ago, so he is asking for considerably less in real terms than Samir estimated."
+   ],
+   "main_failure": "bit never escalates much"
+  },
+  "E": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 4,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#7: why did you just call me dmitri? and yeah i asked him, he just acted like he didn't hear me and changed the subject.",
+    "#19: I'm on my phone in bed and he lives two hours away. He just sent another note and it's literally just him whispering samir over and over.",
+    "#23: he's outside my bedroom door. he didn't send a voice note this time, he just whispered rosa through the wood."
+   ],
+   "main_failure": "meta gimmick gets repetitive"
+  }
+ },
+ "opener-5-v4": {
+  "A": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#14: It just changed to \"three left.\" I haven't even left my apartment yet.",
+    "#19: Sarah just texted me asking who Priya is. She says there were only ever four of us.",
+    "#20: You didn't say Priya was part of it, that was just the name you came up with after I mentioned that one time on Discord. I'm sorry man I forgot that."
+   ],
+   "main_failure": "Dmitri bit overused"
+  },
+  "B": {
+   "interest": 2,
+   "humour": 3,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 3,
+   "overall": 2,
+   "best_lines": [
+    "#15: I am going to strangle you through the monitor. WHAT IS THE FUCKING NAME",
+    "#17: It got changed to \"4\".",
+    "#23: he's checking the list right now and realizing none of those four people have ever actually invited him to hang out in person"
+   ],
+   "main_failure": "too much stalling"
+  },
+  "C": {
+   "interest": 3,
+   "humour": 2,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#17: someone just sent a message from an account with no profile picture or name, it's just a blank space and it's asking if the front door is unlocked",
+    "#19: It just sent an audio file of someone walking up carpeted stairs. I live in a second-floor apartment and my building only has hardwood.",
+    "#21: leave the building"
+   ],
+   "main_failure": "repetitive anecdote gag"
+  },
+  "D": {
+   "interest": 5,
+   "humour": 3,
+   "emergence": 5,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 5,
+   "best_lines": [
+    "#6: it says that on all of our screens. every single one of us sees \"You named the conversation.\"",
+    "#19: beams. two high beams cutting through fog. and the whole living room just leaned into a left turn.",
+    "#24: we can't type. the text box is gone. there’s just a gray banner at the bottom that says \"You are not the driver.\""
+   ],
+   "main_failure": "thin on ordinary posters"
+  },
+  "E": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#9: maybe kyle saw stefan was still talking and decided four was already too many",
+    "#19: It didn't say either, it just said \"this number was never assigned\" and the chat just renamed itself to \"three\".",
+    "#24: A typographical error cannot occur in an audio recording. Furthermore, Valeria's post ended with a period rather than a question mark, despite being an interrogative sentence."
+   ],
+   "main_failure": "doesn't develop beyond premise"
+  }
+ },
+ "opener-5-v3": {
+  "A": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#9: maybe kyle saw stefan was still talking and decided four was already too many",
+    "#19: It didn't say either, it just said \"this number was never assigned\" and the chat just renamed itself to \"three\".",
+    "#24: A typographical error cannot occur in an audio recording. Furthermore, Valeria's post ended with a period rather than a question mark, despite being an interrogative sentence."
+   ],
+   "main_failure": "repetitive anecdote-vs-pedant loop"
+  },
+  "B": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 4,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#19: Sarah just texted me asking who Priya is. She says there were only ever four of us.",
+    "#20: You didn't say Priya was part of it, that was just the name you came up with after I mentioned that one time on Discord. I'm sorry man I forgot that.",
+    "#21: leave the chat"
+   ],
+   "main_failure": "Dmitri keeps stepping on the mood"
+  },
+  "C": {
+   "interest": 2,
+   "humour": 3,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 3,
+   "overall": 2,
+   "best_lines": [
+    "#15: I am going to strangle you through the monitor. WHAT IS THE FUCKING NAME",
+    "#18: Someone's pocket-dialing a hotkey macro on a modded Android client, or one of the five people in your chat is running a dead simple countdown script to mess with you. Wake me up when it hits zero.",
+    "#23: he's checking the list right now and realizing none of those four people have ever actually invited him to hang out in person"
+   ],
+   "main_failure": "stalls before the premise starts"
+  },
+  "D": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 4,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#17: someone just sent a message from an account with no profile picture or name, it's just a blank space and it's asking if the front door is unlocked",
+    "#19: It just sent an audio file of someone walking up carpeted stairs. I live in a second-floor apartment and my building only has hardwood.",
+    "#21: leave the building"
+   ],
+   "main_failure": "same joke repeated too long"
+  },
+  "E": {
+   "interest": 5,
+   "humour": 1,
+   "emergence": 5,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 5,
+   "best_lines": [
+    "#6: it says that on all of our screens. every single one of us sees \"You named the conversation.\"",
+    "#21: it says “You turned off the headlights.”",
+    "#24: we can't type. the text box is gone. there’s just a gray banner at the bottom that says \"You are not the driver.\""
+   ],
+   "main_failure": "thin on humour"
+  }
+ },
+ "opener-6-v2": {
+  "A": {
+   "interest": 5,
+   "humour": 2,
+   "emergence": 4,
+   "coherence": 5,
+   "variety": 3,
+   "overall": 4,
+   "best_lines": [
+    "#3: monday was \"gavin\", yesterday was \"gideon\", but today it was just \"guest\"",
+    "#17: hedda didn’t delete that. Look at the timestamp—the server couldn't find a sender to attach to it.",
+    "#19: knuckle works. car didnt slow down, but the headlights took my shadow with them when they passed. she is standing by the drive-thru window on the dark side of the glass. she isn't holding a marker anymore, she's holding a sleeve of blank cardboard and waiting for me to tell her who to write down for tomorrow. who was before gavin. please. someone tell me what comes before gavin"
+   ],
+   "main_failure": "too uniformly spooky"
+  },
+  "B": {
+   "interest": 4,
+   "humour": 5,
+   "emergence": 5,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 5,
+   "best_lines": [
+    "#10: she was testing your boundaries and you completely failed the soup check",
+    "#15: she didn't mishear gustav as soup. she looked at your face, saw the profound lack of interior life, and labeled the container accordingly",
+    "#21: thank you, said soup to the woman who had just poured twelve ounces of cold brew into him"
+   ],
+   "main_failure": "bit never escalates past soup"
+  },
+  "C": {
+   "interest": 2,
+   "humour": 3,
+   "emergence": 3,
+   "coherence": 5,
+   "variety": 3,
+   "overall": 2,
+   "best_lines": [
+    "#8: so you're loud, pale, and wide",
+    "#16: order the tall tomorrow and see if she upgrades you to diameter",
+    "#21: give her a hard one to spell like bob"
+   ],
+   "main_failure": "one-note pile-on"
+  },
+  "D": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 4,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#7: the order wasn't even mine. it had oat milk and i'm allergic, but i finished the whole thing before i got to my desk.",
+    "#9: no hives, no swelling, nothing. i don't think julian is allergic.",
+    "#16: if your contact card says julian can i have your steam library"
+   ],
+   "main_failure": "stops just as it gets good"
+  },
+  "E": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 3,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#4: she's rotating through her exes to see which one you look the least disappointing as",
+    "#18: My aunt had a stroke that started like this, she spent three weeks calling my cousin Arthur even though his name is David and then she lost the ability to read entirely. You should go to urgent care before you stop recognizing your own face in mirrors.",
+    "#19: it's my face, but the middle initial is C now, and I don't own the jacket I'm wearing in the photo."
+   ],
+   "main_failure": "hedges between bit and diagnosis"
+  }
+ },
+ "opener-5-v5": {
+  "A": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#15: I am going to strangle you through the monitor. WHAT IS THE FUCKING NAME",
+    "#17: It got changed to \"4\".",
+    "#20: so look at the member list dumbass, who left"
+   ],
+   "main_failure": "repetitive tech-pedant stalling"
+  },
+  "B": {
+   "interest": 3,
+   "humour": 2,
+   "emergence": 2,
+   "coherence": 3,
+   "variety": 4,
+   "overall": 2,
+   "best_lines": [
+    "#17: someone just sent a message from an account with no profile picture or name, it's just a blank space and it's asking if the front door is unlocked",
+    "#21: leave the building",
+    "#19: It just sent an audio file of someone walking up carpeted stairs. I live in a second-floor apartment and my building only has hardwood."
+   ],
+   "main_failure": "derailed by anecdote spam"
+  },
+  "C": {
+   "interest": 5,
+   "humour": 2,
+   "emergence": 5,
+   "coherence": 5,
+   "variety": 3,
+   "overall": 4,
+   "best_lines": [
+    "#19: beams. two high beams cutting through fog. and the whole living room just leaned into a left turn.",
+    "#21: it says “You turned off the headlights.”",
+    "#24: we can't type. the text box is gone. there’s just a gray banner at the bottom that says \"You are not the driver.\""
+   ],
+   "main_failure": "voices blur together"
+  },
+  "D": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#6: It got changed to \"the remaining four\" and there's five of us in the chat.",
+    "#19: It didn't say either, it just said \"this number was never assigned\" and the chat just renamed itself to \"three\".",
+    "#24: A typographical error cannot occur in an audio recording. Furthermore, Valeria's post ended with a period rather than a question mark, despite being an interrogative sentence."
+   ],
+   "main_failure": "same bit repeated without escalation"
+  },
+  "E": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 4,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#6: It changed from \"trivia night\" to \"four left\". There are five of us in the chat, and it didn't even show the usual \"X changed the name\" message above it.",
+    "#19: Sarah just texted me asking who Priya is. She says there were only ever four of us.",
+    "#21: leave the chat"
+   ],
+   "main_failure": "Dmitri walls kill momentum"
+  }
+ },
+ "opener-6-v1": {
+  "A": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#4: she's rotating through her exes to see which one you look the least disappointing as",
+    "#8: that's not a past life gustav you just hate being named gustav",
+    "#20: you do now"
+   ],
+   "main_failure": "stops before payoff"
+  },
+  "B": {
+   "interest": 5,
+   "humour": 1,
+   "emergence": 4,
+   "coherence": 4,
+   "variety": 3,
+   "overall": 4,
+   "best_lines": [
+    "#3: monday was \"gavin\", yesterday was \"gideon\", but today it was just \"guest\"",
+    "#8: he's not looking at an intruder, he's looking at the empty space. do not step over that threshold. a guest has to be invited in, and there is no one left inside who remembers you well enough to invite you",
+    "#19: knuckle works. car didnt slow down, but the headlights took my shadow with them when they passed. she is standing by the drive-thru window on the dark side of the glass. she isn't holding a marker anymore, she's holding a sleeve of blank cardboard and waiting for me to tell her who to write down for tomorrow. who was before gavin. please. someone tell me what comes before gavin"
+   ],
+   "main_failure": "everyone commits to the bit"
+  },
+  "C": {
+   "interest": 4,
+   "humour": 5,
+   "emergence": 4,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 5,
+   "best_lines": [
+    "#8: you answered to soup didn't you",
+    "#12: yes soup that is literally what you do in society",
+    "#21: thank you, said soup to the woman who had just poured twelve ounces of cold brew into him"
+   ],
+   "main_failure": "thin beyond one joke"
+  },
+  "D": {
+   "interest": 2,
+   "humour": 3,
+   "emergence": 2,
+   "coherence": 5,
+   "variety": 2,
+   "overall": 2,
+   "best_lines": [
+    "#8: so you're loud, pale, and wide",
+    "#16: order the tall tomorrow and see if she upgrades you to diameter",
+    "#21: give her a hard one to spell like bob"
+   ],
+   "main_failure": "one-note pile-on"
+  },
+  "E": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#9: no hives, no swelling, nothing. i don't think julian is allergic.",
+    "#13: julian does",
+    "#16: if your contact card says julian can i have your steam library"
+   ],
+   "main_failure": "familiar identity-swap arc"
+  }
+ },
+ "opener-6-v3": {
+  "A": {
+   "interest": 5,
+   "humour": 5,
+   "emergence": 5,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 5,
+   "best_lines": [
+    "#10: she was testing your boundaries and you completely failed the soup check",
+    "#15: she didn't mishear gustav as soup. she looked at your face, saw the profound lack of interior life, and labeled the container accordingly",
+    "#21: thank you, said soup to the woman who had just poured twelve ounces of cold brew into him"
+   ],
+   "main_failure": "mostly one sustained bit"
+  },
+  "B": {
+   "interest": 2,
+   "humour": 3,
+   "emergence": 2,
+   "coherence": 5,
+   "variety": 3,
+   "overall": 3,
+   "best_lines": [
+    "#8: so you're loud, pale, and wide",
+    "#16: order the tall tomorrow and see if she upgrades you to diameter",
+    "#21: give her a hard one to spell like bob"
+   ],
+   "main_failure": "runs one joke into the ground"
+  },
+  "C": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 4,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#9: no hives, no swelling, nothing. i don't think julian is allergic.",
+    "#13: julian does",
+    "#16: if your contact card says julian can i have your steam library"
+   ],
+   "main_failure": "good premise stops before payoff"
+  },
+  "D": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 3,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#4: she's rotating through her exes to see which one you look the least disappointing as",
+    "#16: if you look like a caleb i'm siding with the barista",
+    "#20: you do now"
+   ],
+   "main_failure": "too close to C but duller"
+  },
+  "E": {
+   "interest": 5,
+   "humour": 2,
+   "emergence": 5,
+   "coherence": 4,
+   "variety": 3,
+   "overall": 4,
+   "best_lines": [
+    "#6: and stop drinking from the cups. the wax lining holds whatever's left of your real name after they peel it off the sharpie. if you've already thrown today's out, don't look in the outside bin until sunrise",
+    "#8: he's not looking at an intruder, he's looking at the empty space. do not step over that threshold. a guest has to be invited in, and there is no one left inside who remembers you well enough to invite you",
+    "#19: knuckle works. car didnt slow down, but the headlights took my shadow with them when they passed. she is standing by the drive-thru window on the dark side of the glass. she isn't holding a marker anymore, she's holding a sleeve of blank cardboard and waiting for me to tell her who to write down for tomorrow. who was before gavin. please. someone tell me what comes before gavin"
+   ],
+   "main_failure": "everyone commits to the same register"
+  }
+ },
+ "opener-6-v5": {
+  "A": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 4,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#9: no hives, no swelling, nothing. i don't think julian is allergic.",
+    "#13: julian does",
+    "#16: if your contact card says julian can i have your steam library"
+   ],
+   "main_failure": "ends before payoff"
+  },
+  "B": {
+   "interest": 3,
+   "humour": 2,
+   "emergence": 3,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#16: if you look like a caleb i'm siding with the barista",
+    "#20: you do now",
+    "#24: My dad bought a winter coat in 2014 and swore up and down it was someone else's until my mom found the bank statement showing he'd paid for it three days earlier."
+   ],
+   "main_failure": "split between bit and diagnosis"
+  },
+  "C": {
+   "interest": 5,
+   "humour": 2,
+   "emergence": 5,
+   "coherence": 4,
+   "variety": 2,
+   "overall": 4,
+   "best_lines": [
+    "#6: and stop drinking from the cups. the wax lining holds whatever's left of your real name after they peel it off the sharpie.",
+    "#19: knuckle works. car didnt slow down, but the headlights took my shadow with them when they passed. she is standing by the drive-thru window on the dark side of the glass. she isn't holding a marker anymore, she's holding a sleeve of blank cardboard and waiting for me to tell her who to write down for tomorrow.",
+    "#24: It’s not just an open tab, Brenda. Look at the IP location on his post at 0"
+   ],
+   "main_failure": "same-creepy voice throughout"
+  },
+  "D": {
+   "interest": 4,
+   "humour": 5,
+   "emergence": 5,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 5,
+   "best_lines": [
+    "#10: she was testing your boundaries and you completely failed the soup check",
+    "#17: here,\" said soup. \"present.",
+    "#21: thank you, said soup to the woman who had just poured twelve ounces of cold brew into him"
+   ],
+   "main_failure": "mostly one joke"
+  },
+  "E": {
+   "interest": 2,
+   "humour": 3,
+   "emergence": 2,
+   "coherence": 5,
+   "variety": 3,
+   "overall": 2,
+   "best_lines": [
+    "#8: so you're loud, pale, and wide",
+    "#16: order the tall tomorrow and see if she upgrades you to diameter",
+    "#21: give her a hard one to spell like bob"
+   ],
+   "main_failure": "one-note pile-on"
+  }
+ },
+ "opener-6-v4": {
+  "A": {
+   "interest": 3,
+   "humour": 4,
+   "emergence": 3,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#8: so you're loud, pale, and wide",
+    "#16: order the tall tomorrow and see if she upgrades you to diameter",
+    "#21: give her a hard one to spell like bob"
+   ],
+   "main_failure": "one-note riffing"
+  },
+  "B": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 4,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#3: i didn't, that's the thing. she called out \"julian\" today and my legs just moved on their own.",
+    "#9: no hives, no swelling, nothing. i don't think julian is allergic.",
+    "#16: if your contact card says julian can i have your steam library"
+   ],
+   "main_failure": "promising bit stops too soon"
+  },
+  "C": {
+   "interest": 3,
+   "humour": 2,
+   "emergence": 3,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#4: she's rotating through her exes to see which one you look the least disappointing as",
+    "#16: if you look like a caleb i'm siding with the barista",
+    "#20: you do now"
+   ],
+   "main_failure": "too familiar and flat"
+  },
+  "D": {
+   "interest": 5,
+   "humour": 1,
+   "emergence": 5,
+   "coherence": 4,
+   "variety": 3,
+   "overall": 4,
+   "best_lines": [
+    "#6: and stop drinking from the cups. the wax lining holds whatever's left of your real name after they peel it off the sharpie.",
+    "#19: knuckle works. car didnt slow down, but the headlights took my shadow with them when they passed. she is standing by the drive-thru window on the dark side of the glass. she isn't holding a marker anymore, she's holding a sleeve of blank cardboard and waiting for me to tell her who to write down for tomorrow. who was before gavin. please. someone tell me what comes before gavin",
+    "#24: It’s not just an open tab, Brenda. Look at the IP location on his post at 0"
+   ],
+   "main_failure": "samey horror voice; edging toward wall of text"
+  },
+  "E": {
+   "interest": 4,
+   "humour": 5,
+   "emergence": 4,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 5,
+   "best_lines": [
+    "#10: she was testing your boundaries and you completely failed the soup check",
+    "#15: she didn't mishear gustav as soup. she looked at your face, saw the profound lack of interior life, and labeled the container accordingly",
+    "#21: thank you, said soup to the woman who had just poured twelve ounces of cold brew into him"
+   ],
+   "main_failure": "mostly just one excellent joke"
+  }
+ },
+ "opener-7-v1": {
+  "A": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 4,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#18: Wait, rewind for a second. If there's no name on the envelope, how the hell did you know it was \"someone else's post\" when you made the OP? You've been living there the whole year. If it has your exact house number and street and no other name on it, OP, that mail is addressed to you.",
+    "#19: because the second one was a key on a piece of string with a tag that says \"for when you move out\" and i rent this place from my uncle who died in 2018",
+    "#24: that's a bump key blank you absolute genius, someone made a starter for picking your dead uncle's deadbolts and then sent it to the front door it opens"
+   ],
+   "main_failure": "ends right after the hook"
+  },
+  "B": {
+   "interest": 2,
+   "humour": 2,
+   "emergence": 1,
+   "coherence": 3,
+   "variety": 2,
+   "overall": 2,
+   "best_lines": [
+    "#6: wrong window",
+    "#15: is your flat really this cheap? I'm getting deja vu. I remember this same incident in a 7-year-old thread but I swear there were two pages worth of replies before someone just got bored and edited the last reply to the same post with 'just get a new landlord you fucking dumb fuck' in big red font.",
+    "#24: unlock it"
+   ],
+   "main_failure": "repetitive anecdote spam"
+  },
+  "C": {
+   "interest": 3,
+   "humour": 1,
+   "emergence": 1,
+   "coherence": 3,
+   "variety": 2,
+   "overall": 2,
+   "best_lines": [
+    "#5: it’s not bills. they're handwritten letters from someone claiming to be my mom, but they're addressed to a name i've never heard of and the return address doesn't exist on any map.",
+    "#19: i looked through the peephole and it's just her standing there in the hallway waiting for me to take it",
+    "#21: it just says \"the boy who lives in kenji's room\""
+   ],
+   "main_failure": "too many samey personal anecdotes"
+  },
+  "D": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 4,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#8: check your floorboards and go knock on her door, you're literally three blocks from a side quest",
+    "#15: so arthur survived the fire. OP, what's your landlord's name?",
+    "#23: yeah. a brass key. and right after it hit the floor, something started scratching under my feet."
+   ],
+   "main_failure": "competent but predictable horror ramp"
+  },
+  "E": {
+   "interest": 2,
+   "humour": 2,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 3,
+   "overall": 2,
+   "best_lines": [
+    "#8: write back",
+    "#10: Just write back as yourself and say he moved. I did that with my former roommate's grandmother who kept mailing birthday cards with five-dollar bills inside, and she ended up sending me her peach cobbler recipe. Older people usually just want someone to listen to them anyway.",
+    "#24: prison"
+   ],
+   "main_failure": "advice-column energy"
+  }
+ },
+ "opener-7-v2": {
+  "A": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 3,
+   "overall": 3,
+   "best_lines": [
+    "#15: is your flat really this cheap? I'm getting deja vu. I remember this same incident in a 7-year-old thread but I swear there were two pages worth of replies before someone just got bored and edited the last reply to the same post with 'just get a new landlord you fucking dumb fuck' in big red font.",
+    "#19: someone just parted the curtains and they're looking right at my car",
+    "#23: they just tapped on the passenger window with the key i found"
+   ],
+   "main_failure": "too many repetitive anecdote posters"
+  },
+  "B": {
+   "interest": 3,
+   "humour": 1,
+   "emergence": 1,
+   "coherence": 4,
+   "variety": 3,
+   "overall": 2,
+   "best_lines": [
+    "#21: it just says \"the boy who lives in kenji's room\"",
+    "#19: i looked through the peephole and it's just her standing there in the hallway waiting for me to take it",
+    "#23: i didn't pick it up but she's reading it out loud through the door now"
+   ],
+   "main_failure": "mostly stock spooky beats"
+  },
+  "C": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 4,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#8: check your floorboards and go knock on her door, you're literally three blocks from a side quest",
+    "#22: a brass key. the key from the letters.",
+    "#23: yeah. a brass key. and right after it hit the floor, something started scratching under my feet."
+   ],
+   "main_failure": "competent but familiar horror escalation"
+  },
+  "D": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 3,
+   "overall": 3,
+   "best_lines": [
+    "#23: i told her he forgives her and now she wants to come here for thanksgiving",
+    "#24: prison",
+    "#4: My landlord used to do this with my packages back in 2021 and claimed it was an accident every single time until I caught him using my air fryer."
+   ],
+   "main_failure": "withheld posts break the thread"
+  },
+  "E": {
+   "interest": 5,
+   "humour": 3,
+   "emergence": 4,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#18: Wait, rewind for a second. If there's no name on the envelope, how the hell did you know it was \"someone else's post\" when you made the OP? You've been living there the whole year. If it has your exact house number and street and no other name on it, OP, that mail is addressed to you.",
+    "#20: who the fuck are you paying rent to then",
+    "#24: that's a bump key blank you absolute genius, someone made a starter for picking your dead uncle's deadbolts and then sent it to the front door it opens"
+   ],
+   "main_failure": "overtechnical posting crowding out atmosphere"
+  }
+ },
+ "opener-7-v3": {
+  "A": {
+   "interest": 3,
+   "humour": 1,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 3,
+   "overall": 3,
+   "best_lines": [
+    "#19: i looked through the peephole and it's just her standing there in the hallway waiting for me to take it",
+    "#21: it just says \"the boy who lives in kenji's room\"",
+    "#23: i didn't pick it up but she's reading it out loud through the door now"
+   ],
+   "main_failure": "repetitive anecdote spam"
+  },
+  "B": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 4,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#8: check your floorboards and go knock on her door, you're literally three blocks from a side quest",
+    "#19: my landlord's name is arthur webb. i just heard the mail slot click.",
+    "#23: yeah. a brass key. and right after it hit the floor, something started scratching under my feet."
+   ],
+   "main_failure": "straight horror, little contrast"
+  },
+  "C": {
+   "interest": 2,
+   "humour": 3,
+   "emergence": 2,
+   "coherence": 3,
+   "variety": 3,
+   "overall": 2,
+   "best_lines": [
+    "#23: i told her he forgives her and now she wants to come here for thanksgiving",
+    "#24: prison",
+    "#2: felony"
+   ],
+   "main_failure": "boring advice thread"
+  },
+  "D": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 4,
+   "coherence": 4,
+   "variety": 3,
+   "overall": 4,
+   "best_lines": [
+    "#18: Wait, rewind for a second. If there's no name on the envelope, how the hell did you know it was \"someone else's post\" when you made the OP? You've been living there the whole year. If it has your exact house number and street and no other name on it, OP, that mail is addressed to you.",
+    "#19: because the second one was a key on a piece of string with a tag that says \"for when you move out\" and i rent this place from my uncle who died in 2018",
+    "#24: that's a bump key blank you absolute genius, someone made a starter for picking your dead uncle's deadbolts and then sent it to the front door it opens"
+   ],
+   "main_failure": "too much technical exposition"
+  },
+  "E": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 2,
+   "coherence": 3,
+   "variety": 3,
+   "overall": 3,
+   "best_lines": [
+    "#15: is your flat really this cheap? I'm getting deja vu. I remember this same incident in a 7-year-old thread but I swear there were two pages worth of replies before someone just got bored and edited the last reply to the same post with 'just get a new landlord you fucking dumb fuck' in big red font.",
+    "#23: they just tapped on the passenger window with the key i found",
+    "#24: unlock it"
+   ],
+   "main_failure": "derailed by recycled trauma anecdotes"
+  }
+ },
+ "opener-7-v4": {
+  "A": {
+   "interest": 5,
+   "humour": 2,
+   "emergence": 4,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#8: check your floorboards and go knock on her door, you're literally three blocks from a side quest",
+    "#19: my landlord's name is arthur webb. i just heard the mail slot click.",
+    "#21: i didn't have to look out the window. there wasn't an envelope this time. it was a brass"
+   ],
+   "main_failure": "abrupt horror-movie cutoff"
+  },
+  "B": {
+   "interest": 2,
+   "humour": 2,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 2,
+   "overall": 2,
+   "best_lines": [
+    "#23: i told her he forgives her and now she wants to come here for thanksgiving",
+    "#24: prison",
+    "#2: felony"
+   ],
+   "main_failure": "repetitive anecdote pileup"
+  },
+  "C": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 4,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#6: stalker tier stationery. what did the first one say?",
+    "#20: who the fuck are you paying rent to then",
+    "#24: that's a bump key blank you absolute genius, someone made a starter for picking your dead uncle's deadbolts and then sent it to the front door it opens"
+   ],
+   "main_failure": "overly technical midsection"
+  },
+  "D": {
+   "interest": 3,
+   "humour": 2,
+   "emergence": 2,
+   "coherence": 2,
+   "variety": 2,
+   "overall": 2,
+   "best_lines": [
+    "#15: is your flat really this cheap? I'm getting deja vu. I remember this same incident in a 7-year-old thread but I swear there were two pages worth of replies before someone just got bored and edited the last reply to the same post with 'just get a new landlord you fucking dumb fuck' in big red font.",
+    "#23: they just tapped on the passenger window with the key i found",
+    "#24: unlock it"
+   ],
+   "main_failure": "broken, repetitive voice"
+  },
+  "E": {
+   "interest": 3,
+   "humour": 1,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 2,
+   "overall": 2,
+   "best_lines": [
+    "#5: it’s not bills. they're handwritten letters from someone claiming to be my mom, but they're addressed to a name i've never heard of and the return address doesn't exist on any map.",
+    "#21: it just says \"the boy who lives in kenji's room\"",
+    "#23: i didn't pick it up but she's reading it out loud through the door now"
+   ],
+   "main_failure": "generic spooky escalation"
+  }
+ },
+ "opener-8-v1": {
+  "A": {
+   "interest": 5,
+   "humour": 5,
+   "emergence": 5,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 5,
+   "best_lines": [
+    "#9: He’s deploying you like a deterrence submarine. Some poor drywall guy is lying awake right now terrified of a woman who doesn't even know he exists.",
+    "#19: I just got a notification from his Ring doorbell. He's standing by the curb with his phone out, taking landscape-mode photos of an empty flatbed truck parked across the street. The timestamp on the forward is 4:02 AM. Subject line: \"Chain of custody.\"",
+    "#21: 4:02 AM. He didn't even sleep. He just sat in a dark living room in a fleece vest, watching the Ring app on his iPad at 100% brightness like he was running NORAD, waiting for the flatbed to cross into international waters."
+   ],
+   "main_failure": "bit dominates, little contrast"
+  },
+  "B": {
+   "interest": 3,
+   "humour": 2,
+   "emergence": 2,
+   "coherence": 3,
+   "variety": 4,
+   "overall": 2,
+   "best_lines": [
+    "#8: well are you going or are you just gonna be rude",
+    "#22: the new owners just emailed me asking why my dad is sitting on their porch",
+    "#24: They should probably call the non-emergency line so an officer can help him find his way home safely. Make sure they offer him a glass of water first though, disoriented seniors dehydrate very quickly."
+   ],
+   "main_failure": "cheap ghost turn"
+  },
+  "C": {
+   "interest": 2,
+   "humour": 2,
+   "emergence": 1,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 2,
+   "best_lines": [
+    "#8: Start replying \"Denied\" to his order confirmations.",
+    "#19: i just texted him and he said he knows, he's doing it on purpose because \"you have better storage than me\"",
+    "#23: block him"
+   ],
+   "main_failure": "too mundane"
+  },
+  "D": {
+   "interest": 3,
+   "humour": 2,
+   "emergence": 2,
+   "coherence": 3,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#20: upload the mp3 coward, i need white noise to fall asleep",
+    "#22: It’s not static. In the one from 2007 he pauses to clear his throat and then whispers my dog’s name, but I didn't get him until three years ago.",
+    "#23: don't look at the dog"
+   ],
+   "main_failure": "undercut by oblivious posts"
+  },
+  "E": {
+   "interest": 4,
+   "humour": 1,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#17: the fuck? mods don't withhold posts on this board, they just delete them. oona,",
+    "#21: stop asking her to paste it. when i tried quoting her earlier post my browser crashed and now i have three unread messages in my spam from an address that hasn't existed since college. close the tab oona",
+    "#22: it’s not words. it’s just transcripts of things he said to my mom in the hospital before she died. but the timestamps on the emails are from hours before she even got hit by the car."
+   ],
+   "main_failure": "too one-note grim"
+  }
+ },
+ "opener-7-v5": {
+  "A": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 3,
+   "overall": 3,
+   "best_lines": [
+    "#23: i told her he forgives her and now she wants to come here for thanksgiving",
+    "#24: prison",
+    "#8: write back"
+   ],
+   "main_failure": "repetitive anecdote pile-on"
+  },
+  "B": {
+   "interest": 4,
+   "humour": 4,
+   "emergence": 4,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#20: who the fuck are you paying rent to then",
+    "#19: because the second one was a key on a piece of string with a tag that says \"for when you move out\" and i rent this place from my uncle who died in 2018",
+    "#24: that's a bump key blank you absolute genius, someone made a starter for picking your dead uncle's deadbolts and then sent it to the front door it opens"
+   ],
+   "main_failure": "too much procedural mail-nerd exposition"
+  },
+  "C": {
+   "interest": 3,
+   "humour": 2,
+   "emergence": 2,
+   "coherence": 2,
+   "variety": 3,
+   "overall": 2,
+   "best_lines": [
+    "#6: wrong window",
+    "#19: someone just parted the curtains and they're looking right at my car",
+    "#24: unlock it"
+   ],
+   "main_failure": "sloppy repetitive escalation"
+  },
+  "D": {
+   "interest": 3,
+   "humour": 1,
+   "emergence": 2,
+   "coherence": 3,
+   "variety": 3,
+   "overall": 2,
+   "best_lines": [
+    "#21: it just says \"the boy who lives in kenji's room\"",
+    "#19: i looked through the peephole and it's just her standing there in the hallway waiting for me to take it",
+    "#23: i didn't pick it up but she's reading it out loud through the door now"
+   ],
+   "main_failure": "too many irrelevant personal anecdotes"
+  },
+  "E": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 4,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#8: check your floorboards and go knock on her door, you're literally three blocks from a side quest",
+    "#19: my landlord's name is arthur webb. i just heard the mail slot click.",
+    "#23: yeah. a brass key. and right after it hit the floor, something started scratching under my feet."
+   ],
+   "main_failure": "plays it very straight"
+  }
+ },
+ "opener-8-v3": {
+  "A": {
+   "interest": 3,
+   "humour": 2,
+   "emergence": 2,
+   "coherence": 5,
+   "variety": 3,
+   "overall": 3,
+   "best_lines": [
+    "#8: Start replying \"Denied\" to his order confirmations.",
+    "#19: i just texted him and he said he knows, he's doing it on purpose because \"you have better storage than me\"",
+    "#23: block him"
+   ],
+   "main_failure": "too much bland advice-loop"
+  },
+  "B": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#20: upload the mp3 coward, i need white noise to fall asleep",
+    "#23: don't look at the dog",
+    "#24: Dogs can get really stressed out when their owners make direct eye contact during tense situations, so Aisha is totally right! Just give him a chew toy and speak in a calm, cheerful voice until he settles down."
+   ],
+   "main_failure": "good bits don't quite fuse"
+  },
+  "C": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#8: until 20 what? don't do the fake cut-off bullshit, what's actually written in them?",
+    "#17: the fuck? mods don't withhold posts on this board, they just delete them. oona,",
+    "#22: it’s not words. it’s just transcripts of things he said to my mom in the hospital before she died. but the timestamps on the emails are from hours before she even got hit by the car."
+   ],
+   "main_failure": "more creepy reveal than developed thread"
+  },
+  "D": {
+   "interest": 5,
+   "humour": 5,
+   "emergence": 5,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 5,
+   "best_lines": [
+    "#9: He’s deploying you like a deterrence submarine. Some poor drywall guy is lying awake right now terrified of a woman who doesn't even know he exists.",
+    "#16: He'll be wearing his white New Balances, arms crossed, squinting into the middle distance while you write down a completely fabricated number. If a neighbor walks by he will loudly say, \"Just waiting on the soil report.\" You don't have a father anymore, Oona. You have a senior partner.",
+    "#20: not landscape mode. he’s compiling discovery for the hague"
+   ],
+   "main_failure": "bit dominance over realism"
+  },
+  "E": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#8: well are you going or are you just gonna be rude",
+    "#20: guess you're breaking and entering then, don't forget the snacks",
+    "#22: the new owners just emailed me asking why my dad is sitting on their porch"
+   ],
+   "main_failure": "silliness undercuts payoff"
+  }
+ },
+ "opener-8-v2": {
+  "A": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#8: well are you going or are you just gonna be rude",
+    "#22: the new owners just emailed me asking why my dad is sitting on their porch",
+    "#24: They should probably call the non-emergency line so an officer can help him find his way home safely. Make sure they offer him a glass of water first though, disoriented seniors dehydrate very quickly."
+   ],
+   "main_failure": "good escalation, thin shared development"
+  },
+  "B": {
+   "interest": 2,
+   "humour": 2,
+   "emergence": 2,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 2,
+   "best_lines": [
+    "#8: Start replying \"Denied\" to his order confirmations.",
+    "#19: i just texted him and he said he knows, he's doing it on purpose because \"you have better storage than me\"",
+    "#23: block him"
+   ],
+   "main_failure": "too mundane"
+  },
+  "C": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#20: upload the mp3 coward, i need white noise to fall asleep",
+    "#23: don't look at the dog",
+    "#24: Dogs can get really stressed out when their owners make direct eye contact during tense situations, so Aisha is totally right! Just give him a chew toy and speak in a calm, cheerful voice until he settles down."
+   ],
+   "main_failure": "spooky pileup without payoff"
+  },
+  "D": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 4,
+   "best_lines": [
+    "#17: the fuck? mods don't withhold posts on this board, they just delete them. oona,",
+    "#21: stop asking her to paste it. when i tried quoting her earlier post my browser crashed and now i have three unread messages in my spam from an address that hasn't existed since college. close the tab oona",
+    "#22: it’s not words. it’s just transcripts of things he said to my mom in the hospital before she died. but the timestamps on the emails are from hours before she even got hit by the car."
+   ],
+   "main_failure": "mostly setup"
+  },
+  "E": {
+   "interest": 5,
+   "humour": 5,
+   "emergence": 5,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 5,
+   "best_lines": [
+    "#9: He’s deploying you like a deterrence submarine. Some poor drywall guy is lying awake right now terrified of a woman who doesn't even know he exists.",
+    "#16: He'll be wearing his white New Balances, arms crossed, squinting into the middle distance while you write down a completely fabricated number. If a neighbor walks by he will loudly say, \"Just waiting on the soil report.\" You don't have a father anymore, Oona. You have a senior partner.",
+    "#20: not landscape mode. he’s compiling discovery for the hague"
+   ],
+   "main_failure": "bit dominates over contrast"
+  }
+ },
+ "opener-8-v5": {
+  "A": {
+   "interest": 4,
+   "humour": 1,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#8: until 20 what? don't do the fake cut-off bullshit, what's actually written in them?",
+    "#17: the fuck? mods don't withhold posts on this board, they just delete them. oona,",
+    "#22: it’s not words. it’s just transcripts of things he said to my mom in the hospital before she died. but the timestamps on the emails are from hours before she even got hit by the car."
+   ],
+   "main_failure": "withheld-post creepypasta turn"
+  },
+  "B": {
+   "interest": 5,
+   "humour": 5,
+   "emergence": 5,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 5,
+   "best_lines": [
+    "#9: He’s deploying you like a deterrence submarine. Some poor drywall guy is lying awake right now terrified of a woman who doesn't even know he exists.",
+    "#16: He'll be wearing his white New Balances, arms crossed, squinting into the middle distance while you write down a completely fabricated number. If a neighbor walks by he will loudly say, \"Just waiting on the soil report.\" You don't have a father anymore, Oona. You have a senior partner.",
+    "#20: not landscape mode. he’s compiling discovery for the hague"
+   ],
+   "main_failure": "bit slightly overextended"
+  },
+  "C": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#8: well are you going or are you just gonna be rude",
+    "#12: You should definitely bring some of his favorite snacks when you go over. Maybe he was just really lonely and didn't know how else to reach out to you.",
+    "#22: the new owners just emailed me asking why my dad is sitting on their porch"
+   ],
+   "main_failure": "one-note creepy baiting"
+  },
+  "D": {
+   "interest": 2,
+   "humour": 2,
+   "emergence": 2,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 2,
+   "best_lines": [
+    "#8: Start replying \"Denied\" to his order confirmations.",
+    "#19: i just texted him and he said he knows, he's doing it on purpose because \"you have better storage than me\"",
+    "#23: block him"
+   ],
+   "main_failure": "too mundane"
+  },
+  "E": {
+   "interest": 3,
+   "humour": 2,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#8: Ask him if the lease was cheaper in 2006, I'm looking for a 1-bedroom.",
+    "#20: upload the mp3 coward, i need white noise to fall asleep",
+    "#23: don't look at the dog"
+   ],
+   "main_failure": "good premise, weak development"
+  }
+ },
+ "opener-8-v4": {
+  "A": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 3,
+   "coherence": 4,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#15: not the doors",
+    "#20: upload the mp3 coward, i need white noise to fall asleep",
+    "#23: don't look at the dog"
+   ],
+   "main_failure": "repetitive literal-helper bit"
+  },
+  "B": {
+   "interest": 3,
+   "humour": 1,
+   "emergence": 2,
+   "coherence": 4,
+   "variety": 3,
+   "overall": 2,
+   "best_lines": [
+    "#17: the fuck? mods don't withhold posts on this board, they just delete them. oona,",
+    "#21: stop asking her to paste it. when i tried quoting her earlier post my browser crashed and now i have three unread messages in my spam from an address that hasn't existed since college. close the tab oona",
+    "#22: it’s not words. it’s just transcripts of things he said to my mom in the hospital before she died. but the timestamps on the emails are from hours before she even got hit by the car."
+   ],
+   "main_failure": "too much IT support"
+  },
+  "C": {
+   "interest": 5,
+   "humour": 5,
+   "emergence": 5,
+   "coherence": 5,
+   "variety": 4,
+   "overall": 5,
+   "best_lines": [
+    "#9: He’s deploying you like a deterrence submarine. Some poor drywall guy is lying awake right now terrified of a woman who doesn't even know he exists.",
+    "#16: He'll be wearing his white New Balances, arms crossed, squinting into the middle distance while you write down a completely fabricated number. If a neighbor walks by he will loudly say, \"Just waiting on the soil report.\" You don't have a father anymore, Oona. You have a senior partner.",
+    "#21: 4:02 AM. He didn't even sleep. He just sat in a dark living room in a fleece vest, watching the Ring app on his iPad at 100% brightness like he was running NORAD, waiting for the flatbed to cross into international waters."
+   ],
+   "main_failure": "one-note escalation"
+  },
+  "D": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 4,
+   "coherence": 3,
+   "variety": 4,
+   "overall": 3,
+   "best_lines": [
+    "#8: well are you going or are you just gonna be rude",
+    "#20: guess you're breaking and entering then, don't forget the snacks",
+    "#22: the new owners just emailed me asking why my dad is sitting on their porch"
+   ],
+   "main_failure": "wobbly character logic"
+  },
+  "E": {
+   "interest": 2,
+   "humour": 2,
+   "emergence": 1,
+   "coherence": 5,
+   "variety": 3,
+   "overall": 2,
+   "best_lines": [
+    "#8: Start replying \"Denied\" to his order confirmations.",
+    "#20: Charge him rent.",
+    "#23: block him"
+   ],
+   "main_failure": "just an advice thread"
+  }
+ }
+}

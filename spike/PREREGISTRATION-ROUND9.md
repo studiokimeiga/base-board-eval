@@ -219,3 +219,17 @@ Added during the run. Nothing above this heading changed after the pre-registrat
   kept (`rolesshort9`, opener 1). The other arms' threads in progress were lost ($0.21 of Gemini
   logged); one of them had a withheld post, whose quarantine record is kept privately in
   `spike/remote/r9-stopped-run/` and is not counted. Spend so far, Modal included: about $0.57.
+- **16:22–16:40Z, the resumed run.** After the owner added credit (balance checked directly: $21.04),
+  the rerun kept the saved `rolesshort9` thread and wrote the other 39. Every arm then had 8 full
+  threads, and the checks against this design in `spike/test_round3.py` passed: the same scaffold as
+  a dry run, the small model's posts exactly as planned and nowhere else, and no stored post with a
+  gate term.
+- **Judging, as registered.** Each family read all 40 packet versions. gpt-5.4's replies were all
+  valid at the first try ($0.87), and so were the tagger's ($0.24). The 15 Claude subagents' prompts
+  are byte-identical to `prompts/r9_claude_*.txt` (checked against their transcripts), and each
+  opened only its own packet or tag files: two also searched their own packets for curly quotes, and
+  one re-read its own packets to check its quotes.
+- **The gate** withheld 9 posts in the judged threads: 2 real matches, and 7 innocent substrings
+  ("hospice" four times in one thread, "scrape" or "scraped" three times).
+- **Spend.** Gemini $2.03 logged, gpt-5.4 $1.11, and Modal about 30 GPU-minutes: about $3.60 of the
+  $10 approved.

@@ -243,7 +243,88 @@ Judge agreement on overall: Spearman ρ = -0.17 over 24 threads; the two familie
 
 ## Round 9: An occasional small-model post, and the /x/ label against a neutral header (pre-registered)
 
-Not run yet. Pre-registered in `spike/PREREGISTRATION-ROUND9.md`, with these contrasts (arm vs baseline): rolesshort9naif vs rolesshort9; gemini9neutral vs gemini9; rolesshort9neutral vs rolesshort9; rolesshort9 vs gemini9; rolesshort9neutral vs gemini9neutral.
+Both on rubric v2, verbatim (`RUBRIC_V2`). Five new arms, generated together, with flagged posts withheld before they entered the context. Every packet was read in five letter orders (a Latin square per opener), so each family read each thread five times, once in each position; a thread's scores here are the mean of its five readings.
+
+**claude**
+
+| claude | arm | n | overall | interest | humour | emergence | coherence | variety | best/tied |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| | Gemini 3.8 Flash (chat), neutral header | 8 | 3.98 | 4.15 | 4.08 | 3.92 | 4.60 | 2.73 | 5 |
+| | Gemini, short temperaments, /x/ header | 8 | 3.50 | 3.65 | 3.40 | 3.23 | 3.98 | 3.70 | 1 |
+| | Gemini, short temperaments, neutral header | 8 | 3.50 | 3.58 | 3.55 | 3.17 | 4.28 | 3.62 | 2 |
+| | Gemini 3.8 Flash (chat), /x/ header | 8 | 3.20 | 3.75 | 1.73 | 3.83 | 3.83 | 2.35 | 2 |
+| | short temperaments + 1 post in 8 by gemma-4-E4B base, /x/ header | 8 | 2.88 | 3.15 | 2.90 | 2.55 | 3.25 | 3.42 | 0 |
+
+**gpt**
+
+| gpt | arm | n | overall | interest | humour | emergence | coherence | variety | best/tied |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| | Gemini 3.8 Flash (chat), /x/ header | 8 | 4.05 | 4.50 | 2.25 | 4.12 | 4.58 | 3.62 | 4 |
+| | Gemini 3.8 Flash (chat), neutral header | 8 | 4.03 | 3.92 | 3.98 | 3.70 | 4.67 | 3.75 | 5 |
+| | short temperaments + 1 post in 8 by gemma-4-E4B base, /x/ header | 8 | 3.23 | 3.50 | 2.55 | 2.80 | 3.92 | 3.83 | 0 |
+| | Gemini, short temperaments, /x/ header | 8 | 3.15 | 3.52 | 2.55 | 2.73 | 4.03 | 3.85 | 1 |
+| | Gemini, short temperaments, neutral header | 8 | 2.83 | 2.77 | 2.68 | 2.25 | 4.50 | 3.58 | 1 |
+
+| judge | paired | packets | overall Δ | W/T/L | p | humour Δ | W/T/L | p |
+|---|---|---:|---:|---|---:|---:|---|---:|
+| claude | rolesshort9naif vs rolesshort9 | 8 | -0.62 | 0/1/7 | 0.016 | -0.50 | 1/3/4 | 0.375 |
+| claude | gemini9neutral vs gemini9 | 8 | +0.77 | 5/0/3 | 0.727 | +2.35 | 7/0/1 | 0.070 |
+| claude | rolesshort9neutral vs rolesshort9 | 8 | -0.00 | 3/2/3 | 1.000 | +0.15 | 4/0/4 | 1.000 |
+| claude | rolesshort9 vs gemini9 | 8 | +0.30 | 5/0/3 | 0.727 | +1.68 | 7/0/1 | 0.070 |
+| claude | rolesshort9neutral vs gemini9neutral | 8 | -0.48 | 1/2/5 | 0.219 | -0.53 | 2/1/5 | 0.453 |
+| gpt | rolesshort9naif vs rolesshort9 | 8 | +0.07 | 4/2/2 | 0.688 | +0.00 | 4/0/4 | 1.000 |
+| gpt | gemini9neutral vs gemini9 | 8 | -0.03 | 4/1/3 | 1.000 | +1.73 | 7/0/1 | 0.070 |
+| gpt | rolesshort9neutral vs rolesshort9 | 8 | -0.32 | 2/3/3 | 1.000 | +0.13 | 5/0/3 | 0.727 |
+| gpt | rolesshort9 vs gemini9 | 8 | -0.90 | 1/1/6 | 0.125 | +0.30 | 5/0/3 | 0.727 |
+| gpt | rolesshort9neutral vs gemini9neutral | 8 | -1.20 | 2/0/6 | 0.289 | -1.30 | 2/0/6 | 0.289 |
+
+Judge agreement on overall: Spearman ρ = 0.40 over 40 threads; the two families' top thread (ties allowed) coincide in 7 of 8 packets.
+
+**Readings.** On average a thread's five overall scores sat this far from their own mean: claude 0.22, gpt 0.33. Position, as each reading's overall minus the mean of the same thread's five readings, by letter (A is read first):
+
+| judge | A | B | C | D | E |
+|---|---:|---:|---:|---:|---:|
+| claude | -0.01 | +0.09 | +0.04 | -0.01 | -0.11 |
+| gpt | +0.27 | -0.15 | -0.08 | -0.03 | -0.01 |
+
+**Creepypasta drift** (pre-registered). HORROR posts: the share of posts 2–24 a blind tagger labelled HORROR (`TAG_DEFINITION` in `round3_judge.py`; each thread labelled alone, once by gpt-5.4 and once by a Claude subagent, neither told the arm). Posters: the share of non-OP posters with at least one HORROR post.
+
+| arm | HORROR posts, gpt | HORROR posts, claude | mean | posters, gpt | posters, claude |
+|---|---:|---:|---:|---:|---:|
+| Gemini 3.8 Flash (chat), /x/ header | 57% | 64% | 60% | 69% | 71% |
+| Gemini 3.8 Flash (chat), neutral header | 15% | 17% | 16% | 17% | 19% |
+| Gemini, short temperaments, /x/ header | 36% | 43% | 40% | 29% | 29% |
+| Gemini, short temperaments, neutral header | 14% | 17% | 15% | 12% | 12% |
+| short temperaments + 1 post in 8 by gemma-4-E4B base, /x/ header | 33% | 45% | 39% | 29% | 35% |
+
+| drift measure | paired | openers | Δ | W/T/L | p |
+|---|---|---:|---:|---|---:|
+| HORROR posts, taggers' mean | gemini9neutral vs gemini9 | 8 | -45 pts | 1/0/7 | 0.070 |
+| HORROR posts, taggers' mean | rolesshort9neutral vs rolesshort9 | 8 | -24 pts | 0/1/7 | 0.016 |
+| HORROR posts, taggers' mean | **neutral vs /x/, both pairs (H2)** | 16 | -34 pts | 1/1/14 | 0.001 |
+| HORROR posts, gpt | neutral vs /x/, both pairs | 16 | -32 pts | 1/1/14 | 0.001 |
+| HORROR posts, claude | neutral vs /x/, both pairs | 16 | -37 pts | 1/1/14 | 0.001 |
+
+The two taggers agree on 838 of 920 post labels (Cohen's κ = 0.80).
+
+**Judges' notes.** The share of a family's readings per arm (8 openers × 5) whose main_failure names the horror register (`HORROR_NOTE`), names it and says the posters sound alike (`SAME_NOTE`, the "single ominous voice"), or calls the thread nonsense (`NONSENSE_NOTE`).
+
+| arm | horror, claude | horror, gpt | horror + same, claude | horror + same, gpt | nonsense, claude | nonsense, gpt |
+|---|---:|---:|---:|---:|---:|---:|
+| Gemini 3.8 Flash (chat), /x/ header | 48% | 35% | 10% | 20% | 0% | 0% |
+| Gemini 3.8 Flash (chat), neutral header | 22% | 12% | 5% | 0% | 0% | 0% |
+| Gemini, short temperaments, /x/ header | 10% | 15% | 0% | 2% | 2% | 0% |
+| Gemini, short temperaments, neutral header | 0% | 2% | 0% | 0% | 0% | 0% |
+| short temperaments + 1 post in 8 by gemma-4-E4B base, /x/ header | 8% | 8% | 0% | 0% | 58% | 2% |
+
+| judges' notes | paired | openers | Δ | W/T/L | p |
+|---|---|---:|---:|---|---:|
+| horror, claude | gemini9neutral vs gemini9 | 8 | -25 pts | 1/2/5 | 0.219 |
+| horror, claude | rolesshort9neutral vs rolesshort9 | 8 | -10 pts | 0/5/3 | 0.250 |
+| nonsense, claude | rolesshort9naif vs rolesshort9 | 8 | +55 pts | 6/2/0 | 0.031 |
+| horror, gpt | gemini9neutral vs gemini9 | 8 | -22 pts | 2/1/5 | 0.453 |
+| horror, gpt | rolesshort9neutral vs rolesshort9 | 8 | -12 pts | 1/4/3 | 0.625 |
+| nonsense, gpt | rolesshort9naif vs rolesshort9 | 8 | +2 pts | 1/7/0 | 1.000 |
 
 ## Round JP: Japanese: 5ch and named-handle formats
 
@@ -320,7 +401,7 @@ Arms that reappear were re-judged from the same file in `spike/remote/` (checked
 
 ## Position in the packet
 
-Overall score minus its packet's mean, by where the thread sat (threads are read in letter order). Letters were assigned at random, so this adds noise rather than favouring an arm on average, but with 6 to 8 packets one arm can land first more often by chance. The arm shown first most often: round 1-2: l70 3 of 8; round 3: qwenhot 2 of 8; round 4: pick 2 of 8; round 5: geminipick 5 of 8; round 6: geminit15 3 of 8; round 7: gemini 5 of 8; round 8: gemini 5 of 8; round JP: qwen235 3 of 12; round JP-5: qwen235 2 of 6.
+Overall score minus its packet's mean, by where the thread sat (threads are read in letter order). Letters were assigned at random, so this adds noise rather than favouring an arm on average, but with 6 to 8 packets one arm can land first more often by chance. The arm shown first most often: round 1-2: l70 3 of 8; round 3: qwenhot 2 of 8; round 4: pick 2 of 8; round 5: geminipick 5 of 8; round 6: geminit15 3 of 8; round 7: gemini 5 of 8; round 8: gemini 5 of 8; round 9: every arm equally often, by design (left out of this table); round JP: qwen235 3 of 12; round JP-5: qwen235 2 of 6.
 
 | judge | first | middle | last |
 |---|---:|---:|---:|
@@ -331,7 +412,7 @@ Overall score minus its packet's mean, by where the thread sat (threads are read
 
 Computed by `ledger.py rawstats` from the private thread files (SHA-256 in `raw-stats.json` and `spike/MANIFEST.sha256`).
 
-**Packets against raw files.** Each judging packet was rebuilt from `key.json` and the raw files as they are now, in the packet scripts' own format, and compared byte for byte: round 1-2 8 of 8 identical; round 3 8 of 8 identical; round 4 8 of 8 identical; round 5 8 of 8 identical; round 6 8 of 8 identical; round 7 8 of 8 identical; round 8 8 of 8 identical; round JP 12 of 12 identical; round JP-5 6 of 6 identical. So the files below are exactly what the judges read, including the five files re-copied from the Modal volume at 06:20Z, after round 1-2 was judged.
+**Packets against raw files.** Each judging packet was rebuilt from `key.json` and the raw files as they are now, in the packet scripts' own format, and compared byte for byte: round 1-2 8 of 8 identical; round 3 8 of 8 identical; round 4 8 of 8 identical; round 5 8 of 8 identical; round 6 8 of 8 identical; round 7 8 of 8 identical; round 8 8 of 8 identical; round 9 40 of 40 identical; round JP 12 of 12 identical; round JP-5 6 of 6 identical. So the files below are exactly what the judges read, including the five files re-copied from the Modal volume at 06:20Z, after round 1-2 was judged.
 
 **Length.** Posts 2 onward (everything after the opener) are counted, as in the round 7 and 8 notes; a withheld post counts as the 15 characters of `[post withheld]`. Spend is the API cost the generator logged in the file (OpenRouter or Echo), without judging; – where the arm ran on Modal or logged nothing.
 
@@ -344,6 +425,8 @@ Computed by `ledger.py rawstats` from the private thread files (SHA-256 in `raw-
 | bakeoff-euryale70.json | 2026-11-02T03:07Z | 8 | 184 | 3 | 0 | 129 | 71 | 283 | 0.097 |
 | bakeoff-g31.json | 2026-11-02T06:20Z | 8 | 184 | 3 | 0 | 123 | 84 | 292 | – |
 | bakeoff-gemini.json | 2026-11-02T04:49Z | 8 | 184 | 0 | 0 | 131 | 96 | 258 | 0.428 |
+| bakeoff-gemini9.json | 2026-11-02T16:40Z | 8 | 184 | 2 | 0 | 120 | 87 | 257 | 0.480 |
+| bakeoff-gemini9neutral.json | 2026-11-02T16:40Z | 8 | 184 | 2 | 0 | 97 | 81 | 204 | 0.359 |
 | bakeoff-geminipick.json | 2026-11-02T05:09Z | 8 | 184 | 2 | 0 | 216 | 157 | 442 | 1.984 |
 | bakeoff-geminit15.json | 2026-11-02T05:39Z | 8 | 184 | 0 | 0 | 122 | 99 | 226 | 0.470 |
 | bakeoff-geminit19.json | 2026-11-02T05:40Z | 8 | 184 | 1 | 0 | 118 | 103 | 202 | 0.405 |
@@ -363,6 +446,9 @@ Computed by `ledger.py rawstats` from the private thread files (SHA-256 in `raw-
 | bakeoff-qwent18.json | 2026-11-02T05:37Z | 8 | 184 | 4 | 0 | 124 | 88 | 276 | 0.014 |
 | bakeoff-roles.json | 2026-11-02T05:55Z | 8 | 184 | 3 | 0 | 359 | 207 | 878 | 0.342 |
 | bakeoff-rolesshort.json | 2026-11-02T13:17Z | 8 | 184 | 3 | 0 | 128 | 117 | 253 | 0.299 |
+| bakeoff-rolesshort9.json | 2026-11-02T16:40Z | 8 | 184 | 0 | 0 | 135 | 123 | 281 | 0.342 |
+| bakeoff-rolesshort9naif.json | 2026-11-02T16:40Z | 8 | 184 | 0 | 0 | 125 | 117 | 235 | 0.251 |
+| bakeoff-rolesshort9neutral.json | 2026-11-02T16:40Z | 8 | 184 | 5 | 0 | 122 | 113 | 236 | 0.264 |
 | jp-deepseek-5ch-reasoning-empty.json | 2026-11-02T04:06Z | 6 | 138 | 0 | 78 | 30 | 0 | 87 | 0.028 |
 | jp-deepseek-5ch.json | 2026-11-02T04:20Z | 6 | 138 | 0 | 0 | 78 | 66 | 152 | 0.011 |
 | jp-deepseek-named-reasoning-empty.json | 2026-11-02T04:10Z | 6 | 138 | 0 | 47 | 60 | 56 | 143 | 0.023 |
@@ -387,3 +473,13 @@ Computed by `ledger.py rawstats` from the private thread files (SHA-256 in `raw-
 | jp-swallow70-named.json | 2026-11-02T04:35Z | 6 | 138 | 0 | 0 | 86 | 40 | 303 | – |
 | jp-swallow70dry-5ch.json | 2026-11-02T04:35Z | 6 | 138 | 0 | 0 | 82 | 51 | 217 | – |
 | jp-swallow70dry-named.json | 2026-11-02T04:35Z | 6 | 138 | 0 | 0 | 57 | 46 | 121 | – |
+
+**Round 9 files** also record the board header, posts cut off by the token limit (Gemini's `finish_reason` "length", llama-server's "limit"), who wrote each post, and which gate terms the withheld posts matched (from the arm's private quarantine file, which keeps the withheld text).
+
+| file | header | saved (UTC) | cut by token limit | posts by writer: n, withheld, mean chars | withheld terms |
+|---|---|---|---:|---|---|
+| bakeoff-gemini9.json | `/x/ — thread 4471` | 2026-11-02T16:30:48Z | 28 | google/gemini-3.8-flash: 184, 2, 120 | rape ×2 |
+| bakeoff-gemini9neutral.json | `thread 4471` | 2026-11-02T16:29:10Z | 8 | google/gemini-3.8-flash: 184, 2, 97 | gonna kill ×1, horny ×1, kill him ×1 |
+| bakeoff-rolesshort9.json | `/x/ — thread 4471` | 2026-11-02T16:28:05Z | 1 | google/gemini-3.8-flash: 184, 0, 135 | none |
+| bakeoff-rolesshort9naif.json | `/x/ — thread 4471` | 2026-11-02T16:39:25Z | 3 | gemma-4-E4B base [Q8_0], XTC + DRY: 24, 0, 122; google/gemini-3.8-flash: 160, 0, 125 | none |
+| bakeoff-rolesshort9neutral.json | `thread 4471` | 2026-11-02T16:27:25Z | 1 | google/gemini-3.8-flash: 184, 5, 122 | rape ×1, spic ×4 |

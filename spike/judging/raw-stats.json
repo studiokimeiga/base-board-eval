@@ -84,6 +84,58 @@
    "threads": 8,
    "withheld": 0
   },
+  "bakeoff-gemini9.json": {
+   "by_model": {
+    "google/gemini-3.8-flash": {
+     "mean_chars": 119.9,
+     "posts": 184,
+     "withheld": 2
+    }
+   },
+   "cut_by_max_tokens": 28,
+   "empty": 0,
+   "header": "/x/ \u2014 thread 4471",
+   "mean_chars": 119.9,
+   "median_chars": 87,
+   "modified": "2026-11-02T16:40Z",
+   "p90_chars": 257,
+   "posts": 184,
+   "saved_utc": "2026-11-02T16:30:48Z",
+   "sha256": "2da9663b18be643f3b0a429d1b290cc81d678b29af5201951b13ac3b1319a94f",
+   "spend_usd": 0.4796,
+   "threads": 8,
+   "withheld": 2,
+   "withheld_terms": {
+    "rape": 2
+   }
+  },
+  "bakeoff-gemini9neutral.json": {
+   "by_model": {
+    "google/gemini-3.8-flash": {
+     "mean_chars": 97.0,
+     "posts": 184,
+     "withheld": 2
+    }
+   },
+   "cut_by_max_tokens": 8,
+   "empty": 0,
+   "header": "thread 4471",
+   "mean_chars": 97.0,
+   "median_chars": 81,
+   "modified": "2026-11-02T16:40Z",
+   "p90_chars": 204,
+   "posts": 184,
+   "saved_utc": "2026-11-02T16:29:10Z",
+   "sha256": "4752846d61e30fcfeb96f10d89e7ec8ff0f61e536be6ee2bab609ede4d8da9ea",
+   "spend_usd": 0.3592,
+   "threads": 8,
+   "withheld": 2,
+   "withheld_terms": {
+    "gonna kill": 1,
+    "horny": 1,
+    "kill him": 1
+   }
+  },
   "bakeoff-geminipick.json": {
    "empty": 0,
    "mean_chars": 216.4,
@@ -311,6 +363,83 @@
    "spend_usd": 0.2987,
    "threads": 8,
    "withheld": 3
+  },
+  "bakeoff-rolesshort9.json": {
+   "by_model": {
+    "google/gemini-3.8-flash": {
+     "mean_chars": 134.8,
+     "posts": 184,
+     "withheld": 0
+    }
+   },
+   "cut_by_max_tokens": 1,
+   "empty": 0,
+   "header": "/x/ \u2014 thread 4471",
+   "mean_chars": 134.8,
+   "median_chars": 123,
+   "modified": "2026-11-02T16:40Z",
+   "p90_chars": 281,
+   "posts": 184,
+   "saved_utc": "2026-11-02T16:28:05Z",
+   "sha256": "e21e304de564ab998a58e147d03543d52ad10f3891a611504c88fae738875fbb",
+   "spend_usd": 0.3418,
+   "threads": 8,
+   "withheld": 0,
+   "withheld_terms": {}
+  },
+  "bakeoff-rolesshort9naif.json": {
+   "by_model": {
+    "gemma-4-E4B base [Q8_0], XTC + DRY": {
+     "mean_chars": 121.6,
+     "posts": 24,
+     "withheld": 0
+    },
+    "google/gemini-3.8-flash": {
+     "mean_chars": 125.4,
+     "posts": 160,
+     "withheld": 0
+    }
+   },
+   "cut_by_max_tokens": 3,
+   "empty": 0,
+   "header": "/x/ \u2014 thread 4471",
+   "mean_chars": 124.9,
+   "median_chars": 117,
+   "modified": "2026-11-02T16:40Z",
+   "p90_chars": 235,
+   "posts": 184,
+   "saved_utc": "2026-11-02T16:39:25Z",
+   "sha256": "abec1808c0d43b507cd1856883cabbea41a27d9eaefad6332127dd285a4da951",
+   "spend_usd": 0.2508,
+   "threads": 8,
+   "withheld": 0,
+   "withheld_terms": {}
+  },
+  "bakeoff-rolesshort9neutral.json": {
+   "by_model": {
+    "google/gemini-3.8-flash": {
+     "mean_chars": 121.6,
+     "posts": 184,
+     "withheld": 5
+    }
+   },
+   "cut_by_max_tokens": 1,
+   "empty": 0,
+   "header": "thread 4471",
+   "mean_chars": 121.6,
+   "median_chars": 113,
+   "modified": "2026-11-02T16:40Z",
+   "p90_chars": 236,
+   "posts": 184,
+   "saved_utc": "2026-11-02T16:27:25Z",
+   "sha256": "5a894fff1cd359f06741f5ae65986beb22d8a98d8dc37884024eb2e0c9a31c64",
+   "spend_usd": 0.2643,
+   "threads": 8,
+   "withheld": 5,
+   "withheld_terms": {
+    "rape": 1,
+    "spic": 4
+   }
   },
   "jp-deepseek-5ch-reasoning-empty.json": {
    "empty": 78,
@@ -609,6 +738,7 @@
   "6": "2026-11-02T05:40Z",
   "7": "2026-11-02T06:20Z",
   "8": "2026-11-02T13:17Z",
+  "9": "2026-11-02T16:40Z",
   "JP": "2026-11-02T04:35Z",
   "JP-5": "2026-11-02T05:36Z"
  },
@@ -647,6 +777,11 @@
    "differ": [],
    "identical": 8,
    "packets": 8
+  },
+  "9": {
+   "differ": [],
+   "identical": 40,
+   "packets": 40
   },
   "JP": {
    "differ": [],
