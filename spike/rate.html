@@ -76,12 +76,16 @@ th, td { padding: 6px 12px; border-bottom: 1px solid var(--line); text-align: le
 </main>
 <script>
 // ?round=2 rates the OpenRouter arms; each round keeps its own ratings
-const ROUND = new URLSearchParams(location.search).get("round") === "2" ? 2 : 1;
-let ARMS = ROUND === 2 ? ["cydonia24", "euryale70", "hermes405", "qwen235"] : ["cast", "g31", "l70", "echo"];
-const STORE = ROUND === 2 ? "bakeoff-r2" : "bakeoff";
+// ?round=8 rates round 8 (plain Gemini vs. long and short temperaments), where the AI judges split
+const ROUND = { "2": 2, "8": 8 }[new URLSearchParams(location.search).get("round")] || 1;
+let ARMS = { 1: ["cast", "g31", "l70", "echo"], 2: ["cydonia24", "euryale70", "hermes405", "qwen235"],
+             8: ["gemini", "roles", "rolesshort"] }[ROUND];
+const STORE = { 1: "bakeoff", 2: "bakeoff-r2", 8: "bakeoff-r8" }[ROUND];
 const NAMES = { cast: "current cast (gemma-E4B / qwen-4B / olmo-7B)", g31: "gemma-4-31B base", l70: "Llama-3.1-70B base", echo: "Echo (Fulcrum, chat model, persona \"4chan anon\")",
   cydonia24: "Cydonia 24B (creative fine-tune)", euryale70: "Euryale 70B (roleplay fine-tune)",
-  hermes405: "Hermes 3 405B (light-tuned Llama 405B)", qwen235: "Qwen3-235B Instruct (control)" };
+  hermes405: "Hermes 3 405B (light-tuned Llama 405B)", qwen235: "Qwen3-235B Instruct (control)",
+  gemini: "Gemini 3.8 Flash (plain)", roles: "Gemini, posters given temperaments (long posts)",
+  rolesshort: "Gemini, temperaments + per-role post length" };
 let data = {}, openers = [], cur = 0, S = { rate: {}, pick: {}, star: {} };
 const $ = id => document.getElementById(id);
 const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
