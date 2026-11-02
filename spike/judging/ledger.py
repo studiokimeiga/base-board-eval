@@ -89,6 +89,8 @@ NAMES = {
     "deepseek": "DeepSeek V4 Flash (chat)", "gpt54": "GPT-5.4 (chat)",
     "sonnet": "Claude Sonnet 5.5 (chat)",
 }
+# jp_bakeoff.py ran its self-hosted arms raw unless the name says XTC/DRY
+JP_NAMES = {"g31": "gemma-4-31B base, raw"}
 DIMS = ["overall", "naturalness", "interest", "humour", "emergence", "coherence", "variety"]
 
 
@@ -174,7 +176,7 @@ def signed(x):
     return "%+.2f" % x
 
 
-def arm_table(cells, judge, arms, packets):
+def arm_table(cells, judge, arms, packets, names=NAMES):
     dims = [d for d in DIMS if any(d in v for (p, a), v in cells.items())]
     rows = []
     top = {p: max(v["overall"] for (q, a), v in cells.items() if q == p) for p in packets}
@@ -189,7 +191,7 @@ def arm_table(cells, judge, arms, packets):
     out = ["| %s | arm | n | %s | best/tied |" % (judge, " | ".join(dims)),
            "|---|---|---:|%s---:|" % ("---:|" * len(dims))]
     for _, arm, n, m, best in rows:
-        out.append("| | %s | %d | %s | %d |" % (NAMES.get(arm, arm), n,
+        out.append("| | %s | %d | %s | %d |" % (names.get(arm, arm), n,
                                                  " | ".join(f2(m[d]) for d in dims), best))
     return out
 
@@ -342,7 +344,8 @@ def build():
             note = "" if len(got) == len(packets) else " (scored %d of %d packets)" % (
                 len(got), len(packets))
             lines += ["**%s**%s" % (judge, note), ""]
-            lines += arm_table(c, judge, arms, got) + [""]
+            lines += arm_table(c, judge, arms, got,
+                                dict(NAMES, **JP_NAMES) if folder.startswith("jp") else NAMES) + [""]
         rows = []
         for judge in judges:
             rows += contrast_rows(cells[judge], judge, contrasts)

@@ -255,7 +255,7 @@ Claude only, Japanese rubric (naturalness first). 6 openers x 2 formats; Sonnet 
 | | Claude Sonnet 5.5 (chat) | 6 | 2.17 | 2.17 | 2.33 | 1.17 | 1.83 | 3.83 | 0 |
 | | Kimi K3 (chat) | 12 | 2.08 | 2.25 | 2.58 | 2.25 | 2.67 | 3.08 | 0 |
 | | DeepSeek V4 Flash (chat) | 12 | 1.58 | 1.83 | 1.50 | 1.17 | 1.25 | 2.92 | 1 |
-| | gemma-4-31B base, XTC + DRY | 12 | 1.33 | 1.75 | 1.50 | 1.50 | 1.58 | 1.92 | 0 |
+| | gemma-4-31B base, raw | 12 | 1.33 | 1.75 | 1.50 | 1.50 | 1.58 | 1.92 | 0 |
 | | Llama-3.3-Swallow-70B base, raw | 12 | 1.17 | 1.33 | 1.25 | 1.08 | 1.17 | 1.75 | 0 |
 | | Swallow-70B base + XTC/DRY | 12 | 1.08 | 1.25 | 1.08 | 1.17 | 1.08 | 1.25 | 0 |
 

@@ -44,15 +44,19 @@ python -m unittest discover -s spike/judging -p "test_*.py"
 
 With the private files in place, `python spike/judging/ledger.py rawstats` re-hashes them, rebuilds
 every judging packet from `key.json` and the raw threads, and compares the result with the packet
-the judges read, byte for byte. All 72 packets match, so the private files are exactly what was
-judged. `cd spike && sha256sum -c MANIFEST.sha256` checks the rest.
+the judges read, byte for byte. All 74 packets match, so the private files are exactly what was
+judged. `cd spike && sha256sum -c MANIFEST.sha256` checks the rest. `python spike/gate_audit.py`
+looks for slur variants the keyword gate's substring match would miss (none in 26,388 posts).
 
 ## Things to know before reusing it
 
-- **The gate ran after generation.** In the bake-off, `round3.py` and `bakeoff.py` write a whole
-  thread and only then replace posts that hit the keyword list with `[post withheld]`. Flagged
-  posts were in the context while later posts were written. (`live_board.py` withholds before a
-  post enters the board.)
+- **Every English prompt starts with `/x/ — thread 4471`.** That is `generate.py`'s document
+  header, and `live_board.py` uses the same board name: every English thread here was written for
+  the paranormal board. The Japanese prompts have no board label.
+- **The gate ran after generation in English.** `round3.py` and `bakeoff.py` write a whole thread
+  and only then replace posts that hit the keyword list with `[post withheld]`, so flagged posts were
+  in the context while later posts were written. `jp_bakeoff.py` and `live_board.py` withhold a post
+  before it enters the context.
 - **Packets were written on Windows.** A post containing its own `\r\n` (Euryale's output does)
   reads back with an extra blank line. `ledger.py rawstats` allows for exactly this when it compares.
 - **Re-running needs keys and money.** `.env` (gitignored) needs `OPENROUTER_API_KEY`; the free-tier
