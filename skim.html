@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>skim</title>
+<style>
+  :root { color-scheme: light dark;
+          --fg:#1b1b1b; --dim:#7a7a7a; --line:#dcdcdc; --bg:#fbfbf9; --accent:#2f5d8a;
+          --hit:#2f7d4f; --bar:38px; }
+  @media (prefers-color-scheme: dark) {
+    :root { --fg:#dcdcd6; --dim:#8a8a84; --line:#333; --bg:#141414; --accent:#8ab4dd; --hit:#6fbf8f; }
+  }
+  * { box-sizing:border-box; }
+  html,body { margin:0; padding:0; height:100%; background:var(--bg); color:var(--fg); }
+  body { font:13.5px/1.62 ui-monospace,"SF Mono",Menlo,Consolas,monospace; overflow:hidden; }
+  .bar { position:fixed; top:0; left:0; right:0; height:var(--bar); z-index:10; background:var(--bg);
+         border-bottom:1px solid var(--line); padding:9px 18px; font-size:12.5px; color:var(--dim);
+         display:flex; gap:16px; align-items:baseline; }
+  .bar b { color:var(--fg); font-weight:600; }
+  .bar .sp { margin-left:auto; }
+  #wrap { position:absolute; top:var(--bar); bottom:0; left:0; right:0; display:flex; flex-direction:column; }
+  .cols { flex:1; display:flex; min-height:0; }
+  .col { flex:1 1 50%; overflow-y:auto; padding:0 20px 40px; border-right:1px solid var(--line); }
+  .colhead { position:sticky; top:0; background:var(--bg); padding:8px 0 6px; margin-bottom:8px;
+             color:var(--dim); font-size:11.5px; border-bottom:1px dotted var(--line); }
+  .col:last-child { border-right:0; }
+  .opener { padding:10px 20px; border-bottom:1px solid var(--line); color:var(--dim); font-size:12.5px; }
+  .opener b { color:var(--fg); font-weight:600; }
+  .hidden { color:var(--dim); font-style:italic; }
+  .post { margin:0 0 15px; }
+  .meta { color:var(--dim); font-size:11.5px; }
+  .who,.ment { font-weight:600; }
+  .text { white-space:pre-wrap; word-break:break-word; }
+  .empty { color:var(--dim); font-style:italic; }
+  .foot { border-top:1px solid var(--line); padding:9px 18px; display:flex; gap:9px;
+          align-items:center; flex-wrap:wrap; }
+  button { font:inherit; font-size:12.5px; background:transparent; color:var(--fg);
+           border:1px solid var(--line); border-radius:3px; padding:4px 10px; cursor:pointer; }
+  button:hover { border-color:var(--accent); }
+  input[type=text] { font:inherit; font-size:12.5px; background:transparent; color:var(--fg);
+                     border:1px solid var(--accent); border-radius:3px; padding:5px 9px;
+                     flex:1; min-width:280px; }
+  .hint { color:var(--dim); font-size:12px; margin-left:auto; }
+  .pad { padding:26px 30px 80px; overflow-y:auto; }
+  table { border-collapse:collapse; font-size:12.5px; width:100%; margin-top:12px; }
+  th,td { text-align:left; padding:5px 12px 5px 0; border-bottom:1px solid var(--line); }
+  th { color:var(--dim); font-weight:600; }
+  .big { font-size:15px; margin:0 0 14px; }
+</style>
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<div id="wrap"></div>
+
+<script>
+/* queue.json carries thread text ONLY -- no model, no opener index, no flag, no source.
+   The mapping lives in queue.key.json, which this page never fetches, so nothing on
+   screen can reveal which items are shortlisted, random, or salted calibration.
+
+   TWO PASSES, deliberately:
+     pass 1 -- every item rated with the opener hidden throughout. If openers were
+               revealed as you went, by item 10 you'd know which premises are supposed
+               to work, and that learning is indistinguishable from fatigue in the
+               position data. Hiding them for the whole pass keeps the salted-position
+               drift check interpretable.
+     pass 2 -- openers shown, verdicts revisable. The pass1 -> pass2 delta measures how
+               much the premises are carrying rather than the model.                     */
+const KEY = "bbskim.v2";
+let Q = [], pass = 1, cur = 0, ans = {}, screen = null;
+
+const save = () => localStorage.setItem(KEY, JSON.stringify({pass, cur, ans}));
+const load = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e) { return {}; } };
+
+fetch("queue.json").then(r => r.json()).then(d => {
+  Q = d.items;
+  const s = load();
+  if (s.ans) { ans = s.ans; pass = s.pass || 1; cur = s.cur || 0; }
+  render();
+});
+
+function a(i) {
+  return ans[i] || (ans[i] = {p1:null, tell1:"", p2:null, tell2:"", revised:false});
+}
+const donePass1 = () => Q.length && Q.every((_, i) => a(i).p1);
+const finalOf = v => v.p2 || v.p1;
+
+function render() {
+  const bar = document.getElementById("bar"), wrap = document.getElementById("wrap");
+  if (screen === "interstitial") return interstitial(bar, wrap);
+  if (screen === "summary") return summary(bar, wrap);
+
+  if (cur >= Q.length) {
+    if (pass === 1) { screen = "interstitial"; save(); return render(); }
+    screen = "summary"; save(); return render();
+  }
+
+  const it = Q[cur], v = a(cur);
+  const n = Q.filter((_, i) => (pass === 1 ? a(i).p1 : a(i).p2 !== null)).length;
+  bar.innerHTML = `<b>pass ${pass} &middot; ${cur+1} / ${Q.length}</b><span>${n} done</span>`
+    + `<span class="sp"></span>`
+    + (pass === 1 ? `` : `<button id="fin">finish</button>`);
+
+  const openerLine = pass === 1
+    ? `<span class="hidden">opener hidden for the whole of pass 1</span>`
+    : `<b>opener:</b> ${esc(it.opener)}`;
+
+  const posts = it.posts, half = Math.ceil(posts.length / 2);
+  wrap.innerHTML = `<div class="opener">${openerLine}</div>`
+    + `<div class="cols">`
+    +   `<div class="col"><div class="colhead">ONE thread, posts 1&ndash;${half} &mdash; `
+    +     `continues on the right</div>${postsHTML(posts.slice(0, half), it)}</div>`
+    +   `<div class="col"><div class="colhead">&hellip;same thread, posts ${half+1}&ndash;${posts.length}`
+    +     `</div>${postsHTML(posts.slice(half), it)}</div>`
+    + `</div>`
+    + `<div class="foot" id="foot"></div>`;
+  foot(v);
+  const f = document.getElementById("fin");
+  if (f) f.onclick = () => { screen = "summary"; save(); render(); };
+  document.querySelectorAll(".col").forEach(c => c.scrollTop = 0);
+}
+
+function foot(v) {
+  const f = document.getElementById("foot");
+  const curV = pass === 1 ? v.p1 : (v.p2 || v.p1);
+  const needTell = pass === 1 ? (v.p1 === "repost" && !v.tell1)
+                              : (v.p2 === "repost" && !v.tell2);
+
+  if (pass === 1 && !v.p1) return ask(f, "1 not human · 2 human · 3 human + repost");
+  if (needTell) {
+    f.innerHTML = `<span style="color:var(--hit)">what made you flag it?</span>`
+      + `<input type="text" id="tell" placeholder="the one line that did it">`;
+    const t = document.getElementById("tell");
+    t.focus();
+    t.onkeydown = e => {
+      e.stopPropagation();
+      if (e.key === "Enter" && t.value.trim()) {
+        if (pass === 1) v.tell1 = t.value.trim(); else v.tell2 = t.value.trim();
+        save(); if (pass === 1) next(); else foot(v);
+      }
+    };
+    return;
+  }
+  if (pass === 1) { next(); return; }
+
+  f.innerHTML = `<span style="color:var(--dim)">pass 1 said <b>${v.p1}</b>. `
+    + `opener now visible — changed your view?</span>`
+    + `<button id="keep">space — keep</button><button id="rev">r — revise</button>`
+    + `<span class="hint">${v.revised ? "revised" : ""}</span>`;
+  document.getElementById("keep").onclick = () => { v.p2 = v.p1; v.tell2 = v.tell1; save(); next(); };
+  document.getElementById("rev").onclick = () => revise(v);
+}
+
+function ask(f, label) {
+  f.innerHTML = `<span style="color:var(--dim)">${label}</span>`
+    + `<button data-v="no">1</button><button data-v="human">2</button>`
+    + `<button data-v="repost">3</button><span class="hint">backspace to go back</span>`;
+  f.querySelectorAll("button[data-v]").forEach(b => b.onclick = () => verdict(b.dataset.v));
+}
+
+function verdict(x) {
+  const v = a(cur);
+  if (pass === 1) { v.p1 = x; v.tell1 = ""; }
+  else { v.p2 = x; v.tell2 = ""; v.revised = (x !== v.p1); }
+  save(); foot(v);
+}
+function revise(v) {
+  v.p2 = null; v.tell2 = ""; save();
+  ask(document.getElementById("foot"), "revise: 1 not human · 2 human · 3 human + repost");
+}
+function next() { cur++; save(); render(); }
+function back() { if (cur > 0) { cur--; save(); render(); } }
+
+document.addEventListener("keydown", e => {
+  if (screen || cur >= Q.length) return;
+  if (e.target.tagName === "INPUT") return;
+  const v = a(cur);
+  const awaiting = pass === 1 ? !v.p1 : (v.p2 === null && document.querySelector("button[data-v]"));
+  if (awaiting) {
+    if (e.key === "1") { e.preventDefault(); verdict("no"); }
+    else if (e.key === "2") { e.preventDefault(); verdict("human"); }
+    else if (e.key === "3") { e.preventDefault(); verdict("repost"); }
+    else if (e.key === "Backspace") { e.preventDefault(); back(); }
+    return;
+  }
+  if (pass === 2) {
+    if (e.key === " ") { e.preventDefault(); v.p2 = v.p1; v.tell2 = v.tell1; save(); next(); }
+    else if (e.key === "r") { e.preventDefault(); revise(v); }
+    else if (e.key === "Backspace") { e.preventDefault(); back(); }
+  }
+});
+
+function interstitial(bar, wrap) {
+  const c = {no:0, human:0, repost:0};
+  Q.forEach((_, i) => { const p = a(i).p1; if (p) c[p]++; });
+  bar.innerHTML = `<b>pass 1 complete</b><span class="sp"></span>`;
+  wrap.innerHTML = `<div class="pad"><p class="big">Pass 1 done, openers never shown.</p>`
+    + `<table><tr><th>verdict</th><th>n</th></tr>`
+    + `<tr><td>not plausibly human</td><td>${c.no}</td></tr>`
+    + `<tr><td>human, not repost</td><td>${c.human}</td></tr>`
+    + `<tr><td>human + would repost</td><td>${c.repost}</td></tr></table>`
+    + `<p style="color:var(--dim)">Pass 2 shows each opener and lets you revise. The `
+    + `difference between the two passes is the measure of how much the premises were `
+    + `carrying rather than the model — so revise honestly, including downward.</p>`
+    + `<div class="foot" style="border:0;padding-left:0"><button id="go">start pass 2</button>`
+    + `<button id="skip">skip pass 2 and export</button></div></div>`;
+  document.getElementById("go").onclick = () => { pass = 2; cur = 0; screen = null; save(); render(); };
+  document.getElementById("skip").onclick = () => { screen = "summary"; save(); render(); };
+}
+
+function summary(bar, wrap) {
+  const f = {no:0, human:0, repost:0}; let revised = 0;
+  Q.forEach((_, i) => { const v = a(i); const x = finalOf(v); if (x) f[x]++; if (v.revised) revised++; });
+  bar.innerHTML = `<b>done</b><span class="sp"></span>`
+    + `<button id="ex">export</button><button id="bk">back to pass 1</button>`;
+  let html = `<div class="pad"><table><tr><th>final verdict</th><th>n</th></tr>`
+    + `<tr><td>not plausibly human</td><td>${f.no}</td></tr>`
+    + `<tr><td>human, not repost</td><td>${f.human}</td></tr>`
+    + `<tr><td>human + would repost</td><td>${f.repost}</td></tr>`
+    + `<tr><td>revised after seeing the opener</td><td>${revised}</td></tr></table>`
+    + `<table><tr><th>#</th><th>pass 1</th><th>final</th><th>tell</th></tr>`;
+  Q.forEach((_, i) => {
+    const v = a(i);
+    if (!v.p1) return;
+    html += `<tr><td>${i+1}</td><td>${v.p1}</td><td>${finalOf(v)}</td>`
+         + `<td>${esc(v.tell2 || v.tell1 || "")}</td></tr>`;
+  });
+  html += `</table><p style="color:var(--dim)">Provenance is in queue.key.json and joined `
+       + `outside this page. Precision is computed on the shortlisted items only; salted `
+       + `calibration items are excluded from every rate and used solely for the position check.</p></div>`;
+  wrap.innerHTML = html;
+  document.getElementById("bk").onclick = () => { pass = 1; cur = 0; screen = null; save(); render(); };
+  document.getElementById("ex").onclick = () => {
+    const out = {exported: new Date().toISOString(), total: Q.length,
+      answers: Q.map((it, i) => {
+        const v = a(i);
+        return {position: i + 1, qid: it.qid, pass1: v.p1, final: finalOf(v),
+                tell: v.tell2 || v.tell1 || null, revised: !!v.revised};
+      }).filter(x => x.pass1)};
+    const el = document.createElement("a");
+    el.href = URL.createObjectURL(new Blob([JSON.stringify(out,null,2)],{type:"application/json"}));
+    el.download = "skim.json"; el.click();
+  };
+}
+
+function postsHTML(posts, it) {
+  let h = "";
+  for (const p of posts) {
+    const body = p.text ? markNames(esc(p.text), it.participants || [])
+                        : `<span class="empty">[no text]</span>`;
+    h += `<div class="post"><div class="meta">`
+       + `<span class="who" style="color:${hue(p.who)}">${esc(p.who)}</span> ${p.ts}</div>`
+       + `<div class="text">${body}</div></div>`;
+  }
+  return h;
+}
+function markNames(html, pool) {
+  if (!pool.length) return html;
+  const alt = pool.slice().sort((a,b)=>b.length-a.length)
+                  .map(n => n.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join("|");
+  return html.replace(new RegExp("(^|[^A-Za-z0-9])("+alt+")(?![A-Za-z0-9])","gi"),
+    (m,pre,name) => pre + `<span class="ment" style="color:${hue(name.toLowerCase())}">${name}</span>`);
+}
+function hue(name) {
+  let h = 0;
+  for (let i = 0; i < name.length; i++) h = (h*31 + name.charCodeAt(i)) % 360;
+  return `light-dark(hsl(${h} 62% 34%), hsl(${h} 58% 70%))`;
+}
+function esc(s) { return String(s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])); }
+</script>
+</body>
+</html>

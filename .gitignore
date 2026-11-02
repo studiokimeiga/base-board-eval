@@ -11,13 +11,5 @@ queue*.json
 shortlist.json
 skim.json
 
-# Rating viewers that read the raw corpora
-review.html
-skim.html
-judge.html
-blind.html
-xtc.html
-
 # Local-only notes
-INFRA.md
 INTEGRATION.md

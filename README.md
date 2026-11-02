@@ -32,6 +32,7 @@ The full config and evidence are in [FINDINGS.md](FINDINGS.md).
 | [PREDICTIONS.md](PREDICTIONS.md) | Predictions about the human ratings, written before the ratings |
 | [QUARANTINE.md](QUARANTINE.md) | The unprompted self-harm output, how often it happened, and what that means for a product |
 | [SETUP-PC.md](SETUP-PC.md) | Running the three-model cast on a 12 GB GPU under Windows |
+| [INFRA.md](INFRA.md) | Where to host it: CPU throughput, duty cycle, and hosting options compared on cost |
 | [experiments/](experiments/README.md) | Every earlier run, with what each one tested |
 
 ## Running it
@@ -49,6 +50,11 @@ You need [llama.cpp](https://github.com/ggml-org/llama.cpp) (`llama-server` on `
    GPU placement is set in `llama.py` (`CAST_GPU_LAYERS`, or the `LLAMA_CAST_GPU_LAYERS` env var).
 4. **Measure:** `python metrics.py threads.final.json` prints the per-arm metrics.
    `drift.py` measures how often other posters take over the OP's situation.
+5. **Read and rate:** the HTML viewers load the JSON next to them, so serve the folder with
+   `python -m http.server 8000` and open one. `review.html` and `judge.html` read
+   `threads.json`, `blind.html` reads `threads.blind.json`, `xtc.html` reads
+   `threads.xtc2.json`, and `skim.html` reads the blind queue built by `make_queue.py`.
+   Ratings are saved in the browser's localStorage.
 
 ## Generated data is not included
 
@@ -56,8 +62,7 @@ The raw corpora are unfiltered base-model output, and they include slurs, sexual
 in one thread, self-harm content (see [QUARANTINE.md](QUARANTINE.md)). They are kept out of this
 repo on purpose. Only the curated threads in `BEST-OF.md` and `board.html` are published.
 
-This includes the rating viewers the write-ups mention (`blind.html`, `xtc.html`, etc.). If you
-run the generators yourself, expect the same kind of output. Don't publish it without a
+If you run the generators yourself, expect the same kind of output. Don't publish it without a
 classifier and a human check in between.
 
 ## License
