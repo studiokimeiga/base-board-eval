@@ -1,0 +1,26 @@
+{
+ "version": "lore-reader-1",
+ "intro": "Each set is an earlier thread from an imageboard, then two later threads that began with the same opening post. In one of the two, the posters could see the earlier thread above theirs; in the other they couldn't. Nothing says which. Read the earlier thread, then rate each follow-up on its own, from 1 to 5. Keep 5 rare.",
+ "scales_from": "calibration/rubric.json version 1 (branch calibration/blind-kit), verbatim",
+ "scales": [
+  {"id": "believable", "label": "Believable",
+   "ask": "Could real people have written this thread?",
+   "low": "obviously machine-written", "high": "I'd believe it was real people"},
+  {"id": "interest", "label": "Interest",
+   "ask": "Would you keep reading, or want to reply?",
+   "low": "would close it", "high": "would screenshot it"},
+  {"id": "joke", "label": "Deliberate humour",
+   "ask": "Someone is plainly trying to be funny, and it lands.",
+   "low": "none, or it falls flat", "high": "several real laughs"},
+  {"id": "deadpan", "label": "Deadpan humour",
+   "ask": "Funny because posters are sincerely, confidently wrong or oblivious, without signalling a joke.",
+   "low": "none", "high": "several real laughs"},
+  {"id": "overall", "label": "Overall",
+   "ask": "How much would you want this thread on the board?",
+   "low": "not at all", "high": "a highlight"}
+ ],
+ "repost": "Would you repost or retell this thread to someone?",
+ "pickup": "Does it pick up anything from the earlier thread: a word, a joke, a name, a rule, or a mention of it?",
+ "seen": "I've seen lines from this thread before (for instance quoted in a report)",
+ "prefer": "Which follow-up would you rather read?"
+}
