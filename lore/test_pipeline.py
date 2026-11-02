@@ -5,7 +5,7 @@ from it, analyze scores it. The fake plants an invented word from the source int
 memory-arm targets and nothing else, so the analysis must find the memory effect and keep the
 no-memory arm clean. Nothing here touches the network.
 """
-import hashlib, os, re, shutil, tempfile, unittest
+import hashlib, json, os, re, shutil, tempfile, unittest
 
 import analyze as A
 import board as B
@@ -26,13 +26,31 @@ def fake(prompt, seed):
     return {"text": " ".join(words), "cost": 0.0, "provider": "fake"}
 
 
+def fake_judges(folder, run):
+    """Both families' verdict files: gpt on every item, claude on the pre-registered half. Each
+    says 'borrows' exactly for the memory items, with one reuse."""
+    os.makedirs(folder)
+    its = J.items(run)
+    key = {i["item"]: {"board": i["board"], "target": i["target"], "arm": i["arm"]} for i in its}
+    verdict = lambda i: {"borrows": key[i]["arm"] == "memory", "confidence": 4,
+                         "kinds": {"reference": 0, "mixup": 0, "coincidence": 0,
+                                   "reuse": int(key[i]["arm"] == "memory")}}
+    half = J.half(list(key))
+    for fam, ids in (("gpt", list(key)), ("claude", half)):
+        with open(os.path.join(folder, "scores-%s.json" % fam), "w", encoding="utf-8") as f:
+            json.dump({"judge": fam, "items": {i: verdict(i) for i in ids}}, f)
+    with open(os.path.join(folder, "key.json"), "w", encoding="utf-8") as f:
+        json.dump(key, f)
+
+
 class Pipeline(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.tmp = tempfile.mkdtemp()
         cls.root = os.path.join(cls.tmp, "run")
         B.run(B.schedule(), "x", fake, B.Budget(cap=1.0), cls.root, workers=4, log=lambda *_: None)
-        cls.summary = A.main(["--run", cls.root, "--judging", os.path.join(cls.tmp, "none"),
+        fake_judges(os.path.join(cls.tmp, "judging"), J.load_run(cls.root))
+        cls.summary = A.main(["--run", cls.root, "--judging", os.path.join(cls.tmp, "judging"),
                               "--out", cls.tmp])
 
     @classmethod
@@ -63,6 +81,15 @@ class Pipeline(unittest.TestCase):
         with open(os.path.join(self.tmp, "RESULTS.md"), encoding="utf-8") as f:
             text = f.read()
         self.assertIn("## H1: the memory effect (primary)", text)
+
+    def test_both_judge_families_are_reported_on_the_items_each_saw(self):
+        with open(os.path.join(self.tmp, "RESULTS.md"), encoding="utf-8") as f:
+            text = f.read()
+        self.assertIn("| gpt | 92 | 46/46 (100%", text)
+        self.assertRegex(text, r"\| claude \| 46 \| \d+/\d+ \(100%")
+        self.assertIn("Agreement between the families on 46 shared items: κ = 1.00.", text)
+        # lore needs the tracker's uptake as well as the judge's reuse: the planted coinage has both
+        self.assertIn("| gpt | 23/46 (50%", text)
 
 
 if __name__ == "__main__":

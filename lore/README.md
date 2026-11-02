@@ -15,6 +15,9 @@ anything was generated, and fixes the design, the outcomes and the analysis.
 | `schedule.json` | every thread's opener, cast, author order, timestamps and number (no model output) |
 | `judge.py`, `test_judge.py` | blind judges: gpt-5.4 and Claude, verdicts in `judging/` |
 | `analyze.py`, `test_analyze.py` → `RESULTS.md`, `results.json` | the pre-registered analysis |
+| `explore.py` → `exploratory.json` | **not pre-registered**: the length-matched identification test, register, genre by arm, the gate |
+| `REPORT.md` | what it all means: the answer, the correction, read examples, deviations, cost |
+| `judging/` | the blinding key and each judge family's per-item verdicts (no quotes) |
 | `test_pipeline.py` | the whole pipeline on a fake model that plants an effect, which must be found |
 | `MANIFEST.sha256` | SHA-256 of every private file |
 

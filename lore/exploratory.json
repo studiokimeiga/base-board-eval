@@ -1,0 +1,99 @@
+{
+ "note": "exploratory, not pre-registered",
+ "identify_x_memory": {
+  "top": 10,
+  "n": 46,
+  "chance": 3.126739926739929,
+  "mean_percentile": 0.7107645817524334,
+  "flagged_against_unseen_sources": 0.505175983436853
+ },
+ "identify_x_none": {
+  "top": 1,
+  "n": 46,
+  "chance": 3.126739926739929,
+  "mean_percentile": 0.48321665546729486,
+  "flagged_against_unseen_sources": 0.2401656314699793
+ },
+ "identify_misc_memory": {
+  "top": 15,
+  "n": 46,
+  "chance": 3.126739926739929,
+  "mean_percentile": 0.6788764890267448,
+  "flagged_against_unseen_sources": 0.2577639751552795
+ },
+ "identify_misc_none": {
+  "top": 0,
+  "n": 46,
+  "chance": 3.126739926739929,
+  "mean_percentile": 0.4659434501985653,
+  "flagged_against_unseen_sources": 0.16459627329192547
+ },
+ "identify_paired": {
+  "memory_only": 25,
+  "none_only": 1,
+  "mcnemar_p": 8.046627044677734e-07,
+  "percentile_higher": 65,
+  "percentile_lower": 21,
+  "percentile_sign_p": 2.153178892346558e-06
+ },
+ "register_x": {
+  "mean_chars_memory": 516.5766419363698,
+  "mean_chars_none": 122.97817494414848,
+  "mean_chars_sources": 162.82720398693934,
+  "r_memory_vs_source": 0.8546454432830497,
+  "r_none_vs_source": 0.2184200538343705,
+  "memory_longer": 35,
+  "n": 46,
+  "sign_p": 0.0005355850721002753
+ },
+ "register_misc": {
+  "mean_chars_memory": 151.34211204674344,
+  "mean_chars_none": 87.22220312768516,
+  "mean_chars_sources": 93.44017013232514,
+  "r_memory_vs_source": 0.8437908495847606,
+  "r_none_vs_source": 0.07091215127867648,
+  "memory_longer": 32,
+  "n": 46,
+  "sign_p": 0.011351591436778108
+ },
+ "genre_x": {
+  "memory": 0.017476820595913222,
+  "none": 0.014177693761814745,
+  "higher": 6,
+  "lower": 8,
+  "sign_p": 0.79052734375
+ },
+ "genre_misc": {
+  "memory": 0.022903215247260616,
+  "none": 0.011428080426190066,
+  "higher": 11,
+  "lower": 6,
+  "sign_p": 0.332305908203125
+ },
+ "gate": {
+  "/x/ source": {
+   "withheld": 6,
+   "substring_only": 5
+  },
+  "/misc/ source": {
+   "withheld": 5,
+   "substring_only": 1
+  },
+  "/x/ memory": {
+   "withheld": 31,
+   "substring_only": 26
+  },
+  "/x/ none": {
+   "withheld": 4,
+   "substring_only": 4
+  },
+  "/misc/ none": {
+   "withheld": 3,
+   "substring_only": 2
+  },
+  "/misc/ memory": {
+   "withheld": 7,
+   "substring_only": 5
+  }
+ }
+}

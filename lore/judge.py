@@ -96,7 +96,11 @@ def batches(item_ids, n=BATCHES):
 
 
 def half(item_ids):
-    """The random half Claude judges if usage limits do not allow every item (pre-registered)."""
+    """The random half Claude judges if usage limits do not allow every item (pre-registered).
+
+    Known flaw, found after judging: items() shuffles the same id list with the same seed, so this
+    half is exactly the items items() gave to the first half of its sorted keys, i.e. the whole
+    /misc/ board. Kept as is so this run's numbers reproduce; a new run should seed it apart."""
     ids = sorted(item_ids)
     random.Random(SEED).shuffle(ids)
     return sorted(ids[:len(ids) // 2])
@@ -120,16 +124,18 @@ def parse(reply):
     return {"borrows": bool(d.get("borrows")), "confidence": conf, "kinds": kinds}
 
 
-def claude_prompt(n, ids):
-    files = ["lore/private/judging/items/%s.txt" % i for i in ids]
-    return ("You are one of several independent judges. Below is a list of %d files in the repository at "
-            "C:\\Users\\haki\\code\\base-board-eval-lore. Each holds one judging item: instructions and two "
-            "imageboard threads. Read each file and answer its question exactly as it asks, judging each item "
-            "on its own. Do not read any other file in the repository, do not look for answer keys, and do not "
-            "run any code.\n\nWrite all your answers into one JSON file, "
-            "lore/private/judging/claude-%d.json, mapping each item id (the file name without .txt) to the "
-            "JSON object the item asks for. Reply with only the number of items you wrote.\n\n%s"
-            % (len(ids), n, "\n".join(files)))
+WINDOWS_PRIVATE = r"C:\Users\haki\code\base-board-eval-lore\lore\private\judging"
+
+
+def claude_prompt(n, ids, folder=WINDOWS_PRIVATE):
+    files = ["%s\\items\\%s.txt" % (folder, i) for i in ids]
+    return ("You are one of several independent judges. Below is a list of %d files. Each holds one "
+            "judging item: instructions and two imageboard threads. Read each file and answer its question "
+            "exactly as it asks, judging each item on its own. Do not read any other file, do not look for "
+            "answer keys, and do not run any code.\n\nWrite all your answers into one JSON file, "
+            "%s\\claude-%d.json, mapping each item id (the file name without .txt) to the JSON object the "
+            "item asks for. Reply with only the number of items you wrote.\n\n%s"
+            % (len(ids), folder, n, "\n".join(files)))
 
 
 def gpt_judge(via):
@@ -165,6 +171,7 @@ def main():
     ap.add_argument("--via", default="openrouter", choices=["openrouter", "openai"])
     ap.add_argument("--half", action="store_true", help="Claude judges the pre-registered random half")
     ap.add_argument("--workers", type=int, default=6)
+    ap.add_argument("--cap", type=float, default=None, help="dollars: stop at this, or when a projection passes it")
     a = ap.parse_args()
     os.makedirs(os.path.join(PRIVATE, "items"), exist_ok=True)
     os.makedirs(PUBLIC, exist_ok=True)
@@ -183,22 +190,33 @@ def main():
         ids = half(ids) if a.half else ids
         print(claude_prompt(a.n, batches(ids)[a.n - 1]))
     elif a.cmd == "gpt":
-        call, lock, spent = gpt_judge(a.via), threading.Lock(), [0.0]
+        call, lock, spent, judged = gpt_judge(a.via), threading.Lock(), [0.0], [0]
         out_path = os.path.join(PRIVATE, "gpt.json")
         done = json.load(open(out_path, encoding="utf-8")) if os.path.exists(out_path) else {}
         todo = sorted(p for p in glob.glob(os.path.join(PRIVATE, "items", "*.txt"))
                       if os.path.basename(p)[:-4] not in done)
 
         def one(path):
+            with lock:   # the approval is a dollar figure: stop at it, or once 10 items project past it
+                if a.cap and (spent[0] >= a.cap or judged[0] >= 10
+                              and spent[0] / judged[0] * len(todo) > a.cap):
+                    raise B.OverBudget("$%.4f after %d items projects $%.2f for %d"
+                                       % (spent[0], judged[0], spent[0] / max(1, judged[0]) * len(todo), len(todo)))
             text = open(path, encoding="utf-8").read()
             reply, cost = call(text)
             with lock:
                 done[os.path.basename(path)[:-4]] = reply
                 spent[0] += cost
+                judged[0] += 1
                 json.dump(done, open(out_path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-        with ThreadPoolExecutor(a.workers) as ex:
-            list(ex.map(one, todo))
-        print("gpt judged %d items, $%.4f" % (len(done), spent[0]))
+        try:
+            with ThreadPoolExecutor(a.workers) as ex:
+                list(ex.map(one, todo))
+        finally:
+            with open(os.path.join(PRIVATE, "gpt-spend.json"), "w", encoding="utf-8") as f:
+                json.dump({"via": a.via, "items_this_run": judged[0], "usd_this_run": spent[0],
+                           "items_total": len(done), "cap": a.cap}, f, indent=1)
+            print("gpt judged %d items this run (%d in all), $%.4f" % (judged[0], len(done), spent[0]))
     elif a.cmd == "collect":
         raw = {}
         if os.path.exists(os.path.join(PRIVATE, "gpt.json")):
@@ -209,12 +227,26 @@ def main():
                 claude[k] = json.dumps(v) if isinstance(v, dict) else v
         if claude:
             raw["claude"] = claude
+        all_ids = [os.path.basename(p)[:-4] for p in glob.glob(os.path.join(PRIVATE, "items", "*.txt"))]
         for judge, replies in raw.items():
             verdicts = {k: parse(v) for k, v in sorted(replies.items())}
+            scope = "all"
+            if judge == "claude" and len(verdicts) < len(all_ids):
+                # Claude did not judge every item, so it counts on the pre-registered random half only;
+                # anything it judged outside the half is kept apart and left out of the analysis
+                inside = set(half(all_ids))
+                extra = {k: v for k, v in verdicts.items() if k not in inside}
+                verdicts = {k: v for k, v in verdicts.items() if k in inside}
+                scope = "half"
+                with open(os.path.join(PUBLIC, "scores-claude-outside-half.json"), "w", encoding="utf-8") as f:
+                    json.dump({"judge": judge, "note": "judged in batches 1-3 before the half rule applied; "
+                               "not analysed", "items": {k: v for k, v in extra.items() if v is not None}}, f, indent=1)
             with open(os.path.join(PUBLIC, "scores-%s.json" % judge), "w", encoding="utf-8") as f:
-                json.dump({"judge": judge, "unparsed": sorted(k for k, v in verdicts.items() if v is None),
+                json.dump({"judge": judge, "scope": scope,
+                           "unparsed": sorted(k for k, v in verdicts.items() if v is None),
                            "items": {k: v for k, v in verdicts.items() if v is not None}}, f, indent=1)
-            print("%s: %d items, %d unparsed" % (judge, len(verdicts), sum(v is None for v in verdicts.values())))
+            print("%s: %d items (%s), %d unparsed" % (judge, len(verdicts), scope,
+                                                     sum(v is None for v in verdicts.values())))
 
 
 if __name__ == "__main__":

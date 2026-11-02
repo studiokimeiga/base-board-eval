@@ -216,21 +216,32 @@ def main(argv=None):
     # judges
     if jud:
         out += ["", "## The blind judges", "",
-                "| judge | items | borrows: memory | borrows: none | McNemar p | κ with tracker |",
-                "|---|---:|---|---|---:|---:|"]
+                "Rates are over every item the judge saw; McNemar uses the targets judged in both arms.", "",
+                "| judge | items | borrows: memory items | borrows: no-memory items | pairs | McNemar p | κ with tracker |",
+                "|---|---:|---|---|---:|---:|---:|"]
         for fam, v in jud.items():
             ps = [(b, tid) for b, tid in paired if (b, tid, "memory") in v and (b, tid, "none") in v]
             pairs = [(v[(b, tid, "memory")]["borrows"], v[(b, tid, "none")]["borrows"]) for b, tid in ps]
             bm, cm, p = mcnemar(pairs)
             ks = [k for k in v if k in res]
-            out.append("| %s | %d | %s | %s | %.4f | %s |" % (
-                fam, len(v), pct(sum(m for m, _ in pairs), len(pairs)), pct(sum(n for _, n in pairs), len(pairs)),
-                p, "%.2f" % kappa([res[k]["transfer"] for k in ks], [v[k]["borrows"] for k in ks])
-                if ks else "–"))
+            mem = [v[k]["borrows"] for k in ks if k[2] == "memory"]
+            non = [v[k]["borrows"] for k in ks if k[2] == "none"]
+            out.append("| %s | %d | %s | %s | %d | %.4f | %s |" % (
+                fam, len(v), pct(sum(mem), len(mem)), pct(sum(non), len(non)), len(pairs), p,
+                "%.2f" % kappa([res[k]["transfer"] for k in ks], [v[k]["borrows"] for k in ks]) if ks else "–"))
+        out += ["", "By board (a family that judged only part of the items shows only what it saw):", "",
+                "| judge | board | borrows: memory items | borrows: no-memory items |", "|---|---|---|---|"]
+        for fam, v in jud.items():
+            for b in boards:
+                mem = [x["borrows"] for k, x in v.items() if k[0] == b and k[2] == "memory"]
+                non = [x["borrows"] for k, x in v.items() if k[0] == b and k[2] == "none"]
+                if mem or non:
+                    out.append("| %s | %s | %s | %s |" % (fam, {"x": "/x/", "misc": "/misc/"}[b],
+                                                         pct(sum(mem), len(mem)), pct(sum(non), len(non))))
         if len(jud) == 2:
-            a, b2 = jud["gpt"], jud["claude"]
-            ks = sorted(set(a) & set(b2))
-            kp = kappa([a[k]["borrows"] for k in ks], [b2[k]["borrows"] for k in ks])
+            g, c = jud["gpt"], jud["claude"]
+            ks = sorted(set(g) & set(c))
+            kp = kappa([g[k]["borrows"] for k in ks], [c[k]["borrows"] for k in ks])
             out += ["", "Agreement between the families on %d shared items: κ = %s." % (len(ks), "%.2f" % kp if kp is not None else "–")]
         out += ["", "**H2, what kind of borrowing** (memory-arm items a judge says borrow; counts of each kind):", "",
                 "| judge | reference | mix-up | reuse | coincidence |", "|---|---:|---:|---:|---:|"]
@@ -240,14 +251,18 @@ def main(argv=None):
             out.append("| %s | %d | %d | %d | %d |" % (fam, tot["reference"], tot["mixup"], tot["reuse"], tot["coincidence"]))
         out += ["", "**L3, lore** (tracker transfer, at least two posters using it, and the judge calls a borrowing *reuse*):", "",
                 "| judge | memory | none |", "|---|---|---|"]
-        for fam, v in list(jud.items()) + ([("either", None)] if len(jud) == 2 else []):
+        both = set(jud["gpt"]) & set(jud["claude"]) if len(jud) == 2 else set()
+        for fam, v in list(jud.items()) + ([("either, on items both judged", None),
+                                            ("both, on items both judged", None)] if both else []):
             row = []
             for arm in ("memory", "none"):
-                ks = [(b, tid, arm) for b, tid in paired]
-                if fam == "either":
-                    k = sum(any(lore(res[x], jud[f].get(x)) for f in jud) for x in ks)
+                if v is not None:          # a family on the items it judged
+                    ks = [(b, tid, arm) for b, tid in paired if (b, tid, arm) in v]
+                    k = sum(lore(res[x], v[x]) for x in ks)
                 else:
-                    k = sum(lore(res[x], v.get(x)) for x in ks)
+                    ks = [(b, tid, arm) for b, tid in paired if (b, tid, arm) in both]
+                    agree = any if fam.startswith("either") else all
+                    k = sum(agree(lore(res[x], jud[f][x]) for f in jud) for x in ks)
                 row.append(pct(k, len(ks)))
             out.append("| %s | %s | %s |" % (fam, row[0], row[1]))
 
