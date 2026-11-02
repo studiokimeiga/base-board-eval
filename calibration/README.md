@@ -97,9 +97,9 @@ thread takes its latest complete rating across all exports, a reader with no rat
 out of that set's report, and an undefined ρ reads "not enough ratings" instead of stopping the
 script. None of this changes a result computed from one complete export.
 
-**The items.** `build.py` takes six threads from each of three round 9 arms by the rules above (six of
-the eight openers, rotated, and the same screen), and `key-r9.json` (public) gives them the ids
-`c31`–`c48`, so they never share an id with the first set:
+**The items.** `build.py` takes six threads from each of three round 9 arms, with the same screen as
+above, and `key-r9.json` (public) gives them the ids `c31`–`c48`, so they never share an id with the
+first set:
 
 | source | what | thread file (`spike/remote/`) |
 |---|---|---|
@@ -107,9 +107,12 @@ the eight openers, rotated, and the same screen), and `key-r9.json` (public) giv
 | `gemini9` | the same under `/x/ — thread 4471` | `bakeoff-gemini9.json` |
 | `rolesshort9` | Gemini with short temperaments, under `/x/` | `bakeoff-rolesshort9.json` |
 
-Four threads were skipped for withheld posts, two in each plain-Gemini arm, so those two arms use the
-six openers they have left; each opener appears two or three times, and each pair of arms shares four
-of its six openers. `items-r9.json` stays private.
+The openers are matched rather than rotated as in the first set, because these arms are compared with
+each other, and round 9 compared arms opener by opener: `gemini9neutral` takes the first six of its
+threads that pass the screen, and the other arms try the same openers first. Four threads were skipped
+for withheld posts, two in each plain-Gemini arm, so `rolesshort9` has exactly `gemini9neutral`'s six
+openers (R3 is fully paired) while `gemini9` shares four of its six with each (R1 and R2). The owner
+chose matching over the rotation before anything was rated. `items-r9.json` stays private.
 
 **Rated on its own.** The reader rates these 18 threads apart from the 30, on the same page, scales
 and flags (`rate.html?set=r9`), in their own order and with their own saved ratings. Mixing them into
@@ -140,10 +143,11 @@ the reader marked as seen before. No prediction for the reader.
 **Limits.** Blind means unlabelled, not unrecognisable: the `/x/` threads' horror register is easy to
 spot, and the reader may have read round 9's results. Round 9's judges read the threads side by side
 on rubric v2, the reader one at a time on this rubric, so R4 mixes taste with method. With six threads
-an arm, only large differences reach p < 0.05. Each pair of arms shares only four openers, and in
-round 9's scores the openers differ about as much as the threads do, so the same-opener figure is the
-one that holds the opener fixed. For the same reasons, round 9's judges score these 18 threads a
-little differently from the whole round (`RESULTS.md` against the figures above).
+an arm, only large differences reach p < 0.05. R1 and R2 compare arms that share only four openers,
+and in round 9's scores the openers differ about as much as the threads do, so for them the
+same-opener figure is the one that holds the opener fixed. For the same reasons, round 9's judges
+score these 18 threads a little differently from the whole round (`RESULTS.md` against the figures
+above).
 
 **AI judges on this rubric.** `judge.py ... --set r9` writes the packets (`packets-r9/`), the Claude
 prompts and the gpt-5.4 calls for this set; its judges aren't told that some threads come from small

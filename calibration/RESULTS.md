@@ -102,10 +102,10 @@ Raters so far: r9-claude (18 items), r9-gpt (18 items).
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|
 | r9-claude | gemini9neutral | 6 | – | 4.27 | – | – | 4.43 | 4.10 | – |
 | r9-claude | gemini9 | 6 | – | 3.87 | – | – | 1.63 | 3.37 | – |
-| r9-claude | rolesshort9 | 6 | – | 3.73 | – | – | 3.53 | 3.60 | – |
+| r9-claude | rolesshort9 | 6 | – | 3.70 | – | – | 3.53 | 3.63 | – |
 | r9-gpt | gemini9neutral | 6 | – | 3.87 | – | – | 4.30 | 4.03 | – |
 | r9-gpt | gemini9 | 6 | – | 4.53 | – | – | 2.50 | 4.17 | – |
-| r9-gpt | rolesshort9 | 6 | – | 3.53 | – | – | 2.50 | 3.10 | – |
+| r9-gpt | rolesshort9 | 6 | – | 3.67 | – | – | 2.73 | 3.30 | – |
 
 ### R1: the `/x/` label (gemini9neutral − gemini9)
 
@@ -124,12 +124,12 @@ Waiting on the reader.
 
 | rater | scale | difference | p | same openers |
 |---|---|---:|---:|---:|
-| r9-claude | **humour** | 1.90 | 0.009 | 1.50 over 4 |
-| r9-claude | interest | -0.13 | 0.652 | -0.15 over 4 |
-| r9-claude | overall | 0.23 | 0.584 | 0.05 over 4 |
-| r9-gpt | **humour** | 0.00 | 1.000 | -0.25 over 4 |
-| r9-gpt | interest | -1.00 | 0.009 | -1.10 over 4 |
-| r9-gpt | overall | -1.07 | 0.009 | -1.20 over 4 |
+| r9-claude | **humour** | 1.90 | 0.002 | 1.95 over 4 |
+| r9-claude | interest | -0.17 | 0.532 | -0.35 over 4 |
+| r9-claude | overall | 0.27 | 0.405 | 0.10 over 4 |
+| r9-gpt | **humour** | 0.23 | 0.595 | 0.70 over 4 |
+| r9-gpt | interest | -0.87 | 0.009 | -0.90 over 4 |
+| r9-gpt | overall | -0.87 | 0.015 | -0.75 over 4 |
 
 Waiting on the reader.
 
@@ -137,12 +137,12 @@ Waiting on the reader.
 
 | rater | scale | difference | p | same openers |
 |---|---|---:|---:|---:|
-| r9-claude | **humour** | 0.90 | 0.104 | 0.85 over 4 |
-| r9-claude | **interest** | 0.53 | 0.335 | 0.75 over 4 |
-| r9-claude | overall | 0.50 | 0.400 | 0.75 over 4 |
-| r9-gpt | **humour** | 1.80 | 0.013 | 1.75 over 4 |
-| r9-gpt | **interest** | 0.33 | 0.597 | 0.35 over 4 |
-| r9-gpt | overall | 0.93 | 0.156 | 1.00 over 4 |
+| r9-claude | **humour** | 0.90 | 0.065 | 0.90 over 6 |
+| r9-claude | **interest** | 0.57 | 0.310 | 0.57 over 6 |
+| r9-claude | overall | 0.47 | 0.400 | 0.47 over 6 |
+| r9-gpt | **humour** | 1.57 | 0.015 | 1.57 over 6 |
+| r9-gpt | **interest** | 0.20 | 0.762 | 0.20 over 6 |
+| r9-gpt | overall | 0.73 | 0.245 | 0.73 over 6 |
 
 Waiting on the reader.
 
@@ -150,6 +150,6 @@ Waiting on the reader.
 
 Spearman ρ between the reader and each judge over the threads both rated. Against round 9's judges, each of the reader's humour scales is set against their one humour score. The verdict is H1's, on overall, once the reader has rated all 18 threads.
 
-For reference, round 9's Claude against its gpt-5.4: ρ = 0.56 [0.19, 0.82] over 18 threads.
+For reference, round 9's Claude against its gpt-5.4: ρ = 0.54 [0.15, 0.82] over 18 threads.
 
 Waiting on the reader.

@@ -37,7 +37,8 @@ SMALL_POOL = "threads.final.json"
 HOSTED = [("gemini", "bakeoff-gemini.json"), ("rolesshort", "bakeoff-rolesshort.json"),
           ("qwenpick", "bakeoff-pick.json")]
 # The round 9 set (README.md, "The round 9 set"): plain Gemini under the neutral header, its /x/
-# twin, and short temperaments under /x/. Its ids follow the calibration set's, so a reader's
+# twin, and short temperaments under /x/. Its arms are compared with each other, so they take
+# matched openers rather than the rotation; its ids follow the calibration set's, so a reader's
 # exports for the two sets never share an id.
 ROUND9 = [("gemini9neutral", "bakeoff-gemini9neutral.json"), ("gemini9", "bakeoff-gemini9.json"),
           ("rolesshort9", "bakeoff-rolesshort9.json")]
@@ -96,26 +97,31 @@ def digest(posts):
     return hashlib.sha256(json.dumps(posts, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
 
 
-def hosted(arms, data, notes):
+def hosted(arms, data, notes, matched=False):
     """Each bake-off arm takes 6 of the 8 openers, rotated so every opener appears two or three
-    times across the three arms; a thread that fails the screen gives way to the arm's next
-    unused opener."""
-    chosen = []
+    times across the three arms; or, matched, every arm after the first tries the first arm's
+    openers before its own next ones, so the arms can be compared opener by opener. Either way a
+    thread that fails the screen gives way to the arm's next unused opener."""
+    chosen, first = [], None
     for k, (source, fname) in enumerate(arms):
         threads = load_threads(find(data, os.path.join("spike", "remote", fname)))
-        order = [(2 * k + j) % len(threads) for j in range(len(threads))]
-        got = 0
+        if matched and first:
+            order = first + [i for i in range(len(threads)) if i not in first]
+        else:
+            order = [(2 * k + j) % len(threads) for j in range(len(threads))]
+        got = []
         for i in order:
             why = screen(threads[i])
             if why:
                 notes.append("%s: skipped %s[%d] (%s)" % (source, fname, i, why))
                 continue
             chosen.append((source, "spike/remote/" + fname, i, threads[i]))
-            got += 1
-            if got == PER_SOURCE:
+            got.append(i)
+            if len(got) == PER_SOURCE:
                 break
-        if got < PER_SOURCE:
-            raise SystemExit("%s: only %d threads pass the screen" % (source, got))
+        if len(got) < PER_SOURCE:
+            raise SystemExit("%s: only %d threads pass the screen" % (source, len(got)))
+        first = first or got
     return chosen
 
 
@@ -167,10 +173,10 @@ def build(data):
 
 
 def build_r9(data):
-    """The round 9 set: six threads from each ROUND9 arm, by the rules above, ids from c31."""
+    """The round 9 set: six threads from each ROUND9 arm on matched openers, ids from c31."""
     data = [data] if isinstance(data, str) else data
     notes = []
-    chosen = hosted(ROUND9, data, notes)
+    chosen = hosted(ROUND9, data, notes, matched=True)
     random.Random(R9_SEED).shuffle(chosen)
     items, key = label(chosen, R9_FIRST)
     return items, key, notes

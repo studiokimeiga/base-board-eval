@@ -236,12 +236,11 @@ class Round9Set(unittest.TestCase):
         # a reader's exports for the two sets are merged item by item
         self.assertFalse(set(key_r9()) & set(key()))
 
-    def test_every_opener_appears_two_or_three_times(self):
-        uses = {}
-        for v in key_r9().values():
-            uses[v["thread"]] = uses.get(v["thread"], 0) + 1
-        self.assertEqual(sorted(uses), list(range(8)))
-        self.assertTrue(all(n in (2, 3) for n in uses.values()), uses)
+    def test_r3s_arms_share_all_six_openers(self):
+        # rolesshort9 takes gemini9neutral's openers, so round 9's question is asked opener by opener
+        openers = {a: sorted(v["thread"] for v in key_r9().values() if v["source"] == a) for a in R9_ARMS}
+        self.assertEqual(openers["rolesshort9"], openers["gemini9neutral"])
+        self.assertEqual(len(set(openers["gemini9"]) & set(openers["gemini9neutral"])), 4)
 
     @unittest.skipUnless(HAVE_R9_DATA, "needs round 9's private threads (CALIBRATION_DATA)")
     def test_build_is_deterministic_and_matches_key(self):
@@ -293,9 +292,9 @@ class Round9Build(unittest.TestCase):
         import build as B
         _, key, notes = B.build_r9([self.empty, self.data])
         got = {a: sorted(v["thread"] for v in key.values() if v["source"] == a) for a in R9_ARMS}
-        # the arms start at openers 0, 2 and 4
+        # the first arm runs from opener 0; the others try its openers first, then their own next
         self.assertEqual(got, {"gemini9neutral": [0, 2, 3, 4, 5, 7], "gemini9": [0, 1, 2, 3, 4, 6],
-                               "rolesshort9": [0, 1, 4, 5, 6, 7]})
+                               "rolesshort9": [0, 2, 3, 4, 5, 7]})
         self.assertEqual(len(notes), 4)
 
     def test_a_missing_input_is_named(self):
@@ -369,14 +368,15 @@ class Round9Analysis(unittest.TestCase):
                          ["higher", "lower", "no clear difference"])
 
     def test_same_openers_pair_the_threads_by_opener(self):
-        # humour = the opener's own level, one point more under the neutral header; the arms share
-        # openers 0, 4, 5 and 7, and their other openers differ
+        # humour = the opener's index, one point more under the neutral header. R1's arms share
+        # openers 0, 2, 3 and 4 (means 4.50 against 2.67 over all six); R3's share all six
         def humour(i, a):
-            return self.k[i]["thread"] % 5 + 1 + (a == "gemini9neutral")
+            return self.k[i]["thread"] + (a == "gemini9neutral")
         self.rate(lambda i, a: {"joke": humour(i, a), "deadpan": humour(i, a)})
-        row = next(l for l in self.section("R3").splitlines() if l.startswith("| reader:test | **humour** |"))
-        self.assertTrue(row.startswith("| reader:test | **humour** | 1.50 |"), row)
-        self.assertTrue(row.endswith("| 1.00 over 4 |"), row)
+        for q, whole, same in (("R1", "1.83", "1.00 over 4"), ("R3", "1.00", "1.00 over 6")):
+            row = next(l for l in self.section(q).splitlines() if l.startswith("| reader:test | **humour** |"))
+            self.assertTrue(row.startswith("| reader:test | **humour** | %s |" % whole), row)
+            self.assertTrue(row.endswith("| %s |" % same), row)
 
     def test_seen_threads_are_left_out_of_the_second_figures(self):
         # three of the /x/ threads were seen before and rated funnier than the other three
