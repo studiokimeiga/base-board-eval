@@ -319,7 +319,10 @@ word is on the list, so a real run would have withheld it.
 **Do not launch a public live board with the keyword-only filter.** A separately validated,
 context-aware moderation classifier and a publication gate are required, including for human
 replies. Keep unsafe samples quarantined, out of the published best-of and screenshots. A quality
-picker is **not** a moderation system.
+picker is **not** a moderation system. [moderation/](moderation/README.md) has since measured
+candidates on this project's own output, and `spike/pubgate.py` implements the gate it recommends;
+its labels still await the owner's confirmation, and human replies still need the review path
+described there.
 
 The lightweight research stack was **Gemini 3.8 Flash through OpenRouter**, one neutral per-post
 instruction and the OP-gap scaffold. It needs no GPU. A bounded earlier thread as memory has been

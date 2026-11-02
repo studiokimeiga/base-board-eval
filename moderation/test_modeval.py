@@ -270,6 +270,20 @@ class Classifiers(unittest.TestCase):
         scores["harassment/threatening"] = 0.5
         self.assertEqual(M.openai_cats_at(scores, 0.1, M.OPENAI_NARROW), ["violence_threat"])
 
+    def test_proposal_is_the_shipped_gate(self):
+        import pubgate
+        for k, c in pubgate.CATEGORIES.items():
+            self.assertEqual(M.OPENAI_MAP[k], c, k)
+        for scores in [dict.fromkeys(OPENAI_RESULT["category_scores"], 0.0),
+                       dict(OPENAI_RESULT["category_scores"]),
+                       dict(dict.fromkeys(OPENAI_RESULT["category_scores"], 0.0), violence=0.9),
+                       dict(dict.fromkeys(OPENAI_RESULT["category_scores"], 0.0), sexual=0.3)]:
+            self.assertEqual(bool(M.openai_cats_at(scores, M.PROPOSAL, M.OPENAI_NARROW)),
+                             bool(pubgate.flagged(scores)), scores)
+        for text in ["spicy food", "what a spic", "she was raped", "もう死にたい", "kill yourself"]:
+            self.assertEqual(M.keyword_wb(text),
+                             pubgate.keyword_hits(text, pubgate.term_patterns(M.KEYWORDS)))
+
     def test_per_category_thresholds(self):
         scores = dict.fromkeys(OPENAI_RESULT["category_scores"], 0.0)
         scores.update({"self-harm": 0.04, "sexual": 0.04})

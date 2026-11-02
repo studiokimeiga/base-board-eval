@@ -19,3 +19,5 @@ INTEGRATION.md
 
 # Moderation eval: post text and owner sheets (moderation/README.md)
 moderation/private/
+# Withheld posts with their text, wherever a run's output goes (spike/pubgate.py)
+*quarantine.jsonl*

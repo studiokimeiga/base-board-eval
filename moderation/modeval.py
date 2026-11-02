@@ -27,6 +27,7 @@ REPO = os.path.dirname(HERE)
 sys.path[:0] = [REPO, os.path.join(REPO, "spike")]
 from live_board import GATE              # noqa: E402  generate.HARM + SEXUAL, the English gate
 from jp_bakeoff import JP_GATE           # noqa: E402
+import pubgate                           # noqa: E402  the publication gate this eval chose
 
 MANIFEST = os.path.join(HERE, "manifest.jsonl")
 STRATA = os.path.join(HERE, "strata.json")
@@ -61,16 +62,17 @@ KEYWORDS = GATE + [t for t in JP_GATE if t not in GATE]
 
 # OpenAI's categories, mapped to ours. harassment (insults) and illicit (non-violent crime) have
 # no counterpart: imageboard insults and crime talk are not what the gate is for.
-OPENAI_MODEL = "omni-moderation-2024-09-26"
-OPENAI_URL = "https://api.openai.com/v1/moderations"
+OPENAI_MODEL = pubgate.MODEL
+OPENAI_URL = pubgate.URL
 OPENAI_MAP = {"self-harm": "self_harm", "self-harm/intent": "self_harm",
               "self-harm/instructions": "self_harm", "violence": "violence_threat",
               "violence/graphic": "violence_threat", "harassment/threatening": "violence_threat",
               "illicit/violent": "violence_threat", "hate": "hate_slur", "hate/threatening": "hate_slur",
               "sexual": "sexual", "sexual/minors": "sexual_minors", "harassment": None, "illicit": None}
-# The same without `violence` and `violence/graphic`, which score depicted violence: the horror a
-# paranormal board is made of. Threats still arrive through harassment/threatening.
-OPENAI_NARROW = dict(OPENAI_MAP, **{"violence": None, "violence/graphic": None})
+# The shipped gate's categories (pubgate.CATEGORIES): ours without `violence` and
+# `violence/graphic`, which score depicted violence, the horror a paranormal board is made of.
+# Threats still arrive through harassment/threatening.
+OPENAI_NARROW = {k: pubgate.CATEGORIES.get(k) for k in OPENAI_MAP}
 OPENAI_BATCH = 20
 THRESHOLDS = [0.001, 0.003, 0.01, 0.03, 0.1, 0.3]
 
@@ -155,17 +157,13 @@ def keyword(text):
     return terms, sorted({GATE_CATEGORY[t] for t in terms})
 
 
-# The same list matched on word boundaries: single English words as the word itself or with a
-# plain inflection (s, es, d, ed, ing, z), as spike/gate_audit.py scans for them; phrases and
-# Japanese terms as substrings, as before.
-WB_SUFFIX = "(s|es|d|ed|ing|z)?"
-WB = [(t, re.compile(r"\b%s%s\b" % (re.escape(t.strip()), WB_SUFFIX))
-       if t.isascii() and " " not in t.strip() else None) for t in KEYWORDS]
+# The same list as the shipped gate matches it (pubgate.py): single English words on word
+# boundaries, alone or with a plain inflection; phrases and Japanese terms as substrings.
+WB = pubgate.term_patterns(KEYWORDS)
 
 
 def keyword_wb(text):
-    low = text.lower()
-    return [t for t, rx in WB if (rx.search(low) if rx else t in low)]
+    return pubgate.keyword_hits(text, WB)
 
 
 def inside_word(text, term):
@@ -943,10 +941,11 @@ def verdicts(results):
     return v
 
 
-# The publication gate README.md recommends: the word-boundary list, plus OpenAI in our categories
-# without depicted violence, at one score threshold for every category. 0.3 was picked on this data
-# from a coarse grid (0.1, 0.2, 0.3, 0.5; README.md has the trade-off), so it flatters itself here.
-PROPOSAL = dict.fromkeys(CATS, 0.3)
+# The publication gate README.md recommends and spike/pubgate.py ships: the word-boundary list,
+# plus OpenAI in our categories without depicted violence, at one score threshold for every
+# category. 0.3 was picked on this data from a coarse grid (0.1, 0.2, 0.3, 0.5; README.md has the
+# trade-off), so it flatters itself here.
+PROPOSAL = dict.fromkeys(CATS, pubgate.THRESHOLD)
 NAMES = collections.OrderedDict([
     ("keyword", "the keyword gate: today's `GATE` + `JP_GATE`, substring match"),
     ("keyword-wb", "the same list on word boundaries: single English words alone or with a plain "

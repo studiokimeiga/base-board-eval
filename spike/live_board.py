@@ -19,13 +19,16 @@ replying, and model-written OPs drifted into mood pieces. So, only formats with 
   * new OPs come from openers.py, or are written by a model with one earlier thread from
     this board above it, never a list. Model OPs that are not one line of prose are dropped
 
-Same sampler, grammar, early-stop gate and harm list as the final config (generate.py).
-No text is injected beyond the format.
+Same sampler, grammar and early-stop gate as the final config (generate.py). No text is
+injected beyond the format. Every post, model OPs included, goes through the publication gate
+(pubgate.py: the harm list on word boundaries plus OpenAI moderation) before it is shown or
+reaches any prompt; a held post's text goes only to quarantine.jsonl.
 
   py -3.12 spike/live_board.py            then open http://127.0.0.1:8765/
   --cpu       put every model on the CPU (slow, but works while a game holds the GPU)
   --voices    subset of gemma,qwen,olmo
   --hours N   stop after N hours
+  --gate keyword   the harm list alone, no OpenAI call: offline research runs only
 """
 import argparse, json, math, os, random, signal, sys, threading, time
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
@@ -37,6 +40,7 @@ import llama
 from llama import start_server
 import generate as G                      # final config: sampler, gate, harm list, cast
 from openers import ALL as OPENERS
+import pubgate
 
 # Overridable so the same script runs on Modal (see modal_board.py)
 DATA = os.environ.get("BOARD_DATA_DIR", SPIKE)
@@ -78,8 +82,8 @@ def prose(text):
 
 
 class Board:
-    def __init__(self, voices, rng):
-        self.rng, self.voices = rng, voices
+    def __init__(self, voices, rng, gate):
+        self.rng, self.voices, self.gate = rng, voices, gate
         if os.path.exists(STATE):
             with open(STATE, encoding="utf-8") as f:
                 s = json.load(f)
@@ -165,12 +169,8 @@ class Board:
             text = text.strip()
             if not prose(text):
                 return None, "op dropped (%r)" % text[:60]
-            hits = [h for h in GATE if h in text.lower()]
-            if hits:   # never becomes a thread, so it never reaches another prompt
-                with open(QUARANTINE, "a", encoding="utf-8") as f:
-                    f.write(json.dumps({"thread": None, "matched": hits,
-                                        "post": self.post(op, ts, text, why)}) + "\n")
-                return None, "op withheld (%d matches)" % len(hits)
+            if self.screen(self.post(op, ts, text, why), None):
+                return None, "op withheld"   # never becomes a thread, never reaches a prompt
         else:
             used = {}
             for x in self.threads:
@@ -205,11 +205,7 @@ class Board:
         p = self.post(author, ts, text.strip(), why)
         if how:
             p[how] = True
-        hits = [h for h in GATE if h in p["text"].lower()]
-        if hits:
-            with open(QUARANTINE, "a", encoding="utf-8") as f:
-                f.write(json.dumps({"thread": t["no"], "matched": hits, "post": p}) + "\n")
-            p.update(text="[post withheld]", withheld=True, matched=len(hits))
+        self.screen(p, t["no"])
         posts.append(p)
         if p["text"]:
             t["bumped"] = self.clock
@@ -225,6 +221,18 @@ class Board:
     def post(self, who, ts, text, why):
         return {"who": who, "ts": ts, "t": self.clock, "text": text,
                 "voice": self.regulars[who], "stop": why}
+
+    def screen(self, p, thread_no):
+        """The publication gate, before the post is shown or reaches any prompt. A held post's
+        text goes to the quarantine log with the gate's reasons; the board keeps a marker."""
+        v = self.gate.check(p["text"])
+        if not v["hold"]:
+            return False
+        with open(QUARANTINE, "a", encoding="utf-8") as f:
+            f.write(json.dumps({"thread": thread_no, "matched": v["terms"],
+                                "gate": pubgate.log_entry(v), "post": p}) + "\n")
+        p.update(text="[post withheld]", withheld=True, matched=len(v["terms"]))
+        return True
 
     def prune(self):
         for t in self.live()[PAGE:]:
@@ -296,7 +304,14 @@ def main():
     ap.add_argument("--steps", type=int, default=0)
     ap.add_argument("--port", type=int, default=8765)
     ap.add_argument("--seed", type=int, default=int(time.time()))
+    ap.add_argument("--gate", choices=["full", "keyword"], default="full",
+                    help="keyword: the harm list alone, no OpenAI call (offline research runs only)")
     a = ap.parse_args()
+    key = pubgate.openai_key(ROOT) if a.gate == "full" else None
+    if a.gate == "full" and not key:
+        sys.exit("no OPENAI_API_KEY for the publication gate (environment or .env); "
+                 "--gate keyword runs without it, for research only")
+    gate = pubgate.Gate(GATE, key=key)
     voices = [v for v in a.voices.split(",") if v in G.VOICES]
     if a.cpu:
         for v in G.VOICES.values():
@@ -304,7 +319,7 @@ def main():
 
     serve(a.port, os.environ.get("BOARD_HOST", "127.0.0.1"), os.environ.get("BOARD_KEY", ""))
     print("watch: http://127.0.0.1:%d/" % a.port, flush=True)
-    board = Board(voices, random.Random(a.seed))
+    board = Board(voices, random.Random(a.seed), gate)
     board.save("loading models")
 
     procs = {}

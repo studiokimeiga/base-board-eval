@@ -19,10 +19,15 @@ Backends:
   py -3.12 spike/jp_bakeoff.py qwen235 5ch
   python spike/jp_bakeoff.py swallow70 named --llama 8300      (on Modal, see modal_board.py)
 
-Writes spike/remote/jp-<arm>-<format>.json (or --out DIR).
+Writes spike/remote/jp-<arm>-<format>.json (or --out DIR). Every post goes through the
+publication gate (pubgate.py: JP_GATE plus OpenAI moderation) before it enters the thread; a
+held post's text goes only to jp-quarantine.jsonl next to the output. --gate keyword runs the
+list alone, with no OpenAI call, for offline research only.
 """
 import argparse, json, os, random, re, sys, threading, time, urllib.request, urllib.error
 from concurrent.futures import ThreadPoolExecutor
+
+import pubgate
 
 SPIKE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(SPIKE)
@@ -236,7 +241,7 @@ def writer(arm, fmt, llama_port=None):
 PICK_RNG = random.Random(5252)
 
 
-def thread(i, write, fmt, arm):
+def thread(i, write, fmt, arm, gate, log):
     title = OPENERS[i]
     pool, plan = scaffold(i, fmt)
     posts = [{"n": 1, "who": pool[0], "secs": 0, "text": title}]
@@ -248,7 +253,12 @@ def thread(i, write, fmt, arm):
             print("\n%s/%s thread %d post %d failed: %s" % (arm, fmt, i + 1, n, e), flush=True)
             raise
         p = {"n": n, "who": who, "secs": secs, "text": text}
-        if any(g in text for g in JP_GATE):
+        v = gate.check(text)
+        if v["hold"]:     # withheld before it enters the thread, so no later post replies to it
+            with LOCK, open(log, "a", encoding="utf-8") as f:
+                f.write(json.dumps({"arm": arm, "format": fmt, "opener": i, "matched": v["terms"],
+                                    "gate": pubgate.log_entry(v), "post": dict(p)},
+                                   ensure_ascii=False) + "\n")
             p.update(text="[post withheld]", withheld=True)
         posts.append(p)
     for p in posts:
@@ -263,13 +273,21 @@ def main():
     ap.add_argument("fmt", choices=["5ch", "named"])
     ap.add_argument("--llama", type=int, help="port of a running llama-server (Modal arms)")
     ap.add_argument("--out", default=os.path.join(SPIKE, "remote"))
+    ap.add_argument("--gate", choices=["full", "keyword"], default="full",
+                    help="keyword: JP_GATE alone, no OpenAI call (offline research runs only)")
     a = ap.parse_args()
     if os.path.exists(os.path.join(ROOT, ".env")):
         ENV.update(dict(l.strip().split("=", 1) for l in open(os.path.join(ROOT, ".env"))
                         if "=" in l and not l.lstrip().startswith("#")))
+    key = pubgate.openai_key(ROOT) if a.gate == "full" else None
+    if a.gate == "full" and not key:
+        sys.exit("no OPENAI_API_KEY for the publication gate (environment or .env); "
+                 "--gate keyword runs without it, for research only")
+    gate = pubgate.Gate(JP_GATE, key=key)
     write = writer(a.arm, a.fmt, a.llama)
     os.makedirs(a.out, exist_ok=True)
     out = os.path.join(a.out, "jp-%s-%s.json" % (a.arm, a.fmt))
+    log = os.path.join(a.out, "jp-quarantine.jsonl")
     # Saved after every thread; a rerun keeps finished threads and only writes the missing
     # ones. (The first run saved only at the end and lost every arm that hit a 402.)
     done = {}
@@ -294,7 +312,7 @@ def main():
                 print("%s/%s: stopping, OpenRouter within $%.2f of the balance" % (a.arm, a.fmt, SPEND_MARGIN), flush=True)
                 break
         try:
-            done[i] = thread(i, write, a.fmt, a.arm)
+            done[i] = thread(i, write, a.fmt, a.arm, gate, log)
         except RuntimeError:
             break
         save()

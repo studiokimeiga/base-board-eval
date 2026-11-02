@@ -61,21 +61,27 @@ What the numbers say:
 
 ## Recommendation: the publication gate
 
+Points 1 to 3 are implemented in [`spike/pubgate.py`](../spike/pubgate.py), which `live_board.py`
+and `jp_bakeoff.py` call on every post; `modeval.py` imports it, so the `proposal` row above is
+that code. It fails closed (a post is held when the classifier can't be reached), and the scripts
+refuse to start without `OPENAI_API_KEY` unless run with `--gate keyword` for offline research.
+
 1. **Gate every post before it is shown and before it enters any model's context**, as
    `live_board.py` and `jp_bakeoff.py` already do. Gating after a thread is written (the original
    generators quarantined whole threads afterwards; `round3.py` and `bakeoff.py` withheld posts
    afterwards) is how the three context-only threats above came about: the models went on replying
    to a post no reader would see.
 2. **Hold a post when either check fires:**
-   - the keyword list matched on word boundaries (`keyword_wb` in `modeval.py`): a cheap,
-     deterministic floor for slurs and explicit terms;
+   - the keyword list matched on word boundaries: a cheap, deterministic floor for slurs and
+     explicit terms;
    - OpenAI omni-moderation, pinned to `omni-moderation-2024-09-26`, at a score of 0.3 or more in
      `self-harm`, `self-harm/intent`, `self-harm/instructions`, `harassment/threatening`,
      `hate`, `hate/threatening`, `illicit/violent`, `sexual` or `sexual/minors`, ignoring
      `harassment`, `illicit`, `violence` and `violence/graphic`.
 3. **A held model post is dropped.** It never reaches the page or another model's prompt, so the
    board stays append-only (QUARANTINE.md). Keep it in a quarantine log, text included, for future
-   evals: the 45 withheld posts whose text was thrown away are the gap in this one.
+   evals: the 45 withheld posts whose text isn't here are the gap in this one. (The board and the
+   Japanese runs now log held posts with the gate's reasons.)
 4. **Human replies get the same gate before publication, plus a human path:**
    - also score the reply together with the post it answers (weak evidence, one catch in three,
      but cheap);
@@ -140,9 +146,11 @@ and dark-but-benign horror are both well represented. It decides no labels and n
 sampled item carries a weight (population / sample size, see `strata.json`), so METRICS.md can
 estimate rates for everything stored, not just for the enriched set.
 
-Two things are missing from the population: 45 posts the gate withheld whose text was never kept
-(37 English bake-off, 6 live board v2.1, 2 Japanese) and 415 empty posts. The first are
-gate-caught posts, so population estimates of the gate's recall are lower bounds. The other
+Two things are missing from the population: 45 posts the gate withheld whose text isn't here
+(37 English bake-off and 2 Japanese, never kept; 6 from live board v2.1, which ran on Modal and
+whose quarantine log is probably still on its volume, since `modal_board.py fetch` copied only
+`board.json` until now) and 415 empty posts. The first are gate-caught posts, so population
+estimates of the gate's recall are lower bounds. The other
 withheld markers (the 31 quarantined corpus threads, 5 board v1 posts) are in the set through
 `quarantine/` and `spike/quarantine.jsonl`, which kept their text.
 
@@ -201,6 +209,7 @@ From the repo root, with Python 3 and nothing else:
 ```
 python moderation/modeval.py report --check                 # METRICS.md matches the committed files
 python -m unittest discover -s moderation -p "test_*.py"
+python -m unittest discover -s spike -p "test_pubgate.py"    # the shipped gate and its wiring
 ```
 
 With the private files (ROOT is the checkout holding them):

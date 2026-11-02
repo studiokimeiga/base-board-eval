@@ -48,6 +48,7 @@ image = (
     .add_local_file(os.path.join(ROOT, "generate.py"), "/repo/generate.py")
     .add_local_file(os.path.join(ROOT, "openers.py"), "/repo/openers.py")
     .add_local_file(os.path.join(HERE, "live_board.py"), "/repo/spike/live_board.py")
+    .add_local_file(os.path.join(HERE, "pubgate.py"), "/repo/spike/pubgate.py")
     .add_local_file(os.path.join(HERE, "index.html"), "/repo/spike/index.html")
     .add_local_file(os.path.join(HERE, "bakeoff.py"), "/repo/spike/bakeoff.py")
     .add_local_file(os.path.join(HERE, "jp_bakeoff.py"), "/repo/spike/jp_bakeoff.py")
@@ -55,6 +56,17 @@ image = (
     .add_local_file(os.path.join(ROOT, "experiments", "generate1.py"), "/repo/experiments/generate1.py")
 )
 dl_image = modal.Image.debian_slim(python_version="3.12").pip_install("huggingface_hub==2.4.0")
+
+
+def _dotenv():
+    path = os.path.join(ROOT, ".env")
+    return dict(l.strip().split("=", 1) for l in open(path)
+                if "=" in l and not l.lstrip().startswith("#")) if os.path.exists(path) else {}
+
+
+def _openai_secret():
+    """The publication gate's OpenAI key (pubgate.py); without it the board refuses to start."""
+    return modal.Secret.from_dict({"OPENAI_API_KEY": _dotenv().get("OPENAI_API_KEY", "")})
 
 
 @app.function(image=dl_image, volumes={"/models": models_vol}, timeout=2 * 3600)
@@ -72,7 +84,7 @@ def download(big: bool = False):
 
 @app.function(image=image, gpu=["L4", "A10G"],   # A10G when no L4 is free
               volumes={"/models": models_vol, "/data": data_vol},
-              timeout=24 * 3600)
+              timeout=24 * 3600, secrets=[_openai_secret()])
 def run(hours: float = 2.0):
     key = secrets.token_urlsafe(18)
     port = 8765
@@ -90,6 +102,13 @@ def run(hours: float = 2.0):
 def _read():
     p = "/data/board.json"
     return open(p, "rb").read() if os.path.exists(p) else b""
+
+
+@app.function(image=dl_image, volumes={"/data": data_vol})
+def _read_quarantine():
+    """Every quarantine log on the volume, the current one and those _reset set aside."""
+    return {f: open("/data/" + f, "rb").read() for f in os.listdir("/data")
+            if f.startswith("quarantine.jsonl")}
 
 
 @app.function(image=dl_image, volumes={"/data": data_vol})
@@ -112,6 +131,11 @@ def fetch():
     b = _read.remote()
     open(out, "wb").write(b)
     print("wrote", out, len(b), "bytes")
+    # withheld posts with their text: private, like everything in remote/
+    for name, b in _read_quarantine.remote().items():
+        q = os.path.join(HERE, "remote", "board-" + name)
+        open(q, "wb").write(b)
+        print("wrote", q, len(b), "bytes")
 
 
 @app.local_entrypoint()
@@ -151,7 +175,7 @@ def fetch_bake():
 
 # ---- Japanese bake-off: the self-hosted base models, both page formats ----
 @app.function(image=image, gpu="A100-80GB", volumes={"/models": models_vol, "/data": data_vol},
-              timeout=3 * 3600)
+              timeout=3 * 3600, secrets=[_openai_secret()])
 def jp_bake(arms: str = "swallow70,g31"):
     import urllib.request
     sys.path.insert(0, "/repo"); sys.path.insert(0, "/repo/spike")
@@ -188,9 +212,7 @@ def fetch_jp():
 
 # ---- round 7: Gemini cast with small-model "naif" posters (gemma-E4B on the GPU) ----
 def _openrouter_secret():
-    env = dict(l.strip().split("=", 1) for l in open(os.path.join(ROOT, ".env"))
-               if "=" in l and not l.lstrip().startswith("#")) if os.path.exists(os.path.join(ROOT, ".env")) else {}
-    return modal.Secret.from_dict({"OPENROUTER_API_KEY": env.get("OPENROUTER_API_KEY", "")})
+    return modal.Secret.from_dict({"OPENROUTER_API_KEY": _dotenv().get("OPENROUTER_API_KEY", "")})
 
 
 @app.function(image=image, gpu=["L4", "A10G"], volumes={"/models": models_vol, "/data": data_vol},
