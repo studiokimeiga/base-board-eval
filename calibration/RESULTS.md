@@ -87,3 +87,55 @@ Before judging: both families put gemini or rolesshort first on overall, bestof 
 - claude-A: rolesshort 4.00 ≥ gemini 3.00 ≥ qwenpick 2.33 ≥ bestof 1.67 ≥ smallrand 1.17: **held**.
 - claude-B: rolesshort 4.00 ≥ gemini 3.83 ≥ qwenpick 2.67 ≥ bestof 1.33 ≥ smallrand 1.33: **held** (smallrand tied for last with bestof).
 - gpt: gemini 4.00 ≥ rolesshort 3.83 ≥ qwenpick 2.50 ≥ bestof 2.00 ≥ smallrand 2.00: **held** (smallrand tied for last with bestof).
+
+## Round 9 set
+
+The 18 round 9 threads in `key-r9.json`, rated apart from the set above, on the same page and scales (`rate.html?set=r9`); the questions are the ones fixed in README.md before the reader rated any of them. `r9-claude` and `r9-gpt` are round 9's own judges: each thread's mean over its five readings on rubric v2, read side by side with the round's other arms, with one humour scale where the reader has two. R1 to R3 give the difference of two arms' means with a bootstrap 95% interval over threads; for the reader it reads **higher** or **lower** when the interval excludes zero, once every thread of both arms is rated.
+
+Raters so far: r9-claude (18 items), r9-gpt (18 items).
+
+**The reader has not rated this set yet**, so R1 to R4 are waiting on them; round 9's judges are shown for reference.
+
+### Means by arm
+
+| rater | arm | n | believable | interest | joke | deadpan | humour | overall | repost |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| r9-claude | gemini9neutral | 6 | – | 4.27 | – | – | 4.43 | 4.10 | – |
+| r9-claude | gemini9 | 6 | – | 3.87 | – | – | 1.63 | 3.37 | – |
+| r9-claude | rolesshort9 | 6 | – | 3.73 | – | – | 3.53 | 3.60 | – |
+| r9-gpt | gemini9neutral | 6 | – | 3.87 | – | – | 4.30 | 4.03 | – |
+| r9-gpt | gemini9 | 6 | – | 4.53 | – | – | 2.50 | 4.17 | – |
+| r9-gpt | rolesshort9 | 6 | – | 3.53 | – | – | 2.50 | 3.10 | – |
+
+### R1: the `/x/` label (gemini9neutral − gemini9)
+
+| rater | joke | deadpan | humour | interest | overall |
+|---|---:|---:|---:|---:|---:|
+| r9-claude | – | – | 2.80 [1.90, 3.60] | 0.40 [-0.50, 1.13] | 0.73 [-0.20, 1.53] |
+| r9-gpt | – | – | 1.80 [0.97, 2.57] | -0.67 [-1.70, 0.27] | -0.13 [-1.20, 0.87] |
+
+Waiting on the reader.
+
+### R2: temperaments under `/x/` (rolesshort9 − gemini9)
+
+| rater | joke | deadpan | humour | interest | overall |
+|---|---:|---:|---:|---:|---:|
+| r9-claude | – | – | 1.90 [1.10, 2.63] | -0.13 [-0.47, 0.23] | 0.23 [-0.43, 0.83] |
+| r9-gpt | – | – | 0.00 [-0.83, 0.80] | -1.00 [-1.43, -0.60] | -1.07 [-1.63, -0.53] |
+
+Waiting on the reader.
+
+### R3: round 9's question for the reader (gemini9neutral − rolesshort9)
+
+| rater | joke | deadpan | humour | interest | overall |
+|---|---:|---:|---:|---:|---:|
+| r9-claude | – | – | 0.90 [0.00, 1.77] | 0.53 [-0.40, 1.33] | 0.50 [-0.47, 1.37] |
+| r9-gpt | – | – | 1.80 [0.83, 2.77] | 0.33 [-0.73, 1.33] | 0.93 [-0.17, 1.93] |
+
+Waiting on the reader.
+
+### R4: does a judge rank these threads as the reader does?
+
+Spearman ρ between the reader and each judge over the threads both rated. Against round 9's judges, the reader's deliberate and deadpan humour are each set against their one humour score. The verdict is H1's, on overall.
+
+Waiting on the reader.

@@ -81,3 +81,69 @@ python calibration/judge.py gpt                # gpt-5.4, one call per item, fre
 Analyse, at any point: `python calibration/analyze.py` writes `RESULTS.md` from `key.json`, the
 judges' `scores-*.json` and whatever is in `ratings/`. `python -m unittest discover -s calibration`
 runs the tests.
+
+## The round 9 set (added after registration)
+
+Added on 2026-11-02, after both AI judge families had scored the 30 items above and before the reader
+had rated anything; nothing above this section changed. Round 9
+([`spike/PREREGISTRATION-ROUND9.md`](../spike/PREREGISTRATION-ROUND9.md)) found that the `/x/` board
+header drives plain Gemini's creepypasta, and without it both judge families rated plain Gemini the
+round's funniest arm. Its pre-registration left the verdict to the reader: blind, would they keep
+reading and laugh more? This set asks them. The questions below, and `analyze.py`'s code for them,
+were committed before the reader rated any of its threads.
+
+**The items.** `build.py` takes six threads from each of three round 9 arms by the rules above (six of
+the eight openers, rotated, and the same screen), and `key-r9.json` (public) gives them the ids
+`c31`–`c48`, so they never share an id with the first set:
+
+| source | what | thread file (`spike/remote/`) |
+|---|---|---|
+| `gemini9neutral` | plain Gemini 3.8 Flash under the neutral header `thread 4471` | `bakeoff-gemini9neutral.json` |
+| `gemini9` | the same under `/x/ — thread 4471` | `bakeoff-gemini9.json` |
+| `rolesshort9` | Gemini with short temperaments, under `/x/` | `bakeoff-rolesshort9.json` |
+
+Four threads were skipped for withheld posts, two in each plain-Gemini arm, so those two arms use the
+six openers they have left; each opener appears two or three times. `items-r9.json` stays private.
+
+**Rated on its own.** The reader rates these 18 threads apart from the 30, on the same page, scales
+and flags (`rate.html?set=r9`), in their own order and with their own saved ratings. Mixing them into
+the 30 would have changed what the reader sees in the registered set.
+
+**Questions.** Each is a difference of two arms' means with a bootstrap 95% interval over threads
+(2,000 resamples within each arm). For the reader it reads **higher** or **lower** when the interval
+excludes zero, otherwise **no clear difference**, and waits until every thread of both arms is rated.
+Each is also given without the threads the reader marked as seen before. No prediction for the reader.
+
+- **R1, the label:** `gemini9neutral` − `gemini9` on deliberate humour, deadpan humour, interest and
+  overall. Round 9's judges: humour +2.35 (Claude) and +1.73 (gpt-5.4) over all eight openers.
+- **R2, temperaments under `/x/`:** `rolesshort9` − `gemini9`, the split that replicated in round 9:
+  Claude found short roles funnier, gpt-5.4 preferred plain Gemini overall.
+- **R3, round 9's question:** `gemini9neutral` − `rolesshort9`: does the reader keep reading (interest)
+  and laugh more at neutral plain Gemini than at short roles?
+- **R4, the judges:** Spearman ρ between the reader and each round 9 judge family over the 18 threads,
+  on overall (read with H1's thresholds), on interest, and with each of the reader's humour scales
+  against the judges' one humour score. It uses round 9's own scores, each thread's mean over its five
+  readings, so it needs no new judging.
+
+**Limits.** Blind means unlabelled, not unrecognisable: the `/x/` threads' horror register is easy to
+spot, and the reader may have read round 9's results. Round 9's judges read the threads side by side
+on rubric v2, the reader one at a time on this rubric, so R4 mixes taste with method. With six threads
+an arm, only large differences will clear their intervals.
+
+**AI judges on this rubric.** `judge.py ... --set r9` writes the packets (`packets-r9/`), the Claude
+prompts and the gpt-5.4 calls for this set; its judges aren't told that some threads come from small
+base models, since all 18 are Gemini's. Their `scores-r9-*.json` would join R1 to R4 automatically.
+Not run: gpt-5.4 needs the owner's OK to spend.
+
+**Running it.**
+
+```
+python calibration/build.py --data <folder with the corpora> --data <folder with round 9's spike/remote>
+python -m http.server 8000        # from the repo root
+```
+
+then open http://localhost:8000/calibration/rate.html?set=r9. **Export** names the file
+`ratings-r9-<name>-<date>.json`; put it in `calibration/ratings/` beside the other set's, and
+`python calibration/analyze.py` adds the round 9 section to `RESULTS.md`. Export as often as you
+like: for each thread, the newest export counts. `build.py` reads each file from the first `--data`
+folder that has it; `CALIBRATION_DATA` takes the same folders, joined like `PATH`, for the tests.

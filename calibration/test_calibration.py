@@ -1,5 +1,9 @@
-"""python -m unittest discover -s calibration"""
-import json, os, shutil, tempfile, unittest
+"""python -m unittest discover -s calibration
+
+CALIBRATION_DATA lists the folders with the private inputs (the corpora, spike/remote), joined
+like PATH; the tests that need them are skipped without them.
+"""
+import glob, json, os, shutil, subprocess, tempfile, unittest
 
 import analyze as A
 import judge as J
@@ -7,13 +11,25 @@ import judge as J
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 HAVE_ITEMS = os.path.exists(os.path.join(HERE, "items.json"))
-DATA = os.environ.get("CALIBRATION_DATA", ROOT)
-HAVE_DATA = os.path.exists(os.path.join(DATA, "threads.final.json")) and os.path.isdir(
-    os.path.join(DATA, "spike", "remote"))
+HAVE_R9_ITEMS = os.path.exists(os.path.join(HERE, "items-r9.json"))
+DATA = os.environ.get("CALIBRATION_DATA", ROOT).split(os.pathsep)
+R9_ARMS = ("gemini9neutral", "gemini9", "rolesshort9")
+
+
+def have(*paths):
+    return all(any(os.path.exists(os.path.join(d, p)) for d in DATA) for p in paths)
+
+
+HAVE_DATA = have("threads.final.json", os.path.join("spike", "remote", "bakeoff-gemini.json"))
+HAVE_R9_DATA = have(*(os.path.join("spike", "remote", "bakeoff-%s.json" % a) for a in R9_ARMS))
 
 
 def key():
     return A.read_json(os.path.join(HERE, "key.json"))
+
+
+def key_r9():
+    return A.read_json(os.path.join(HERE, "key-r9.json"))
 
 
 class Key(unittest.TestCase):
@@ -64,6 +80,17 @@ class Prompts(unittest.TestCase):
             ids = [i for b in J.batches(p) for i in b]
             self.assertEqual(sorted(ids), sorted(key()))
         self.assertNotEqual(J.batches("A"), J.batches("B"))
+
+    def test_round9_judges_are_not_told_some_threads_are_small_models(self):
+        # every round 9 thread is Gemini's; nothing else in the prompt differs
+        mixed = " Some threads were written by small base models and some by large chat models; nothing says which."
+        self.assertEqual(J.gpt_prompt(self.item, "r9"), J.gpt_prompt(self.item).replace(mixed, ""))
+        self.assertNotIn("small base models", J.gpt_prompt(self.item, "r9"))
+
+    @unittest.skipUnless(HAVE_R9_ITEMS, "items-r9.json is private; build it first")
+    def test_round9_claude_batches_cover_every_item_once_per_pass(self):
+        for p in ("A", "B"):
+            self.assertEqual(sorted(i for b in J.batches(p, "r9") for i in b), sorted(key_r9()))
 
 
 class Analysis(unittest.TestCase):
@@ -125,6 +152,230 @@ class Analysis(unittest.TestCase):
         scores = {"a": {"overall": 5}, "b": {"overall": 3}, "c": {"overall": 3}}
         self.assertEqual(A.rank_of(scores, "a"), 1)
         self.assertEqual(A.rank_of(scores, "b"), 2.5)
+
+
+class Readers(unittest.TestCase):
+    """How the reader's exports reach the two sets' analyses."""
+    def setUp(self):
+        self.dir = tempfile.mkdtemp()
+        for f in ["key.json", "key-r9.json"] + glob.glob(os.path.join(HERE, "scores-*.json")):
+            shutil.copy(os.path.join(HERE, f), self.dir)
+        os.mkdir(os.path.join(self.dir, "ratings"))
+
+    def tearDown(self):
+        shutil.rmtree(self.dir)
+
+    def export(self, name, ratings, exported):
+        with open(os.path.join(self.dir, "ratings", name), "w", encoding="utf-8") as f:
+            json.dump({"rater": "test", "exported": exported, "ratings": ratings}, f)
+
+    def flat(self, ids, v):
+        return {i: {s: v for s in A.SCALES} | {"repost": False} for i in ids}
+
+    def test_the_newest_export_wins_whatever_its_file_name(self):
+        ids = sorted(key())
+        # a second download on the same day is saved as "... (1).json", which sorts first
+        self.export("ratings-test-2026-11-03.json", self.flat(ids[:1], 1), "2026-11-03T09:00:00.000Z")
+        self.export("ratings-test-2026-11-03 (1).json", self.flat(ids, 3), "2026-11-03T10:00:00.000Z")
+        reader = A.load(self.dir)[1]["reader:test"]
+        self.assertEqual(len(reader), 30)
+        self.assertEqual(reader[ids[0]]["overall"], 3)
+
+    def test_each_set_gets_its_own_exports_items(self):
+        self.export("ratings-test-2026-11-03.json", self.flat(key(), 3), "2026-11-03T09:00:00.000Z")
+        self.export("ratings-r9-test-2026-11-03.json", self.flat(key_r9(), 4), "2026-11-03T10:00:00.000Z")
+        self.assertEqual(len(A.load(self.dir)[1]["reader:test"]), 30)
+        self.assertEqual(len(A.load(self.dir, "r9")[1]["reader:test"]), 18)
+
+    def test_a_reader_of_only_round_9_leaves_the_calibration_set_waiting(self):
+        self.export("ratings-r9-test-2026-11-03.json", self.flat(key_r9(), 4), "2026-11-03T10:00:00.000Z")
+        self.assertIn("The reader has not rated the set yet", A.build(self.dir).split("## Round 9 set")[0])
+
+    def test_one_rated_thread_reports_no_correlation_yet(self):
+        # Spearman's rho is undefined until the items differ
+        self.export("ratings-test-2026-11-03.json", self.flat(sorted(key())[:1], 3), "2026-11-03T09:00:00.000Z")
+        self.assertIn("**not enough ratings**", A.build(self.dir))
+
+
+class Round9Set(unittest.TestCase):
+    def test_six_threads_per_arm(self):
+        counts = {}
+        for v in key_r9().values():
+            counts[v["source"]] = counts.get(v["source"], 0) + 1
+        self.assertEqual(counts, {a: 6 for a in R9_ARMS})
+
+    def test_ids_never_collide_with_the_calibration_set(self):
+        # a reader's exports for the two sets are merged item by item
+        self.assertFalse(set(key_r9()) & set(key()))
+
+    def test_every_opener_appears_two_or_three_times(self):
+        uses = {}
+        for v in key_r9().values():
+            uses[v["thread"]] = uses.get(v["thread"], 0) + 1
+        self.assertEqual(sorted(uses), list(range(8)))
+        self.assertTrue(all(n in (2, 3) for n in uses.values()), uses)
+
+    @unittest.skipUnless(HAVE_R9_DATA, "needs round 9's private threads (CALIBRATION_DATA)")
+    def test_build_is_deterministic_and_matches_key(self):
+        import build as B
+        items1, key1, _ = B.build_r9(DATA)
+        items2, key2, _ = B.build_r9(DATA)
+        self.assertEqual(items1, items2)
+        self.assertEqual(key1, key_r9())
+
+    @unittest.skipUnless(HAVE_R9_ITEMS, "items-r9.json is private; build it first")
+    def test_items_match_key_hashes(self):
+        import build as B
+        items = A.read_json(os.path.join(HERE, "items-r9.json"))["items"]
+        k = key_r9()
+        self.assertEqual(sorted(i["id"] for i in items), sorted(k))
+        for it in items:
+            self.assertEqual(B.digest(it["posts"]), k[it["id"]]["sha256"], it["id"])
+
+    @unittest.skipUnless(HAVE_R9_ITEMS, "items-r9.json is private; build it first")
+    def test_threads_sit_on_round_9s_openers(self):
+        # analyze.py takes thread n's round 9 scores from packet opener n + 1; the public scaffold,
+        # each opener's posters in order, pins that
+        scaffold = A.read_json(os.path.join(ROOT, "spike", "judging", "r9", "scaffold.json"))
+        k = key_r9()
+        for it in A.read_json(os.path.join(HERE, "items-r9.json"))["items"]:
+            self.assertEqual([p["who"] for p in it["posts"]], scaffold[str(k[it["id"]]["thread"] + 1)], it["id"])
+
+
+class Round9Build(unittest.TestCase):
+    """build.py's rules for the round 9 set, on made-up threads so they run without private files."""
+    WITHHELD = {"gemini9neutral": {1, 6}, "gemini9": {5, 7}, "rolesshort9": set()}    # as in round 9
+
+    def setUp(self):
+        self.empty, self.data = tempfile.mkdtemp(), tempfile.mkdtemp()
+        remote = os.path.join(self.data, "spike", "remote")
+        os.makedirs(remote)
+        for arm, held in self.WITHHELD.items():
+            threads = [{"posts": [{"who": "op%d" % n, "text": "opener %d" % n},
+                                  {"who": "anon", "text": "[post withheld]" if n in held else "a reply"}]}
+                       for n in range(8)]
+            with open(os.path.join(remote, "bakeoff-%s.json" % arm), "w", encoding="utf-8") as f:
+                json.dump({"arm": arm, "threads": threads}, f)
+
+    def tearDown(self):
+        shutil.rmtree(self.empty)
+        shutil.rmtree(self.data)
+
+    def test_a_screened_thread_gives_way_to_the_arms_next_opener(self):
+        import build as B
+        _, key, notes = B.build_r9([self.empty, self.data])
+        got = {a: sorted(v["thread"] for v in key.values() if v["source"] == a) for a in R9_ARMS}
+        # the arms start at openers 0, 2 and 4
+        self.assertEqual(got, {"gemini9neutral": [0, 2, 3, 4, 5, 7], "gemini9": [0, 1, 2, 3, 4, 6],
+                               "rolesshort9": [0, 1, 4, 5, 6, 7]})
+        self.assertEqual(len(notes), 4)
+
+    def test_a_missing_input_is_named(self):
+        import build as B
+        with self.assertRaises(SystemExit) as e:
+            B.build_r9([self.empty])
+        self.assertIn("bakeoff-gemini9neutral.json", str(e.exception))
+
+
+class Round9Analysis(unittest.TestCase):
+    def setUp(self):
+        self.dir = tempfile.mkdtemp()
+        for f in ("key.json", "key-r9.json"):
+            shutil.copy(os.path.join(HERE, f), self.dir)
+        os.mkdir(os.path.join(self.dir, "ratings"))
+        self.k = key_r9()
+
+    def tearDown(self):
+        shutil.rmtree(self.dir)
+
+    def write(self, name, obj):
+        with open(os.path.join(self.dir, name), "w", encoding="utf-8") as f:
+            json.dump(obj, f)
+
+    def rate(self, scores):
+        """scores(item id, arm) -> the reader's changes to a thread rated 3 on every scale."""
+        ratings = {i: {s: 3 for s in A.SCALES} | {"repost": False} | scores(i, v["source"])
+                   for i, v in self.k.items()}
+        self.write(os.path.join("ratings", "r.json"), {"rater": "test", "ratings": ratings})
+        return ratings
+
+    def section(self, name):
+        return A.build(self.dir).split("## Round 9 set")[1].split("### " + name)[1].split("\n### ")[0]
+
+    def test_a_difference_is_read_from_its_bootstrap_interval(self):
+        joke = {"gemini9neutral": 5, "gemini9": 1, "rolesshort9": 5}
+        deadpan = {"gemini9neutral": 1, "gemini9": 3, "rolesshort9": 1}
+        self.rate(lambda i, a: {"joke": joke[a], "deadpan": deadpan[a]})
+        self.assertIn("- reader:test: joke **higher**, deadpan **lower**", self.section("R1"))
+        self.assertIn("- reader:test: joke **higher**, deadpan **lower**", self.section("R2"))
+        self.assertIn("- reader:test: joke **no clear difference**, deadpan **no clear difference**",
+                      self.section("R3"))
+
+    def test_seen_threads_are_left_out_of_the_second_figures(self):
+        # three of the /x/ threads were seen before and rated funnier than the other three
+        seen = sorted(i for i, v in self.k.items() if v["source"] == "gemini9")[:3]
+        self.rate(lambda i, a: {"joke": 5 if a != "gemini9" or i in seen else 1, "seen": i in seen})
+        r1 = self.section("R1")
+        self.assertIn("| reader:test | 2.00 [", r1)
+        self.assertIn("Without seen items: joke 4.00", r1)
+
+    def test_a_comparison_waits_for_both_arms(self):
+        ratings = self.rate(lambda i, a: {})
+        self.write(os.path.join("ratings", "r.json"), {"rater": "test", "ratings": {
+            i: v for i, v in ratings.items() if self.k[i]["source"] == "gemini9neutral"}})
+        self.assertIn("- reader:test: waiting for ratings", self.section("R1"))
+
+    def test_round_9s_judges_score_each_thread_by_its_five_readings(self):
+        j = A.round9_judges(self.k)
+        item = {(v["source"], v["thread"]): i for i, v in self.k.items()}
+        # by hand from spike/judging/r9: key.json's letters, then each reading's score
+        self.assertAlmostEqual(j["r9-claude"][item["gemini9", 0]]["overall"], 3.2)
+        self.assertAlmostEqual(j["r9-claude"][item["gemini9", 1]]["overall"], 2.6)
+        self.assertAlmostEqual(j["r9-claude"][item["rolesshort9", 0]]["overall"], 4.0)
+        self.assertAlmostEqual(j["r9-gpt"][item["gemini9", 0]]["humour"], 2.2)
+        self.assertAlmostEqual(j["r9-gpt"][item["gemini9", 1]]["humour"], 3.4)
+
+    def test_the_readers_humour_meets_round_9s_humour_score(self):
+        # a reader whose deliberate humour is round 9 Claude's humour for each thread, worked out
+        # here from the raw files: the key's letters, then the mean of the five readings
+        d = os.path.join(ROOT, "spike", "judging", "r9")
+        letters, reads = A.read_json(os.path.join(d, "key.json")), {}
+        for f in glob.glob(os.path.join(d, "scores-claude-*.json")):
+            reads.update(A.read_json(f))
+
+        def humour(arm, opener):
+            pks = ["%d-v%d" % (opener, v) for v in range(1, 6)]
+            return sum(reads["opener-" + pk][next(L for L, a in letters[pk].items() if a == arm)]["humour"]
+                       for pk in pks) / 5
+        self.rate(lambda i, a: {"joke": humour(a, self.k[i]["thread"] + 1)})
+        row = next(l for l in self.section("R4").splitlines() if l.startswith("| reader:test vs r9-claude |"))
+        self.assertEqual(row.split(" | ")[4], "1.00")             # the joke column
+
+    def test_a_judge_on_the_readers_scales_is_compared_thread_by_thread(self):
+        # a gpt-5.4 pass on this set (judge.py gpt --set r9) that agrees with the reader exactly
+        ids = sorted(self.k)
+        ratings = self.rate(lambda i, a: {"overall": ids.index(i) % 5 + 1})
+        self.write("scores-r9-gpt.json", ratings)
+        r4 = self.section("R4")
+        self.assertIn("- reader:test vs gpt: ρ = 1.00", r4)
+        self.assertIn("**usable as a first screen**", r4)
+        self.assertIn("- reader:test vs r9-claude: ρ = ", r4)
+
+
+def git_reads_checkout():
+    # WSL's git can't follow a Windows worktree's .git file, for one
+    try:
+        return subprocess.run(["git", "rev-parse", "--git-dir"], cwd=ROOT, capture_output=True).returncode == 0
+    except OSError:
+        return False
+
+
+class Private(unittest.TestCase):
+    @unittest.skipUnless(git_reads_checkout(), "needs git and a checkout it can read")
+    def test_thread_text_is_ignored_for_every_set(self):
+        for f in ("items.json", "items-r9.json", "packets/c01.txt", "packets-r9/c31.txt"):
+            r = subprocess.run(["git", "check-ignore", "-q", "calibration/" + f], cwd=ROOT)
+            self.assertEqual(r.returncode, 0, f)
 
 
 class Results(unittest.TestCase):

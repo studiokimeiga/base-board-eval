@@ -59,10 +59,10 @@ textarea { font: inherit; width: 100%; min-height: 48px; padding: 6px 8px; borde
 </head>
 <body>
 <header>
-  <h1>Blind ratings</h1>
-  <p>Thirty threads, one at a time, in an order made for you. Nothing says who or what wrote each
-     one. Rate each thread on its own; click any line you think is great to mark it ★. Ratings stay
-     in this browser until you press <b>Export</b>.</p>
+  <h1 id="heading">Blind ratings</h1>
+  <p><span id="count">The</span> threads, one at a time, in an order made for you. Nothing says who
+     or what wrote each one. Rate each thread on its own; click any line you think is great to mark
+     it ★. Ratings stay in this browser until you press <b>Export</b>.</p>
   <label>Your name <input id="rater" autocomplete="off" placeholder="for the export file"></label>
 </header>
 <nav id="nav" aria-label="Threads"></nav>
@@ -76,7 +76,10 @@ textarea { font: inherit; width: 100%; min-height: 48px; padding: 6px 8px; borde
   </div>
 </main>
 <script>
-const STORE = "calibration-v1";
+// ?set=r9 rates the round 9 set (key-r9.json) instead; each set keeps its own order and ratings
+const SET = new URLSearchParams(location.search).get("set") === "r9" ? "r9" : "";
+const STORE = SET ? "calibration-r9-v1" : "calibration-v1";
+const ITEMS = SET ? "items-r9.json" : "items.json";
 const $ = id => document.getElementById(id);
 const esc = s => s.replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
 const fmt = t => esc(t).split("\n").map(l => l.startsWith("&gt;") ? `<span class="gt">${l}</span>` : l).join("\n");
@@ -146,19 +149,21 @@ $("export").onclick = () => {
   const n = S.order.filter(isDone).length;
   if (!S.rater) { alert("Add your name first, so the file says whose ratings these are."); $("rater").focus(); return; }
   if (n < S.order.length && !confirm(`${n} of ${S.order.length} threads are fully rated. Export anyway?`)) return;
-  const out = { rater: S.rater, rubric_version: rubric.version, seed: S.seed, order: S.order,
-                started: S.started, exported: new Date().toISOString(), ratings: S.ratings };
+  const out = { rater: S.rater, set: SET || "calibration", rubric_version: rubric.version, seed: S.seed,
+                order: S.order, started: S.started, exported: new Date().toISOString(), ratings: S.ratings };
   const a = document.createElement("a");
   a.href = URL.createObjectURL(new Blob([JSON.stringify(out, null, 1)], { type: "application/json" }));
-  a.download = `ratings-${S.rater.replace(/[^a-z0-9_-]+/gi, "-")}-${out.exported.slice(0, 10)}.json`;
+  a.download = `ratings-${SET ? SET + "-" : ""}${S.rater.replace(/[^a-z0-9_-]+/gi, "-")}-${out.exported.slice(0, 10)}.json`;
   a.click();
 };
 
+if (SET) document.title = $("heading").textContent = "Blind ratings: round 9";
 Promise.all([fetch("rubric.json").then(r => r.json()),
-             fetch("items.json?" + Date.now()).then(r => { if (!r.ok) throw new Error("items.json " + r.status); return r.json(); })])
+             fetch(ITEMS + "?" + Date.now()).then(r => { if (!r.ok) throw new Error(ITEMS + " " + r.status); return r.json(); })])
   .then(([rb, data]) => {
     rubric = rb;
     data.items.forEach(it => items[it.id] = it);
+    $("count").textContent = data.items.length;
     const ids = Object.keys(items).sort();
     const old = restore();
     if (old && old.order && old.order.length === ids.length && old.order.every(x => items[x])) S = old;

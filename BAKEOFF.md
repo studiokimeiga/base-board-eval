@@ -44,7 +44,7 @@ is not the same experiment as a persistent community.
 | Round 9, pre-registered | An occasional small-model post; the `/x/` label against a neutral header; Latin-square judging | `spike/PREREGISTRATION-ROUND9.md`, LEDGER round 9 (results below) |
 | Japanese round and picker | 9 arms (8 models) in 5ch and named-handle formats; Gemini best-of-3 | LEDGER rounds JP and JP-5 |
 | Cross-thread folklore on a hosted live board | Discussed, with memory-on vs. memory-off controls | **Not tested**. The earlier local one-prior test is in [FINDINGS.md](FINDINGS.md) |
-| Blind human ratings of hosted-model output | [`calibration/`](calibration/README.md): 30 mixed threads, pre-registered; `spike/rate.html?round=8` for round 8 | **Not done**: waiting on the reader |
+| Blind human ratings of hosted-model output | [`calibration/`](calibration/README.md): 30 mixed threads, pre-registered, and 18 round 9 threads (`rate.html?set=r9`); `spike/rate.html?round=8` for round 8 | **Not done**: waiting on the reader |
 
 Every English round used the same 8 openers and the same seeded scaffold: cast, author order,
 timestamps, the OP leaving and returning at posts 7 and 19, and a newcomer at post 13 all come from
@@ -408,7 +408,8 @@ the **original local gemma-4-E4B** workload with dated August 2026 assumptions.
 2. **Get the reader's verdict on round 8** (plain vs. long roles vs. short roles), the round where
    the two AI judge families disagree: `spike/rate.html?round=8`.
 3. **Put neutral-board plain Gemini in front of the reader,** next to its `/x/` twin and short roles
-   (round 9's threads), blind.
+   (round 9's threads), blind: six threads of each in [`calibration/`](calibration/README.md),
+   `calibration/rate.html?set=r9`, with the questions fixed before rating.
 4. **Narrower hybrids, what's left.** An occasional small-model post was tried in round 9 and read as
    a glitch to Claude (gpt-5.4 saw no difference). Seeding a shared confusion is untested.
 5. **Separate Qwen's temperature from min_p, the frequency penalty and the provider,** with logged

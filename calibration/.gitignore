@@ -1,4 +1,4 @@
-# Private: the thread text (rebuild with build.py)
-items.json
-packets/
+# Private: the thread text, for every set (rebuild with build.py)
+items*.json
+packets*/
 __pycache__/
