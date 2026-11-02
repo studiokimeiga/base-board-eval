@@ -353,10 +353,13 @@ def latin_rows(cells, key):
 
 
 # ---- round 9: creepypasta drift ----
-# A judge's main_failure note names the horror register / says the posters sound the same.
+# A judge's main_failure note names the horror register / says the posters sound the same / calls
+# the thread nonsense (round 7's naifs drew "dream-logic word salad").
 HORROR_NOTE = re.compile(r"ominous|creep|horror|dread|cryptic|oracle|eerie|spooky|sinister|occult|"
                          r"paranormal|supernatural|ghost|haunt|menac|portent|doom|uncanny|macabre", re.I)
 SAME_NOTE = re.compile(r"\bsame\b|alike|uniform|one-note|monoton|homogen|samey|interchangeable", re.I)
+NONSENSE_NOTE = re.compile(r"salad|nonsense|incoheren|garbled|gibberish|broken|dream-logic|"
+                           r"non sequitur|schizo", re.I)
 LABEL_PAIRS = [("gemini9neutral", "gemini9"), ("rolesshort9neutral", "rolesshort9")]
 R9_ORDER = ["gemini9", "gemini9neutral", "rolesshort9", "rolesshort9neutral", "rolesshort9naif"]
 
@@ -368,9 +371,11 @@ def notes(v):
 
 
 def note_shares(v):
+    """Shares of a cell's readings whose note names horror, horror and sameness, and nonsense."""
     ns = notes(v)
     return (mean([bool(HORROR_NOTE.search(n)) for n in ns]),
-            mean([bool(HORROR_NOTE.search(n) and SAME_NOTE.search(n)) for n in ns]))
+            mean([bool(HORROR_NOTE.search(n) and SAME_NOTE.search(n)) for n in ns]),
+            mean([bool(NONSENSE_NOTE.search(n)) for n in ns]))
 
 
 def load_tags(folder, key):
@@ -396,68 +401,86 @@ def kappa(a, b):
     return (po - pe) / (1 - pe) if pe < 1 else None
 
 
+def paired_row(measure, label, diffs):
+    w, t, l = sum(x > 0 for x in diffs), sum(x == 0 for x in diffs), sum(x < 0 for x in diffs)
+    return "| %s | %s | %d | %+.0f pts | %d/%d/%d | %.3f |" % (
+        measure, label, len(diffs), 100 * mean(diffs), w, t, l, sign_test(w, l))
+
+
+def pct(x):
+    return "–" if x is None else "%.0f%%" % (100 * x)
+
+
 def drift_section(folder, key, cells, arms):
-    """Round 9's drift measures, pre-registered: the share of posts 2-24 that the blind taggers label
-    HORROR (primary, the two families' mean), the share of non-OP posters with a HORROR post, and
-    how often the judges' main_failure names the horror register."""
+    """Round 9's pre-registered drift measures: the share of posts 2-24 the blind taggers label
+    HORROR (primary: the two families' mean, neutral against /x/ pooled over both pairs) and the
+    share of non-OP posters with a HORROR post; then the judges' notes."""
     scaffold = read_json(os.path.join(HERE, folder, "scaffold.json"))
     tags = load_tags(folder, key)
     fams = [f for f in ("gpt", "claude") if f in tags]
-    out = ["**Creepypasta drift** (pre-registered measures). HORROR posts: the share of posts 2–24 "
-           "a blind tagger labelled HORROR (`TAG_DEFINITION` in `round3_judge.py`; each thread "
-           "labelled once by gpt-5.4 and once by a Claude subagent, neither told the arm). Posters: "
-           "the share of non-OP posters with at least one HORROR post. Notes: the share of a "
-           "family's 40 readings per arm whose main_failure names the horror register, and the "
-           "share that also says the posters sound the same (the \"single ominous voice\").", ""]
-    if not fams:
-        return out + ["Tags pending.", ""]
-
-    def share(fam, p, arm):
-        return len(tags[fam][(p, arm)]) / 23
-
-    def posters(fam, p, arm):
-        who = scaffold[p]
-        non_op = {w for w in who[1:] if w != who[0]}
-        return len({who[n - 1] for n in tags[fam][(p, arm)] if who[n - 1] != who[0]}) / len(non_op)
-
     openers = sorted({opener(pk) for pk in key}, key=int)
-    both = {(p, a): mean([share(f, p, a) for f in fams]) for p in openers for a in arms}
-    head = ["HORROR posts, %s" % f for f in fams] + ["mean"] + ["posters, %s" % f for f in fams] + \
-           ["horror notes, %s" % j for j in ("claude", "gpt")] + ["horror + same, %s" % j for j in ("claude", "gpt")]
+    out = ["**Creepypasta drift** (pre-registered). HORROR posts: the share of posts 2–24 a blind "
+           "tagger labelled HORROR (`TAG_DEFINITION` in `round3_judge.py`; each thread labelled alone, "
+           "once by gpt-5.4 and once by a Claude subagent, neither told the arm). Posters: the share "
+           "of non-OP posters with at least one HORROR post.", ""]
+    if not fams:
+        out += ["Tags pending.", ""]
+    else:
+        def share(fam, p, arm):
+            return len(tags[fam][(p, arm)]) / 23
+
+        def posters(fam, p, arm):
+            who = scaffold[p]
+            non_op = {w for w in who[1:] if w != who[0]}
+            return len({who[n - 1] for n in tags[fam][(p, arm)] if who[n - 1] != who[0]}) / len(non_op)
+
+        both = {(p, a): mean([share(f, p, a) for f in fams]) for p in openers for a in arms}
+        head = ["HORROR posts, %s" % f for f in fams] + ["mean"] + ["posters, %s" % f for f in fams]
+        out += ["| arm | %s |" % " | ".join(head), "|---|%s" % ("---:|" * len(head))]
+        for arm in arms:
+            cols = [mean([share(f, p, arm) for p in openers]) for f in fams]
+            cols += [mean([both[(p, arm)] for p in openers])]
+            cols += [mean([posters(f, p, arm) for p in openers]) for f in fams]
+            out.append("| %s | %s |" % (NAMES.get(arm, arm), " | ".join(pct(c) for c in cols)))
+        out += ["", "| drift measure | paired | openers | Δ | W/T/L | p |", "|---|---|---:|---:|---|---:|"]
+        pooled = {f: [] for f in fams + ["mean"]}
+        for arm, base in LABEL_PAIRS:
+            diffs = [both[(p, arm)] - both[(p, base)] for p in openers]
+            pooled["mean"] += diffs
+            for f in fams:
+                pooled[f] += [share(f, p, arm) - share(f, p, base) for p in openers]
+            out.append(paired_row("HORROR posts, taggers' mean", "%s vs %s" % (arm, base), diffs))
+        out.append(paired_row("HORROR posts, taggers' mean", "**neutral vs /x/, both pairs (H2)**",
+                              pooled["mean"]))
+        for f in fams:
+            out.append(paired_row("HORROR posts, %s" % f, "neutral vs /x/, both pairs", pooled[f]))
+        if len(fams) == 2:
+            a = [n in tags["gpt"][(p, arm)] for p in openers for arm in arms for n in range(2, 25)]
+            b = [n in tags["claude"][(p, arm)] for p in openers for arm in arms for n in range(2, 25)]
+            out += ["", "The two taggers agree on %d of %d post labels (Cohen's κ = %s)."
+                    % (sum(x == y for x, y in zip(a, b)), len(a), f2(kappa(a, b)))]
+        out.append("")
+    out += ["**Judges' notes.** The share of a family's readings per arm (8 openers × 5) whose "
+            "main_failure names the horror register (`HORROR_NOTE`), names it and says the posters "
+            "sound alike (`SAME_NOTE`, the \"single ominous voice\"), or calls the thread nonsense "
+            "(`NONSENSE_NOTE`).", ""]
+    judges = [j for j in ("claude", "gpt")
+              if all((p, a) in cells.get(j, {}) for p in openers for a in arms)]   # complete families only
+    head = ["%s, %s" % (m, j) for m in ("horror", "horror + same", "nonsense") for j in judges]
     out += ["| arm | %s |" % " | ".join(head), "|---|%s" % ("---:|" * len(head))]
     for arm in arms:
-        cols = [mean([share(f, p, arm) for p in openers]) for f in fams]
-        cols += [mean([both[(p, arm)] for p in openers])]
-        cols += [mean([posters(f, p, arm) for p in openers]) for f in fams]
-        ns = {j: [note_shares(cells[j][(p, arm)]) for p in openers if (p, arm) in cells.get(j, {})]
-              for j in ("claude", "gpt")}
-        cols += [mean([h for h, s in ns[j]]) if ns[j] else None for j in ("claude", "gpt")]
-        cols += [mean([s for h, s in ns[j]]) if ns[j] else None for j in ("claude", "gpt")]
+        ns = {j: [note_shares(cells[j][(p, arm)]) for p in openers] for j in judges}
         out.append("| %s | %s |" % (NAMES.get(arm, arm), " | ".join(
-            "–" if c is None else "%.0f%%" % (100 * c) for c in cols)))
-    out += ["", "| drift measure | paired | openers | Δ | W/T/L | p |", "|---|---|---:|---:|---|---:|"]
-
-    def row(measure, label, diffs):
-        w, t, l = sum(x > 0 for x in diffs), sum(x == 0 for x in diffs), sum(x < 0 for x in diffs)
-        return "| %s | %s | %d | %+.0f pts | %d/%d/%d | %.3f |" % (
-            measure, label, len(diffs), 100 * mean(diffs), w, t, l, sign_test(w, l))
-    pooled = []
-    for arm, base in LABEL_PAIRS:
-        diffs = [both[(p, arm)] - both[(p, base)] for p in openers]
-        pooled += diffs
-        out.append(row("HORROR posts (taggers' mean)", "%s vs %s" % (arm, base), diffs))
-    out.append(row("HORROR posts (taggers' mean)", "**neutral vs /x/, both pairs (primary)**", pooled))
-    for j in ("claude", "gpt"):
+            pct(mean([s[m] for s in ns[j]])) for m in range(3) for j in judges)))
+    out += ["", "| judges' notes | paired | openers | Δ | W/T/L | p |", "|---|---|---:|---:|---|---:|"]
+    for j in judges:
         for arm, base in LABEL_PAIRS:
-            if all((p, a) in cells.get(j, {}) for p in openers for a in (arm, base)):
-                out.append(row("horror notes, %s" % j, "%s vs %s" % (arm, base),
-                               [note_shares(cells[j][(p, arm)])[0] - note_shares(cells[j][(p, base)])[0]
-                                for p in openers]))
-    if len(fams) == 2:
-        a = [n in tags["gpt"][(p, arm)] for p in openers for arm in arms for n in range(2, 25)]
-        b = [n in tags["claude"][(p, arm)] for p in openers for arm in arms for n in range(2, 25)]
-        out += ["", "The two taggers agree on %d of %d post labels (Cohen's κ = %s)."
-                % (sum(x == y for x, y in zip(a, b)), len(a), f2(kappa(a, b)))]
+            out.append(paired_row("horror, %s" % j, "%s vs %s" % (arm, base),
+                                  [note_shares(cells[j][(p, arm)])[0] - note_shares(cells[j][(p, base)])[0]
+                                   for p in openers]))
+        out.append(paired_row("nonsense, %s" % j, "rolesshort9naif vs rolesshort9",
+                              [note_shares(cells[j][(p, "rolesshort9naif")])[2] -
+                               note_shares(cells[j][(p, "rolesshort9")])[2] for p in openers]))
     return out + [""]
 
 

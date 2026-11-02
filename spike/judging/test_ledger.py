@@ -75,6 +75,15 @@ class Round9Analysis(unittest.TestCase):
         self.assertEqual(count("claude", "rolesshort"), [0, 0])
         self.assertEqual(count("gpt", "rolesshort"), [1, 0])
 
+    def test_nonsense_notes_on_round_7(self):
+        # round 7's naifs, the reference for round 9's hybrid (PREREGISTRATION-ROUND9.md)
+        key, cells = L.load_round("r7", {"claude": "scores-claude-*.json", "gpt": "scores-gpt.json"})
+        def count(judge, arm):
+            return sum(bool(L.NONSENSE_NOTE.search(v["main_failure"]))
+                       for (p, a), v in cells[judge].items() if a == arm)
+        self.assertEqual([count("claude", a) for a in ("gemini", "roles", "naif", "naifroles")], [0, 0, 2, 2])
+        self.assertEqual([count("gpt", a) for a in ("gemini", "roles", "naif", "naifroles")], [1, 0, 3, 1])
+
 
 class Data(unittest.TestCase):
     def test_every_round_loads_and_letters_match_keys(self):

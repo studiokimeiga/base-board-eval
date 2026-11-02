@@ -147,5 +147,50 @@ class Generation(unittest.TestCase):
         self.assertAlmostEqual(d2["spend"]["usd"], 0.001 * 23 * (8 + 3))
 
 
+REMOTE = os.path.join(R.SPIKE, "remote")
+
+
+def real(arm):
+    with open(os.path.join(REMOTE, "bakeoff-%s.json" % arm), encoding="utf-8") as f:
+        return json.load(f)
+
+
+@unittest.skipUnless(all(os.path.exists(os.path.join(REMOTE, "bakeoff-%s.json" % a)) for a in R.R9),
+                     "round 9's private files aren't here")
+class RealFiles(unittest.TestCase):
+    """The generated round 9 files, where they exist, against the pre-registered design."""
+
+    def test_every_arm_wrote_eight_full_threads_under_its_header(self):
+        for arm, header in R.R9.items():
+            d = real(arm)
+            self.assertEqual((d["header"], d["gate"]), (header, "before context"), arm)
+            self.assertEqual([t["opener"] for t in d["threads"]], R.OPENER_PICKS, arm)
+            for t in d["threads"]:
+                self.assertEqual([p["n"] for p in t["posts"]], list(range(1, 25)), arm)
+
+    def test_the_small_model_wrote_exactly_the_planned_posts(self):
+        for arm in R.R9:
+            for t, plan in zip(real(arm)["threads"], PLAN):
+                mine = [p["n"] for p in t["posts"][1:] if p["model"] == R.NAIF_LABEL]
+                self.assertEqual(mine, plan if arm == "rolesshort9naif" else [], arm)
+                self.assertTrue(all(p["model"] in (R.NAIF_LABEL, R.GEMINI_LABEL) for p in t["posts"][1:]))
+
+    def test_no_stored_post_holds_a_gate_term(self):
+        for arm in R.R9:
+            for t in real(arm)["threads"]:
+                for p in t["posts"][1:]:
+                    self.assertFalse([h for h in R.GATE if h in p["text"].lower()], (arm, p["n"]))
+                    self.assertEqual(bool(p.get("withheld")), p["stop"].startswith("withheld"))
+
+    def test_every_arm_has_the_same_scaffold_as_a_dry_run(self):
+        R.scaffold()
+        for i, text in enumerate(R.OPENER_PICKS):
+            with mock.patch.object(R.G, "complete", lambda port, prompt, stops: ("", "dry run")), \
+                    mock.patch("sys.stdout"):
+                dry = [(p["who"], p["ts"]) for p in R.G.gen_thread(R.opener_index(text), 0, 0)["posts"]]
+            for arm in R.R9:
+                self.assertEqual([(p["who"], p["ts"]) for p in real(arm)["threads"][i]["posts"]], dry, arm)
+
+
 if __name__ == "__main__":
     unittest.main()
