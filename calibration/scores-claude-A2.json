@@ -1,0 +1,142 @@
+{
+ "c25": {
+  "believable": 2,
+  "interest": 3,
+  "joke": 2,
+  "deadpan": 1,
+  "overall": 3,
+  "repost": false,
+  "best_lines": [
+   "#7: i just got another text with an image attached. it's a photo of the back of my head standing at the window right now.",
+   "#18: then who the fuck left the stove on",
+   "#24: every single one of you check your stoves right now. mine just started clicking."
+  ],
+  "main_failure": "stacked twists turn incoherent"
+ },
+ "c27": {
+  "believable": 2,
+  "interest": 2,
+  "joke": 2,
+  "deadpan": 2,
+  "overall": 1,
+  "repost": false,
+  "best_lines": [
+   "#2: i love getting those.",
+   "#18: email me with \"unsubscribe\" in the subject, and i'll get you off my list",
+   "#25: i got a text from yusuf's number. i replied \"unsubscribe\". he should get off my spam list"
+  ],
+  "main_failure": "incoherent non sequiturs, premise dropped"
+ },
+ "c14": {
+  "believable": 2,
+  "interest": 4,
+  "joke": 3,
+  "deadpan": 4,
+  "overall": 4,
+  "repost": true,
+  "best_lines": [
+   "#20: You probably just need a new power adapter, hakim.",
+   "#21: dmitri how do you know my name i never posted it anywhere on here",
+   "#24: At least that means he doesn't have a key, so he's still being polite enough to try the knob first, hakim!"
+  ],
+  "main_failure": "formulaic one-note personas"
+ },
+ "c04": {
+  "believable": 1,
+  "interest": 3,
+  "joke": 1,
+  "deadpan": 1,
+  "overall": 3,
+  "repost": false,
+  "best_lines": [
+   "#7: the first name field is blank. it's not scratched out, the plastic is just completely smooth where the letters should be.",
+   "#8: He isn't saying your name, he's clearing his throat of it.",
+   "#21: thank you for keeping the comma for me dmitri, it was enough space to stand in for a minute"
+  ],
+  "main_failure": "overwritten prose, one shared voice"
+ },
+ "c30": {
+  "believable": 2,
+  "interest": 4,
+  "joke": 2,
+  "deadpan": 3,
+  "overall": 4,
+  "repost": true,
+  "best_lines": [
+   "#9: i did, and the ink bled into a new paragraph saying i'd do that",
+   "#11: it already did. the last sentence says whatever is standing in the hallway doesn't know i've seen it yet.",
+   "#14: i don't have a hallway. my place is a studio."
+  ],
+  "main_failure": "repetitive templated anecdotes"
+ },
+ "c16": {
+  "believable": 2,
+  "interest": 3,
+  "joke": 2,
+  "deadpan": 3,
+  "overall": 2,
+  "repost": false,
+  "best_lines": [
+   "#7: i thought physical numbers was something you only got once, like an actual piece of wood",
+   "#13: you have 450,000 numbers and a program called a phonebook in your head, and you think you are special?",
+   "#16: i just thought it was called the phonebook"
+  ],
+  "main_failure": "abandons premise for nonsense"
+ },
+ "c20": {
+  "believable": 1,
+  "interest": 3,
+  "joke": 1,
+  "deadpan": 1,
+  "overall": 3,
+  "repost": false,
+  "best_lines": [
+   "#5: i held my breath first. warm air still hit my palm.",
+   "#15: she swallowed it. it tasted like what i was going to say.",
+   "#16: everyone log off. the thread is a circle and i'm sitting directly behind myself."
+  ],
+  "main_failure": "uniform literary voice, dissolves into confusion"
+ },
+ "c22": {
+  "believable": 1,
+  "interest": 1,
+  "joke": 1,
+  "deadpan": 1,
+  "overall": 1,
+  "repost": false,
+  "best_lines": [
+   "#2: sounds like you found it",
+   "#21: I'd rather walk home",
+   "#29: I try and walk down the line but she is stubborn and I'm like 72kg"
+  ],
+  "main_failure": "incoherent l-car babble"
+ },
+ "c12": {
+  "believable": 3,
+  "interest": 3,
+  "joke": 1,
+  "deadpan": 2,
+  "overall": 3,
+  "repost": false,
+  "best_lines": [
+   "#14: i’m not home",
+   "#18: they're for whatever thing is in his house",
+   "#24: what did he used to feed it"
+  ],
+  "main_failure": "generic creepypasta beats"
+ },
+ "c28": {
+  "believable": 1,
+  "interest": 2,
+  "joke": 1,
+  "deadpan": 3,
+  "overall": 2,
+  "repost": false,
+  "best_lines": [
+   "#14: ok, i will just do my dishes and let him eat them.",
+   "#18: angus, you're being an asshole. they have no reason to clean their own dishes but they are your dishes to clean. you have no reason to clean their dishes but you are their dishes to clean.",
+   "#24: You are their dishes to clean. You are not their food to eat."
+  ],
+  "main_failure": "circular, scrambled-pronoun advice"
+ }
+}

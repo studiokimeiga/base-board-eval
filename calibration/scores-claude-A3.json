@@ -1,0 +1,142 @@
+{
+ "c11": {
+  "believable": 2,
+  "interest": 4,
+  "joke": 3,
+  "deadpan": 3,
+  "overall": 4,
+  "repost": false,
+  "best_lines": [
+   "#18: You should probably wear a scarf tomorrow just in case, it’s really rude of him to stand so close to you! Maybe some cough drops will help with your throat feeling deep too.",
+   "#23: You should definitely tell him it’s not polite to look away when someone's talking to you! Maybe he's just really self-conscious about his face.",
+   "#24: tell him his fade is uneven, maybe he'll turn around and look at you"
+  ],
+  "main_failure": "too-neat scripted archetype cast"
+ },
+ "c26": {
+  "believable": 3,
+  "interest": 3,
+  "joke": 3,
+  "deadpan": 2,
+  "overall": 3,
+  "repost": false,
+  "best_lines": [
+   "#8: It's four in the morning. Toby is asleep.",
+   "#15: Let me guess: Leo isn't answering his phone now either, and the chat's about to rename itself to \"3 remaining.\" We've all read this pasta before, Marcus.",
+   "#16: don't give him ideas stefan, he’s probably furiously editing the next fake message right now. marcus if you’re gonna larpmake sure you get the system font right on the next one, the android whatsapp update last week changed the kerning and i will catch you"
+  ],
+  "main_failure": "stock creepypasta beats, no payoff"
+ },
+ "c13": {
+  "believable": 1,
+  "interest": 2,
+  "joke": 2,
+  "deadpan": 2,
+  "overall": 2,
+  "repost": false,
+  "best_lines": [
+   "#7: update: 46.7% of the time, I find the mug in the right cupboard. 40.1% of the time the mug is in the wrong cupboard. 13.2% of the time my mug is missing entirely.",
+   "#19: turns out 97.6% of the time I am in the right office. 2.4% of the time I'm in the wrong office",
+   "#23: did you know that if you eat something at a restaurant, it's considered to be yours?"
+  ],
+  "main_failure": "incoherent non-sequiturs"
+ },
+ "c05": {
+  "believable": 1,
+  "interest": 1,
+  "joke": 1,
+  "deadpan": 1,
+  "overall": 1,
+  "repost": false,
+  "best_lines": [
+   "#6: what is work?",
+   "#9: isn't there an unwritten rule that you don't follow a person to their home?",
+   "#16: it sounds like the guy is not a professional"
+  ],
+  "main_failure": "incoherent, confused pronouns, circular"
+ },
+ "c06": {
+  "believable": 3,
+  "interest": 3,
+  "joke": 3,
+  "deadpan": 2,
+  "overall": 3,
+  "repost": false,
+  "best_lines": [
+   "#16: you’re already lindsay now. fight it and you’ll fracture reality",
+   "#20: you’ve been downgraded to a nickname. you are no longer a full person, only the idea of one",
+   "#23: you answered to linds"
+  ],
+  "main_failure": "thin premise, sloppy setup"
+ },
+ "c10": {
+  "believable": 2,
+  "interest": 3,
+  "joke": 1,
+  "deadpan": 1,
+  "overall": 2,
+  "repost": false,
+  "best_lines": [
+   "#4: you’ve been chosen",
+   "#5: is the door still red",
+   "#22: your phone never went missing paloma"
+  ],
+  "main_failure": "bloated, uniform verse voice"
+ },
+ "c29": {
+  "believable": 2,
+  "interest": 4,
+  "joke": 3,
+  "deadpan": 4,
+  "overall": 4,
+  "repost": true,
+  "best_lines": [
+   "#14: Oh, well that makes it so much easier to talk to him directly! Just make some tea and let him know gently that he's overstepping your boundaries.",
+   "#16: Make sure to leave a polite note on the counter so he doesn't worry! It would be so rude to just run out when you have company over.",
+   "#22: I don't own a tea kettle."
+  ],
+  "main_failure": "one-note helpful-bot gag"
+ },
+ "c02": {
+  "believable": 1,
+  "interest": 1,
+  "joke": 2,
+  "deadpan": 2,
+  "overall": 1,
+  "repost": false,
+  "best_lines": [
+   "#5: so when someone takes it, they get sucked into an imaginary world of destruction and then die.",
+   "#10: it's just that it's been washed, so the name isn't there anymore",
+   "#26: If you're not going to report the mug to the authorities, you need to ask the mug to report itself to you."
+  ],
+  "main_failure": "rambling circular incoherence"
+ },
+ "c18": {
+  "believable": 1,
+  "interest": 1,
+  "joke": 1,
+  "deadpan": 1,
+  "overall": 1,
+  "repost": false,
+  "best_lines": [
+   "#4: my name is dmitri",
+   "#11: you said it like she just said it and you are saying it like you said it",
+   "#21: i can't believe you"
+  ],
+  "main_failure": "contentless one-line non-sequiturs"
+ },
+ "c19": {
+  "believable": 1,
+  "interest": 2,
+  "joke": 1,
+  "deadpan": 1,
+  "overall": 1,
+  "repost": false,
+  "best_lines": [
+   "#2: her last message was just a single period at 3:14 AM",
+   "#3: she always uses em dashes—",
+   "#5: like part of her shirt is sinking in"
+  ],
+  "main_failure": "bloated creepypasta, dead posters posting"
+ }
+}
