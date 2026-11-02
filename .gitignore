@@ -1,0 +1,23 @@
+models/
+__pycache__/
+quarantine/
+*.log
+
+
+# Raw generated corpora: unfiltered base-model output, kept local only (see README)
+threads*.json
+ablation*.json
+queue*.json
+shortlist.json
+skim.json
+
+# Rating viewers that read the raw corpora
+review.html
+skim.html
+judge.html
+blind.html
+xtc.html
+
+# Local-only notes
+INFRA.md
+INTEGRATION.md
