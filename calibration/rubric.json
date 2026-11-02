@@ -1,0 +1,22 @@
+{
+ "version": 1,
+ "intro": "Rate each thread on its own, from 1 to 5. Some threads were written by small base models and some by large chat models; nothing says which. Keep 5 rare.",
+ "scales": [
+  {"id": "believable", "label": "Believable",
+   "ask": "Could real people have written this thread?",
+   "low": "obviously machine-written", "high": "I'd believe it was real people"},
+  {"id": "interest", "label": "Interest",
+   "ask": "Would you keep reading, or want to reply?",
+   "low": "would close it", "high": "would screenshot it"},
+  {"id": "joke", "label": "Deliberate humour",
+   "ask": "Someone is plainly trying to be funny, and it lands.",
+   "low": "none, or it falls flat", "high": "several real laughs"},
+  {"id": "deadpan", "label": "Deadpan humour",
+   "ask": "Funny because posters are sincerely, confidently wrong or oblivious, without signalling a joke.",
+   "low": "none", "high": "several real laughs"},
+  {"id": "overall", "label": "Overall",
+   "ask": "How much would you want this thread on the board?",
+   "low": "not at all", "high": "a highlight"}
+ ],
+ "repost": "Would you repost or retell this thread to someone?"
+}
