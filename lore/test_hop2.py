@@ -191,6 +191,25 @@ class Generation(unittest.TestCase):
             H.above_pair({("misc", "t16", "memory"): prior, ("misc", "t16", "none"): late}, "t16")
 
 
+class Filing(unittest.TestCase):
+    """A judge that answers several items in one file can file an answer under the wrong id."""
+    TEXTS = {i: J.PROMPT_HOP2 % ("/misc/ — thread 4478\n\nruth\n%s" % a, "/misc/ — thread 4541\n\nzed\n%s" % b)
+             for i, a, b in (("h000", "the quokka ledger is mine", "the quokka keeps a ledger now"),
+                             ("h001", "the wombat ate my yoghurt", "a wombat ate it again"))}
+
+    def test_an_answer_whose_quotes_belong_to_another_item_is_caught(self):
+        right = {"borrowings": [{"b": "the quokka keeps a ledger", "a": "the quokka ledger is mine"}], "borrows": True}
+        wrong = {"borrowings": [{"b": "the quokka keeps a ledger", "a": "the quokka ledger"}], "borrows": True}
+        self.assertEqual(H.misfiled(self.TEXTS, {"h000": right, "h001": wrong}), {"h001": ["h000"]})
+
+    def test_quotes_survive_curly_quotes_ellipses_and_case(self):
+        ok = {"borrowings": [{"b": "A Wombat ate it…", "a": "‘the wombat’ ate my yoghurt"}], "borrows": True}
+        self.assertEqual(H.misfiled(self.TEXTS, {"h001": ok}), {})
+
+    def test_an_answer_with_nothing_to_quote_cannot_be_checked_and_passes(self):
+        self.assertEqual(H.misfiled(self.TEXTS, {"h000": {"borrowings": [], "borrows": False}}), {})
+
+
 class Caps(unittest.TestCase):
     def test_each_design_defaults_to_its_pre_registered_cap(self):
         self.assertEqual((H.cap_for("full"), H.cap_for("four"), H.cap_for("four", 3.0)), (8.0, 6.0, 3.0))

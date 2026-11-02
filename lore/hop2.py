@@ -22,7 +22,7 @@ thread number and seeds: on the lore arm under its prior (a generation-1 memory 
 inherited an item from its source), on the sham arm under the prior's no-memory twin. The source is
 on neither page.
 """
-import argparse, collections, datetime, glob, hashlib, json, os, random, statistics, sys, threading
+import argparse, collections, datetime, glob, hashlib, json, os, random, re, statistics, sys, threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -359,6 +359,60 @@ def items(run2, gen1):
     return sorted(out, key=lambda x: x["item"])
 
 
+def _norm(s):
+    s = str(s).lower()
+    for a, b in (("’", "'"), ("‘", "'"), ("“", '"'), ("”", '"')):
+        s = s.replace(a, b)
+    return re.sub(r"[^a-z0-9']+", " ", s).strip()
+
+
+def _found(quote, text):
+    """Is a judge's quote in this normalised text? Its longest stretch between ellipses, first 40
+    characters, so a trimmed or elided quote still counts."""
+    parts = re.split(r"\.\.\.|…", str(quote))
+    probe = _norm(max(parts, key=lambda p: len(_norm(p))))[:40]
+    return bool(probe) and probe in text
+
+
+def misfiled(texts, replies):
+    """Answers filed under the wrong item: fewer than half of their quotes from Thread B are in the
+    item's own Thread B, and at least half are in another item's. {item: [the items they fit]}. An
+    answer that quotes nothing cannot be checked, and passes."""
+    threads = {}
+    for i, t in texts.items():
+        a, b = t.split("=== Thread A (earlier) ===\n", 1)[1].split("\n\n=== Thread B (later) ===\n", 1)
+        threads[i] = (_norm(a), _norm(b))
+    out = {}
+    for i, v in replies.items():
+        bs = [x.get("b", "") for x in (v.get("borrowings") or []) if isinstance(x, dict)]
+        if not bs or i not in threads or 2 * sum(_found(q, threads[i][1]) for q in bs) >= len(bs):
+            continue
+        fits = sorted(o for o in threads if o != i and 2 * sum(_found(q, threads[o][1]) for q in bs) >= len(bs))
+        if fits:
+            out[i] = fits
+    return out
+
+
+def rejudge_prompt(item_id, folder):
+    """One item for one fresh judge, who cannot file it under another id."""
+    return ("You are one of several independent judges. Below is one file. It holds one judging item: "
+            "instructions and two imageboard threads. Read it and answer its question exactly as it asks. "
+            "Do not read any other file, do not look for answer keys, and do not run any code.\n\n"
+            "Write your answer into one JSON file, %s\\claude-rejudge-%s.json, mapping the item id (the file "
+            "name without .txt) to the JSON object the item asks for. Reply with only the number of items you "
+            "wrote.\n\n%s\\items\\%s.txt" % (folder, item_id, folder, item_id))
+
+
+def as_dict(reply):
+    if isinstance(reply, dict):
+        return reply
+    m = re.search(r"\{.*\}", reply or "", re.S)
+    try:
+        return json.loads(m.group(0)) if m else {}
+    except ValueError:
+        return {}
+
+
 def verdicts(folder):
     """{(target, arm): verdict} from hop2/judging/ (key.json and scores-claude.json), or {}."""
     kp, sp = os.path.join(folder, "key.json"), os.path.join(folder, "scores-claude.json")
@@ -570,6 +624,7 @@ def main():
     ap.add_argument("--cap", type=float, default=None, help="dollars (default: the design's, $8 full, $6 four)")
     ap.add_argument("--workers", type=int, default=12)
     ap.add_argument("--half", action="store_true", help="Claude judges the pre-registered half")
+    ap.add_argument("--item", help="claude-prompt for one item, judged again on its own")
     a = ap.parse_args()
     sched1 = B.schedule()
     sched_path = os.path.join(DIR, "schedule.json")
@@ -630,6 +685,9 @@ def main():
                                                           for it in its})
         print("wrote %d items" % len(its))
     elif a.cmd == "claude-prompt":
+        if a.item:
+            print(rejudge_prompt(a.item, judging_priv))
+            return
         key = A.load(os.path.join(judging_pub, "key.json"))
         ids = sorted(key)
         if a.half:
@@ -638,11 +696,18 @@ def main():
         print(J.claude_prompt(a.n, J.batches(ids)[a.n - 1], folder=judging_priv))
     elif a.cmd == "collect":
         key = A.load(os.path.join(judging_pub, "key.json"))
-        replies = {}
-        for p in glob.glob(os.path.join(judging_priv, "claude-*.json")):
-            for k, v in A.load(p).items():
-                replies[k] = json.dumps(v) if isinstance(v, dict) else v
-        vs = {k: J.parse(v) for k, v in sorted(replies.items())}
+        replies, again = {}, {}
+        for p in sorted(glob.glob(os.path.join(judging_priv, "claude-[0-9]*.json"))):
+            replies.update(A.load(p))
+        for p in sorted(glob.glob(os.path.join(judging_priv, "claude-rejudge-*.json"))):
+            again.update(A.load(p))
+        replies.update(again)                # a re-judged item replaces its batch answer
+        texts = {}
+        for i in key:
+            with open(os.path.join(judging_priv, "items", i + ".txt"), encoding="utf-8") as f:
+                texts[i] = f.read()
+        mis = misfiled(texts, {k: as_dict(v) for k, v in replies.items()})
+        vs = {k: J.parse(json.dumps(v) if isinstance(v, dict) else v) for k, v in sorted(replies.items()) if k not in mis}
         scope = "all"
         if a.half:
             inside = set(sched2["half"][a.design])
@@ -650,9 +715,10 @@ def main():
             scope = "half"
         write_json(os.path.join(judging_pub, "scores-claude.json"),
                    {"judge": "claude", "scope": scope, "unparsed": sorted(k for k, v in vs.items() if v is None),
+                    "misfiled": mis, "rejudged": sorted(again),
                     "items": {k: v for k, v in vs.items() if v is not None}})
-        print("claude: %d items (%s), %d unparsed, %d of %d in the key" % (
-            len(vs), scope, sum(v is None for v in vs.values()), len(vs), len(key)))
+        print("claude: %d items (%s), %d unparsed, %d misfiled and left out %s, %d re-judged, %d of %d in the key" % (
+            len(vs), scope, sum(v is None for v in vs.values()), len(mis), sorted(mis), len(again), len(vs), len(key)))
     elif a.cmd == "analyze":
         s = analyze(gen1, load_run(os.path.join(PRIVATE, "run")), sched2, judging_pub, DIR,
                     T.load_reference(T.REF_SHARE), a.design)
