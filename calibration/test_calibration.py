@@ -110,6 +110,17 @@ class Analysis(unittest.TestCase):
         self.assertIn("**supported**", text)
         self.assertNotIn("has not rated", text)
 
+    def test_partial_passes_do_not_make_an_empty_average(self):
+        ids = sorted(self.k)
+        os.remove(os.path.join(self.dir, "ratings", "r.json"))
+        self.write("scores-claude-A1.json", {i: A.read_json(os.path.join(self.dir, "scores-claude-A1.json"))[i]
+                                             for i in ids[:10]})
+        self.write("scores-claude-B1.json", {i: A.read_json(os.path.join(self.dir, "scores-claude-B1.json"))[i]
+                                             for i in ids[20:]})
+        key, raters, _ = A.load(self.dir)
+        self.assertNotIn("claude", raters)
+        self.assertIn("not every source rated yet", A.build(self.dir))
+
     def test_rank_of_shares_ties(self):
         scores = {"a": {"overall": 5}, "b": {"overall": 3}, "c": {"overall": 3}}
         self.assertEqual(A.rank_of(scores, "a"), 1)

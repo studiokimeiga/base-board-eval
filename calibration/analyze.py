@@ -52,8 +52,8 @@ def load(here=HERE):
         for i in list(r):
             if i not in key or not complete(r[i]):
                 del r[i]
-    if "claude-A" in raters and "claude-B" in raters:
-        both = set(raters["claude-A"]) & set(raters["claude-B"])
+    both = set(raters.get("claude-A", {})) & set(raters.get("claude-B", {}))
+    if both:
         raters["claude"] = {i: {s: (raters["claude-A"][i][s] + raters["claude-B"][i][s]) / 2
                                 for s in SCALES} for i in both}
     return key, raters, seen
@@ -214,7 +214,11 @@ def build(here=HERE):
               "Before judging: both families put gemini or rolesshort first on overall, bestof below "
               "both, and smallrand last.", ""]
     for j in judges:
-        g = {s: mean([v["overall"] for i, v in raters[j].items() if key[i]["source"] == s]) for s in SOURCES}
+        g = {s: [v["overall"] for i, v in raters[j].items() if key[i]["source"] == s] for s in SOURCES}
+        if not all(g.values()):
+            lines.append("- %s: not every source rated yet." % j)
+            continue
+        g = {s: mean(v) for s, v in g.items()}
         order = sorted(SOURCES, key=lambda s: (-g[s], s))
         held = (order[0] in ("gemini", "rolesshort") and g["bestof"] < min(g["gemini"], g["rolesshort"])
                 and order[-1] == "smallrand")
