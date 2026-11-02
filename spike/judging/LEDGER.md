@@ -314,6 +314,15 @@ Arms that reappear were re-judged from the same file in `spike/remote/` (checked
 | gpt | Qwen3-235B, raw continuation | 3 1.83 (n=6), 6 1.25 (n=8) | 0.58 | 0.67 | 3 of 6 |
 | gpt | Gemini, posters given temperaments | 7 3.12 (n=8), 8 3.25 (n=8) | 0.12 | 0.38 | 3 of 8 |
 
+## Position in the packet
+
+Overall score minus its packet's mean, by where the thread sat (threads are read in letter order). Letters were assigned at random, so this adds noise rather than favouring an arm on average, but with 6 to 8 packets one arm can land first more often by chance. The arm shown first most often: round 1-2: l70 3 of 8; round 3: qwenhot 2 of 8; round 4: pick 2 of 8; round 5: geminipick 5 of 8; round 6: geminit15 3 of 8; round 7: gemini 5 of 8; round 8: gemini 5 of 8; round JP: qwen235 3 of 12; round JP-5: qwen235 2 of 6.
+
+| judge | first | middle | last |
+|---|---:|---:|---:|
+| claude | +0.20 (n=74) | -0.01 (n=274) | -0.15 (n=74) |
+| gpt | +0.44 (n=52) | -0.10 (n=154) | -0.16 (n=52) |
+
 ## Post length and withheld posts
 
 Computed by `ledger.py rawstats` from the private thread files (SHA-256 in `raw-stats.json` and `spike/MANIFEST.sha256`).
