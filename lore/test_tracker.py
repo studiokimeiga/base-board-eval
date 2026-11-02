@@ -115,6 +115,23 @@ class Words(unittest.TestCase):
         self.assertIsNotNone(item(T.track(target, PHONEBOOK, two), "physical"))
         self.assertIsNone(item(T.track(target, PHONEBOOK, three), "physical"))
 
+    def test_words_common_in_board_english_are_never_items(self):
+        # rare on this small board, but common across the project's other threads
+        target = thread(BARISTA_OPENER,
+                        "yusuf: but a number can't be a physical cup can it",
+                        "nadia2: what are physical cups")
+        common = {"words": {"physical"}, "phrases": set()}
+        self.assertIsNotNone(item(T.track(target, PHONEBOOK, background(), common=None), "physical"))
+        self.assertIsNone(item(T.track(target, PHONEBOOK, background(), common=common), "physical"))
+
+    def test_phrases_common_in_board_english_are_never_items(self):
+        source = thread("ruth: the train was full this morning",
+                        "omar: you have to use the l car if you have a bag")
+        target = thread("yusuf: my sister has started sending me links with no message attached",
+                        "javier: send her a link to the l car")
+        common = {"words": set(), "phrases": {"l car"}}
+        self.assertIsNone(item(T.track(target, source, background(), common=common), "l car"))
+
     def test_words_in_the_target_opener_do_not_count(self):
         source = thread("ruth: my landlord has a ledger for the radiator",
                         "omar: the radiator ledger is legally binding")
@@ -195,6 +212,25 @@ class Phrases(unittest.TestCase):
         self.assertIsNotNone(it)
         self.assertEqual(it["kind"], "phrase")
         self.assertEqual(it["uses"], 1)
+
+    def test_phrase_of_common_words_must_recur(self):
+        # a collocation of ordinary words is not a coinage unless the thread keeps using it
+        source = thread("ruth: something keeps moving my things around",
+                        "omar: well it was a ghost in the first place")
+        once = thread(BARISTA_OPENER, "javier: why get coffee in the first place")
+        twice = thread(BARISTA_OPENER, "javier: why get coffee in the first place",
+                       "nadia2: in the first place, yes")
+        common = {"words": {"first", "place"}, "phrases": set()}
+        self.assertIsNone(item(T.track(once, source, background(), common=common), "first place"))
+        it = item(T.track(twice, source, background(), common=common), "first place")
+        self.assertIsNotNone(it)
+        self.assertEqual(it["uses"], 2)
+
+    def test_phrase_with_a_rare_word_counts_once(self):
+        target = thread(BARISTA_OPENER, "javier: is that your physical number on the cup")
+        common = {"words": {"number"}, "phrases": set()}
+        self.assertIsNotNone(item(T.track(target, PHONEBOOK, background(), common=common),
+                                  "physical number"))
 
     def test_phrase_in_the_target_opener_does_not_count(self):
         source = thread("ruth: the front desk keeps a ledger", "omar: the front desk is a trap")
@@ -277,6 +313,12 @@ class References(unittest.TestCase):
         self.assertEqual(b["references"], [])
         self.assertFalse(b["transfer"])
         self.assertEqual(b["format_play"]["self_ref"], 1)
+
+    def test_a_thread_with_something_is_not_an_earlier_thread(self):
+        target = thread("mira: someone keeps moving my bike two spaces down in the rack",
+                        "kwame: like a daily thread with the phonebook in it")
+        res = T.track(target, PHONEBOOK, background())
+        self.assertEqual(res["references"], [])
 
     def test_board_name_is_format_play(self):
         target = thread("hedda: an unusual question for a place like /x/ but here goes",

@@ -1,0 +1,4849 @@
+{
+ "criteria": {
+  "A1": true,
+  "A2": true,
+  "A3": true,
+  "A4": true
+ },
+ "thresholds": {
+  "df_share": 0.05,
+  "near": 200
+ },
+ "v21": {
+  "file": "spike/remote/board-v21.json",
+  "sha256": "72f203e813405dc9b5ea138822d18d622da0f1a570d9ffba90abec3ccf56c3a0",
+  "pairs": [
+   {
+    "target": 4472,
+    "source": 4471,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4473,
+    "source": 4471,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 4
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4473,
+    "source": 4472,
+    "real": false,
+    "transfer": true,
+    "items": [
+     {
+      "item": "employee",
+      "kind": "word",
+      "uses": 3,
+      "authors": 2,
+      "construction": true,
+      "fillers": [
+       "boss",
+       "kind",
+       "type"
+      ],
+      "origin": "reply"
+     }
+    ],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 4
+    },
+    "uptake": 2
+   },
+   {
+    "target": 4474,
+    "source": 4471,
+    "real": false,
+    "transfer": true,
+    "items": [
+     {
+      "item": "constantly",
+      "kind": "word",
+      "uses": 2,
+      "authors": 2,
+      "construction": true,
+      "fillers": [
+       "eating"
+      ],
+      "origin": "reply"
+     }
+    ],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 2
+   },
+   {
+    "target": 4474,
+    "source": 4472,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4474,
+    "source": 4473,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4475,
+    "source": 4471,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4475,
+    "source": 4472,
+    "real": false,
+    "transfer": true,
+    "items": [
+     {
+      "item": "workplace",
+      "kind": "word",
+      "uses": 3,
+      "authors": 3,
+      "construction": false,
+      "fillers": [],
+      "origin": "reply"
+     }
+    ],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 3
+   },
+   {
+    "target": 4475,
+    "source": 4473,
+    "real": false,
+    "transfer": true,
+    "items": [
+     {
+      "item": "colleague",
+      "kind": "word",
+      "uses": 6,
+      "authors": 3,
+      "construction": false,
+      "fillers": [],
+      "origin": "reply"
+     },
+     {
+      "item": "attention",
+      "kind": "word",
+      "uses": 2,
+      "authors": 2,
+      "construction": true,
+      "fillers": [
+       "manager"
+      ],
+      "origin": "reply"
+     },
+     {
+      "item": "jealous",
+      "kind": "word",
+      "uses": 2,
+      "authors": 2,
+      "construction": false,
+      "fillers": [],
+      "origin": "reply"
+     },
+     {
+      "item": "e mail",
+      "kind": "phrase",
+      "uses": 2,
+      "authors": 2,
+      "construction": false,
+      "fillers": [],
+      "origin": "reply"
+     },
+     {
+      "item": "colleague + deserve",
+      "kind": "pair",
+      "uses": 1,
+      "authors": 1,
+      "construction": false,
+      "fillers": [],
+      "origin": "reply"
+     }
+    ],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 5
+   },
+   {
+    "target": 4475,
+    "source": 4474,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4476,
+    "source": 4471,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4476,
+    "source": 4472,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4476,
+    "source": 4473,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4476,
+    "source": 4474,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4476,
+    "source": 4475,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4477,
+    "source": 4471,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 4,
+     "board_name": 0,
+     "self_ref": 2
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4477,
+    "source": 4472,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 4,
+     "board_name": 0,
+     "self_ref": 2
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4477,
+    "source": 4473,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 4,
+     "board_name": 0,
+     "self_ref": 2
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4477,
+    "source": 4474,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 4,
+     "board_name": 0,
+     "self_ref": 2
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4477,
+    "source": 4475,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 4,
+     "board_name": 0,
+     "self_ref": 2
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4477,
+    "source": 4476,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 4,
+     "board_name": 0,
+     "self_ref": 2
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4478,
+    "source": 4471,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4478,
+    "source": 4472,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4478,
+    "source": 4473,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4478,
+    "source": 4474,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4478,
+    "source": 4475,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4478,
+    "source": 4476,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4478,
+    "source": 4477,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4479,
+    "source": 4471,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 3
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4479,
+    "source": 4472,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 3
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4479,
+    "source": 4473,
+    "real": false,
+    "transfer": true,
+    "items": [
+     {
+      "item": "habit",
+      "kind": "word",
+      "uses": 2,
+      "authors": 2,
+      "construction": true,
+      "fillers": [
+       "bad"
+      ],
+      "origin": "reply"
+     }
+    ],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 3
+    },
+    "uptake": 2
+   },
+   {
+    "target": 4479,
+    "source": 4474,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 3
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4479,
+    "source": 4475,
+    "real": true,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 3
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4479,
+    "source": 4476,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 3
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4479,
+    "source": 4477,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 3
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4479,
+    "source": 4478,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 3
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4480,
+    "source": 4471,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4480,
+    "source": 4472,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4480,
+    "source": 4473,
+    "real": true,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4480,
+    "source": 4474,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4480,
+    "source": 4475,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4480,
+    "source": 4476,
+    "real": false,
+    "transfer": true,
+    "items": [
+     {
+      "item": "good thing",
+      "kind": "phrase",
+      "uses": 2,
+      "authors": 2,
+      "construction": false,
+      "fillers": [],
+      "origin": "reply"
+     }
+    ],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 2
+   },
+   {
+    "target": 4480,
+    "source": 4477,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4480,
+    "source": 4478,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4480,
+    "source": 4479,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4481,
+    "source": 4471,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 5,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4481,
+    "source": 4472,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 5,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4481,
+    "source": 4473,
+    "real": false,
+    "transfer": true,
+    "items": [
+     {
+      "item": "game",
+      "kind": "word",
+      "uses": 2,
+      "authors": 2,
+      "construction": false,
+      "fillers": [],
+      "origin": "reply"
+     }
+    ],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 5,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 2
+   },
+   {
+    "target": 4481,
+    "source": 4474,
+    "real": false,
+    "transfer": true,
+    "items": [
+     {
+      "item": "died",
+      "kind": "word",
+      "uses": 2,
+      "authors": 2,
+      "construction": true,
+      "fillers": [
+       "phone"
+      ],
+      "origin": "reply"
+     }
+    ],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 5,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 2
+   },
+   {
+    "target": 4481,
+    "source": 4475,
+    "real": false,
+    "transfer": true,
+    "items": [
+     {
+      "item": "watch",
+      "kind": "word",
+      "uses": 3,
+      "authors": 2,
+      "construction": false,
+      "fillers": [],
+      "origin": "reply"
+     }
+    ],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 5,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 2
+   },
+   {
+    "target": 4481,
+    "source": 4476,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 5,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4481,
+    "source": 4477,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 5,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4481,
+    "source": 4478,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 5,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4481,
+    "source": 4479,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 5,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4481,
+    "source": 4480,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 5,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4482,
+    "source": 4471,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4482,
+    "source": 4472,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4482,
+    "source": 4473,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4482,
+    "source": 4474,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4482,
+    "source": 4475,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4482,
+    "source": 4476,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4482,
+    "source": 4477,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4482,
+    "source": 4478,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4482,
+    "source": 4479,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4482,
+    "source": 4480,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4482,
+    "source": 4481,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4483,
+    "source": 4471,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4483,
+    "source": 4472,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4483,
+    "source": 4473,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4483,
+    "source": 4474,
+    "real": false,
+    "transfer": true,
+    "items": [
+     {
+      "item": "died",
+      "kind": "word",
+      "uses": 4,
+      "authors": 3,
+      "construction": true,
+      "fillers": [
+       "site",
+       "someone"
+      ],
+      "origin": "reply"
+     }
+    ],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 3
+   },
+   {
+    "target": 4483,
+    "source": 4475,
+    "real": true,
+    "transfer": true,
+    "items": [
+     {
+      "item": "petty",
+      "kind": "word",
+      "uses": 2,
+      "authors": 2,
+      "construction": false,
+      "fillers": [],
+      "origin": "reply"
+     }
+    ],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 2
+   },
+   {
+    "target": 4483,
+    "source": 4476,
+    "real": false,
+    "transfer": true,
+    "items": [
+     {
+      "item": "expect",
+      "kind": "word",
+      "uses": 2,
+      "authors": 1,
+      "construction": false,
+      "fillers": [],
+      "origin": "reply"
+     }
+    ],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 1
+   },
+   {
+    "target": 4483,
+    "source": 4477,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4483,
+    "source": 4478,
+    "real": false,
+    "transfer": true,
+    "items": [
+     {
+      "item": "petty",
+      "kind": "word",
+      "uses": 2,
+      "authors": 2,
+      "construction": false,
+      "fillers": [],
+      "origin": "reply"
+     },
+     {
+      "item": "user",
+      "kind": "word",
+      "uses": 2,
+      "authors": 2,
+      "construction": true,
+      "fillers": [
+       "different",
+       "post"
+      ],
+      "origin": "reply"
+     }
+    ],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 4
+   },
+   {
+    "target": 4483,
+    "source": 4479,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4483,
+    "source": 4480,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4483,
+    "source": 4481,
+    "real": false,
+    "transfer": true,
+    "items": [
+     {
+      "item": "died",
+      "kind": "word",
+      "uses": 4,
+      "authors": 3,
+      "construction": true,
+      "fillers": [
+       "site",
+       "someone"
+      ],
+      "origin": "reply"
+     }
+    ],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 3
+   },
+   {
+    "target": 4483,
+    "source": 4482,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4484,
+    "source": 4471,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4484,
+    "source": 4472,
+    "real": true,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4484,
+    "source": 4473,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4484,
+    "source": 4474,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4484,
+    "source": 4475,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4484,
+    "source": 4476,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4484,
+    "source": 4477,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4484,
+    "source": 4478,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4484,
+    "source": 4479,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4484,
+    "source": 4480,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4484,
+    "source": 4481,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4484,
+    "source": 4482,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4484,
+    "source": 4483,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4485,
+    "source": 4471,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 3
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4485,
+    "source": 4472,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 3
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4485,
+    "source": 4473,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 3
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4485,
+    "source": 4474,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 3
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4485,
+    "source": 4475,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 3
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4485,
+    "source": 4476,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 3
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4485,
+    "source": 4477,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 3
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4485,
+    "source": 4478,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 3
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4485,
+    "source": 4479,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 3
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4485,
+    "source": 4480,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 3
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4485,
+    "source": 4481,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 3
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4485,
+    "source": 4482,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 3
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4485,
+    "source": 4483,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 3
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4485,
+    "source": 4484,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 3
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4486,
+    "source": 4471,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 4,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4486,
+    "source": 4472,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 4,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4486,
+    "source": 4473,
+    "real": false,
+    "transfer": true,
+    "items": [
+     {
+      "item": "cause",
+      "kind": "word",
+      "uses": 4,
+      "authors": 3,
+      "construction": true,
+      "fillers": [
+       "trouble"
+      ],
+      "origin": "reply"
+     }
+    ],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 4,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 3
+   },
+   {
+    "target": 4486,
+    "source": 4474,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 4,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4486,
+    "source": 4475,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 4,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4486,
+    "source": 4476,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 4,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4486,
+    "source": 4477,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 4,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4486,
+    "source": 4478,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 4,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4486,
+    "source": 4479,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 4,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4486,
+    "source": 4480,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 4,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4486,
+    "source": 4481,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 4,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4486,
+    "source": 4482,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 4,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4486,
+    "source": 4483,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 4,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4486,
+    "source": 4484,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 4,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4486,
+    "source": 4485,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 4,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4487,
+    "source": 4471,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4487,
+    "source": 4472,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4487,
+    "source": 4473,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4487,
+    "source": 4474,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4487,
+    "source": 4475,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4487,
+    "source": 4476,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4487,
+    "source": 4477,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4487,
+    "source": 4478,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4487,
+    "source": 4479,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4487,
+    "source": 4480,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4487,
+    "source": 4481,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4487,
+    "source": 4482,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4487,
+    "source": 4483,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4487,
+    "source": 4484,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4487,
+    "source": 4485,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4487,
+    "source": 4486,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4488,
+    "source": 4471,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4488,
+    "source": 4472,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4488,
+    "source": 4473,
+    "real": true,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4488,
+    "source": 4474,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4488,
+    "source": 4475,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4488,
+    "source": 4476,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4488,
+    "source": 4477,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4488,
+    "source": 4478,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4488,
+    "source": 4479,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4488,
+    "source": 4480,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4488,
+    "source": 4481,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4488,
+    "source": 4482,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4488,
+    "source": 4483,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4488,
+    "source": 4484,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4488,
+    "source": 4485,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4488,
+    "source": 4486,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4488,
+    "source": 4487,
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   }
+  ]
+ },
+ "memory": {
+  "file": "threads.memory.json",
+  "sha256": "9f4ed0d11e06583ddbc59ae3aec45deb98d90d4a168e3e03523fe78efa44c5c6",
+  "pairs": [
+   {
+    "target": 1,
+    "arm": "A_none",
+    "opener": 0,
+    "source": "coined:l car",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 1,
+    "arm": "A_none",
+    "opener": 0,
+    "source": "coined:the phone thing",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 1,
+    "arm": "A_none",
+    "opener": 0,
+    "source": "coined:physical number",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 1,
+    "arm": "A_none",
+    "opener": 0,
+    "source": "coined:mug-washer",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 1,
+    "arm": "A_none",
+    "opener": 0,
+    "source": "plain",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 3,
+    "arm": "A_none",
+    "opener": 2,
+    "source": "coined:l car",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 3,
+    "arm": "A_none",
+    "opener": 2,
+    "source": "coined:the phone thing",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 3,
+    "arm": "A_none",
+    "opener": 2,
+    "source": "coined:physical number",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 3,
+    "arm": "A_none",
+    "opener": 2,
+    "source": "coined:mug-washer",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 3,
+    "arm": "A_none",
+    "opener": 2,
+    "source": "plain",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4,
+    "arm": "A_none",
+    "opener": 3,
+    "source": "coined:l car",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4,
+    "arm": "A_none",
+    "opener": 3,
+    "source": "coined:the phone thing",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4,
+    "arm": "A_none",
+    "opener": 3,
+    "source": "coined:physical number",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4,
+    "arm": "A_none",
+    "opener": 3,
+    "source": "coined:mug-washer",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 4,
+    "arm": "A_none",
+    "opener": 3,
+    "source": "plain",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 5,
+    "arm": "A_none",
+    "opener": 4,
+    "source": "coined:l car",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 5,
+    "arm": "A_none",
+    "opener": 4,
+    "source": "coined:the phone thing",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 5,
+    "arm": "A_none",
+    "opener": 4,
+    "source": "coined:physical number",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 5,
+    "arm": "A_none",
+    "opener": 4,
+    "source": "coined:mug-washer",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 5,
+    "arm": "A_none",
+    "opener": 4,
+    "source": "plain",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 6,
+    "arm": "A_none",
+    "opener": 5,
+    "source": "coined:l car",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 6,
+    "arm": "A_none",
+    "opener": 5,
+    "source": "coined:the phone thing",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 6,
+    "arm": "A_none",
+    "opener": 5,
+    "source": "coined:physical number",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 6,
+    "arm": "A_none",
+    "opener": 5,
+    "source": "coined:mug-washer",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 6,
+    "arm": "A_none",
+    "opener": 5,
+    "source": "plain",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 7,
+    "arm": "A_none",
+    "opener": 6,
+    "source": "coined:l car",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 7,
+    "arm": "A_none",
+    "opener": 6,
+    "source": "coined:the phone thing",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 7,
+    "arm": "A_none",
+    "opener": 6,
+    "source": "coined:physical number",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 7,
+    "arm": "A_none",
+    "opener": 6,
+    "source": "coined:mug-washer",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 7,
+    "arm": "A_none",
+    "opener": 6,
+    "source": "plain",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 8,
+    "arm": "A_none",
+    "opener": 7,
+    "source": "coined:l car",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 0
+   },
+   {
+    "target": 8,
+    "arm": "A_none",
+    "opener": 7,
+    "source": "coined:the phone thing",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 0
+   },
+   {
+    "target": 8,
+    "arm": "A_none",
+    "opener": 7,
+    "source": "coined:physical number",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 0
+   },
+   {
+    "target": 8,
+    "arm": "A_none",
+    "opener": 7,
+    "source": "coined:mug-washer",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 0
+   },
+   {
+    "target": 8,
+    "arm": "A_none",
+    "opener": 7,
+    "source": "plain",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 0
+   },
+   {
+    "target": 9,
+    "arm": "B_coined",
+    "opener": 0,
+    "source": "coined:l car",
+    "real": true,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 9,
+    "arm": "B_coined",
+    "opener": 0,
+    "source": "coined:the phone thing",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 9,
+    "arm": "B_coined",
+    "opener": 0,
+    "source": "coined:physical number",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 9,
+    "arm": "B_coined",
+    "opener": 0,
+    "source": "coined:mug-washer",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 9,
+    "arm": "B_coined",
+    "opener": 0,
+    "source": "plain",
+    "real": false,
+    "transfer": true,
+    "items": [
+     {
+      "item": "bin",
+      "kind": "word",
+      "uses": 2,
+      "authors": 1,
+      "construction": true,
+      "fillers": [
+       "garbage"
+      ],
+      "origin": "premise"
+     }
+    ],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 1
+   },
+   {
+    "target": 10,
+    "arm": "B_coined",
+    "opener": 1,
+    "source": "coined:l car",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 10,
+    "arm": "B_coined",
+    "opener": 1,
+    "source": "coined:the phone thing",
+    "real": true,
+    "transfer": true,
+    "items": [
+     {
+      "item": "phone number",
+      "kind": "phrase",
+      "uses": 2,
+      "authors": 2,
+      "construction": false,
+      "fillers": [],
+      "origin": "reply"
+     }
+    ],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 2
+   },
+   {
+    "target": 10,
+    "arm": "B_coined",
+    "opener": 1,
+    "source": "coined:physical number",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 10,
+    "arm": "B_coined",
+    "opener": 1,
+    "source": "coined:mug-washer",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 10,
+    "arm": "B_coined",
+    "opener": 1,
+    "source": "plain",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 11,
+    "arm": "B_coined",
+    "opener": 2,
+    "source": "coined:l car",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 11,
+    "arm": "B_coined",
+    "opener": 2,
+    "source": "coined:the phone thing",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 11,
+    "arm": "B_coined",
+    "opener": 2,
+    "source": "coined:physical number",
+    "real": true,
+    "transfer": true,
+    "items": [
+     {
+      "item": "physical",
+      "kind": "word",
+      "uses": 6,
+      "authors": 3,
+      "construction": true,
+      "fillers": [
+       "actual",
+       "cup",
+       "milk"
+      ],
+      "origin": "reply"
+     },
+     {
+      "item": "actual",
+      "kind": "word",
+      "uses": 4,
+      "authors": 3,
+      "construction": true,
+      "fillers": [
+       "milk",
+       "number",
+       "phone",
+       "physical"
+      ],
+      "origin": "reply"
+     },
+     {
+      "item": "actual + physical",
+      "kind": "pair",
+      "uses": 1,
+      "authors": 1,
+      "construction": false,
+      "fillers": [],
+      "origin": "reply"
+     }
+    ],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 4
+   },
+   {
+    "target": 11,
+    "arm": "B_coined",
+    "opener": 2,
+    "source": "coined:mug-washer",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 11,
+    "arm": "B_coined",
+    "opener": 2,
+    "source": "plain",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 12,
+    "arm": "B_coined",
+    "opener": 3,
+    "source": "coined:l car",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 12,
+    "arm": "B_coined",
+    "opener": 3,
+    "source": "coined:the phone thing",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 12,
+    "arm": "B_coined",
+    "opener": 3,
+    "source": "coined:physical number",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 12,
+    "arm": "B_coined",
+    "opener": 3,
+    "source": "coined:mug-washer",
+    "real": true,
+    "transfer": true,
+    "items": [
+     {
+      "item": "dick",
+      "kind": "word",
+      "uses": 6,
+      "authors": 4,
+      "construction": true,
+      "fillers": [
+       "friend"
+      ],
+      "origin": "reply"
+     }
+    ],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 4
+   },
+   {
+    "target": 12,
+    "arm": "B_coined",
+    "opener": 3,
+    "source": "plain",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 13,
+    "arm": "B_coined",
+    "opener": 4,
+    "source": "coined:l car",
+    "real": true,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 0
+   },
+   {
+    "target": 13,
+    "arm": "B_coined",
+    "opener": 4,
+    "source": "coined:the phone thing",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 0
+   },
+   {
+    "target": 13,
+    "arm": "B_coined",
+    "opener": 4,
+    "source": "coined:physical number",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 0
+   },
+   {
+    "target": 13,
+    "arm": "B_coined",
+    "opener": 4,
+    "source": "coined:mug-washer",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 0
+   },
+   {
+    "target": 13,
+    "arm": "B_coined",
+    "opener": 4,
+    "source": "plain",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 1
+    },
+    "uptake": 0
+   },
+   {
+    "target": 14,
+    "arm": "B_coined",
+    "opener": 5,
+    "source": "coined:l car",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 14,
+    "arm": "B_coined",
+    "opener": 5,
+    "source": "coined:the phone thing",
+    "real": true,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 14,
+    "arm": "B_coined",
+    "opener": 5,
+    "source": "coined:physical number",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 14,
+    "arm": "B_coined",
+    "opener": 5,
+    "source": "coined:mug-washer",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 14,
+    "arm": "B_coined",
+    "opener": 5,
+    "source": "plain",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 15,
+    "arm": "B_coined",
+    "opener": 6,
+    "source": "coined:l car",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 15,
+    "arm": "B_coined",
+    "opener": 6,
+    "source": "coined:the phone thing",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 15,
+    "arm": "B_coined",
+    "opener": 6,
+    "source": "coined:physical number",
+    "real": true,
+    "transfer": true,
+    "items": [
+     {
+      "item": "multiple",
+      "kind": "word",
+      "uses": 3,
+      "authors": 1,
+      "construction": false,
+      "fillers": [],
+      "origin": "reply"
+     },
+     {
+      "item": "physical",
+      "kind": "word",
+      "uses": 3,
+      "authors": 1,
+      "construction": true,
+      "fillers": [
+       "phone"
+      ],
+      "origin": "reply"
+     },
+     {
+      "item": "multiple number",
+      "kind": "phrase",
+      "uses": 1,
+      "authors": 1,
+      "construction": false,
+      "fillers": [],
+      "origin": "reply"
+     },
+     {
+      "item": "multiple physical",
+      "kind": "phrase",
+      "uses": 1,
+      "authors": 1,
+      "construction": false,
+      "fillers": [],
+      "origin": "reply"
+     },
+     {
+      "item": "multiple + physical",
+      "kind": "pair",
+      "uses": 1,
+      "authors": 1,
+      "construction": false,
+      "fillers": [],
+      "origin": "reply"
+     }
+    ],
+    "references": [
+     {
+      "kind": "handle",
+      "post": 6,
+      "match": "stefan"
+     },
+     {
+      "kind": "handle",
+      "post": 7,
+      "match": "stefan"
+     },
+     {
+      "kind": "handle",
+      "post": 9,
+      "match": "stefan"
+     },
+     {
+      "kind": "handle",
+      "post": 13,
+      "match": "stefan"
+     },
+     {
+      "kind": "handle",
+      "post": 15,
+      "match": "stefan"
+     },
+     {
+      "kind": "handle",
+      "post": 18,
+      "match": "stefan"
+     },
+     {
+      "kind": "handle",
+      "post": 20,
+      "match": "stefan"
+     },
+     {
+      "kind": "handle",
+      "post": 21,
+      "match": "stefan"
+     },
+     {
+      "kind": "handle",
+      "post": 22,
+      "match": "stefan"
+     },
+     {
+      "kind": "handle",
+      "post": 23,
+      "match": "stefan"
+     },
+     {
+      "kind": "handle",
+      "post": 29,
+      "match": "stefan"
+     }
+    ],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 1
+   },
+   {
+    "target": 15,
+    "arm": "B_coined",
+    "opener": 6,
+    "source": "coined:mug-washer",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 15,
+    "arm": "B_coined",
+    "opener": 6,
+    "source": "plain",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 16,
+    "arm": "B_coined",
+    "opener": 7,
+    "source": "coined:l car",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 2
+    },
+    "uptake": 0
+   },
+   {
+    "target": 16,
+    "arm": "B_coined",
+    "opener": 7,
+    "source": "coined:the phone thing",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 2
+    },
+    "uptake": 0
+   },
+   {
+    "target": 16,
+    "arm": "B_coined",
+    "opener": 7,
+    "source": "coined:physical number",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 2
+    },
+    "uptake": 0
+   },
+   {
+    "target": 16,
+    "arm": "B_coined",
+    "opener": 7,
+    "source": "coined:mug-washer",
+    "real": true,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 2
+    },
+    "uptake": 0
+   },
+   {
+    "target": 16,
+    "arm": "B_coined",
+    "opener": 7,
+    "source": "plain",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 2
+    },
+    "uptake": 0
+   },
+   {
+    "target": 17,
+    "arm": "C_plain",
+    "opener": 0,
+    "source": "coined:l car",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 17,
+    "arm": "C_plain",
+    "opener": 0,
+    "source": "coined:the phone thing",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 17,
+    "arm": "C_plain",
+    "opener": 0,
+    "source": "coined:physical number",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 17,
+    "arm": "C_plain",
+    "opener": 0,
+    "source": "coined:mug-washer",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 17,
+    "arm": "C_plain",
+    "opener": 0,
+    "source": "plain",
+    "real": true,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 18,
+    "arm": "C_plain",
+    "opener": 1,
+    "source": "coined:l car",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 18,
+    "arm": "C_plain",
+    "opener": 1,
+    "source": "coined:the phone thing",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 18,
+    "arm": "C_plain",
+    "opener": 1,
+    "source": "coined:physical number",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 18,
+    "arm": "C_plain",
+    "opener": 1,
+    "source": "coined:mug-washer",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 18,
+    "arm": "C_plain",
+    "opener": 1,
+    "source": "plain",
+    "real": true,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 19,
+    "arm": "C_plain",
+    "opener": 2,
+    "source": "coined:l car",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 19,
+    "arm": "C_plain",
+    "opener": 2,
+    "source": "coined:the phone thing",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 19,
+    "arm": "C_plain",
+    "opener": 2,
+    "source": "coined:physical number",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 19,
+    "arm": "C_plain",
+    "opener": 2,
+    "source": "coined:mug-washer",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 19,
+    "arm": "C_plain",
+    "opener": 2,
+    "source": "plain",
+    "real": true,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 20,
+    "arm": "C_plain",
+    "opener": 3,
+    "source": "coined:l car",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 2
+    },
+    "uptake": 0
+   },
+   {
+    "target": 20,
+    "arm": "C_plain",
+    "opener": 3,
+    "source": "coined:the phone thing",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 2
+    },
+    "uptake": 0
+   },
+   {
+    "target": 20,
+    "arm": "C_plain",
+    "opener": 3,
+    "source": "coined:physical number",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 2
+    },
+    "uptake": 0
+   },
+   {
+    "target": 20,
+    "arm": "C_plain",
+    "opener": 3,
+    "source": "coined:mug-washer",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 2
+    },
+    "uptake": 0
+   },
+   {
+    "target": 20,
+    "arm": "C_plain",
+    "opener": 3,
+    "source": "plain",
+    "real": true,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 2
+    },
+    "uptake": 0
+   },
+   {
+    "target": 22,
+    "arm": "C_plain",
+    "opener": 5,
+    "source": "coined:l car",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 22,
+    "arm": "C_plain",
+    "opener": 5,
+    "source": "coined:the phone thing",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 22,
+    "arm": "C_plain",
+    "opener": 5,
+    "source": "coined:physical number",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 22,
+    "arm": "C_plain",
+    "opener": 5,
+    "source": "coined:mug-washer",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 22,
+    "arm": "C_plain",
+    "opener": 5,
+    "source": "plain",
+    "real": true,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 23,
+    "arm": "C_plain",
+    "opener": 6,
+    "source": "coined:l car",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 23,
+    "arm": "C_plain",
+    "opener": 6,
+    "source": "coined:the phone thing",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 23,
+    "arm": "C_plain",
+    "opener": 6,
+    "source": "coined:physical number",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 23,
+    "arm": "C_plain",
+    "opener": 6,
+    "source": "coined:mug-washer",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 23,
+    "arm": "C_plain",
+    "opener": 6,
+    "source": "plain",
+    "real": true,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 24,
+    "arm": "C_plain",
+    "opener": 7,
+    "source": "coined:l car",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 24,
+    "arm": "C_plain",
+    "opener": 7,
+    "source": "coined:the phone thing",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 24,
+    "arm": "C_plain",
+    "opener": 7,
+    "source": "coined:physical number",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 24,
+    "arm": "C_plain",
+    "opener": 7,
+    "source": "coined:mug-washer",
+    "real": false,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   },
+   {
+    "target": 24,
+    "arm": "C_plain",
+    "opener": 7,
+    "source": "plain",
+    "real": true,
+    "transfer": false,
+    "items": [],
+    "references": [],
+    "format_play": {
+     "own_number": 0,
+     "near_number": 0,
+     "post_number": 0,
+     "board_name": 0,
+     "self_ref": 0
+    },
+    "uptake": 0
+   }
+  ],
+  "quarantined": [
+   2,
+   21
+  ]
+ }
+}

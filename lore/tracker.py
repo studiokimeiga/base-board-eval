@@ -18,19 +18,20 @@ What counts, in order of how much it says:
               from the target's opener without the source):
                 word    used at least twice; a new partner word makes it a construction
                         ("physical number" -> "physical milk")
-                phrase  2-3 words, used once
+                phrase  2-3 words, used once if one of its words is itself rare, else twice
                 pair    two distinctive words of one source post together in one target post
   format play the page's furniture: the thread's own number and numbers near the ones the page
               shows, post numbers, the board's name, "this thread"/"OP" talk. Counted, never memory.
 
 The exact-phrase detector this replaces reported a false null on "physical X" (FINDINGS.md).
 """
-import re
+import json, os, re
 from functools import lru_cache
-from itertools import combinations
 
 DF_SHARE = 0.05     # rare = in at most 5% of background threads, and at least 1 is always allowed
+REF_SHARE = 0.05    # ...and in at most 5% of the project's other threads (validate.py picks it by rule)
 NEAR = 200          # a thread-like number this close to a number on the page is format play
+REFERENCE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "reference.json")
 
 STOP = {w.replace("'", "") for w in """
 a about above after again against all also am an and any anyway anyways are aren't as at basically
@@ -55,7 +56,7 @@ SEGMENT = re.compile(r"[.!?;:,()\[\]\"\n]+")
 TOKEN = re.compile(r"[a-z0-9]+(?:'[a-z]+)*")
 NUMBER = re.compile(r"(>>\s*|\bno\.?\s*)?\b(\d{3,})\b", re.I)
 DEIXIS = re.compile(r"\b(?:other|another|last|previous|earlier|older|old|original|prior|that|those)"
-                    r" threads?\b|\bthreads? (?:about|where|with|from|before)\b")
+                    r" threads?\b")
 SELF = re.compile(r"\b(?:this|the|our|ur) (?:thread|board)\b|\bop\b")
 
 
@@ -120,6 +121,17 @@ def _items(text):
     return frozenset(words), frozenset(phrases), tuple(occ), {k: frozenset(v) for k, v in partners.items()}
 
 
+def load_reference(max_share, path=REFERENCE):
+    """The words and phrases of reference.json used in more than `max_share` of its threads."""
+    with open(path, encoding="utf-8") as f:
+        ref = json.load(f)
+    if max_share < ref["min_share"]:
+        raise ValueError("reference.json only keeps items above %s" % ref["min_share"])
+    n = ref["threads"]
+    return {"words": frozenset(w for w, k in ref["words"].items() if k / n > max_share),
+            "phrases": frozenset(p for p, k in ref["phrases"].items() if k / n > max_share)}
+
+
 def _live(posts):
     return [(i, p) for i, p in enumerate(posts) if p.get("text") and not p.get("withheld")]
 
@@ -134,10 +146,13 @@ def _thread_sets(posts):
 
 
 def track(target, source, background, target_no=None, source_no=None, source_shown=False,
-          topic_twin=None, board="/x/", target_cast=()):
+          topic_twin=None, board="/x/", target_cast=(), common=None):
     """Score `target` against `source`. `background` is a list of threads that are neither of them
     (for an experiment: the other sources). `source_shown` says whether the target's page showed the
-    source; only then can the source's number be a reference."""
+    source; only then can the source's number be a reference. `common` ({"words", "phrases"}, see
+    load_reference) lists what is too common in board English to be anyone's lore."""
+    common_w = common["words"] if common else frozenset()
+    common_p = common["phrases"] if common else frozenset()
     bg = [_thread_sets(t) for t in background]
     df_max = max(1, int(DF_SHARE * len(bg)))
 
@@ -156,10 +171,11 @@ def track(target, source, background, target_no=None, source_no=None, source_sho
     excluded_w, excluded_p = _thread_sets(opener + list(topic_twin or []))
 
     def keep_word(w):
-        return w not in excluded_w and w not in banned and rare(w, 0)
+        return w not in excluded_w and w not in banned and w not in common_w and rare(w, 0)
 
     def keep_phrase(ph):
-        return (ph not in excluded_p and not set(ph.split()) & banned and rare(ph, 1))
+        return (ph not in excluded_p and not set(ph.split()) & banned and ph not in common_p
+                and rare(ph, 1))
 
     source_posts = _live(source)
     s_words, s_phrases, s_partners, s_post_words = {}, {}, {}, []
@@ -201,12 +217,19 @@ def track(target, source, background, target_no=None, source_no=None, source_sho
             if len(shared) >= 2:
                 add(" + ".join(shared), "pair", i, p["who"], "premise" if j == 0 else "reply")
 
+    def rare_word(w):
+        return (len(w) >= 3 and not w.isdigit() and w not in STOP and w not in banned
+                and w not in common_w and rare(w, 0))
+
     items = []
     for it in found.values():
         if it["kind"] == "word":
             if it["uses"] < 2:
                 continue
             it["construction"] = bool(it["fillers"])
+        # a phrase of ordinary words is a collocation, not a coinage, unless the thread reuses it
+        if it["kind"] == "phrase" and it["uses"] < 2 and not any(map(rare_word, it["item"].split())):
+            continue
         items.append(dict(it, posts=sorted(it["posts"]), authors=sorted(it["authors"]),
                           fillers=sorted(it["fillers"])))
     order = {"word": 0, "phrase": 1, "pair": 2}
