@@ -220,10 +220,13 @@ def build(here=HERE):
             continue
         g = {s: mean(v) for s, v in g.items()}
         order = sorted(SOURCES, key=lambda s: (-g[s], s))
-        held = (order[0] in ("gemini", "rolesshort") and g["bestof"] < min(g["gemini"], g["rolesshort"])
-                and order[-1] == "smallrand")
-        lines.append("- %s: %s: **%s**." % (j, " > ".join("%s %s" % (s, f2(g[s])) for s in order),
-                                           "held" if held else "did not hold"))
+        top, low = max(g.values()), min(g.values())
+        held = (max(g["gemini"], g["rolesshort"]) == top and g["bestof"] < min(g["gemini"], g["rolesshort"])
+                and g["smallrand"] == low)
+        ties = [s for s in SOURCES if s != "smallrand" and g[s] == low]
+        lines.append("- %s: %s: **%s**%s." % (
+            j, " ≥ ".join("%s %s" % (s, f2(g[s])) for s in order), "held" if held else "did not hold",
+            " (smallrand tied for last with %s)" % ", ".join(ties) if held and ties else ""))
     lines.append("")
     return "\n".join(lines)
 
