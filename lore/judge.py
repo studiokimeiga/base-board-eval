@@ -56,6 +56,15 @@ Answer with JSON only, in this form:
 """
 
 
+# Hop 2 (hop2.py): Thread A is the source two hops back. Nobody writing Thread B read it, though some
+# read a thread that borrowed from it, so only that sentence of PROMPT changes.
+PROMPT_HOP2 = PROMPT.replace(
+    "Some of the people writing Thread B may have read Thread A. Or none of them did,",
+    "Some of the people writing Thread B may have read a thread that borrowed from Thread A. Or none "
+    "of them did,")
+assert PROMPT_HOP2 != PROMPT
+
+
 def render(t):
     shown = [p for p in t["posts"] if p.get("text") and not p.get("withheld")]
     return "%s — thread %d\n\n%s" % (t["board"], t["no"],
@@ -95,14 +104,18 @@ def batches(item_ids, n=BATCHES):
     return [ids[i::n] for i in range(n)]
 
 
-def half(item_ids):
+HALF_SEED = "%d:half" % SEED     # for a new run's half: apart from the seed that shuffles item ids
+
+
+def half(item_ids, seed=SEED):
     """The random half Claude judges if usage limits do not allow every item (pre-registered).
 
-    Known flaw, found after judging: items() shuffles the same id list with the same seed, so this
-    half is exactly the items items() gave to the first half of its sorted keys, i.e. the whole
-    /misc/ board. Kept as is so this run's numbers reproduce; a new run should seed it apart."""
+    Known flaw, found after judging: with the default seed, items() shuffles the same id list with
+    the same seed, so this half is exactly the items items() gave to the first half of its sorted
+    keys, i.e. the whole /misc/ board. The default stays so #4's numbers reproduce; a new run passes
+    HALF_SEED (hop 2 draws its half from whole targets instead, in its schedule)."""
     ids = sorted(item_ids)
-    random.Random(SEED).shuffle(ids)
+    random.Random(seed).shuffle(ids)
     return sorted(ids[:len(ids) // 2])
 
 
@@ -234,7 +247,7 @@ def main():
             if judge == "claude" and len(verdicts) < len(all_ids):
                 # Claude did not judge every item, so it counts on the pre-registered random half only;
                 # anything it judged outside the half is kept apart and left out of the analysis
-                inside = set(half(all_ids))
+                inside = set(half(all_ids, seed=SEED))     # #4's half, flaw and all (see half)
                 extra = {k: v for k, v in verdicts.items() if k not in inside}
                 verdicts = {k: v for k, v in verdicts.items() if k in inside}
                 scope = "half"

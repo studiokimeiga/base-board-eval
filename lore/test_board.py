@@ -3,7 +3,7 @@
 The schedule, the pages and one thread's generation loop, with the model call replaced by a fake:
 the network is the only thing not exercised here.
 """
-import unittest
+import os, shutil, tempfile, unittest
 
 import board as B
 
@@ -216,6 +216,49 @@ class Generation(unittest.TestCase):
         with self.assertRaises(B.OverBudget):
             B.run_thread(t, "/x/", fake, source=None, arm="none", budget=budget)
         self.assertAlmostEqual(budget.spent, 0.003)
+
+    def test_a_halted_budget_stops_every_thread_at_its_next_call(self):
+        t, s = self.spec()
+        budget, calls = B.Budget(cap=100.0), []
+
+        def fake(prompt, seed):
+            calls.append(seed)
+            if len(calls) == 3:
+                budget.halt()
+            return {"text": "ok", "cost": 0.001, "provider": "f"}
+
+        with self.assertRaises(B.OverBudget):
+            B.run_thread(t, "/x/", fake, source=None, arm="none", budget=budget)
+        self.assertEqual(len(calls), 3)
+
+
+class Manifest(unittest.TestCase):
+    def test_every_private_file_by_hash_sorted_by_path(self):
+        tmp = tempfile.mkdtemp()
+        try:
+            os.makedirs(os.path.join(tmp, "private", "run", "x"))
+            for rel, data in (("private/run/x/b.json", b"abc"), ("private/a.txt", b"")):
+                with open(os.path.join(tmp, *rel.split("/")), "wb") as f:
+                    f.write(data)
+            out = os.path.join(tmp, "MANIFEST.sha256")
+            self.assertEqual(B.manifest(os.path.join(tmp, "private"), tmp, out), 2)
+            with open(out, "rb") as f:          # bytes: the same file on Windows and Linux
+                self.assertEqual(f.read(),
+                                 b"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 *private/a.txt\n"
+                                 b"ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad *private/run/x/b.json\n")
+        finally:
+            shutil.rmtree(tmp)
+
+    def test_saved_threads_and_the_quarantine_log_use_unix_newlines(self):
+        tmp = tempfile.mkdtemp()
+        try:
+            path, qlog = os.path.join(tmp, "x", "t00.json"), os.path.join(tmp, "quarantine.jsonl")
+            B._save(path, {"id": "t00", "posts": [{"text": "a"}], "quarantine": [{"post": "b"}]}, qlog)
+            for p in (path, qlog):
+                with open(p, "rb") as f:
+                    self.assertNotIn(b"\r", f.read())
+        finally:
+            shutil.rmtree(tmp)
 
 
 if __name__ == "__main__":
