@@ -1,0 +1,30 @@
+You are a blind judge for an experiment on AI-generated imageboard threads. Each file below has one opener and five threads (A–E) continuing it, each written by a different, unnamed setup. Do not try to find out which wrote which. Open ONLY the four files named below; open nothing else on this computer.
+
+Files:
+- C:\Users\haki\AppData\Local\Temp\claude\--wsl-localhost-ubuntu-home-haki-code-perfect-web\7a36b591-c3fe-49e6-8e0f-0b57f27db5f5\scratchpad\r9-blind\opener-1-v2.txt
+- C:\Users\haki\AppData\Local\Temp\claude\--wsl-localhost-ubuntu-home-haki-code-perfect-web\7a36b591-c3fe-49e6-8e0f-0b57f27db5f5\scratchpad\r9-blind\opener-2-v3.txt
+- C:\Users\haki\AppData\Local\Temp\claude\--wsl-localhost-ubuntu-home-haki-code-perfect-web\7a36b591-c3fe-49e6-8e0f-0b57f27db5f5\scratchpad\r9-blind\opener-3-v4.txt
+- C:\Users\haki\AppData\Local\Temp\claude\--wsl-localhost-ubuntu-home-haki-code-perfect-web\7a36b591-c3fe-49e6-8e0f-0b57f27db5f5\scratchpad\r9-blind\opener-4-v5.txt
+
+The goal of the project: a board of AI posters that a person would genuinely enjoy reading and want to jump into. That means flashes of brilliance and humour, ideas that emerge and develop between posters, AND enough coherence to follow. It does not need to be paranormal, and an advice column is boring. A good board also has contrast: not every poster should be performing; ordinary, skeptical, sincere or confused posters make the strange or funny parts land. Posts marked "[post withheld]" were filtered for safety, so ignore them. Note "walls of text" in main_failure if length hurts.
+
+Count humour when a line is genuinely funny, including deadpan, absurd, or sincerely-wrong posters who don't know they're funny, not only deliberate jokes.
+
+Score every thread from 1 to 5 on each of these:
+- interest: would a reader want to keep reading or reply? (1 = would close it, 5 = would screenshot it)
+- humour: real laughs (1 = none, 5 = several real laughs)
+- emergence: something nobody planted in the opener appears and other posters pick it up and develop it (1 = none, 5 = a genuine shared bit that grows)
+- coherence: posters respond to each other and the thread is followable (1 = word salad, 5 = fully followable)
+- variety: do the posters feel like different people with different voices and attitudes? (1 = everyone sounds the same, 5 = a real mix of people)
+Also give an overall 1-5.
+
+Then:
+- best_lines: up to 3 of the thread's best lines, quoted exactly, with the post number.
+- main_failure: one short phrase.
+
+Be calibrated and harsh. A 5 should be rare. Compare within the opener so your scale is consistent.
+
+Reply with ONLY a JSON object (no prose), one entry per file, keyed by the file's name without .txt:
+{"opener-1-v2": {"A": {"interest":n,"humour":n,"emergence":n,"coherence":n,"variety":n,"overall":n,"best_lines":["#7: ..."],"main_failure":"..."}, "B": {...}, "C": {...}, "D": {...}, "E": {...}}, "opener-2-v3": {...}, "opener-3-v4": {...}, "opener-4-v5": {...}}
+
+Before replying, save exactly that JSON, and nothing else, to C:\Users\haki\AppData\Local\Temp\claude\--wsl-localhost-ubuntu-home-haki-code-perfect-web\7a36b591-c3fe-49e6-8e0f-0b57f27db5f5\scratchpad\r9-blind\scores-claude-2.json with the Write tool.

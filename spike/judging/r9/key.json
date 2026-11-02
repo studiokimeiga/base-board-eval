@@ -1,0 +1,282 @@
+{
+ "1-v1": {
+  "A": "rolesshort9naif",
+  "B": "rolesshort9neutral",
+  "C": "rolesshort9",
+  "D": "gemini9neutral",
+  "E": "gemini9"
+ },
+ "1-v2": {
+  "A": "rolesshort9neutral",
+  "B": "rolesshort9",
+  "C": "gemini9neutral",
+  "D": "gemini9",
+  "E": "rolesshort9naif"
+ },
+ "1-v3": {
+  "A": "rolesshort9",
+  "B": "gemini9neutral",
+  "C": "gemini9",
+  "D": "rolesshort9naif",
+  "E": "rolesshort9neutral"
+ },
+ "1-v4": {
+  "A": "gemini9neutral",
+  "B": "gemini9",
+  "C": "rolesshort9naif",
+  "D": "rolesshort9neutral",
+  "E": "rolesshort9"
+ },
+ "1-v5": {
+  "A": "gemini9",
+  "B": "rolesshort9naif",
+  "C": "rolesshort9neutral",
+  "D": "rolesshort9",
+  "E": "gemini9neutral"
+ },
+ "2-v1": {
+  "A": "rolesshort9",
+  "B": "gemini9neutral",
+  "C": "rolesshort9neutral",
+  "D": "rolesshort9naif",
+  "E": "gemini9"
+ },
+ "2-v2": {
+  "A": "gemini9neutral",
+  "B": "rolesshort9neutral",
+  "C": "rolesshort9naif",
+  "D": "gemini9",
+  "E": "rolesshort9"
+ },
+ "2-v3": {
+  "A": "rolesshort9neutral",
+  "B": "rolesshort9naif",
+  "C": "gemini9",
+  "D": "rolesshort9",
+  "E": "gemini9neutral"
+ },
+ "2-v4": {
+  "A": "rolesshort9naif",
+  "B": "gemini9",
+  "C": "rolesshort9",
+  "D": "gemini9neutral",
+  "E": "rolesshort9neutral"
+ },
+ "2-v5": {
+  "A": "gemini9",
+  "B": "rolesshort9",
+  "C": "gemini9neutral",
+  "D": "rolesshort9neutral",
+  "E": "rolesshort9naif"
+ },
+ "3-v1": {
+  "A": "rolesshort9naif",
+  "B": "gemini9",
+  "C": "gemini9neutral",
+  "D": "rolesshort9neutral",
+  "E": "rolesshort9"
+ },
+ "3-v2": {
+  "A": "gemini9",
+  "B": "gemini9neutral",
+  "C": "rolesshort9neutral",
+  "D": "rolesshort9",
+  "E": "rolesshort9naif"
+ },
+ "3-v3": {
+  "A": "gemini9neutral",
+  "B": "rolesshort9neutral",
+  "C": "rolesshort9",
+  "D": "rolesshort9naif",
+  "E": "gemini9"
+ },
+ "3-v4": {
+  "A": "rolesshort9neutral",
+  "B": "rolesshort9",
+  "C": "rolesshort9naif",
+  "D": "gemini9",
+  "E": "gemini9neutral"
+ },
+ "3-v5": {
+  "A": "rolesshort9",
+  "B": "rolesshort9naif",
+  "C": "gemini9",
+  "D": "gemini9neutral",
+  "E": "rolesshort9neutral"
+ },
+ "4-v1": {
+  "A": "gemini9neutral",
+  "B": "gemini9",
+  "C": "rolesshort9neutral",
+  "D": "rolesshort9",
+  "E": "rolesshort9naif"
+ },
+ "4-v2": {
+  "A": "gemini9",
+  "B": "rolesshort9neutral",
+  "C": "rolesshort9",
+  "D": "rolesshort9naif",
+  "E": "gemini9neutral"
+ },
+ "4-v3": {
+  "A": "rolesshort9neutral",
+  "B": "rolesshort9",
+  "C": "rolesshort9naif",
+  "D": "gemini9neutral",
+  "E": "gemini9"
+ },
+ "4-v4": {
+  "A": "rolesshort9",
+  "B": "rolesshort9naif",
+  "C": "gemini9neutral",
+  "D": "gemini9",
+  "E": "rolesshort9neutral"
+ },
+ "4-v5": {
+  "A": "rolesshort9naif",
+  "B": "gemini9neutral",
+  "C": "gemini9",
+  "D": "rolesshort9neutral",
+  "E": "rolesshort9"
+ },
+ "5-v1": {
+  "A": "rolesshort9",
+  "B": "gemini9",
+  "C": "rolesshort9neutral",
+  "D": "rolesshort9naif",
+  "E": "gemini9neutral"
+ },
+ "5-v2": {
+  "A": "gemini9",
+  "B": "rolesshort9neutral",
+  "C": "rolesshort9naif",
+  "D": "gemini9neutral",
+  "E": "rolesshort9"
+ },
+ "5-v3": {
+  "A": "rolesshort9neutral",
+  "B": "rolesshort9naif",
+  "C": "gemini9neutral",
+  "D": "rolesshort9",
+  "E": "gemini9"
+ },
+ "5-v4": {
+  "A": "rolesshort9naif",
+  "B": "gemini9neutral",
+  "C": "rolesshort9",
+  "D": "gemini9",
+  "E": "rolesshort9neutral"
+ },
+ "5-v5": {
+  "A": "gemini9neutral",
+  "B": "rolesshort9",
+  "C": "gemini9",
+  "D": "rolesshort9neutral",
+  "E": "rolesshort9naif"
+ },
+ "6-v1": {
+  "A": "rolesshort9",
+  "B": "gemini9",
+  "C": "gemini9neutral",
+  "D": "rolesshort9neutral",
+  "E": "rolesshort9naif"
+ },
+ "6-v2": {
+  "A": "gemini9",
+  "B": "gemini9neutral",
+  "C": "rolesshort9neutral",
+  "D": "rolesshort9naif",
+  "E": "rolesshort9"
+ },
+ "6-v3": {
+  "A": "gemini9neutral",
+  "B": "rolesshort9neutral",
+  "C": "rolesshort9naif",
+  "D": "rolesshort9",
+  "E": "gemini9"
+ },
+ "6-v4": {
+  "A": "rolesshort9neutral",
+  "B": "rolesshort9naif",
+  "C": "rolesshort9",
+  "D": "gemini9",
+  "E": "gemini9neutral"
+ },
+ "6-v5": {
+  "A": "rolesshort9naif",
+  "B": "rolesshort9",
+  "C": "gemini9",
+  "D": "gemini9neutral",
+  "E": "rolesshort9neutral"
+ },
+ "7-v1": {
+  "A": "gemini9",
+  "B": "rolesshort9naif",
+  "C": "rolesshort9",
+  "D": "gemini9neutral",
+  "E": "rolesshort9neutral"
+ },
+ "7-v2": {
+  "A": "rolesshort9naif",
+  "B": "rolesshort9",
+  "C": "gemini9neutral",
+  "D": "rolesshort9neutral",
+  "E": "gemini9"
+ },
+ "7-v3": {
+  "A": "rolesshort9",
+  "B": "gemini9neutral",
+  "C": "rolesshort9neutral",
+  "D": "gemini9",
+  "E": "rolesshort9naif"
+ },
+ "7-v4": {
+  "A": "gemini9neutral",
+  "B": "rolesshort9neutral",
+  "C": "gemini9",
+  "D": "rolesshort9naif",
+  "E": "rolesshort9"
+ },
+ "7-v5": {
+  "A": "rolesshort9neutral",
+  "B": "gemini9",
+  "C": "rolesshort9naif",
+  "D": "rolesshort9",
+  "E": "gemini9neutral"
+ },
+ "8-v1": {
+  "A": "gemini9neutral",
+  "B": "rolesshort9",
+  "C": "rolesshort9neutral",
+  "D": "rolesshort9naif",
+  "E": "gemini9"
+ },
+ "8-v2": {
+  "A": "rolesshort9",
+  "B": "rolesshort9neutral",
+  "C": "rolesshort9naif",
+  "D": "gemini9",
+  "E": "gemini9neutral"
+ },
+ "8-v3": {
+  "A": "rolesshort9neutral",
+  "B": "rolesshort9naif",
+  "C": "gemini9",
+  "D": "gemini9neutral",
+  "E": "rolesshort9"
+ },
+ "8-v4": {
+  "A": "rolesshort9naif",
+  "B": "gemini9",
+  "C": "gemini9neutral",
+  "D": "rolesshort9",
+  "E": "rolesshort9neutral"
+ },
+ "8-v5": {
+  "A": "gemini9",
+  "B": "gemini9neutral",
+  "C": "rolesshort9",
+  "D": "rolesshort9neutral",
+  "E": "rolesshort9naif"
+ }
+}
