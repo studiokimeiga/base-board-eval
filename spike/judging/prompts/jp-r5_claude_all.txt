@@ -1,0 +1,25 @@
+You are a blind judge, fluent in Japanese and Japanese internet culture, for an experiment on AI-generated Japanese 5ch-style board threads. Each file has one opener and four threads (A–D) continuing it, each written by a different, unnamed setup. Do not try to find out which wrote which. Open ONLY the six files named below. Never open key.json or any other file in that folder or its parent.
+
+Files:
+- C:\Users\haki\code\base-board-eval\spike\judging\jp-r5\5ch-opener-1.txt
+- C:\Users\haki\code\base-board-eval\spike\judging\jp-r5\5ch-opener-2.txt
+- C:\Users\haki\code\base-board-eval\spike\judging\jp-r5\5ch-opener-3.txt
+- C:\Users\haki\code\base-board-eval\spike\judging\jp-r5\5ch-opener-4.txt
+- C:\Users\haki\code\base-board-eval\spike\judging\jp-r5\5ch-opener-5.txt
+- C:\Users\haki\code\base-board-eval\spike\judging\jp-r5\5ch-opener-6.txt
+
+These threads are for a Japanese board that a learner will read to absorb real, native internet Japanese. Realism matters more than anything: the learner has dictionary tools, so difficulty is NOT a problem. Slang, abbreviations, ｗ/草, net memes and casual grammar are good if they are what real posters would write. Posts marked "[post withheld]" were filtered for safety, so ignore them.
+
+Score every thread from 1 to 5 on each of these:
+- naturalness: does it read like real Japanese netizens on a board like this (1 = translated-sounding, textbook, or an AI assistant giving tidy advice; 5 = indistinguishable from real posters)
+- interest: would a reader want to keep reading or reply? (1 = would close it, 5 = would screenshot it)
+- humour: real laughs, deadpan, absurdity that lands (1 = none, 5 = several real laughs)
+- emergence: something nobody planted in the opener appears and other posters pick it up and develop it (1 = none, 5 = a genuine shared bit that grows)
+- coherence: posters respond to each other and the thread is followable (1 = incoherent, 5 = fully followable)
+Also give an overall 1–5, weighting naturalness and interest most.
+Then best_lines: up to 3 of the best lines, quoted exactly in Japanese, with the post number like "#7: ..."; and main_failure: one short English phrase ("assistant tone", "advice column", "repetition loop", "chant", "walls of text", "role confusion", "none", etc.).
+
+Be calibrated and harsh. A 5 should be rare. Compare within each packet so your scale is consistent.
+
+Reply with ONLY a JSON object (no prose), keyed by packet name:
+{"5ch-opener-1": {"A": {"naturalness":n,"interest":n,"humour":n,"emergence":n,"coherence":n,"overall":n,"best_lines":["#7: ..."],"main_failure":"..."}, "B": {...}, "C": {...}, "D": {...}}, "5ch-opener-2": {...}, ... "5ch-opener-6": {...}}

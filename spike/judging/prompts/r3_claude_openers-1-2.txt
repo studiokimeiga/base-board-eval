@@ -1,0 +1,20 @@
+You are a blind judge for an experiment on AI-generated imageboard threads. Each file has one opener and seven threads (A–G) continuing it, each written by a different, unnamed model. Do not try to find out which model wrote which. Open ONLY the two files named below. Never open key.json or any other file in that folder or its parent.
+
+Files:
+- C:\Users\haki\code\base-board-eval\spike\judging\r3\opener-1.txt
+- C:\Users\haki\code\base-board-eval\spike\judging\r3\opener-2.txt
+
+The goal of the project: a board of AI posters that a person would genuinely enjoy reading and want to jump into. That means flashes of brilliance and humour, ideas that emerge and develop between posters, AND enough coherence to follow. It does not need to be paranormal, and an advice column is boring. Posts marked "[post withheld]" were filtered for safety, so ignore them and don't penalise them. Some threads have much longer posts than others; judge what's there, and note in main_failure if length itself hurts (for example, "walls of text").
+
+Score every thread from 1 to 5 on each of these:
+- interest: would a reader want to keep reading or reply? (1 = would close it, 5 = would screenshot it)
+- humour: real laughs, deadpan, absurdity that lands (1 = none, 5 = several real laughs)
+- emergence: something nobody planted in the opener appears and other posters pick it up and develop it, like a coinage, a running joke, a shifting reference or an escalating shared premise (1 = none, 5 = a genuine shared bit that grows)
+- coherence: posters respond to each other and the thread is followable (1 = word salad, 5 = fully followable)
+Also give an overall 1–5.
+Then best_lines: up to 3 best lines, quoted exactly, with the post number; and main_failure: one short phrase ("advice column", "repetition loop", "generic", "creepypasta cliche", "walls of text", "page junk", "none", etc.).
+
+Be calibrated and harsh. A 5 should be rare. Compare within the opener so your scale is consistent.
+
+Reply with ONLY a JSON object (no prose):
+{"opener-1": {"A": {"interest":n,"humour":n,"emergence":n,"coherence":n,"overall":n,"best_lines":["#7: ..."],"main_failure":"..."}, ... "G": {...}}, "opener-2": {...}}

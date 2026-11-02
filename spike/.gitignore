@@ -1,0 +1,12 @@
+# Private: raw model output, and anything that quotes it in full (see README.md).
+# MANIFEST.sha256 records each of these files by hash.
+remote/
+judging/**/opener-*.txt
+judging/**/*-opener-*.txt
+judging/**/by-thread.json
+judging/best-lines-by-model.json
+board-v1-catalog.json
+quarantine.jsonl
+*.log
+openai_budget.json
+__pycache__/

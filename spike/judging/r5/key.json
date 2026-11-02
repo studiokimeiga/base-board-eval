@@ -1,0 +1,50 @@
+{
+ "1": {
+  "A": "geminipick",
+  "B": "gemini",
+  "C": "pick",
+  "D": "kimi"
+ },
+ "2": {
+  "A": "geminipick",
+  "B": "gemini",
+  "C": "pick",
+  "D": "kimi"
+ },
+ "3": {
+  "A": "gemini",
+  "B": "pick",
+  "C": "geminipick",
+  "D": "kimi"
+ },
+ "4": {
+  "A": "geminipick",
+  "B": "gemini",
+  "C": "pick",
+  "D": "kimi"
+ },
+ "5": {
+  "A": "geminipick",
+  "B": "gemini",
+  "C": "kimi",
+  "D": "pick"
+ },
+ "6": {
+  "A": "kimi",
+  "B": "geminipick",
+  "C": "pick",
+  "D": "gemini"
+ },
+ "7": {
+  "A": "pick",
+  "B": "kimi",
+  "C": "geminipick",
+  "D": "gemini"
+ },
+ "8": {
+  "A": "geminipick",
+  "B": "kimi",
+  "C": "gemini",
+  "D": "pick"
+ }
+}

@@ -1,0 +1,128 @@
+{
+ "5ch-opener-1": {
+  "A": "swallow70",
+  "B": "gpt54",
+  "C": "sonnet",
+  "D": "swallow70dry",
+  "E": "gemini",
+  "F": "kimi",
+  "G": "deepseek",
+  "H": "qwen235",
+  "I": "g31"
+ },
+ "5ch-opener-2": {
+  "A": "qwen235",
+  "B": "deepseek",
+  "C": "gpt54",
+  "D": "swallow70dry",
+  "E": "sonnet",
+  "F": "g31",
+  "G": "kimi",
+  "H": "gemini",
+  "I": "swallow70"
+ },
+ "5ch-opener-3": {
+  "A": "sonnet",
+  "B": "deepseek",
+  "C": "kimi",
+  "D": "gemini",
+  "E": "g31",
+  "F": "qwen235",
+  "G": "gpt54",
+  "H": "swallow70dry",
+  "I": "swallow70"
+ },
+ "5ch-opener-4": {
+  "A": "gpt54",
+  "B": "sonnet",
+  "C": "gemini",
+  "D": "deepseek",
+  "E": "swallow70dry",
+  "F": "swallow70",
+  "G": "qwen235",
+  "H": "kimi",
+  "I": "g31"
+ },
+ "5ch-opener-5": {
+  "A": "g31",
+  "B": "deepseek",
+  "C": "gemini",
+  "D": "swallow70dry",
+  "E": "swallow70",
+  "F": "qwen235",
+  "G": "gpt54",
+  "H": "kimi",
+  "I": "sonnet"
+ },
+ "5ch-opener-6": {
+  "A": "sonnet",
+  "B": "swallow70",
+  "C": "deepseek",
+  "D": "swallow70dry",
+  "E": "qwen235",
+  "F": "kimi",
+  "G": "gpt54",
+  "H": "gemini",
+  "I": "g31"
+ },
+ "named-opener-1": {
+  "A": "gpt54",
+  "B": "swallow70dry",
+  "C": "gemini",
+  "D": "swallow70",
+  "E": "qwen235",
+  "F": "g31",
+  "G": "kimi",
+  "H": "deepseek"
+ },
+ "named-opener-2": {
+  "A": "swallow70",
+  "B": "gpt54",
+  "C": "swallow70dry",
+  "D": "gemini",
+  "E": "qwen235",
+  "F": "deepseek",
+  "G": "kimi",
+  "H": "g31"
+ },
+ "named-opener-3": {
+  "A": "qwen235",
+  "B": "kimi",
+  "C": "gpt54",
+  "D": "swallow70dry",
+  "E": "g31",
+  "F": "deepseek",
+  "G": "swallow70",
+  "H": "gemini"
+ },
+ "named-opener-4": {
+  "A": "swallow70dry",
+  "B": "gpt54",
+  "C": "swallow70",
+  "D": "kimi",
+  "E": "qwen235",
+  "F": "g31",
+  "G": "gemini",
+  "H": "deepseek"
+ },
+ "named-opener-5": {
+  "A": "gpt54",
+  "B": "deepseek",
+  "C": "kimi",
+  "D": "swallow70dry",
+  "E": "qwen235",
+  "F": "swallow70",
+  "G": "g31",
+  "H": "gemini"
+ },
+ "named-opener-6": {
+  "A": "qwen235",
+  "B": "g31",
+  "C": "swallow70",
+  "D": "deepseek",
+  "E": "swallow70dry",
+  "F": "gemini",
+  "G": "kimi",
+  "H": "gpt54"
+ }
+}

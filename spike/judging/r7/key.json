@@ -1,0 +1,50 @@
+{
+ "1": {
+  "A": "gemini",
+  "B": "roles",
+  "C": "naif",
+  "D": "naifroles"
+ },
+ "2": {
+  "A": "gemini",
+  "B": "roles",
+  "C": "naif",
+  "D": "naifroles"
+ },
+ "3": {
+  "A": "roles",
+  "B": "naif",
+  "C": "gemini",
+  "D": "naifroles"
+ },
+ "4": {
+  "A": "gemini",
+  "B": "roles",
+  "C": "naif",
+  "D": "naifroles"
+ },
+ "5": {
+  "A": "gemini",
+  "B": "roles",
+  "C": "naifroles",
+  "D": "naif"
+ },
+ "6": {
+  "A": "naifroles",
+  "B": "gemini",
+  "C": "naif",
+  "D": "roles"
+ },
+ "7": {
+  "A": "naif",
+  "B": "naifroles",
+  "C": "gemini",
+  "D": "roles"
+ },
+ "8": {
+  "A": "gemini",
+  "B": "naifroles",
+  "C": "roles",
+  "D": "naif"
+ }
+}

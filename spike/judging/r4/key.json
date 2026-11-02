@@ -1,0 +1,74 @@
+{
+ "1": {
+  "A": "gemini",
+  "B": "pick",
+  "C": "hermes405",
+  "D": "hermesguard",
+  "E": "hermespick",
+  "F": "hermespen",
+  "G": "kimi"
+ },
+ "2": {
+  "A": "pick",
+  "B": "hermespick",
+  "C": "hermes405",
+  "D": "hermesguard",
+  "E": "gemini",
+  "F": "kimi",
+  "G": "hermespen"
+ },
+ "3": {
+  "A": "gemini",
+  "B": "kimi",
+  "C": "pick",
+  "D": "hermespen",
+  "E": "hermespick",
+  "F": "hermes405",
+  "G": "hermesguard"
+ },
+ "4": {
+  "A": "hermesguard",
+  "B": "kimi",
+  "C": "hermes405",
+  "D": "hermespick",
+  "E": "pick",
+  "F": "gemini",
+  "G": "hermespen"
+ },
+ "5": {
+  "A": "hermespen",
+  "B": "pick",
+  "C": "hermespick",
+  "D": "hermes405",
+  "E": "kimi",
+  "F": "hermesguard",
+  "G": "gemini"
+ },
+ "6": {
+  "A": "hermes405",
+  "B": "gemini",
+  "C": "pick",
+  "D": "hermesguard",
+  "E": "hermespick",
+  "F": "hermespen",
+  "G": "kimi"
+ },
+ "7": {
+  "A": "pick",
+  "B": "gemini",
+  "C": "hermespen",
+  "D": "hermes405",
+  "E": "kimi",
+  "F": "hermesguard",
+  "G": "hermespick"
+ },
+ "8": {
+  "A": "hermes405",
+  "B": "pick",
+  "C": "kimi",
+  "D": "hermesguard",
+  "E": "hermespick",
+  "F": "hermespen",
+  "G": "gemini"
+ }
+}

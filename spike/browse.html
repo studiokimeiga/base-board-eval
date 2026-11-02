@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bake-off threads</title>
+<style>
+:root {
+  --bg: #f4f5f8; --panel: #ffffff; --ink: #1b1d2a; --muted: #62667a; --line: #d9dce6;
+  --name: #117743; --accent: #3651d4; --gt: #5f7f1a; --hl: #fff2b8; --bad: #b4443c;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #14161c; --panel: #1d2029; --ink: #e2e5ec; --muted: #8e93a6; --line: #313545;
+          --name: #5fd39a; --accent: #8fa2ff; --gt: #a6c95a; --hl: #4a4220; --bad: #ef8f86; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink);
+       font: 14px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+header { position: sticky; top: 0; z-index: 2; background: var(--bg); border-bottom: 1px solid var(--line);
+         padding: 10px 16px; display: flex; flex-direction: column; gap: 8px; }
+.row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.row b { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-right: 4px; }
+button.chip, label.chip { font: inherit; font-size: 13px; border: 1px solid var(--line); background: var(--panel);
+  color: var(--ink); border-radius: 999px; padding: 3px 10px; cursor: pointer; display: inline-flex; gap: 5px; align-items: center; }
+button.chip.on { background: var(--accent); color: #fff; border-color: var(--accent); }
+label.chip input { margin: 0; }
+.opener { font-size: 16px; font-weight: 600; }
+main { padding: 12px 16px 60px; overflow-x: auto; }
+.cols { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(300px, 380px); gap: 12px; align-items: start; }
+@media (max-width: 700px) { .cols { grid-auto-flow: row; grid-auto-columns: auto; } }
+.col { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+.col h2 { margin: 0; padding: 10px 12px 6px; font-size: 15px; position: sticky; top: 0; }
+.scores { padding: 0 12px 8px; font-size: 12px; color: var(--muted); border-bottom: 1px solid var(--line); }
+.scores .sc { display: inline-block; margin-right: 8px; }
+.scores .sc b { color: var(--ink); }
+.scores .fail { color: var(--bad); }
+.posts { padding: 4px 12px 10px; }
+.post { padding: 6px 0; border-top: 1px solid var(--line); }
+.post:first-child { border-top: 0; }
+.post .h { font-size: 12px; color: var(--muted); }
+.post .who { color: var(--name); font-weight: 600; }
+.post .op { color: var(--name); font-size: 11px; }
+.post .txt { white-space: pre-wrap; overflow-wrap: anywhere; }
+.post .txt .gt { color: var(--gt); }
+.post.best { background: var(--hl); margin: 0 -12px; padding: 6px 12px; }
+.post.best .h::after { content: " ★ judge's pick"; }
+.post.dim .txt { color: var(--muted); font-style: italic; }
+.note { color: var(--muted); font-size: 12px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="row"><b>Set</b><span id="sets"></span></div>
+  <div class="row"><b>Opener</b><span id="openers"></span></div>
+  <div class="row"><b>Models</b><span id="models"></span></div>
+  <div class="opener" id="opener"></div>
+  <div class="note">Columns are sorted by the blind judges' overall score, averaged where there are two judges. Highlighted posts are the lines the judges picked as best. Scroll sideways for more models.</div>
+</header>
+<main><div class="cols" id="cols"></div></main>
+<script>
+// Each set is one comparison: same openers and scaffold within a set.
+const SETS = {
+  r12: { label: "Rounds 1–2", file: a => "remote/bakeoff-" + a + ".json", scores: "judging/by-thread.json",
+    key: i => String(i + 1), arms: [
+    ["qwen235", "Qwen3-235B Instruct", "OpenRouter, raw continuation"],
+    ["hermes405", "Hermes 3 405B", "OpenRouter, raw continuation"],
+    ["g31", "gemma-4-31B base", "Modal A100, XTC + DRY"],
+    ["l70", "Llama-3.1-70B base", "Modal A100, XTC + DRY"],
+    ["euryale70", "Euryale 70B", "OpenRouter, raw continuation"],
+    ["cydonia24", "Cydonia 24B", "OpenRouter, raw continuation, not judged"],
+    ["cast", "Current cast (gemma-E4B / qwen-4B / olmo-7B)", "Modal A100, XTC + DRY"]] },
+  r3: { label: "Round 3", file: a => "remote/bakeoff-" + a + ".json", scores: "judging/r3/by-thread.json",
+    key: i => String(i + 1), arms: [
+    ["pick", "Qwen3-235B best-of-3 + gpt-5.4 picker", "OpenRouter raw ×3, gpt-5.4 picks"],
+    ["kimi", "Kimi K3", "chat, one instruction per post"],
+    ["echo", "Echo (Fulcrum)", "chat, persona \"Anonymous\""],
+    ["qwenhot", "Qwen3-235B, hotter", "raw, temp 1.15 + frequency penalty"],
+    ["qwen235", "Qwen3-235B (round 2)", "raw, temp 1.0"],
+    ["mix", "Qwen + Hermes mixed cast", "raw, Hermes in 3 of 7 slots"],
+    ["hermes405", "Hermes 3 405B (round 2)", "raw"]] },
+  r4: { label: "Round 4", file: a => "remote/bakeoff-" + a + ".json", scores: "judging/r4/by-thread.json",
+    key: i => String(i + 1), arms: [
+    ["hermespick", "Hermes 405B + penalties + guard + picker", "OpenRouter raw ×3, gpt-5.4 picks (shuffled)"],
+    ["hermesguard", "Hermes 405B + penalties + guard", "raw, resample on loop / junk / wall of text"],
+    ["hermespen", "Hermes 405B + repetition penalties", "raw, repetition 1.05 + frequency 0.3"],
+    ["gemini", "Gemini 3.8 Flash", "chat, one instruction per post"],
+    ["hermes405", "Hermes 3 405B (round 2)", "raw, no penalties"],
+    ["pick", "Qwen3-235B best-of-3 + picker (round 3)", "OpenRouter raw ×3, gpt-5.4 picks"],
+    ["kimi", "Kimi K3 (round 3)", "chat"]] },
+  r5: { label: "Round 5", file: a => "remote/bakeoff-" + a + ".json", scores: "judging/r5/by-thread.json",
+    key: i => String(i + 1), arms: [
+    ["geminipick", "Gemini 3.8 Flash best-of-3 + picker", "chat ×3, gpt-5.4 picks (shuffled)"],
+    ["gemini", "Gemini 3.8 Flash", "chat, one instruction per post"],
+    ["pick", "Qwen3-235B best-of-3 + picker (round 3)", "OpenRouter raw ×3, gpt-5.4 picks"],
+    ["kimi", "Kimi K3 (round 3)", "chat"]] },
+  r7: { label: "Round 7 · roles", file: a => "remote/bakeoff-" + a + ".json", scores: "judging/r7/by-thread.json",
+    key: i => String(i + 1), arms: [
+    ["naifroles", "Gemini + naifs + temperaments", "Gemini cast, 2 gemma-E4B posters, temperaments"],
+    ["naif", "Gemini + 2 small-model naifs", "gemma-E4B base (XTC + DRY) in 2 of 7 slots"],
+    ["roles", "Gemini with temperaments", "skeptic / pedant / lurker / helper / troll / storyteller"],
+    ["gemini", "Gemini (plain)", "chat"]] },
+  r6: { label: "Round 6 · temperature", file: a => "remote/bakeoff-" + a + ".json", scores: "judging/r6/by-thread.json",
+    key: i => String(i + 1), arms: [
+    ["geminit19", "Gemini 3.8 Flash, temp 1.9", "chat"],
+    ["geminit15", "Gemini 3.8 Flash, temp 1.5", "chat"],
+    ["gemini", "Gemini 3.8 Flash, temp 1.0", "chat"],
+    ["qwent14", "Qwen3-235B, temp 1.4 / min_p 0.1", "raw"],
+    ["qwent18", "Qwen3-235B, temp 1.8 / min_p 0.15", "raw"],
+    ["qwen235", "Qwen3-235B, temp 1.0", "raw"]] },
+  jp5: { label: "日本語 · 5ch picker", file: a => "remote/jp-" + a + "-5ch.json", scores: "judging/jp-r5/by-thread.json",
+    key: i => "5ch-opener-" + (i + 1), arms: [
+    ["geminipick", "Gemini 3.8 Flash best-of-3 + picker", "chat ×3, gpt-5.4 picks"],
+    ["gemini", "Gemini 3.8 Flash", "chat"],
+    ["qwen235", "Qwen3-235B", "OpenRouter, raw"],
+    ["gpt54", "GPT-5.4", "chat"]] },
+  jp5ch: { label: "日本語 · 5ch", file: a => "remote/jp-" + a + "-5ch.json", scores: "judging/jp/by-thread.json",
+    key: i => "5ch-opener-" + (i + 1), arms: null },
+  jpnamed: { label: "日本語 · named", file: a => "remote/jp-" + a + "-named.json", scores: "judging/jp/by-thread.json",
+    key: i => "named-opener-" + (i + 1), arms: null },
+};
+const JP_ARMS = [
+  ["geminipick", "Gemini 3.8 Flash best-of-3 + picker", "chat ×3, gpt-5.4 picks"],
+  ["swallow70dry", "Swallow-70B base + XTC/DRY", "Modal A100, raw, anti-repetition samplers"],
+  ["swallow70", "Llama-3.3-Swallow-70B base", "Modal A100, raw"],
+  ["qwen235", "Qwen3-235B", "OpenRouter, raw"],
+  ["g31", "gemma-4-31B base", "Modal A100, raw"],
+  ["sonnet", "Claude Sonnet 5.5", "chat"],
+  ["gpt54", "GPT-5.4", "chat"],
+  ["gemini", "Gemini 3.8 Flash", "chat"],
+  ["kimi", "Kimi K3", "chat"],
+  ["deepseek", "DeepSeek V4 Flash", "chat"]];
+SETS.jp5ch.arms = SETS.jpnamed.arms = JP_ARMS;
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmt = t => esc(t).split("\n").map(l => l.startsWith("&gt;") ? `<span class="gt">${l}</span>` : l).join("\n");
+const store = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
+const recall = (k, d) => { try { return localStorage.getItem(k) ?? d; } catch (e) { return d; } };
+let set = recall("browse-set", "r3"), data = {}, scores = {}, openers = [], cur = 0, hidden = new Set();
+if (!SETS[set]) set = "r3";
+try { hidden = new Set(JSON.parse(recall("browse-hidden", "[]"))); } catch (e) {}
+
+// round 1-2 scores are one judge's object; later sets hold {claude: {...}, gpt: {...}}
+function judgesFor(i, arm) {
+  const s = (scores[SETS[set].key(i)] || {})[arm];
+  if (!s) return {};
+  return s.overall !== undefined ? { claude: s } : s;
+}
+function avg(js, k) {
+  const v = Object.values(js).map(j => j[k]).filter(x => typeof x === "number");
+  return v.length ? v.reduce((a, b) => a + b, 0) / v.length : 0;
+}
+
+function render() {
+  const S = SETS[set], arms = S.arms.filter(([a]) => data[a]);
+  $("sets").innerHTML = Object.entries(SETS).map(([k, v]) =>
+    `<button class="chip ${k === set ? "on" : ""}" data-set="${k}">${esc(v.label)}</button>`).join(" ");
+  $("openers").innerHTML = openers.map((o, i) => `<button class="chip ${i === cur ? "on" : ""}" data-op="${i}">${i + 1}</button>`).join(" ");
+  $("models").innerHTML = arms.map(([a, name]) =>
+    `<label class="chip"><input type="checkbox" data-arm="${a}" ${hidden.has(a) ? "" : "checked"}>${esc(name)}</label>`).join(" ");
+  $("opener").textContent = openers.length ? (cur + 1) + ". " + openers[cur] : "Loading…";
+  const shown = arms.filter(([a]) => !hidden.has(a))
+    .sort((x, y) => avg(judgesFor(cur, y[0]), "overall") - avg(judgesFor(cur, x[0]), "overall"));
+  const dims = ["overall", "naturalness", "interest", "humour", "emergence", "coherence"];
+  $("cols").innerHTML = shown.map(([a, name, how]) => {
+    const t = data[a].threads.find(t => t.opener === openers[cur]);
+    const js = judgesFor(cur, a);
+    const best = new Set(Object.values(js).flatMap(j => (j.best_lines || []).map(b => +(String(b).match(/#?(\d+)/) || [])[1])));
+    const head = Object.keys(js).length
+      ? Object.entries(js).map(([who, j]) => `<div><b>${who}</b> ${dims.filter(d => j[d] !== undefined).map(d =>
+          `<span class="sc">${d} <b>${j[d]}</b></span>`).join("")}${j.main_failure && j.main_failure !== "none"
+          ? `<br><span class="fail">weak point: ${esc(j.main_failure)}</span>` : ""}</div>`).join("")
+      : `<span class="sc">not judged yet</span>`;
+    const op = t ? (t.op || t.posts[0].who) : null;
+    return `<section class="col"><h2>${esc(name)}</h2><div class="scores">${esc(how)}<br>${head}</div><div class="posts">${
+      t ? t.posts.map((p, n) => {
+        const num = p.n || n + 1;
+        return `<div class="post ${best.has(num) ? "best" : ""} ${p.withheld || !p.text ? "dim" : ""}">
+        <div class="h">#${num} <span class="who">${esc((set === "jp5ch" || set === "jp5") ? "ID:" + p.who : p.who)}</span>${p.who === op && n > 0 ? ' <span class="op">(OP)</span>' : ""} ${esc(p.ts || "")}</div>
+        <div class="txt" lang="${set.startsWith("jp") ? "ja" : "en"}">${p.text ? fmt(p.text) : "(empty post)"}</div></div>`; }).join("")
+      : '<p class="note">No thread for this opener.</p>'
+    }</div></section>`;
+  }).join("") || '<p class="note">No threads in this set yet.</p>';
+}
+
+document.addEventListener("click", e => {
+  const s = e.target.closest("[data-set]");
+  if (s) { set = s.dataset.set; store("browse-set", set); cur = 0; load(); return; }
+  const b = e.target.closest("[data-op]"); if (!b) return;
+  cur = +b.dataset.op; store("browse-opener-" + set, cur);
+  render(); scrollTo(0, 0);
+});
+document.addEventListener("change", e => {
+  const c = e.target.closest("[data-arm]"); if (!c) return;
+  c.checked ? hidden.delete(c.dataset.arm) : hidden.add(c.dataset.arm);
+  store("browse-hidden", JSON.stringify([...hidden]));
+  render();
+});
+
+function load() {
+  const S = SETS[set];
+  data = {}; scores = {}; openers = []; render();
+  Promise.allSettled([fetch(S.scores + "?" + Date.now()).then(r => r.json()),
+                      ...S.arms.map(([a]) => fetch(S.file(a) + "?" + Date.now()).then(r => { if (!r.ok) throw r.status; return r.json(); }))])
+    .then(([s, ...rs]) => {
+      if (s.status === "fulfilled") scores = s.value;
+      S.arms.forEach(([a], i) => { if (rs[i].status === "fulfilled") data[a] = rs[i].value; });
+      openers = [...new Set(S.arms.filter(([a]) => data[a]).flatMap(([a]) => data[a].threads.map(t => t.opener)))];
+      cur = +recall("browse-opener-" + set, 0);
+      if (!(cur >= 0 && cur < openers.length)) cur = 0;
+      render();
+    });
+}
+load();
+</script>
+</body>
+</html>
