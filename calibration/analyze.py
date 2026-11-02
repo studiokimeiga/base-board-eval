@@ -9,7 +9,7 @@ Reads key.json and key-r9.json, the judges' scores-*.json, every export in ratin
 own judge scores (spike/judging/r9/), and computes exactly the hypotheses and questions fixed in
 README.md before the reader rated anything.
 """
-import glob, json, os, random, sys
+import glob, itertools, json, math, os, random, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 JUDGING = os.path.join(os.path.dirname(HERE), "spike", "judging")
@@ -23,13 +23,15 @@ PHONEBOOK = ("threads.json", 11)
 RESULTS = os.path.join(HERE, "RESULTS.md")
 BOOT = 2000
 # The round 9 set (README.md, "The round 9 set"): its arms, and its questions as (name, arm,
-# baseline, what it asks)
+# baseline, what it asks, the reader's primary readings). R3 is round 9's own question for the
+# reader, whose criterion is met when both its readings come out higher.
 R9_ARMS = ["gemini9neutral", "gemini9", "rolesshort9"]
-R9_QUESTIONS = [("R1", "gemini9neutral", "gemini9", "the `/x/` label"),
-                ("R2", "rolesshort9", "gemini9", "temperaments under `/x/`"),
-                ("R3", "gemini9neutral", "rolesshort9", "round 9's question for the reader")]
-# round 9's judges scored one humour scale, where the reader's rubric has two
-R9_COLUMNS = ["joke", "deadpan", "humour", "interest", "overall"]
+R9_QUESTIONS = [("R1", "gemini9neutral", "gemini9", "the `/x/` label", ["humour"]),
+                ("R2", "rolesshort9", "gemini9", "temperaments under `/x/`", ["humour"]),
+                ("R3", "gemini9neutral", "rolesshort9", "round 9's question for the reader", ["interest", "humour"])]
+R9_CRITERION = "R3"
+# humour is the mean of the reader's two humour scales; round 9's judges scored a single one
+R9_SCALES = ["humour", "interest", "joke", "deadpan", "overall"]
 
 
 def read_json(path):
@@ -42,16 +44,18 @@ def complete(v):
 
 
 def readers(here):
-    """Each reader's ratings over all their exports: the two sets never share an item id, and where
-    two exports rate the same item the later export (by its "exported" time) wins."""
-    exports = []
+    """Each reader's ratings over all their exports. A thread takes its latest complete rating, by
+    the rating's own time (else its export's), so an export from a fresh browser can't blank a
+    thread rated before; the two sets never share an item id."""
+    best = {}
     for f in glob.glob(os.path.join(here, "ratings", "*.json")):
         d = read_json(f)
-        exports.append((d.get("exported") or "", f, d))
-    out = {}
-    for _, f, d in sorted(exports, key=lambda e: e[:2]):
-        out.setdefault("reader:" + (d.get("rater") or os.path.basename(f)[:-5]), {}).update(d["ratings"])
-    return out
+        mine = best.setdefault("reader:" + (d.get("rater") or os.path.basename(f)[:-5]), {})
+        for i, v in d["ratings"].items():
+            when = (v.get("t") or d.get("exported") or "", d.get("exported") or "", f)
+            if complete(v) and (i not in mine or when > mine[i][0]):
+                mine[i] = (when, v)
+    return {name: {i: v for i, (_, v) in r.items()} for name, r in best.items()}
 
 
 def load(here=HERE, s=""):
@@ -278,16 +282,49 @@ def round9_judges(key):
             for fam, c in sorted(cells.items())}
 
 
-def diff(scores, key, a, b, scale, ids):
+def arm_diff(scores, key, a, b, scale, ids):
     """mean(a) - mean(b) on scale, over the given items of arms a and b."""
     x = [scores[i][scale] for i in ids if key[i]["source"] == a]
     y = [scores[i][scale] for i in ids if key[i]["source"] == b]
     return mean(x) - mean(y) if x and y else float("nan")
 
 
+def perm_p(x, y):
+    """Exact two-sided permutation test of mean(x) - mean(y): the share of all ways to split the
+    pooled scores into groups of len(x) and len(y) whose difference is as far from zero or further."""
+    if not x or not y:
+        return float("nan")
+    pool, k = x + y, len(x)
+    total, obs = math.fsum(pool), abs(mean(x) - mean(y))
+    sums = [math.fsum(c) for c in itertools.combinations(pool, k)]
+    return sum(abs(s / k - (total - s) / (len(pool) - k)) >= obs - 1e-9 for s in sums) / len(sums)
+
+
+def paired(scores, key, a, b, scale, ids):
+    """The mean of a - b over the openers both arms have among ids (round 9's files hold one thread
+    per opener, in the same order), and how many openers that is."""
+    by = {}
+    for i in ids:
+        by.setdefault(key[i]["thread"], {})[key[i]["source"]] = scores[i][scale]
+    d = [v[a] - v[b] for v in by.values() if a in v and b in v]
+    return mean(d), len(d)
+
+
+def reading(d, p):
+    """A primary reading: higher or lower when the two-sided p is below 0.05."""
+    return "higher" if p < 0.05 and d > 0 else "lower" if p < 0.05 and d < 0 else "no clear difference"
+
+
+def f3(x):
+    return "–" if x is None or x != x else "%.3f" % x
+
+
 def round9(here):
     """The round 9 set's section of RESULTS.md: the questions fixed in README.md."""
     key, raters, seen = load(here, "r9")
+    for r in raters.values():
+        for v in r.values():
+            v["humour"] = (v["joke"] + v["deadpan"]) / 2
     raters.update(round9_judges(key))
     readers_ = sorted(r for r in raters if r.startswith("reader:"))
     judges = [r for r in ("claude", "claude-A", "claude-B", "gpt", "r9-claude", "r9-gpt") if r in raters]
@@ -295,10 +332,12 @@ def round9(here):
              "The 18 round 9 threads in `key-r9.json`, rated apart from the set above, on the same page "
              "and scales (`rate.html?set=r9`); the questions are the ones fixed in README.md before the "
              "reader rated any of them. `r9-claude` and `r9-gpt` are round 9's own judges: each thread's "
-             "mean over its five readings on rubric v2, read side by side with the round's other arms, "
-             "with one humour scale where the reader has two. R1 to R3 give the difference of two arms' "
-             "means with a bootstrap 95% interval over threads; for the reader it reads **higher** or "
-             "**lower** when the interval excludes zero, once every thread of both arms is rated.", "",
+             "mean over its five readings on rubric v2, read side by side with the round's other arms. "
+             "`humour` is the mean of the reader's deliberate and deadpan humour; round 9's judges scored "
+             "one humour scale. R1 to R3 give each difference of two arms' means, an exact two-sided "
+             "permutation p over threads, and the difference over the openers both arms share. Only the "
+             "**bold** scales are read for the reader: **higher** or **lower** when p < 0.05, once every "
+             "thread of both arms is rated.", "",
              "Raters so far: %s." % (", ".join("%s (%d items)" % (r, len(raters[r])) for r in readers_ + judges)
                                      or "none"), ""]
     if not readers_:
@@ -320,18 +359,21 @@ def round9(here):
                 "%d of %d" % (sum(rep), len(rep)) if rep else "–"))
     lines.append("")
 
-    for q, a, b, what in R9_QUESTIONS:
+    for q, a, b, what, primary in R9_QUESTIONS:
         lines += ["### %s: %s (%s − %s)" % (q, what, a, b), "",
-                  "| rater | %s |" % " | ".join(R9_COLUMNS), "|---|%s" % ("---:|" * len(R9_COLUMNS))]
-        found = {}                                      # (rater, scale) -> (difference, low, high)
+                  "| rater | scale | difference | p | same openers |", "|---|---|---:|---:|---:|"]
+        found = {}                                      # (rater, scale) -> (difference, p)
         for r in readers_ + judges:
             ids = [i for i in raters[r] if key[i]["source"] in (a, b)]
-            for c in R9_COLUMNS:
-                if ids and c in raters[r][ids[0]]:
-                    found[r, c] = (diff(raters[r], key, a, b, c, ids),) + boot(
-                        lambda s, r=r, c=c: diff(raters[r], key, a, b, c, s), ids, key)
-            lines.append("| %s | %s |" % (r, " | ".join("%s [%s, %s]" % tuple(f2(x) for x in found[r, c])
-                                                        if (r, c) in found else "–" for c in R9_COLUMNS)))
+            for c in R9_SCALES:
+                if not ids or c not in raters[r][ids[0]]:
+                    continue
+                found[r, c] = (arm_diff(raters[r], key, a, b, c, ids),
+                               perm_p(*([raters[r][i][c] for i in ids if key[i]["source"] == s] for s in (a, b))))
+                d, n = paired(raters[r], key, a, b, c, ids)
+                lines.append("| %s | %s | %s | %s | %s |" % (r, "**%s**" % c if c in primary else c,
+                                                             f2(found[r, c][0]), f3(found[r, c][1]),
+                                                             "%s over %d" % (f2(d), n) if n else "–"))
         lines.append("")
         full = sum(v["source"] in (a, b) for v in key.values())
         for r in readers_:
@@ -340,35 +382,47 @@ def round9(here):
                 lines.append("- %s: waiting for ratings (%d of the %d threads)." % (r, len(ids), full))
                 continue
             unseen = [i for i in ids if i not in seen.get(r, set())]
-            scales = ["joke", "deadpan", "interest", "overall"]
-            lines.append("- %s: %s. Without seen items: %s (%d threads)." % (
-                r, ", ".join("%s **%s**" % (c, "higher" if found[r, c][1] > 0 else "lower" if found[r, c][2] < 0
-                                            else "no clear difference") for c in scales),
-                ", ".join("%s %s" % (c, f2(diff(raters[r], key, a, b, c, unseen))) for c in scales), len(unseen)))
+            said = [reading(*found[r, c]) for c in primary]
+            lines.append("- %s: %s%s. Without seen items: %s (%d threads)." % (
+                r, ", ".join("%s **%s** (p = %s)" % (c, s, f3(found[r, c][1])) for c, s in zip(primary, said)),
+                "; round 9's criterion **%s**" % ("met" if set(said) == {"higher"} else "not met")
+                if q == R9_CRITERION else "",
+                ", ".join("%s %s" % (c, f2(arm_diff(raters[r], key, a, b, c, unseen))) for c in primary),
+                len(unseen)))
         if not readers_:
             lines.append("Waiting on the reader.")
         lines.append("")
 
     lines += ["### R4: does a judge rank these threads as the reader does?", "",
               "Spearman ρ between the reader and each judge over the threads both rated. Against round 9's "
-              "judges, the reader's deliberate and deadpan humour are each set against their one humour "
-              "score. The verdict is H1's, on overall.", ""]
+              "judges, each of the reader's humour scales is set against their one humour score. The "
+              "verdict is H1's, on overall, once the reader has rated all %d threads." % len(key), ""]
+    if "r9-claude" in raters and "r9-gpt" in raters:
+        rc, rg = raters["r9-claude"], raters["r9-gpt"]
+        v, n = rho(rc, rg, "overall", list(key))
+        lo, hi = boot(lambda s: rho(rc, rg, "overall", s)[0], [i for i in key if i in rc and i in rg], key)
+        lines += ["For reference, round 9's Claude against its gpt-5.4: ρ = %s [%s, %s] over %d threads."
+                  % (f2(v), f2(lo), f2(hi), n), ""]
     pairs_ = [(r, j, [i for i in key if i in raters[r] and i in raters[j]]) for r in readers_ for j in judges]
     pairs_ = [(r, j, ids) for r, j, ids in pairs_ if ids]
     if pairs_:
-        lines += ["| pair | n | overall | interest | joke | deadpan |", "|---|---:|---:|---:|---:|---:|"]
+        lines += ["| pair | n | overall | interest | humour | joke | deadpan |",
+                  "|---|---:|---:|---:|---:|---:|---:|"]
         for r, j, ids in pairs_:
             lines.append("| %s vs %s | %d | %s |" % (r, j, len(ids), " | ".join(
                 f2(rho(raters[r], raters[j], c, ids, c if c in raters[j][ids[0]] else "humour")[0])
-                for c in ("overall", "interest", "joke", "deadpan"))))
+                for c in ("overall", "interest", "humour", "joke", "deadpan"))))
         lines.append("")
     for r, j, ids in pairs_:
         v, n = rho(raters[r], raters[j], "overall", ids)
         lo, hi = boot(lambda s, r=r, j=j: rho(raters[r], raters[j], "overall", s)[0], ids, key)
         unseen = [i for i in ids if i not in seen.get(r, set())]
-        lines.append("- %s vs %s: ρ = %s [%s, %s] over %d items: **%s**. Without items the reader had seen "
-                     "before: ρ = %s over %d." % (r, j, f2(v), f2(lo), f2(hi), n, usable(v),
-                                                  f2(rho(raters[r], raters[j], "overall", unseen)[0]), len(unseen)))
+        lines.append("- %s vs %s: ρ = %s [%s, %s] over %d items: %s. Without items the reader had seen "
+                     "before: ρ = %s over %d." % (
+                         r, j, f2(v), f2(lo), f2(hi), n,
+                         "**%s**" % usable(v) if n == len(key) else
+                         "waiting for ratings (%d of %d threads)" % (n, len(key)),
+                         f2(rho(raters[r], raters[j], "overall", unseen)[0]), len(unseen)))
     if not readers_:
         lines.append("Waiting on the reader.")
     lines.append("")

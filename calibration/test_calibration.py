@@ -32,6 +32,17 @@ def key_r9():
     return A.read_json(os.path.join(HERE, "key-r9.json"))
 
 
+def round9_mean(family, arm, opener, scale):
+    """A round 9 thread's mean over its five readings, worked out from the raw files: the key's
+    letters, then each reading's score."""
+    d = os.path.join(ROOT, "spike", "judging", "r9")
+    letters, reads = A.read_json(os.path.join(d, "key.json")), {}
+    for f in glob.glob(os.path.join(d, "scores-%s*.json" % family)):
+        reads.update(A.read_json(f))
+    pks = ["%d-v%d" % (opener, v) for v in range(1, 6)]
+    return sum(reads["opener-" + pk][next(L for L, a in letters[pk].items() if a == arm)][scale] for pk in pks) / 5
+
+
 class Key(unittest.TestCase):
     def test_six_items_per_source(self):
         counts = {}
@@ -181,6 +192,23 @@ class Readers(unittest.TestCase):
         self.assertEqual(len(reader), 30)
         self.assertEqual(reader[ids[0]]["overall"], 3)
 
+    def test_a_later_export_without_a_rating_keeps_the_earlier_one(self):
+        # a fresh browser's export holds an empty entry for the thread it was showing
+        ids = sorted(key())
+        self.export("ratings-test-2026-11-03.json", self.flat(ids, 3), "2026-11-03T09:00:00.000Z")
+        self.export("ratings-test-2026-11-04.json", {ids[0]: {"stars": [], "seen": False, "note": ""}},
+                    "2026-11-04T09:00:00.000Z")
+        self.assertEqual(len(A.load(self.dir)[1]["reader:test"]), 30)
+
+    def test_each_thread_takes_its_latest_rating(self):
+        # rated again in another browser, whose export happens to be the older one
+        ids = sorted(key())
+        again, first = self.flat(ids[:1], 5), self.flat(ids, 2)
+        again[ids[0]]["t"], first[ids[0]]["t"] = "2026-11-03T11:00:00.000Z", "2026-11-03T10:00:00.000Z"
+        self.export("a.json", again, "2026-11-03T11:05:00.000Z")
+        self.export("b.json", first, "2026-11-03T12:00:00.000Z")
+        self.assertEqual(A.load(self.dir)[1]["reader:test"][ids[0]]["overall"], 5)
+
     def test_each_set_gets_its_own_exports_items(self):
         self.export("ratings-test-2026-11-03.json", self.flat(key(), 3), "2026-11-03T09:00:00.000Z")
         self.export("ratings-r9-test-2026-11-03.json", self.flat(key_r9(), 4), "2026-11-03T10:00:00.000Z")
@@ -276,6 +304,18 @@ class Round9Build(unittest.TestCase):
             B.build_r9([self.empty])
         self.assertIn("bakeoff-gemini9neutral.json", str(e.exception))
 
+    def test_by_default_a_set_without_its_files_is_skipped_by_name(self):
+        # README.md's registered rebuild names one folder, which may not hold round 9's threads
+        import build as B
+        built, skipped = B.build_sets([self.empty, self.data])
+        self.assertEqual(sorted(built), ["r9"])
+        self.assertIn("threads.json", skipped["calibration"])
+
+    def test_a_set_asked_for_must_build(self):
+        import build as B
+        with self.assertRaises(SystemExit):
+            B.build_sets([self.empty, self.data], ["calibration", "r9"])
+
 
 class Round9Analysis(unittest.TestCase):
     def setUp(self):
@@ -302,22 +342,50 @@ class Round9Analysis(unittest.TestCase):
     def section(self, name):
         return A.build(self.dir).split("## Round 9 set")[1].split("### " + name)[1].split("\n### ")[0]
 
-    def test_a_difference_is_read_from_its_bootstrap_interval(self):
+    def test_the_permutation_test_is_exact(self):
+        # of the 20 ways to split 1..6 into three and three, only the two extremes are as far apart
+        self.assertAlmostEqual(A.perm_p([1, 2, 3], [4, 5, 6]), 2 / 20)
+        self.assertEqual(A.perm_p([2, 2], [2, 2]), 1.0)
+
+    def test_the_primary_readings_follow_the_permutation_test(self):
+        # humour is the mean of the two humour scales: 5, 1 and 3 by arm; six threads against six
+        # that never overlap give p = 2 / 924
         joke = {"gemini9neutral": 5, "gemini9": 1, "rolesshort9": 5}
-        deadpan = {"gemini9neutral": 1, "gemini9": 3, "rolesshort9": 1}
-        self.rate(lambda i, a: {"joke": joke[a], "deadpan": deadpan[a]})
-        self.assertIn("- reader:test: joke **higher**, deadpan **lower**", self.section("R1"))
-        self.assertIn("- reader:test: joke **higher**, deadpan **lower**", self.section("R2"))
-        self.assertIn("- reader:test: joke **no clear difference**, deadpan **no clear difference**",
-                      self.section("R3"))
+        deadpan = {"gemini9neutral": 5, "gemini9": 1, "rolesshort9": 1}
+        interest = {"gemini9neutral": 3, "gemini9": 3, "rolesshort9": 5}
+        self.rate(lambda i, a: {"joke": joke[a], "deadpan": deadpan[a], "interest": interest[a]})
+        self.assertIn("- reader:test: humour **higher** (p = 0.002).", self.section("R1"))
+        self.assertIn("- reader:test: humour **higher** (p = 0.002).", self.section("R2"))
+        self.assertIn("- reader:test: interest **lower** (p = 0.002), humour **higher** (p = 0.002); "
+                      "round 9's criterion **not met**.", self.section("R3"))
+
+    def test_round_9s_criterion_is_met_when_the_reader_keeps_reading_and_laughs_more(self):
+        more = {"gemini9neutral": 5, "gemini9": 3, "rolesshort9": 2}
+        self.rate(lambda i, a: {"joke": more[a], "deadpan": more[a], "interest": more[a]})
+        self.assertIn("; round 9's criterion **met**.", self.section("R3"))
+
+    def test_a_reading_needs_p_below_0_05(self):
+        self.assertEqual([A.reading(1, 0.049), A.reading(-1, 0.049), A.reading(1, 0.05)],
+                         ["higher", "lower", "no clear difference"])
+
+    def test_same_openers_pair_the_threads_by_opener(self):
+        # humour = the opener's own level, one point more under the neutral header; the arms share
+        # openers 0, 4, 5 and 7, and their other openers differ
+        def humour(i, a):
+            return self.k[i]["thread"] % 5 + 1 + (a == "gemini9neutral")
+        self.rate(lambda i, a: {"joke": humour(i, a), "deadpan": humour(i, a)})
+        row = next(l for l in self.section("R3").splitlines() if l.startswith("| reader:test | **humour** |"))
+        self.assertTrue(row.startswith("| reader:test | **humour** | 1.50 |"), row)
+        self.assertTrue(row.endswith("| 1.00 over 4 |"), row)
 
     def test_seen_threads_are_left_out_of_the_second_figures(self):
         # three of the /x/ threads were seen before and rated funnier than the other three
         seen = sorted(i for i, v in self.k.items() if v["source"] == "gemini9")[:3]
         self.rate(lambda i, a: {"joke": 5 if a != "gemini9" or i in seen else 1, "seen": i in seen})
         r1 = self.section("R1")
-        self.assertIn("| reader:test | 2.00 [", r1)
-        self.assertIn("Without seen items: joke 4.00", r1)
+        # humour = (joke + 3) / 2: 4 for the neutral arm; 4, 4, 4, 2, 2, 2 for /x/
+        self.assertIn("| reader:test | **humour** | 1.00 |", r1)
+        self.assertIn("Without seen items: humour 2.00 (9 threads)", r1)
 
     def test_a_comparison_waits_for_both_arms(self):
         ratings = self.rate(lambda i, a: {})
@@ -336,20 +404,25 @@ class Round9Analysis(unittest.TestCase):
         self.assertAlmostEqual(j["r9-gpt"][item["gemini9", 1]]["humour"], 3.4)
 
     def test_the_readers_humour_meets_round_9s_humour_score(self):
-        # a reader whose deliberate humour is round 9 Claude's humour for each thread, worked out
-        # here from the raw files: the key's letters, then the mean of the five readings
-        d = os.path.join(ROOT, "spike", "judging", "r9")
-        letters, reads = A.read_json(os.path.join(d, "key.json")), {}
-        for f in glob.glob(os.path.join(d, "scores-claude-*.json")):
-            reads.update(A.read_json(f))
-
-        def humour(arm, opener):
-            pks = ["%d-v%d" % (opener, v) for v in range(1, 6)]
-            return sum(reads["opener-" + pk][next(L for L, a in letters[pk].items() if a == arm)]["humour"]
-                       for pk in pks) / 5
-        self.rate(lambda i, a: {"joke": humour(a, self.k[i]["thread"] + 1)})
+        # a reader whose deliberate humour is round 9 Claude's humour for each thread
+        self.rate(lambda i, a: {"joke": round9_mean("claude", a, self.k[i]["thread"] + 1, "humour")})
         row = next(l for l in self.section("R4").splitlines() if l.startswith("| reader:test vs r9-claude |"))
-        self.assertEqual(row.split(" | ")[4], "1.00")             # the joke column
+        self.assertEqual(row.split(" | ")[5], "1.00")             # the joke column
+
+    def test_r4_reads_a_judge_only_once_every_thread_is_rated(self):
+        ids = sorted(self.k)
+        ratings = self.rate(lambda i, a: {"overall": ids.index(i) % 5 + 1})
+        self.write(os.path.join("ratings", "r.json"), {"rater": "test", "ratings": {i: ratings[i] for i in ids[:4]}})
+        line = next(l for l in self.section("R4").splitlines() if l.startswith("- reader:test vs r9-claude:"))
+        self.assertIn("waiting for ratings (4 of 18 threads)", line)
+        self.assertNotIn("**", line)
+
+    def test_r4_gives_round_9s_two_families_against_each_other_for_reference(self):
+        ids = sorted(self.k)
+        claude, gpt = ([round9_mean(f, self.k[i]["source"], self.k[i]["thread"] + 1, "overall") for i in ids]
+                       for f in ("claude", "gpt"))
+        self.assertIn("For reference, round 9's Claude against its gpt-5.4: ρ = %.2f [" % A.spearman(claude, gpt),
+                      self.section("R4"))
 
     def test_a_judge_on_the_readers_scales_is_compared_thread_by_thread(self):
         # a gpt-5.4 pass on this set (judge.py gpt --set r9) that agrees with the reader exactly

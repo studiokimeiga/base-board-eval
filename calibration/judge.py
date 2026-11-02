@@ -8,11 +8,12 @@
 Add --set r9 to any of them for the round 9 set: items-r9.json, packets-r9/, scores-r9-gpt.json,
 and its Claude replies saved as scores-r9-claude-<PASS><N>.json.
 
-Claude judges run as subagents (as in the bake-off): each reads 10 packets, rates every
-thread on its own, and its JSON reply is saved as scores-claude-<PASS><N>.json. Two passes
-split and order the items differently, so their agreement shows how stable the judge is.
-gpt-5.4 uses the free daily OpenAI allowance tracked in spike/openai_budget.json and stops
-before it runs out; --paid sends the same request through OpenRouter instead.
+Claude judges run as subagents (as in the bake-off): each reads a third of the packets (10 of
+the calibration set's, 6 of the round 9 set's), rates every thread on its own, and its JSON reply
+is saved as scores-claude-<PASS><N>.json. Two passes split and order the items differently, so
+their agreement shows how stable the judge is. gpt-5.4 uses the free daily OpenAI allowance
+tracked in spike/openai_budget.json and stops before it runs out; --paid sends the same request
+through OpenRouter instead.
 """
 import json, os, random, sys, urllib.request
 

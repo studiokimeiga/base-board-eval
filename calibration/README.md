@@ -85,12 +85,17 @@ runs the tests.
 ## The round 9 set (added after registration)
 
 Added on 2026-11-02, after both AI judge families had scored the 30 items above and before the reader
-had rated anything; nothing above this section changed. Round 9
+had rated anything; no text above this section changed. Round 9
 ([`spike/PREREGISTRATION-ROUND9.md`](../spike/PREREGISTRATION-ROUND9.md)) found that the `/x/` board
 header drives plain Gemini's creepypasta, and without it both judge families rated plain Gemini the
 round's funniest arm. Its pre-registration left the verdict to the reader: blind, would they keep
 reading and laugh more? This set asks them. The questions below, and `analyze.py`'s code for them,
 were committed before the reader rated any of its threads.
+
+**What changed for both sets.** `analyze.py` now reads the reader's exports thread by thread: each
+thread takes its latest complete rating across all exports, a reader with no ratings in a set is left
+out of that set's report, and an undefined ρ reads "not enough ratings" instead of stopping the
+script. None of this changes a result computed from one complete export.
 
 **The items.** `build.py` takes six threads from each of three round 9 arms by the rules above (six of
 the eight openers, rotated, and the same screen), and `key-r9.json` (public) gives them the ids
@@ -103,32 +108,42 @@ the eight openers, rotated, and the same screen), and `key-r9.json` (public) giv
 | `rolesshort9` | Gemini with short temperaments, under `/x/` | `bakeoff-rolesshort9.json` |
 
 Four threads were skipped for withheld posts, two in each plain-Gemini arm, so those two arms use the
-six openers they have left; each opener appears two or three times. `items-r9.json` stays private.
+six openers they have left; each opener appears two or three times, and each pair of arms shares four
+of its six openers. `items-r9.json` stays private.
 
 **Rated on its own.** The reader rates these 18 threads apart from the 30, on the same page, scales
 and flags (`rate.html?set=r9`), in their own order and with their own saved ratings. Mixing them into
 the 30 would have changed what the reader sees in the registered set.
 
-**Questions.** Each is a difference of two arms' means with a bootstrap 95% interval over threads
-(2,000 resamples within each arm). For the reader it reads **higher** or **lower** when the interval
-excludes zero, otherwise **no clear difference**, and waits until every thread of both arms is rated.
-Each is also given without the threads the reader marked as seen before. No prediction for the reader.
+**Questions.** R1 to R3 compare two arms. Each scale's difference of means comes with an exact
+two-sided permutation p, over all 924 ways to split the 12 threads six and six, and with the
+difference over the openers both arms share. **Humour** is the mean of the reader's deliberate and
+deadpan humour, as round 9's judges scored laughs of either kind on one scale. For the reader only
+the primary readings get a verdict: **higher** or **lower** when p < 0.05, otherwise **no clear
+difference**, once every thread of both arms is rated. That makes four primary readings, uncorrected,
+as round 9 named its three; every other scale is descriptive. Each is also given without the threads
+the reader marked as seen before. No prediction for the reader.
 
-- **R1, the label:** `gemini9neutral` − `gemini9` on deliberate humour, deadpan humour, interest and
-  overall. Round 9's judges: humour +2.35 (Claude) and +1.73 (gpt-5.4) over all eight openers.
-- **R2, temperaments under `/x/`:** `rolesshort9` − `gemini9`, the split that replicated in round 9:
-  Claude found short roles funnier, gpt-5.4 preferred plain Gemini overall.
-- **R3, round 9's question:** `gemini9neutral` − `rolesshort9`: does the reader keep reading (interest)
-  and laugh more at neutral plain Gemini than at short roles?
+- **R1, the label:** `gemini9neutral` − `gemini9`; primary: humour. Round 9's judges: humour +2.35
+  (Claude) and +1.73 (gpt-5.4) over all eight openers.
+- **R2, temperaments under `/x/`:** `rolesshort9` − `gemini9`, the split that replicated in round 9
+  (Claude found short roles funnier, gpt-5.4 preferred plain Gemini overall); primary: humour.
+- **R3, round 9's question:** `gemini9neutral` − `rolesshort9`: does the reader keep reading and laugh
+  more at neutral plain Gemini than at short roles? Primary: interest and humour; round 9's criterion
+  is met when both read **higher**.
 - **R4, the judges:** Spearman ρ between the reader and each round 9 judge family over the 18 threads,
-  on overall (read with H1's thresholds), on interest, and with each of the reader's humour scales
-  against the judges' one humour score. It uses round 9's own scores, each thread's mean over its five
-  readings, so it needs no new judging.
+  on overall (read with H1's thresholds once all 18 are rated), on interest, and with each of the
+  reader's humour scales against the judges' one humour score. It uses round 9's own scores, each
+  thread's mean over its five readings, so it needs no new judging; the two families' ρ with each
+  other is given for reference.
 
 **Limits.** Blind means unlabelled, not unrecognisable: the `/x/` threads' horror register is easy to
 spot, and the reader may have read round 9's results. Round 9's judges read the threads side by side
 on rubric v2, the reader one at a time on this rubric, so R4 mixes taste with method. With six threads
-an arm, only large differences will clear their intervals.
+an arm, only large differences reach p < 0.05. Each pair of arms shares only four openers, and in
+round 9's scores the openers differ about as much as the threads do, so the same-opener figure is the
+one that holds the opener fixed. For the same reasons, round 9's judges score these 18 threads a
+little differently from the whole round (`RESULTS.md` against the figures above).
 
 **AI judges on this rubric.** `judge.py ... --set r9` writes the packets (`packets-r9/`), the Claude
 prompts and the gpt-5.4 calls for this set; its judges aren't told that some threads come from small
@@ -144,6 +159,7 @@ python -m http.server 8000        # from the repo root
 
 then open http://localhost:8000/calibration/rate.html?set=r9. **Export** names the file
 `ratings-r9-<name>-<date>.json`; put it in `calibration/ratings/` beside the other set's, and
-`python calibration/analyze.py` adds the round 9 section to `RESULTS.md`. Export as often as you
-like: for each thread, the newest export counts. `build.py` reads each file from the first `--data`
-folder that has it; `CALIBRATION_DATA` takes the same folders, joined like `PATH`, for the tests.
+`python calibration/analyze.py` fills in the round 9 section of `RESULTS.md`. Export as often as you
+like: each thread counts its latest rating. `build.py` reads each file from the first `--data` folder
+that has it and builds every set whose files it finds, naming any it leaves out (`--set r9` makes a
+set required); `CALIBRATION_DATA` takes the same folders, joined like `PATH`, for the tests.

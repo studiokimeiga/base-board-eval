@@ -6,8 +6,8 @@ round 9 set, 18 threads from three round 9 arms, rated on its own.
 
 DIR holds private inputs (default: the repo root): the original corpora (threads*.json, from the
 gated dataset) and spike/remote/ (the bake-off threads). Give --data more than once when they are
-in different folders; each file is read from the first DIR that has it. Writes, for each set
-(both unless --set says which)
+in different folders; each file is read from the first DIR that has it. Writes, for every set
+whose files are found (or each set named with --set, which must build)
 
   calibration/items.json, items-r9.json   the threads as the rater and the judges see them (private, gitignored)
   calibration/key.json, key-r9.json       item id -> source, file and thread, plus a hash of the rendered thread
@@ -52,12 +52,16 @@ EXCLUDE = re.compile(r"\b(rap(e|ed|ing|ist)|molest\w*|pedo\w*|paedo\w*|incest|su
                      r"penis|vagina|dick)\b", re.I)
 
 
+class Missing(SystemExit):
+    """A private input that none of the data folders has."""
+
+
 def find(data, name):
     """name, a path inside a data folder, in the first of the data folders that has it."""
     for d in data:
         if os.path.exists(os.path.join(d, name)):
             return os.path.join(d, name)
-    raise SystemExit("%s is in none of: %s (pass the folder that has it with --data)" % (name, ", ".join(data)))
+    raise Missing("%s is in none of: %s (pass the folder that has it with --data)" % (name, ", ".join(data)))
 
 
 def load_threads(path):
@@ -176,14 +180,31 @@ def build_r9(data):
 SETS = {"calibration": ("", build, SEED), "r9": ("-r9", build_r9, R9_SEED)}
 
 
+def build_sets(data, wanted=None):
+    """{set: (items, key, notes)} for the sets in wanted, each of which must build, or by default for
+    every set whose files are found, with {set: why} for those left out."""
+    built, skipped = {}, {}
+    for name in wanted or list(SETS):
+        try:
+            built[name] = SETS[name][1](data)
+        except Missing as e:
+            if wanted:
+                raise
+            skipped[name] = str(e)
+    if not built:
+        raise SystemExit("nothing built: " + "; ".join(skipped.values()))
+    return built, skipped
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--data", action="append", help="a folder with private inputs; repeatable")
-    ap.add_argument("--set", action="append", choices=sorted(SETS), help="build only this set; repeatable")
+    ap.add_argument("--set", action="append", choices=sorted(SETS),
+                    help="build this set, which must succeed; repeatable (default: every set whose files are found)")
     a = ap.parse_args()
-    for name in a.set or ["calibration", "r9"]:
-        sfx, make, seed = SETS[name]
-        items, key, notes = make(a.data or [ROOT])
+    built, skipped = build_sets(a.data or [ROOT], a.set)
+    for name, (items, key, notes) in built.items():
+        sfx, _, seed = SETS[name]
         with open(os.path.join(HERE, "items%s.json" % sfx), "w", encoding="utf-8", newline="\n") as f:
             json.dump({"seed": seed, "items": items}, f, ensure_ascii=False, indent=1)
         with open(os.path.join(HERE, "key%s.json" % sfx), "w", encoding="utf-8", newline="\n") as f:
@@ -194,6 +215,8 @@ def main():
         for v in key.values():
             counts[v["source"]] = counts.get(v["source"], 0) + 1
         print("%s: built %d items:" % (name, len(items)), counts)
+    for name, why in skipped.items():
+        print("%s: not built, %s" % (name, why))
 
 
 if __name__ == "__main__":
