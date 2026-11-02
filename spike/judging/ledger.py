@@ -89,6 +89,8 @@ NAMES = {
     "deepseek": "DeepSeek V4 Flash (chat)", "gpt54": "GPT-5.4 (chat)",
     "sonnet": "Claude Sonnet 5.5 (chat)",
 }
+# jp_bakeoff.py ran its self-hosted arms raw unless the name says XTC/DRY
+JP_NAMES = {"g31": "gemma-4-31B base, raw"}
 DIMS = ["overall", "naturalness", "interest", "humour", "emergence", "coherence", "variety"]
 
 
@@ -174,7 +176,7 @@ def signed(x):
     return "%+.2f" % x
 
 
-def arm_table(cells, judge, arms, packets):
+def arm_table(cells, judge, arms, packets, names=NAMES):
     dims = [d for d in DIMS if any(d in v for (p, a), v in cells.items())]
     rows = []
     top = {p: max(v["overall"] for (q, a), v in cells.items() if q == p) for p in packets}
@@ -189,7 +191,7 @@ def arm_table(cells, judge, arms, packets):
     out = ["| %s | arm | n | %s | best/tied |" % (judge, " | ".join(dims)),
            "|---|---|---:|%s---:|" % ("---:|" * len(dims))]
     for _, arm, n, m, best in rows:
-        out.append("| | %s | %d | %s | %d |" % (NAMES.get(arm, arm), n,
+        out.append("| | %s | %d | %s | %d |" % (names.get(arm, arm), n,
                                                  " | ".join(f2(m[d]) for d in dims), best))
     return out
 
@@ -260,6 +262,28 @@ def rejudged(rounds_cells):
     return out
 
 
+def position_rows(rounds_cells, keys):
+    """Score minus its packet's mean, by where the thread sat in the packet (letters are in
+    reading order), per judge over every round; and which arm each round showed first."""
+    out = []
+    for judge in ("claude", "gpt"):
+        by = {"first": [], "middle": [], "last": []}
+        for (rnd, folder, cells), key in zip(rounds_cells, keys):
+            for pk, letters in key.items():
+                sc = {L: cells.get(judge, {}).get((pk, a)) for L, a in letters.items()}
+                sc = {L: v["overall"] for L, v in sc.items() if v}
+                if len(sc) < 2:
+                    continue
+                m = mean(list(sc.values()))
+                order = sorted(sc)
+                for i, L in enumerate(order):
+                    pos = "first" if i == 0 else "last" if i == len(order) - 1 else "middle"
+                    by[pos].append(sc[L] - m)
+        out.append("| %s | %s |" % (judge, " | ".join("%s (n=%d)" % (signed(mean(by[p])), len(by[p]))
+                                                     for p in ("first", "middle", "last"))))
+    return out
+
+
 def raw_section():
     if not os.path.exists(RAW_STATS):
         return ["raw-stats.json is missing; run `ledger.py rawstats` where spike/remote/ exists."]
@@ -306,10 +330,11 @@ def build():
              "test with ties dropped. With 6 to 8 packets nothing below about p = 0.03 is reachable "
              "unless an arm wins every packet, so read these as effect sizes with honest noise, "
              "not as proof.", ""]
-    rounds_cells = []
+    rounds_cells, keys = [], []
     for rnd, folder, judges, title, contrasts in ROUNDS:
         key, cells = load_round(folder, judges)
         rounds_cells.append((rnd, folder, cells))
+        keys.append(key)
         arms = sorted({a for letters in key.values() for a in letters.values()})
         packets = sorted(key)
         lines += ["## Round %s: %s" % (rnd, title), "", RUBRICS[rnd], ""]
@@ -319,7 +344,8 @@ def build():
             note = "" if len(got) == len(packets) else " (scored %d of %d packets)" % (
                 len(got), len(packets))
             lines += ["**%s**%s" % (judge, note), ""]
-            lines += arm_table(c, judge, arms, got) + [""]
+            lines += arm_table(c, judge, arms, got,
+                                dict(NAMES, **JP_NAMES) if folder.startswith("jp") else NAMES) + [""]
         rows = []
         for judge in judges:
             rows += contrast_rows(cells[judge], judge, contrasts)
@@ -339,6 +365,20 @@ def build():
               "every two judgings of the same thread.", "",
               "| judge | arm | overall mean by round | spread of means | mean abs. change per thread | re-judgings that moved ≥1 point |",
               "|---|---|---|---:|---:|---|"] + rejudged(rounds_cells) + [""]
+    firsts = []
+    for (rnd, folder, cells), key in zip(rounds_cells, keys):
+        counts = {}
+        for letters in key.values():
+            a = letters[min(letters)]
+            counts[a] = counts.get(a, 0) + 1
+        top = max(counts, key=lambda a: (counts[a], a))
+        firsts.append("round %s: %s %d of %d" % (rnd, top, counts[top], len(key)))
+    lines += ["## Position in the packet", "",
+              "Overall score minus its packet's mean, by where the thread sat (threads are read in "
+              "letter order). Letters were assigned at random, so this adds noise rather than favouring "
+              "an arm on average, but with 6 to 8 packets one arm can land first more often by chance. "
+              "The arm shown first most often: %s." % "; ".join(firsts), "",
+              "| judge | first | middle | last |", "|---|---:|---:|---:|"] + position_rows(rounds_cells, keys) + [""]
     lines += ["## Post length and withheld posts", ""] + raw_section() + [""]
     return "\n".join(lines)
 
