@@ -227,11 +227,15 @@ def ask_json(prompt, paid, env, check):
         url, key = "https://api.openai.com/v1/chat/completions", env["OPENAI_API_KEY"]
         body = {"model": "gpt-5.4", "reasoning_effort": "low",
                 "messages": [{"role": "user", "content": prompt}]}
+    cost = tokens = 0
     for attempt in range(3):
         d = retrying(lambda: post_json(url, key, body, timeout=600))
+        cost += d["usage"].get("cost", 0) or 0         # every try is paid for
+        tokens += d["usage"].get("total_tokens", 0)
         raw = d["choices"][0]["message"].get("content") or ""
         try:
-            return check(json.loads(raw[raw.index("{"):raw.rindex("}") + 1])), dict(d["usage"], tries=attempt + 1)
+            return (check(json.loads(raw[raw.index("{"):raw.rindex("}") + 1])),
+                    dict(d["usage"], tries=attempt + 1, cost=cost, total_tokens=tokens))
         except ValueError as e:          # no "{", bad JSON, or a failed check
             err = e
     raise RuntimeError("no valid reply in 3 tries: %s" % err)
