@@ -60,7 +60,12 @@ You need [llama.cpp](https://github.com/ggml-org/llama.cpp) (`llama-server` on `
 
 The raw corpora are unfiltered base-model output, and they include slurs, sexual violence and,
 in one thread, self-harm content (see [QUARANTINE.md](QUARANTINE.md)). They are kept out of this
-repo on purpose. Only the curated threads in `BEST-OF.md` and `board.html` are published.
+repo on purpose. Only the curated threads in `BEST-OF.md` and `board.html` are published here.
+
+The full corpora are on Hugging Face as a gated dataset,
+[kimeiga/base-board-eval-threads](https://huggingface.co/datasets/kimeiga/base-board-eval-threads).
+You have to accept a content warning before downloading. Threads the automatic filter caught
+are withheld there too.
 
 If you run the generators yourself, expect the same kind of output. Don't publish it without a
 classifier and a human check in between.
