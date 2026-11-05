@@ -21,11 +21,18 @@ run, and the claims that were wrong are written down too.
 
 The full config and evidence are in [FINDINGS.md](FINDINGS.md).
 
+A later hosted-model and multilingual comparison is documented in [BAKEOFF.md](BAKEOFF.md).
+It reports follow-up session results (Gemini, Qwen, Japanese, pickers, temperature, poster
+roles, and emergent board behaviour), but the raw follow-up runs are not yet in this repo;
+its numeric results should be treated as provisional pending reproducible artifacts and
+human blind ratings.
+
 ## Documents
 
 | file | what it is |
 |---|---|
 | [FINDINGS.md](FINDINGS.md) | What works, why, and the claims that had to be withdrawn |
+| [BAKEOFF.md](BAKEOFF.md) | Later hosted-model and multilingual experiments, provisional scores and open questions |
 | [BEST-OF.md](BEST-OF.md) | Hand-picked threads, with model and config for each |
 | [board.html](board.html) | The same picks rendered as a board, built by `build_board.py` |
 | [PREREGISTRATION.md](PREREGISTRATION.md) | Outcome measures fixed before reading run 5 |
