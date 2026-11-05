@@ -132,19 +132,28 @@ def chat_arm(kind):
 
 
 # ---- best-of-3 with a gpt-5.4 picker ----
+def _budget():
+    if not os.path.exists(BUDGET):
+        return {}
+    with open(BUDGET) as f:
+        return json.load(f)
+
+
 def budget_add(tokens):
     day = time.strftime("%Y-%m-%d", time.gmtime())
     with LOCK:
-        b = json.load(open(BUDGET)) if os.path.exists(BUDGET) else {}
+        b = _budget()
         b[day] = b.get(day, 0) + tokens
-        json.dump(b, open(BUDGET, "w"), indent=1)
+        with open(BUDGET, "w") as f:     # readers take LOCK too, so none sees it half-written
+            json.dump(b, f, indent=1)
         SPEND["openai_tokens"] += tokens
         return b[day]
 
 
 def budget_left():
     day = time.strftime("%Y-%m-%d", time.gmtime())
-    b = json.load(open(BUDGET)) if os.path.exists(BUDGET) else {}
+    with LOCK:
+        b = _budget()
     return DAILY_CAP - b.get(day, 0)
 
 
@@ -398,8 +407,9 @@ def main():
     G.POSTS_PER_THREAD = POSTS
     G.CHECK_AT = 10**9
     G.RETURN_AT, G.ARRIVE_AT = {7, 19}, {13}
-    out = os.path.join(os.environ.get("BAKEOFF_OUT", os.path.join(SPIKE, "remote")),
-                       "bakeoff-%s.json" % arm)
+    out_dir = os.environ.get("BAKEOFF_OUT", os.path.join(SPIKE, "remote"))
+    os.makedirs(out_dir, exist_ok=True)     # before any paid post, so finished threads get saved
+    out = os.path.join(out_dir, "bakeoff-%s.json" % arm)
     done = {}
 
     def save():
