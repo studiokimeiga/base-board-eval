@@ -259,6 +259,16 @@ class Gen1Check(unittest.TestCase):
         with self.assertRaises(ValueError):
             H.load_gen1(os.path.join(self.tmp, "elsewhere"), None)
 
+    def test_a_partial_corpus_missing_a_listed_board_is_refused(self):
+        # the /x/ sources feed the tracker's background, so a /misc/-only copy must not load
+        # (review of PR #9)
+        with open(self.manifest, "w", encoding="utf-8") as f:
+            f.write("%s *private/run/misc/s00.json\n" % hashlib.sha256(b'{"posts": []}').hexdigest())
+            f.write("%s *private/run/x/s01.json\n" % hashlib.sha256(b'{"posts": []}').hexdigest())
+            f.write("%s *private/run/spend-20261102T161832Z.json\n" % hashlib.sha256(b"{}").hexdigest())
+        with self.assertRaisesRegex(ValueError, "x/s01.json"):
+            H.load_gen1(self.root, self.manifest)
+
     def test_a_file_the_manifest_does_not_list_is_refused(self):
         with open(self.manifest, "w", encoding="utf-8") as f:
             f.write("")
@@ -468,6 +478,43 @@ class Pipeline(unittest.TestCase):
             self.assertTrue(b.startswith("/misc/ — thread %d\n" % t["no"]))
             by_target.setdefault(it["target"], []).append(a)
         self.assertTrue(all(len(v) == 2 and v[0] == v[1] for v in by_target.values()))
+
+    def verdict_dir(self, name, targets):
+        """A judging folder with planted verdicts for these targets only."""
+        d = os.path.join(self.tmp, name)
+        os.makedirs(d)
+        key = {i["item"]: {"target": i["target"], "arm": i["arm"]} for i in self.items}
+        with open(os.path.join(d, "key.json"), "w", encoding="utf-8") as f:
+            json.dump(key, f)
+        with open(os.path.join(d, "scores-claude.json"), "w", encoding="utf-8") as f:
+            json.dump({"judge": "claude", "scope": "test", "items": {i: {
+                "borrows": False, "confidence": 4,
+                "kinds": {"reference": 0, "mixup": 0, "coincidence": 0, "reuse": 0}}
+                for i, k in key.items() if k["target"] in targets}}, f)
+        out = os.path.join(self.tmp, name + "-out")
+        os.makedirs(out)
+        return d, out
+
+    def test_a_reduced_design_analyses_only_its_own_targets(self):
+        # review of PR #9: --design four reported all 48 targets
+        four = [t["id"] for t in self.s2["targets"] if H.in_design(t, "four")]
+        self.assertLess(len(four), len(self.s2["targets"]))
+        d, out = self.verdict_dir("design-four", set(four))
+        s = H.analyze(self.gen1, self.run2, self.s2, d, out, COMMON, design="four")
+        self.assertEqual(s["h1"]["pairs"], len(four))
+
+    def test_a_verdict_waits_for_the_whole_judging_scope(self):
+        # review of PR #9: one judged pair produced a definitive L4
+        one = {self.s2["targets"][0]["id"]}
+        d, out = self.verdict_dir("one-judged", one)
+        s = H.analyze(self.gen1, self.run2, self.s2, d, out, COMMON)
+        self.assertTrue(s["l4"].startswith("pending"), s["l4"])
+
+    def test_the_pre_registered_half_is_a_complete_scope(self):
+        d, out = self.verdict_dir("half-judged", set(self.s2["half"]["full"]))
+        s = H.analyze(self.gen1, self.run2, self.s2, d, out, COMMON)
+        self.assertFalse(s["l4"].startswith("pending"), s["l4"])
+        self.assertEqual(s["h3"]["pairs"], len(self.s2["half"]["full"]))
 
     def test_the_judge_and_the_verdict_are_reported(self):
         self.assertEqual((self.summary["h3"]["lore_only"], self.summary["h3"]["sham_only"]), (self.planted(), 0))

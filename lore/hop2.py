@@ -179,6 +179,15 @@ def load_gen1(root=GEN1, manifest=MANIFEST1):
             run[(b, tid, arm or None)] = json.loads(raw.decode("utf-8"))
     if not run:
         raise ValueError("no generation-1 threads in %s (pass --gen1)" % root)
+    # every board's threads feed the tracker's background, so a partial copy (say /misc/ alone)
+    # would change rarity filtering without an error: require all the manifest lists
+    found = {"private/run/%s/%s.json" % (b, "%s-%s" % (tid, arm) if arm else tid) for b, tid, arm in run}
+    required = {rel for rel in want if rel.count("/") == 3 and rel.split("/")[2] in B.BOARDS
+                and rel.startswith("private/run/") and rel.endswith(".json")}
+    missing = sorted(required - found)
+    if missing:
+        raise ValueError("generation 1 in %s is incomplete: %d listed threads missing, e.g. %s"
+                         % (root, len(missing), ", ".join(missing[:3])))
     return run
 
 
@@ -440,6 +449,8 @@ def l4(p, lore_only, sham_only, content_lore, content_sham):
 
 def analyze(gen1, run2, sched2, judging, out, common, design="full"):
     specs = {t["id"]: t for t in sched2["targets"]}
+    # a reduced design is analysed on its own targets only, even if the run holds more
+    run2 = {k: v for k, v in run2.items() if k[1] in specs and in_design(specs[k[1]], design)}
     lineage = {p["source"]: p for p in sched2["priors"]}
     jud = verdicts(judging)
     res = {k: score_target(q, sched2, gen1, common) for k, q in sorted(run2.items())}
@@ -520,11 +531,25 @@ def analyze(gen1, run2, sched2, judging, out, common, design="full"):
     L += ["", "Chance at the same length: lore-arm targets carry another lineage's lore words in %s of "
           "target × lineage checks." % A.pct(h2["cross_hits"], h2["cross_n"])]
 
-    # H3
-    judged = [t for t in tids if (t, "lore") in jud and (t, "sham") in jud]
+    # H3. The judge's outcomes count only over a complete scope: every target, or the pre-registered
+    # fallback half. A partial or interrupted judging leaves the verdict pending.
+    both = {t for t in tids if (t, "lore") in jud and (t, "sham") in jud}
+    half = set(sched2.get("half", {}).get(design, ())) & set(tids)
+    if tids and set(tids) <= both:
+        scope = "all"
+        judged = list(tids)
+    elif half and half <= both:
+        scope = "half"
+        judged = sorted(half)
+    else:
+        scope = None
+        judged = sorted(both)
     h3 = {"pairs": len(judged), "lore_only": 0, "sham_only": 0, "p": 1.0}
     L += ["", "## H3: the blind judge (Claude)", ""]
     if jud:
+        L += ["Judging scope: %s." % ({"all": "every target", "half": "the pre-registered half"}.get(scope)
+              or "incomplete, %d of %d targets judged in both arms; the numbers below are descriptive and "
+                 "the verdict waits" % (len(both), len(tids))), ""]
         ps = [(jud[(t, "lore")]["borrows"], jud[(t, "sham")]["borrows"]) for t in judged]
         bm, cm, p = A.mcnemar(ps)
         h3 = {"pairs": len(ps), "lore": sum(m for m, _ in ps), "sham": sum(n for _, n in ps),
@@ -571,11 +596,13 @@ def analyze(gen1, run2, sched2, judging, out, common, design="full"):
     # the verdict
     content = {arm: sum(1 for t in judged if confirmed(t) and get(t, arm)["lore"] and jud[(t, arm)]["borrows"])
                for arm in ARMS}
-    if jud:
+    if scope:
         verdict = l4(h1["p"], h1["lore_only"], h1["sham_only"], content["lore"], content["sham"])
     else:
-        verdict = "pending: criterion (b) needs Claude's verdicts; criterion (a) alone %s" % (
-            "holds" if h1["lore_only"] > h1["sham_only"] and h1["p"] < 0.05 else "does not hold")
+        verdict = "pending: criterion (b) needs Claude's verdicts on every target or the pre-registered half " \
+                  "(%d of %d targets judged in both arms); criterion (a) alone %s" % (
+                      len(both), len(tids),
+                      "holds" if h1["lore_only"] > h1["sham_only"] and h1["p"] < 0.05 else "does not hold")
     L += ["", "## The verdict on L4 (\"survives more than one hop\")", "",
           "(a) H1: %d lore-only against %d sham-only targets, p = %.4f. (b) Targets carrying a lore item of a "
           "confirmed lineage that the judge says is borrowed: lore %d, sham %d." % (
@@ -599,7 +626,7 @@ def analyze(gen1, run2, sched2, judging, out, common, design="full"):
     L += ["", "Generation spend logged in the thread files: $%.2f over %d threads." % (
         sum(t.get("spend", 0) for t in run2.values()), len(run2)), ""]
 
-    summary = {"design": design, "h1": h1, "h1_confirmed": sub, "h1_robust": rob, "h2": h2, "h3": h3,
+    summary = {"design": design, "judging_scope": scope, "h1": h1, "h1_confirmed": sub, "h1_robust": rob, "h2": h2, "h3": h3,
                "h4": h4, "names": names, "content": content, "l4": verdict}
     write_text(os.path.join(out, "RESULTS.md"), "\n".join(L))
     write_json(os.path.join(out, "results.json"), {"ref_share": T.REF_SHARE, "summary": summary, "targets": [
