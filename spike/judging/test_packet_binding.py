@@ -48,6 +48,17 @@ class FileBytes(unittest.TestCase):
         with open(p, "rb") as f:
             self.assertEqual(PR.file_bytes(text), f.read())
 
+    def test_lf_matches_round_9s_writer(self):
+        tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, tmp, True)
+        text = "OPENER 1: x\n\n1. a (OP): line\n2. b: (empty)"
+        p = os.path.join(tmp, "t.txt")
+        R3J.write(p, text)
+        with open(p, "rb") as f:
+            self.assertEqual(PR.file_bytes(text, "\n"), f.read())
+        PR.write(tmp, {"opener-1-v1": text}, {"opener-1-v1": {"A": "x"}}, eol="\n")
+        self.assertTrue(PR.packet_matches(tmp, "opener-1-v1"))
+
 
 class Round3Binding(unittest.TestCase):
     OPENERS = ["my mug moves", "a text from my own number"]
@@ -194,7 +205,7 @@ class JapaneseBinding(unittest.TestCase):
 class CommittedRounds(unittest.TestCase):
     """Every committed score file is bound to the packet MANIFEST.sha256 lists for it."""
     FOLDERS = {"r3": "round3", "r4": "round3", "r5": "round3", "r6": "round3", "r7": "round3",
-               "r8": "round3", "jp": "jp", "jp-r5": "jp"}
+               "r8": "round3", "r9": "round3", "jp": "jp", "jp-r5": "jp"}
 
     def manifest(self):
         out = {}
@@ -215,7 +226,7 @@ class CommittedRounds(unittest.TestCase):
             self.assertEqual({n: r["sha256"] for n, r in rec.items()}, manifest[folder], folder)
             with open(os.path.join(d, "key.json")) as f:
                 key = json.load(f)
-            key_of = (lambda n: key.get(n.split("-")[1])) if kind == "round3" else key.get
+            key_of = R3J.key_of(key) if kind == "round3" else key.get     # round 9: "opener-3-v2" -> "3-v2"
             self.assertTrue(PR.scored(d) <= set(rec), folder)
             PR.check(d, key_of)              # raises SystemExit on any mismatch
 

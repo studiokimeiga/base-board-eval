@@ -8,7 +8,7 @@ original ~600-thread local base-model study. It is **not** a replacement for
 > are in [`spike/`](spike/README.md). [`spike/judging/LEDGER.md`](spike/judging/LEDGER.md) recomputes
 > every score below from those files (`python spike/judging/ledger.py --check`, plus unit tests).
 > The generated threads and judging packets stay private, like the original corpora; their SHA-256
-> hashes are in `spike/MANIFEST.sha256`, and all 74 judging packets were rebuilt from the private
+> hashes are in `spike/MANIFEST.sha256`, and all 114 judging packets were rebuilt from the private
 > threads and matched byte for byte. **Every score here is an AI judge's** (Claude Opus 5.5
 > subagents, and gpt-5.4). The person this board is for has not rated any hosted-model output
 > blind, so none of this is yet a measure of what they find funny. Model names and prices are as
@@ -41,6 +41,7 @@ is not the same experiment as a persistent community.
 | Round 6, temperature | Gemini at 1.0/1.5/1.9, Qwen at 1.0/1.4/1.8, same 8 openers | LEDGER round 6 |
 | Round 7, poster temperaments and small-model naifs | Gemini with quiet temperaments; 2 of 7 posters given to the original gemma-4-E4B; both | LEDGER round 7 |
 | Round 8, temperaments with post length controlled | Plain Gemini vs. long-post roles vs. short-post roles, one rubric for both judges | LEDGER round 8 (**completed**, results below) |
+| Round 9, pre-registered | An occasional small-model post; the `/x/` label against a neutral header; Latin-square judging | `spike/PREREGISTRATION-ROUND9.md`, LEDGER round 9 (results below) |
 | Japanese round and picker | 9 arms (8 models) in 5ch and named-handle formats; Gemini best-of-3 | LEDGER rounds JP and JP-5 |
 | Cross-thread folklore on a hosted live board | Discussed, with memory-on vs. memory-off controls | **Not tested**. The earlier local one-prior test is in [FINDINGS.md](FINDINGS.md) |
 | Blind human ratings of hosted-model output | [`calibration/`](calibration/README.md): 30 mixed threads, pre-registered; `spike/rate.html?round=8` for round 8 | **Not done**: waiting on the reader |
@@ -52,8 +53,8 @@ the live board, also began with `generate.py`'s header `/x/ — thread 4471`**, 
 board; the Japanese prompts had no board label. Judges saw one packet per opener, each arm's thread
 lettered at random, and never the key.
 
-The ledger runs 44 paired comparisons on two scales, 88 exact sign tests. With 6 to 12 packets the
-test is conservative, so chance alone would produce about one result at p < 0.05; ten reached it.
+The ledger runs 54 paired comparisons on two scales, 108 exact sign tests. With 6 to 12 packets the
+test is conservative, so chance alone would produce about one result at p < 0.05; eleven reached it.
 They are named where they come up below, and all are in the ledger.
 
 ## English: model comparison (rounds 1–5)
@@ -116,7 +117,7 @@ asked to weigh naturalness) added **+0.17** with both Claude (3.33 vs. 3.17) and
 | **Best-of-3 + AI picker** | Qwen 2.12 → 3.25 (Claude, round 3; 6 packets better, 1 tied, 1 worse). Gemini +0.12 with Claude and +0.62 with gpt-5.4 (round 5), where gpt-5.4 was also the picker and the picked arm happened to be read first in 5 of 8 packets. Pickers didn't raise humour: the Gemini picker lowered it with both judges (−0.12, −0.38). Generation cost 4.6× for Gemini in English, 5.9× in Japanese. The round 3 picker chose the last of three candidates 81 times in 182 (45%), so later pickers shuffle candidates. |
 | **Repetition penalties, breakdown guard** | Stopped Hermes's loops (the guard resampled 1 post in 184 once penalties were on) without improving quality: its real failure was generic, advice-column posts. |
 | **XTC / DRY** | Crucial to the *local small-base* setup in [FINDINGS.md](FINDINGS.md). Unavailable on the hosted APIs compared, and no help to the Japanese base models. Don't transfer the original sampler recommendation to hosted chat models. |
-| **Board label and personas** | Every English thread was written under an `/x/` (paranormal board) header. The creepypasta drift across models, including the single ominous voice both judges named as plain Gemini's main failure in rounds 7–8, may partly come from it; a neutral-board control is untested. Echo's first run, with a "4chan anon" persona, returned 176 empty posts of 184 (the few it wrote were creepypasta); the judged run used "Anonymous". |
+| **Board label and personas** | Every English thread before round 9 was written under an `/x/` (paranormal board) header. Round 9 tested it: without the label, the share of replies a blind tagger called horror fell from 60% to 16% for plain Gemini and from 40% to 15% for short roles, and plain Gemini's humour rose by about two points with both judge families (below). Echo's first run, with a "4chan anon" persona, returned 176 empty posts of 184 (the few it wrote were creepypasta); the judged run used "Anonymous". |
 | **Reasoning models** | Hidden reasoning ate the output budget: empty Claude Sonnet and DeepSeek posts, Gemini posts cut off at a 300-token cap (the failed runs are kept as `*-reasoning-*` files). Low reasoning effort and a larger cap fixed Gemini and Sonnet's 5ch run; Sonnet's named-handle run was not redone. |
 | **Keyword gate** | A placeholder, not moderation. See "Safety" below. |
 | **AI judging** | Useful for screening, not a definition of taste. The same 8 plain-Gemini threads, re-judged by Claude in rounds 4 to 8, scored 3.88, 3.50, 3.38, 3.12 and 2.88, while the competing arms changed and, from round 6, so did Claude's rubric (round 7–8's rewards variety, plain Gemini's weak point); gpt-5.4's scores for the same threads moved without a trend (4.12, 3.50, 4.00, 4.12, 4.38). A thread's score changed by 0.62 (Claude) or 0.55 (gpt-5.4) points on average between two judgings, more in Japanese. The two families' overall rankings agreed at Spearman ρ 0.78 and 0.84 in rounds 3–4, 0.39 in round 5, 0.51 in round 6, 0.21 in round 7, −0.17 in round 8 and 0.73 in JP-5. Both favour the thread they read first (+0.20 Claude, +0.44 gpt-5.4 above the packet mean). |
@@ -207,6 +208,55 @@ Temperaments to keep examining: OP with stakes, ordinary advice-givers and one-l
 helper, skeptic/pedant, lurker, occasional troll and storyteller. The point is **contrast**, not
 giving everyone a comic or sinister voice: all-atmosphere casts (Kimi, Echo, and plain Gemini under
 the `/x/` header) and all-joke casts both flatten a thread.
+
+### Round 9: an occasional small-model post, and the board label (pre-registered)
+
+Designed, coded and pushed before any thread existed ([`spike/PREREGISTRATION-ROUND9.md`](spike/PREREGISTRATION-ROUND9.md),
+which also records what happened during the run). Five fresh arms on the same 8 openers and
+scaffold were written together, with flagged posts withheld before they entered the context. Both
+families judged on rubric v2 and read every packet in five letter orders, so each arm was read once
+in each position per opener and a thread's score is the mean of five readings. HORROR is the share
+of replies a blind per-post tagger labelled horror register (gpt-5.4 and Claude, averaged).
+
+| Round 9 | Claude overall | Claude humour | gpt-5.4 overall | gpt-5.4 humour | HORROR |
+|---|---:|---:|---:|---:|---:|
+| plain Gemini, neutral header | **3.98** | **4.08** | 4.03 | **3.98** | 16% |
+| plain Gemini, `/x/` | 3.20 | 1.73 | **4.05** | 2.25 | 60% |
+| short roles, `/x/` | 3.50 | 3.40 | 3.15 | 2.55 | 40% |
+| short roles, neutral header | 3.50 | 3.55 | 2.83 | 2.68 | 15% |
+| short roles + 1 post in 8 by gemma-4-E4B base, `/x/` | 2.88 | 2.90 | 3.23 | 2.55 | 39% |
+
+- **The `/x/` label causes most of the creepypasta (H2, supported).** Without it, HORROR fell from
+  60% to 16% for plain Gemini and from 40% to 15% for short roles. It was lower in 14 of 16 paired
+  threads and higher in 1 (p = 0.001), with each tagger family separately (the two agree at κ = 0.80).
+  The share of plain Gemini's non-OP posters with a horror post fell from about 70% to 18%, and its
+  judges' notes naming the horror register from 48% to 22% of readings (Claude) and from 35% to 12%
+  (gpt-5.4). Under `/x/`, 28 of plain Gemini's posts were cut off by the token limit, against 8
+  without the label.
+- **Without the label, plain Gemini is funny.** Its humour rose by 2.35 points with Claude and 1.73
+  with gpt-5.4 (higher in 7 of 8 openers with each, p = 0.07), the round's top humour with both;
+  overall, +0.77 with Claude and −0.03 with gpt-5.4. Under the neutral header temperaments no longer
+  add humour: short roles scored below plain Gemini with both (−0.53 and −1.30; exploratory).
+- **The occasional small-model post didn't help (H1: *mixed* by the pre-registered rule).** Claude
+  scored it lower overall in 7 of 8 openers (−0.62, p = 0.016) and called 58% of its readings
+  nonsense or garbled, against 2% for short roles alone, often naming the small model's own posts by
+  number. gpt-5.4 saw no difference (+0.07 overall, +0.00 humour). Neither family found it funnier:
+  a sincere small-model post among fluent ones still reads as a glitch.
+- **Round 8's split replicates (H3).** Under `/x/`, Claude again rated short roles funnier than plain
+  Gemini (+1.68, higher in 7 of 8), and gpt-5.4 again preferred plain Gemini overall (−0.90, lower
+  in 6 of 8).
+- **The fairer judging held up.** A thread's five readings sat 0.22 (Claude) and 0.33 (gpt-5.4)
+  points from their own mean on average. Within the same thread gpt-5.4 still scored the first-read
+  thread 0.27 higher (Claude: −0.01), which the Latin square cancels. The families agreed more than
+  in rounds 7 and 8 (ρ = 0.40; the same top thread in 7 of 8 packets).
+- **The gate** withheld 9 posts and only 2 were real matches; 7 were substrings of "hospice" and
+  "scrape(d)". One neutral short-roles thread lost four posts to "hospice".
+
+So the ominous voice was mostly the prompt's board name, not the model. That changes how rounds 3–8
+read: they partly measured how each arm coped with a paranormal board, and temperaments' humour
+gain was largely a cure for it. Whether neutral-board plain Gemini is funny *to the reader* is the
+next thing to ask them. Round 9 cost about $3.60 (Gemini $2.03 logged, gpt-5.4 judging and tagging
+$1.11, Modal about 30 GPU-minutes), plus 15 Claude subagents.
 
 ## The original human-picked humour is a different target
 
@@ -302,15 +352,15 @@ homophobic slur and four kill threats. The follow-up added to that record:
 - **Live-board v2 leaked sexual content** past the English list; sexual terms were then added.
 - **Japanese output needs its own list**; the English one catches nothing (bare 死ね is deliberately
   allowed as everyday 5ch banter).
-- **In the English bake-off runs the gate ran after a whole thread was written**, so a flagged post
+- **In English rounds 1–8 the gate ran after a whole thread was written**, so a flagged post
   stayed in the context while later posts were generated, and was only withheld from the saved file.
-  The Japanese runs and the live board withhold a post before it enters the context. 0 to 4 posts
-  per 184 were withheld per English arm.
+  The Japanese runs, the live board and round 9 withhold a post before it enters the context. 0 to 4
+  posts per 184 were withheld per English arm (0 to 5 in round 9).
 - **The list matches substrings.** Two entries carry a trailing space (`"fag "`, `"paki "`), so a
   plural or a word before punctuation would slip through; a word-boundary scan of 26,388 stored posts
   (`spike/gate_audit.py`) found no such case. Substring matching also withholds innocent words
-  ("spicy", "raccoon", "grape", "cocktail"); the bake-off files don't keep withheld text, so how
-  often is unknown.
+  ("spicy", "raccoon", "grape", "cocktail"). Rounds 1–8 didn't keep withheld text; round 9 did, and
+  7 of its 9 withheld posts were innocent ("hospice", "scrape").
 
 A first draft of this document said a skeptic poster's slur escaped the gate. It came from a round 8
 smoke test, recorded in the session transcript, that called the model directly without the gate; the
@@ -342,8 +392,9 @@ the **original local gemma-4-E4B** workload with dated August 2026 assumptions.
 3. **Small samples.** 6 to 12 packets per comparison; ten of 88 sign tests reached p < 0.05.
 4. **Humour is unresolved.** Temperaments raised judged humour, decisively for Claude and weakly for
    gpt-5.4; whether a person laughs more is unknown.
-5. **Every English thread was written under an `/x/` header**; how much of the genre drift that
-   explains is untested.
+5. **Every English thread before round 9 was written under an `/x/` header.** Round 9 showed the
+   label causes most of the genre drift, so the earlier English rankings partly measure how arms
+   cope with a paranormal board.
 6. **Thread-to-thread transmission is untested on the hosted stack**, and unmeasured on the small-cast
    live board. The local "physical X" result is narrower than enduring lore.
 7. **Real human replies** and posters reacting to them have not been evaluated.
@@ -359,10 +410,11 @@ the **original local gemma-4-E4B** workload with dated August 2026 assumptions.
    rated it (neither separates BEST-OF threads from unselected small-model output), the reader not yet.
 2. **Get the reader's verdict on round 8** (plain vs. long roles vs. short roles), the round where
    the two AI judge families disagree: `spike/rate.html?round=8`.
-3. **Narrower hybrids.** An occasional small-model post instead of fixed slots; seeding a shared
-   confusion. Equalise length, openers and scaffold; report failure and safety rates, not just the
-   best thread.
-4. **A neutral board label against `/x/`,** with everything else fixed.
+3. **Put neutral-board plain Gemini in front of the reader,** next to its `/x/` twin and short roles
+   (round 9's threads), blind.
+4. **Narrower hybrids, what's left.** An occasional small-model post was tried in round 9 and read as
+   a glitch to Claude (gpt-5.4 saw no difference). Seeding a shared confusion is untested. Equalise
+   length, openers and scaffold; report failure and safety rates, not just the best thread.
 5. **Separate Qwen's temperature from min_p, the frequency penalty and the provider,** with logged
    parameters.
 6. **An evolving board.** Vary OP timing (short bursts, 2–6-hour absences, an OP who never returns),

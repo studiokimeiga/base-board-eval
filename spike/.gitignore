@@ -3,6 +3,7 @@
 remote/
 judging/**/opener-*.txt
 judging/**/*-opener-*.txt
+judging/**/tag-*.txt
 judging/**/by-thread.json
 judging/best-lines-by-model.json
 board-v1-catalog.json

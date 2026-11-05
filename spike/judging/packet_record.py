@@ -16,9 +16,10 @@ import glob, hashlib, json, os
 RECORD = "packet-hashes.json"
 
 
-def file_bytes(text):
-    """Exactly what open(path, "w", encoding="utf-8").write(text) puts on disk here."""
-    return text.replace("\n", os.linesep).encode("utf-8")
+def file_bytes(text, eol=os.linesep):
+    """Exactly what open(path, "w", encoding="utf-8").write(text) puts on disk here, or with
+    eol="\n" what round 9's LF writer puts there."""
+    return text.replace("\n", eol).encode("utf-8")
 
 
 def sha256(b):
@@ -49,11 +50,12 @@ def refuse(folder, problems):
         % (folder, "\n  ".join(problems)))
 
 
-def write(folder, texts, keys):
+def write(folder, texts, keys, eol=os.linesep):
     """Write {name: text} packets and the record, unless that would strand existing scores.
-    keys: {name: {letter: arm}}. Call before writing key.json."""
+    keys: {name: {letter: arm}}. Call before writing key.json. eol: rounds 3-8 and jp were
+    written in Windows text mode; round 9 writes "\n" everywhere."""
     record = load(folder)
-    new = {n: {"sha256": sha256(file_bytes(t)), "key": keys[n]} for n, t in texts.items()}
+    new = {n: {"sha256": sha256(file_bytes(t, eol)), "key": keys[n]} for n, t in texts.items()}
     stale = ["%s: %s" % (n, "not in the new packets" if n not in new else
                          "no recorded packet" if n not in record else "packet or key would change")
              for n in sorted(scored(folder)) if n not in record or new.get(n) != record[n]]
@@ -61,7 +63,7 @@ def write(folder, texts, keys):
         refuse(folder, stale)
     for n, t in texts.items():
         with open(os.path.join(folder, n + ".txt"), "wb") as f:
-            f.write(file_bytes(t))
+            f.write(file_bytes(t, eol))
     with open(os.path.join(folder, RECORD), "w", encoding="utf-8") as f:
         json.dump(new, f, ensure_ascii=False, indent=1)
 

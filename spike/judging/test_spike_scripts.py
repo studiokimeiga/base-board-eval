@@ -16,6 +16,9 @@ import generate as G
 import round3 as R3
 import bakeoff as B
 import live_board as LB
+import pubgate
+
+OFFLINE_GATE = pubgate.Gate(LB.GATE)    # the harm list alone: no key, so no network call
 
 
 def git_ignored(path):
@@ -132,7 +135,7 @@ class LiveBoardSnapshot(unittest.TestCase):
         self.addCleanup(shutil.rmtree, tmp, True)
         state = os.path.join(tmp, "remote", "board.json")
         with mock.patch.object(LB, "STATE", state):
-            LB.Board(["gemma", "qwen", "olmo"], random.Random(1)).save("test")
+            LB.Board(["gemma", "qwen", "olmo"], random.Random(1), OFFLINE_GATE).save("test")
         self.assertTrue(os.path.exists(state))
 
 
@@ -141,7 +144,7 @@ class LiveBoardRestrictedVoices(TempDir):
 
     def board_with_prior(self, seed, distinct_authors):
         with mock.patch.object(LB, "STATE", os.path.join(self.tmp, "board.json")):
-            b = LB.Board(["qwen"], random.Random(seed))
+            b = LB.Board(["qwen"], random.Random(seed), OFFLINE_GATE)
         qwen = [h for h, v in b.regulars.items() if v == "qwen"]
         posts = [{"who": qwen[k % distinct_authors], "ts": "x", "t": 0, "text": "post %d" % k,
                   "voice": "qwen", "stop": "-"} for k in range(LB.PRIOR_MIN_REPLIES + 2)]

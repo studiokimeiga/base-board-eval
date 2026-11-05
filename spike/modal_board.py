@@ -243,3 +243,56 @@ def r7(arms: str = "naif,naifroles"):
                        env=dict(os.environ, BAKEOFF_OUT="/data", NAIF_PORT="8400"))
         data_vol.commit()
     proc.kill()
+
+
+# ---- round 9 (spike/PREREGISTRATION-ROUND9.md): all five arms at once, in one container ----
+#   uvx modal run spike/modal_board.py::r9 --out r9-smoke --threads 1   plumbing check, discarded
+#   uvx modal run --detach spike/modal_board.py::r9                     the round
+#   uvx modal run spike/modal_board.py::fetch_r9                        /data/r9 -> spike/remote/
+R9_ARMS = "gemini9,rolesshort9,rolesshort9naif,gemini9neutral,rolesshort9neutral"
+
+
+@app.function(image=image, gpu=["L4", "A10G"], volumes={"/models": models_vol, "/data": data_vol},
+              timeout=3 * 3600, secrets=[_openrouter_secret()])
+def r9(arms: str = R9_ARMS, out: str = "r9", threads: int = 8):
+    """The Gemini arms don't need the GPU, but running them here too means every arm is written
+    at the same time, from the same machine, by the same code. A rerun resumes each arm's file."""
+    import urllib.request
+    sys.path.insert(0, "/repo")
+    from llama import start_server
+    os.makedirs("/data/" + out, exist_ok=True)
+    proc = start_server("/models/arm1b.gguf", 8400)
+    for _ in range(600):
+        try:
+            if json.load(urllib.request.urlopen("http://127.0.0.1:8400/health", timeout=2)).get("status") == "ok":
+                break
+        except Exception:
+            pass
+        time.sleep(1)
+    else:
+        raise RuntimeError("llama-server for arm1b.gguf never became healthy")
+    env = dict(os.environ, BAKEOFF_OUT="/data/" + out, NAIF_PORT="8400", BAKEOFF_THREADS=str(threads))
+    runs = {arm: subprocess.Popen([sys.executable, "/repo/spike/round3.py", arm], env=env)
+            for arm in arms.split(",")}
+    while any(p.poll() is None for p in runs.values()):
+        time.sleep(30)
+        data_vol.commit()
+    data_vol.commit()
+    proc.kill()
+    print("exit codes:", {arm: p.returncode for arm, p in runs.items()}, flush=True)
+
+
+@app.function(image=dl_image, volumes={"/data": data_vol})
+def _read_r9(out: str):
+    d = "/data/" + out
+    return {f: open(os.path.join(d, f), "rb").read() for f in os.listdir(d)} if os.path.isdir(d) else {}
+
+
+@app.local_entrypoint()
+def fetch_r9(out: str = "r9"):
+    dest = os.path.join(HERE, "remote", "" if out == "r9" else out)
+    os.makedirs(dest, exist_ok=True)
+    for name, b in sorted(_read_r9.remote(out).items()):
+        with open(os.path.join(dest, name), "wb") as f:
+            f.write(b)
+        print("wrote", os.path.join(dest, name), len(b), "bytes")
