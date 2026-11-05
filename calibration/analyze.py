@@ -43,9 +43,17 @@ def load(here=HERE):
             raters["claude-" + p] = merged
     if os.path.exists(os.path.join(here, "scores-gpt.json")):
         raters["gpt"] = read_json(os.path.join(here, "scores-gpt.json"))
+    # A reader may export more than once, and the browser renames a second same-day download
+    # ("... (1).json"), so filename order says nothing about which is newer: keep each reader's
+    # latest export by its own timestamp.
+    latest = {}
     for f in sorted(glob.glob(os.path.join(here, "ratings", "*.json"))):
         d = read_json(f)
         name = "reader:" + (d.get("rater") or os.path.basename(f)[:-5])
+        when = d.get("exported") or ""
+        if name not in latest or when >= latest[name][0]:
+            latest[name] = (when, d)
+    for name, (_, d) in sorted(latest.items()):
         raters[name] = d["ratings"]
         seen[name] = {i for i, v in d["ratings"].items() if v.get("seen")}
     for r in raters.values():
@@ -158,7 +166,9 @@ def build(here=HERE):
             ids = [i for i in key if i in raters[r] and i in raters[j]]
             v, n = rho(raters[r], raters[j], "overall", ids)
             lo, hi = boot(lambda s: rho(raters[r], raters[j], "overall", s)[0], ids, key)
-            verdict = "usable as a first screen" if v >= 0.6 else "weak" if v >= 0.3 else "not usable"
+            # ρ is undefined when either side is constant or fewer than two items overlap
+            verdict = ("insufficient data" if v is None else "usable as a first screen" if v >= 0.6
+                       else "weak" if v >= 0.3 else "not usable")
             unseen = [i for i in ids if i not in seen.get(r, set())]
             lines += ["- %s vs %s: ρ = %s [%s, %s] over %d items: **%s**. Without items the reader had "
                       "seen before: ρ = %s over %d." % (r, j, f2(v), f2(lo), f2(hi), n, verdict,
@@ -183,7 +193,9 @@ def build(here=HERE):
                 return gap(pairs(key, raters[r], s), "deadpan") - gap(pairs(key, raters[j], s), "deadpan")
             d = diff(ids)
             lo, hi = boot(diff, ids, key)
-            verdict = "supported" if lo > 0 else "direction only" if d > 0 else "not supported"
+            # NaN when either side lacks bestof or hosted items: no contrast to test yet
+            verdict = ("insufficient data" if d != d or lo != lo else "supported" if lo > 0
+                       else "direction only" if d > 0 else "not supported")
             unseen = [i for i in ids if i not in seen.get(r, set())]
             lines.append("- reader gap minus %s gap: %s [%s, %s]: **%s**. Without seen items: %s." % (
                 j, f2(d), f2(lo), f2(hi), verdict, f2(diff(unseen))))
@@ -192,13 +204,18 @@ def build(here=HERE):
     lines.append("")
 
     lines += ["## H3: temperaments vs. plain Gemini", "",
-              "| rater | joke: rolesshort − gemini | overall: rolesshort − gemini |", "|---|---:|---:|"]
+              "Unseen only drops the items the reader marked as seen before (the judges have none).", "",
+              "| rater | joke: rolesshort − gemini | overall: rolesshort − gemini "
+              "| joke, unseen only | overall, unseen only |", "|---|---:|---:|---:|---:|"]
     for r in readers + judges:
         cells = []
-        for c in ("joke", "overall"):
-            g = {s: [v[c] for i, v in raters[r].items() if key[i]["source"] == s] for s in ("rolesshort", "gemini")}
-            cells.append(f2(mean(g["rolesshort"]) - mean(g["gemini"])) if g["rolesshort"] and g["gemini"] else "–")
-        lines.append("| %s | %s | %s |" % (r, cells[0], cells[1]))
+        for skip in (set(), seen.get(r, set())):
+            for c in ("joke", "overall"):
+                g = {s: [v[c] for i, v in raters[r].items() if key[i]["source"] == s and i not in skip]
+                     for s in ("rolesshort", "gemini")}
+                cells.append(f2(mean(g["rolesshort"]) - mean(g["gemini"]))
+                             if g["rolesshort"] and g["gemini"] else "–")
+        lines.append("| %s | %s |" % (r, " | ".join(cells)))
     lines.append("")
 
     pb = next((i for i, v in key.items() if (v["file"], v["thread"]) == PHONEBOOK), None)

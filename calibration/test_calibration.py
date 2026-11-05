@@ -56,7 +56,12 @@ class Prompts(unittest.TestCase):
             self.assertIn('"%s":n' % s["id"], J.SHAPE)
         self.assertIn("1. fatima (OP): hello", prompt)
         with open(os.path.join(HERE, "rate.html"), encoding="utf-8") as f:
-            self.assertIn('fetch("rubric.json")', f.read())
+            page = f.read()
+        self.assertIn('fetch("rubric.json")', page)
+        # the judges are told "Keep 5 rare" through the intro; the reader must see it too
+        self.assertIn("Keep 5 rare", rubric["intro"])
+        self.assertIn(rubric["intro"], prompt)
+        self.assertIn("rubric.intro", page)
 
     @unittest.skipUnless(HAVE_ITEMS, "items.json is private; build it first")
     def test_claude_batches_cover_every_item_once_per_pass(self):
@@ -120,6 +125,46 @@ class Analysis(unittest.TestCase):
         key, raters, _ = A.load(self.dir)
         self.assertNotIn("claude", raters)
         self.assertIn("not every source rated yet", A.build(self.dir))
+
+    def reader(self, ratings, name="r.json", **extra):
+        self.write(os.path.join("ratings", name), {"rater": "test", "ratings": ratings} | extra)
+
+    def test_constant_reader_is_insufficient_data_not_a_crash(self):
+        # every overall the same: Spearman is undefined, so H1 has no verdict
+        self.reader({i: {s: 3 for s in A.SCALES} | {"repost": False} for i in self.k})
+        text = A.build(self.dir)
+        h1 = text.split("## H1")[1].split("## H2")[0]
+        self.assertIn("insufficient data", h1)
+        self.assertNotIn("not usable", h1)
+
+    def test_h2_without_bestof_is_insufficient_data(self):
+        hosted = [i for i in self.k if self.k[i]["source"] in A.HOSTED]
+        self.reader({i: {s: 1 + n % 5 for s in A.SCALES} | {"repost": False}
+                     for n, i in enumerate(hosted)})
+        h2 = A.build(self.dir).split("## H2")[1].split("## H3")[0]
+        self.assertIn("insufficient data", h2)
+        self.assertNotIn("not supported", h2)
+
+    def test_latest_export_wins_whatever_the_filename(self):
+        ids = sorted(self.k)
+        full = {i: {s: 3 for s in A.SCALES} for i in ids}
+        os.remove(os.path.join(self.dir, "ratings", "r.json"))
+        # the browser renames the second same-day download, and "(1)" sorts first
+        self.reader(full, "ratings-test-2026-11-02 (1).json", exported="2026-11-02T18:00:00Z")
+        self.reader({ids[0]: full[ids[0]]}, "ratings-test-2026-11-02.json", exported="2026-11-02T09:00:00Z")
+        _, raters, _ = A.load(self.dir)
+        self.assertEqual(len(raters["reader:test"]), 30)
+
+    def test_h3_reports_the_unseen_only_contrast(self):
+        # the reversal from the review: seen rolesshort threads score 5, unseen ones 1, gemini 3
+        rs = sorted(i for i in self.k if self.k[i]["source"] == "rolesshort")
+        ratings = {i: {s: 3 for s in A.SCALES} for i in self.k if self.k[i]["source"] == "gemini"}
+        for n, i in enumerate(rs):
+            ratings[i] = {s: 5 if n < 4 else 1 for s in A.SCALES} | {"seen": n < 4}
+        self.reader(ratings)
+        h3 = A.build(self.dir).split("## H3")[1].split("## H4")[0]
+        row = next(l for l in h3.splitlines() if l.startswith("| reader:test"))
+        self.assertIn("-2.00", row)
 
     def test_rank_of_shares_ties(self):
         scores = {"a": {"overall": 5}, "b": {"overall": 3}, "c": {"overall": 3}}
