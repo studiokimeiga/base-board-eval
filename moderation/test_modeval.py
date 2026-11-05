@@ -316,11 +316,15 @@ class Classifiers(unittest.TestCase):
         self.assertEqual(body["temperature"], 0)
         self.assertLessEqual(body["max_tokens"], 20)
 
-    def test_budget_stops_before_overspending(self):
+    def test_budget_reserves_before_dispatch(self):
         b = M.Budget(0.05)
-        self.assertTrue(b.add(0.02))       # 0.02 spent, another 0.02 still fits
-        self.assertFalse(b.add(0.02))      # 0.04 spent, another 0.02 would pass the cap
-        self.assertAlmostEqual(b.spent, 0.04)
+        self.assertTrue(b.reserve(0.02))
+        self.assertTrue(b.reserve(0.02))
+        self.assertFalse(b.reserve(0.02))  # 0.04 outstanding: a third would pass the cap
+        b.settle(0.02, 0.001)              # the first call cost less than its allowance
+        self.assertTrue(b.reserve(0.02))
+        self.assertAlmostEqual(b.spent, 0.001)
+        self.assertFalse(M.Budget(0.0).reserve(0.0001))
 
 
 class Paths:
@@ -389,6 +393,71 @@ class Report(Paths, unittest.TestCase):
         text = M.report_text()
         self.assertIn("## OpenAI score thresholds", text)
         self.assertIn("### Per category, without depicted violence", text)
+
+
+class LlamaGuardRun(Paths, unittest.TestCase):
+    """run_llamaguard against a stand-in for OpenRouter: no network, no spend."""
+
+    def setUp(self):
+        self.patch_paths()
+        self.saved_post = M.post_json
+        self.items = {"x%02d" % k: {"text": "post %d" % k, "context": []} for k in range(30)}
+        self.order = sorted(self.items)
+        self.calls, self.ok, self.lock = [], [], __import__("threading").Lock()
+
+    def tearDown(self):
+        M.post_json = self.saved_post
+        self.restore_paths()
+
+    def fake(self, cost=0.00001, fail=(), delay=0.0, barrier=None):
+        import time
+
+        def post_json(url, body, key):
+            text = body["messages"][0]["content"]
+            with self.lock:
+                self.calls.append(text)
+            if barrier is not None:
+                try:
+                    barrier.wait(timeout=0.5)
+                except Exception:
+                    pass
+            if text in fail:
+                raise RuntimeError("HTTP 400")
+            time.sleep(delay)
+            with self.lock:
+                self.ok.append(text)
+            return {"model": "lg", "provider": "p", "usage": {"cost": cost},
+                    "choices": [{"message": {"content": "safe"}}]}
+
+        M.post_json = post_json
+
+    def saved_ids(self):
+        return {r["id"] for r in M.read_jsonl(M.result_path("llamaguard"))}
+
+    def test_failed_request_keeps_every_paid_result(self):
+        self.fake(fail={"post 0"}, delay=0.05)
+        with self.assertRaises(RuntimeError):
+            M.run_llamaguard(self.items, self.order, {"OPENROUTER_API_KEY": "k"}, 30, 1.0)
+        paid = {i for i in self.order if self.items[i]["text"] in self.ok}
+        self.assertTrue(paid)
+        self.assertEqual(self.saved_ids(), paid)
+        self.assertLess(len(self.calls), 30, "a failure should stop further dispatch")
+
+    def test_cap_bounds_spend_with_requests_in_flight(self):
+        import threading
+        M_allow = M.LLAMAGUARD_ALLOWANCE
+        try:
+            M.LLAMAGUARD_ALLOWANCE = 0.02
+            self.fake(cost=0.02, barrier=threading.Barrier(4))
+            M.run_llamaguard(self.items, self.order, {"OPENROUTER_API_KEY": "k"}, 30, 0.05)
+        finally:
+            M.LLAMAGUARD_ALLOWANCE = M_allow
+        self.assertLessEqual(0.02 * len(self.calls), 0.05 + 1e-9)
+
+    def test_zero_cap_dispatches_nothing(self):
+        self.fake()
+        M.run_llamaguard(self.items, self.order, {"OPENROUTER_API_KEY": "k"}, 30, 0.0)
+        self.assertEqual(self.calls, [])
 
 
 class Committed(unittest.TestCase):

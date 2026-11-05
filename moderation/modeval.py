@@ -85,6 +85,9 @@ LLAMAGUARD_MAP = {"S1": ["violence_threat"], "S3": ["sexual"], "S4": ["sexual", 
                   "S9": ["violence_threat"], "S10": ["hate_slur"], "S11": ["self_harm"],
                   "S12": ["sexual"]}
 LLAMAGUARD_CODES = {"S%d" % i for i in range(1, 15)}
+# What each call reserves against --max-usd before it is sent: about three times the dearest call
+# in the committed run ($0.000146; most cost $0.00004).
+LLAMAGUARD_ALLOWANCE = 0.0005
 CLASSIFIERS = ["keyword", "openai", "openai-ctx", "llamaguard"]
 
 # Where posts come from, in precedence order: a text stored in several places counts once, under
@@ -607,16 +610,25 @@ def llamaguard_body(text):
 
 
 class Budget:
-    """Running spend against a cap. add() records a call's cost and says whether one more call
-    of the same cost still fits, so the caller stops before the cap, not after."""
+    """Spend against a cap, reserved before each call so the cap bounds what calls in flight can
+    spend: reserve() books an allowance and says whether it fits beside what is spent and still
+    outstanding; settle() swaps the allowance for the call's actual cost."""
 
     def __init__(self, max_usd):
-        self.max_usd, self.spent, self.lock = max_usd, 0.0, threading.Lock()
+        self.max_usd, self.spent, self.outstanding = max_usd, 0.0, 0.0
+        self.lock = threading.Lock()
 
-    def add(self, usd):
+    def reserve(self, usd):
         with self.lock:
+            if self.spent + self.outstanding + usd > self.max_usd + 1e-12:
+                return False
+            self.outstanding += usd
+            return True
+
+    def settle(self, reserved, usd):
+        with self.lock:
+            self.outstanding -= reserved
             self.spent += usd
-            return self.spent + usd <= self.max_usd
 
 
 def load_env(root):
@@ -700,37 +712,59 @@ def run_openai(items, order, env, limit, name="openai", text_of=lambda it: it["t
 
 
 def run_llamaguard(items, order, env, limit, max_usd, workers=4):
+    """Classify with Llama Guard, at most max_usd: each call reserves an allowance before it is
+    sent (the larger of LLAMAGUARD_ALLOWANCE and the dearest call so far). A failed call stops the
+    run; whatever was paid for is saved either way."""
     key = env.get("OPENROUTER_API_KEY") or sys.exit("OPENROUTER_API_KEY missing (.env or environment)")
     done = {r["id"]: r for r in read_jsonl(result_path("llamaguard"))
             if r["id"] in items and r["sha256"] == sha(items[r["id"]]["text"])}
     todo = [i for i in order if i not in done][:limit]
     budget, stop, lock = Budget(max_usd), threading.Event(), threading.Lock()
+    dearest = [LLAMAGUARD_ALLOWANCE]
+    capped = threading.Event()
 
     def one(i):
         if stop.is_set():
             return
-        d = post_json(OPENROUTER_URL, llamaguard_body(items[i]["text"]), key)
-        out = d["choices"][0]["message"].get("content") or ""
-        cost = float((d.get("usage") or {}).get("cost") or 0.0)
-        if llamaguard_parse(out) is None:
-            print("llamaguard: unparseable output for %s: %r" % (i, out[:40]), flush=True)
         with lock:
-            done[i] = {"id": i, "sha256": sha(items[i]["text"]), "model": d.get("model"),
-                       "provider": d.get("provider"), "output": out.strip()[:40], "cost": cost}
-        if not budget.add(cost):
+            allowance = dearest[0]
+        if not budget.reserve(allowance):
+            capped.set()
             stop.set()
+            return
+        cost = allowance                     # a call that fails counts at its allowance
+        try:
+            d = post_json(OPENROUTER_URL, llamaguard_body(items[i]["text"]), key)
+            out = d["choices"][0]["message"].get("content") or ""
+            cost = float((d.get("usage") or {}).get("cost") or 0.0)
+            if llamaguard_parse(out) is None:
+                print("llamaguard: unparseable output for %s: %r" % (i, out[:40]), flush=True)
+            with lock:
+                done[i] = {"id": i, "sha256": sha(items[i]["text"]), "model": d.get("model"),
+                           "provider": d.get("provider"), "output": out.strip()[:40], "cost": cost}
+                dearest[0] = max(dearest[0], cost)
+        finally:
+            budget.settle(allowance, cost)
 
-    with ThreadPoolExecutor(workers) as ex:
-        futures = [ex.submit(one, i) for i in todo]
-        for n, f in enumerate(as_completed(futures), 1):
-            f.result()
-            if n % 25 == 0 or n == len(futures):
-                with lock:
-                    save_results("llamaguard", done, order)
-                print("llamaguard: %d/%d, $%.4f" % (n, len(futures), budget.spent), flush=True)
-    with lock:
-        save_results("llamaguard", done, order)
-    if stop.is_set():
+    try:
+        with ThreadPoolExecutor(workers) as ex:
+            futures = [ex.submit(one, i) for i in todo]
+            try:
+                for n, f in enumerate(as_completed(futures), 1):
+                    f.result()
+                    if n % 25 == 0 or n == len(futures):
+                        with lock:
+                            save_results("llamaguard", done, order)
+                        print("llamaguard: %d/%d, $%.4f" % (n, len(futures), budget.spent), flush=True)
+            except BaseException:
+                stop.set()                   # nothing more is sent; calls in flight finish
+                for f in futures:
+                    f.cancel()
+                raise
+    finally:
+        with lock:
+            save_results("llamaguard", done, order)
+    if capped.is_set():
         print("stopped at the $%.2f cap after $%.4f; raise --max-usd to continue" % (max_usd, budget.spent))
     return len(done)
 
