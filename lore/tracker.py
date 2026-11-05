@@ -165,7 +165,10 @@ def track(target, source, background, target_no=None, source_no=None, source_sho
     source_who = {p["who"] for _, p in _live(source) if p.get("who")}
     only_source = sorted(source_who - cast)
     board_tokens = {w for seg in _segments(board) for w, _ in seg}
-    banned = cast | source_who | board_tokens | FORMAT_WORDS
+    # words are normalised ("ines" -> "ine"), so the handles they are checked against must be too;
+    # the raw handles stay in `cast` and `source_who` for reference matching
+    handle_tokens = {w for h in cast | source_who for seg in _segments(h) for w, _ in seg}
+    banned = cast | source_who | handle_tokens | board_tokens | FORMAT_WORDS
 
     opener = [p for i, p in live_target if i == 0]
     excluded_w, excluded_p = _thread_sets(opener + list(topic_twin or []))
@@ -212,10 +215,15 @@ def track(target, source, background, target_no=None, source_no=None, source_sho
                     fillers=set(partners.get(x, ())) - s_partners.get(x, set()))
         for x in ph & set(s_phrases):
             add(x, "phrase", i, p["who"], s_phrases[x])
+        # one use per pair per target post, however many source posts carry it; the first
+        # (earliest) source post carrying it gives its origin
+        pairs = {}
         for j, dw in s_post_words:
             shared = sorted(dw & w)
             if len(shared) >= 2:
-                add(" + ".join(shared), "pair", i, p["who"], "premise" if j == 0 else "reply")
+                pairs.setdefault(" + ".join(shared), "premise" if j == 0 else "reply")
+        for key, origin in pairs.items():
+            add(key, "pair", i, p["who"], origin)
 
     def rare_word(w):
         return (len(w) >= 3 and not w.isdigit() and w not in STOP and w not in banned
@@ -262,6 +270,9 @@ def track(target, source, background, target_no=None, source_no=None, source_sho
             else:
                 fmt["self_ref"] += 1
 
-    uptake = {a for it in items for a in it["authors"]}
+    # uptake: the most posters sharing any one item (L3 needs one item used by two posters);
+    # posters: everyone who used any item, which is what `uptake` meant before 2026-11-05
+    posters = {a for it in items for a in it["authors"]}
     return {"transfer": bool(items or refs), "items": items, "references": refs,
-            "format_play": fmt, "uptake": len(uptake)}
+            "format_play": fmt, "uptake": max((len(it["authors"]) for it in items), default=0),
+            "posters": len(posters)}

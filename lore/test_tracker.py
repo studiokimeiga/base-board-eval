@@ -201,6 +201,31 @@ class Words(unittest.TestCase):
         self.assertEqual(res["uptake"], 1)
         self.assertEqual(item(res, "physical")["authors"], ["yusuf"])
 
+    def test_uptake_is_posters_of_one_item_not_of_all_items(self):
+        # L3 needs one item used by two posters; two posters each borrowing something different
+        # is not shared uptake (review of PR #4)
+        source = thread("ruth: my landlord keeps a ledger about the radiator",
+                        "omar: the radiator only listens on thursdays")
+        target = thread(BARISTA_OPENER,
+                        "javier: the barista keeps a ledger too",
+                        "javier: a ledger for names",
+                        "colm: mine listens on thursdays",
+                        "colm: thursdays are bad")
+        res = T.track(target, source, background())
+        self.assertEqual(item(res, "ledger")["authors"], ["javier"])
+        self.assertEqual(item(res, "thursday")["authors"], ["colm"])
+        self.assertEqual(res["uptake"], 1)
+        self.assertEqual(res["posters"], 2)
+
+    def test_cast_handles_are_excluded_after_normalising(self):
+        # "ines" normalises to "ine"; the ban must too, or addressing your own cast member
+        # looks like borrowed vocabulary (review of PR #4)
+        source = thread("ruth: ask ines about the ledger", "omar: the ledger is fine")
+        target = thread(BARISTA_OPENER, "javier: ines you there", "colm: ines, the cup")
+        res = T.track(target, source, background(), target_cast=("ines",))
+        self.assertIsNone(item(res, "ine"))
+        self.assertFalse(res["transfer"], res)
+
 
 class Phrases(unittest.TestCase):
     def test_rare_phrase_used_once_transfers(self):
@@ -247,6 +272,19 @@ class Phrases(unittest.TestCase):
         pairs = [it for it in res["items"] if it["kind"] == "pair"]
         self.assertEqual([p["item"] for p in pairs], ["ghost + tuesday"])
         self.assertTrue(res["transfer"])
+
+    def test_a_pair_counts_once_per_target_post_however_often_the_source_repeats_it(self):
+        # repetition in the source must not inflate what the target borrowed (review of PR #4)
+        source = thread("ruth: something keeps moving my things around",
+                        "omar: the cupboard ghost only returns things on tuesdays",
+                        "kenji: a ghost on tuesdays, again",
+                        "ines: the ghost of tuesdays strikes")
+        target = thread("yusuf: someone keeps moving my bike two spaces down in the rack",
+                        "javier: a ghost that likes bikes, on a tuesday")
+        res = T.track(target, source, background())
+        pair = next(it for it in res["items"] if it["item"] == "ghost + tuesday")
+        self.assertEqual(pair["uses"], 1)
+        self.assertEqual(pair["posts"], [1])
 
     def test_a_pair_needs_both_words_from_the_same_source_post(self):
         source = thread("ruth: something keeps moving my things around",
