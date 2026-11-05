@@ -12,20 +12,41 @@ files alone.
 **Status:** every label is still an AI pre-label (two blind passes, see [Labels](#labels)); the
 owner hasn't confirmed them yet. Read every number as provisional.
 
+**Correction, 2026-11-05.** A code review found two errors in how METRICS.md weights the set back
+to everything stored; the unweighted counts below (posts held, holds that were harmful, benign
+samples held) are unchanged.
+
+- *Repeated texts in different contexts were merged.* `build` kept each distinct text once, with
+  the context of its first occurrence, so the same reply after different posts got one label and
+  one context-aware verdict. Copies now merge only when the posts before them match. 32 of the
+  1,554 items were such merged texts; they keep their labels, counting only their own context's
+  copies, and their other contexts are 97 new items, not yet labelled or classified. METRICS.md
+  leaves those out, so its population estimates miss the posts they stand for until they are
+  labelled. Two of the 32 were harmful: a thread-29 self-harm post, and the plain-sample revenge
+  line below, whose second copy (weight 258) is one of the 97. Moved by this: false holds per
+  1,000 benign posts (table below) for the word-boundary list 1.5 → 1.6, OpenAI's `flagged` 36 →
+  37, OpenAI in our categories 4.1 → 4.2 and the proposal 3.0 → 3.1; the proposal at 0.2 about 25
+  → about 15 per 1,000; METRICS.md's estimated harmful posts per 1,000 stored 23.6 (3.9–61.6) →
+  14.2 (3.9–43.4), and the proposal's population recall 98% → 97% and precision 89% → 82%.
+- *Fully sampled strata were bootstrapped as if sampled.* `risk/board` (60 of 60 texts) and
+  `risk/jp` (61 of 61) were resampled, adding uncertainty that isn't there. They are now held
+  fixed; METRICS.md's population intervals moved by a point or two.
+
 ## Results
 
-1,554 distinct posts, 99 of them labelled harmful. All 99 are English: the stored Japanese output
-has no harmful post at all, so nothing here measures recall in Japanese.
+1,554 labelled posts, 99 of them labelled harmful (97 more await labels, see the correction
+above). All 99 are English: the stored Japanese output has no harmful post at all, so nothing here
+measures recall in Japanese.
 
 | gate | harmful posts held | of the 30 the keyword gate misses | holds that were harmful | benign held: random sample / dark horror | false holds per 1,000 benign posts* |
 |---|---|---|---|---|---|
 | keyword gate, today (substring) | 69/99 (70%) | 0 | 59% | 0/199 / 0/222 | 2.3 |
-| keyword gate, word boundaries | 69/99 (70%) | 0 | 70% | 0/199 / 0/222 | 1.5 |
-| OpenAI, its own `flagged` | 80/99 (81%) | 17 | 30% | 7/199 / 50/222 | 36 |
-| OpenAI, our categories | 76/99 (77%) | 15 | 54% | 0/199 / 47/222 | 4.1 |
+| keyword gate, word boundaries | 69/99 (70%) | 0 | 70% | 0/199 / 0/222 | 1.6 |
+| OpenAI, its own `flagged` | 80/99 (81%) | 17 | 30% | 7/199 / 50/222 | 37 |
+| OpenAI, our categories | 76/99 (77%) | 15 | 54% | 0/199 / 47/222 | 4.2 |
 | OpenAI, our categories without depicted violence | 69/99 (70%) | 14 | 83% | 0/199 / 7/222 | 1.2 |
 | Llama Guard 4, any `unsafe` | 49/99 (49%) | 13 | 40% | 10/199 / 28/222 | 24 |
-| **proposal**: word-boundary list OR OpenAI without depicted violence ≥ 0.3 | **91/99 (92%)** | **22** | **65%** | **0/199 / 6/222** | **3.0** |
+| **proposal**: word-boundary list OR OpenAI without depicted violence ≥ 0.3 | **91/99 (92%)** | **22** | **65%** | **0/199 / 6/222** | **3.1** |
 | proposal + the post scored with the post before it | 93/99 (94%) | 24 | 51% | 0/199 / 7/222 | 4.8 |
 
 \* Weighted back to everything stored, with bootstrap intervals in METRICS.md. Dark horror: sampled
@@ -113,11 +134,12 @@ refuse to start without `OPENAI_API_KEY` unless run with `--gate keyword` for of
   posts. Per-category numbers in METRICS.md are anecdotes with intervals.
 - **Tuned on the same data.** The 0.3 threshold and the narrowed category list were chosen by
   looking at these results, so they flatter themselves. At 0.2 the proposal holds 92 of 99, but its
-  population false-hold rate jumps to about 25 per 1,000, because one benign post in the plain
-  sample stands for 258 posts; at 0.5 it holds 85. Expect lower recall on new output.
+  population false-hold rate jumps to about 15 per 1,000 (25 before the 2026-11-05 correction),
+  because one benign post in the plain sample stands for 258 posts; at 0.5 it holds 85. Expect
+  lower recall on new output.
 - **Population figures.** One sampled post can stand for 258, and the only harmful post in the plain
-  sample is a vague revenge line aimed at another poster, marked unsure. The false-hold rates are well
-  estimated; population recall is not (METRICS.md shows both, with and without unsure labels).
+  sample is a vague revenge line aimed at another poster, marked unsure (its copy in another
+  thread awaits a label). The false-hold rates are well estimated; population recall is not (METRICS.md shows both, with and without unsure labels).
 - **Whose output.** The stored posts are mostly the 2026 local base-model runs plus the bake-off and
   live board. A board running Gemini Flash may produce a different mix of harm.
 - **Moving targets.** Hosted classifiers change behind the same name. The results record the model
@@ -129,22 +151,28 @@ refuse to start without `OPENAI_API_KEY` unless run with `--gate keyword` for of
 ### The eval set
 
 `modeval.py build` reads every stored post in the private files and keeps each distinct text once
-(1,554 items in the set). Sources, in precedence order:
+per context: copies of a text merge only when the posts before them are the same, since those are
+what a labeller reads (1,651 items from 1,554 distinct texts). The distinct text is the sampling
+unit, and a sampled text brings every context it occurs in. Sources, in precedence order:
 
 | stratum | what | in the set |
 |---|---|---|
-| `quarantine` | every post of the 31 threads in `quarantine/`, including the thread-29 self-harm case and the slurs-and-threats thread | all 913 distinct posts |
-| `withheld` | live-board posts the gate withheld, text kept (`spike/quarantine.jsonl`) | all 7 distinct posts (18 rows) |
-| `gate-hit` | every other stored post that today's gate would withhold (stored before a term was added, or a substring) | all 43 |
-| `risk/<family>` | stored posts matching a sampling lexicon: violence and death, self-harm, sexual words, children, groups | 391 of 693, seeded sample |
-| `plain/<family>` | the other 23,786 stored posts | 200, seeded sample |
+| `quarantine` | every post of the 31 threads in `quarantine/`, including the thread-29 self-harm case and the slurs-and-threats thread | all 913 distinct texts (998 items) |
+| `withheld` | posts the gate withheld, text kept in a quarantine log (`spike/quarantine.jsonl`; the Modal board's and the Japanese runs' logs in `spike/remote/` once fetched) | all 7 distinct posts (18 rows) |
+| `gate-hit` | every other stored post that today's gate would withhold (stored before a term was added, or a substring) | all 43 (44 items) |
+| `risk/<family>` | stored posts matching a sampling lexicon: violence and death, self-harm, sexual words, children, groups | 391 of 693, seeded sample (399 items) |
+| `plain/<family>` | the other 23,786 stored posts | 200, seeded sample (203 items) |
 
 Families: `orig` (the original local corpora, `threads*.json`), `bakeoff` (English hosted-model
 runs), `board` (live board v1, v2, v2.1) and `jp` (the Japanese runs). The lexicon is only a
 sampling device: it oversamples posts that are dark or touchy, so that harmful posts the gate missed
 and dark-but-benign horror are both well represented. It decides no labels and no verdicts. Each
 sampled item carries a weight (population / sample size, see `strata.json`), so METRICS.md can
-estimate rates for everything stored, not just for the enriched set.
+estimate rates for everything stored, not just for the enriched set. Its bootstrap intervals
+resample the sampled strata and hold fixed every stratum the set holds whole.
+
+Labels and results are joined to an item by its id, a position in a source file. A rebuild drops
+the labels of any item whose text changed at that position; the runners rerun such items.
 
 Two things are missing from the population: 45 posts the gate withheld whose text isn't here
 (37 English bake-off and 2 Japanese, never kept; 6 from live board v2.1, which ran on Modal and
@@ -223,6 +251,8 @@ python moderation/modeval.py run llamaguard --data ROOT --max-usd 0.10   # OPENR
 python moderation/modeval.py report
 ```
 
-`run` resumes where it stopped and skips items whose hash hasn't changed. `run llamaguard` stops
+`run`, `batches` and `sheet` need the private items to match the manifest: after the
+2026-11-05 correction, run `build --data ROOT` once to add the 97 new items to them. `run` resumes
+where it stopped and skips items whose hash hasn't changed. `run llamaguard` stops
 before its spending cap (default $0.03). Hosted classifiers change behind the same name, so a
 re-run can differ; the committed results record the model each call reported.
