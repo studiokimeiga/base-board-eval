@@ -62,6 +62,11 @@ def kappa(a, b):
     return None if pe == 1 else (po - pe) / (1 - pe)
 
 
+def f_kappa(k):
+    """κ for a table; undefined (both raters constant) shows as a dash."""
+    return "–" if k is None else "%.2f" % k
+
+
 def bootstrap_diff(clusters, reps=2000, seed=SEED):
     """95% interval for P(memory) - P(none), resampling clusters of (memory, none) pairs."""
     rng = random.Random(seed)
@@ -228,7 +233,7 @@ def main(argv=None):
             non = [v[k]["borrows"] for k in ks if k[2] == "none"]
             out.append("| %s | %d | %s | %s | %d | %.4f | %s |" % (
                 fam, len(v), pct(sum(mem), len(mem)), pct(sum(non), len(non)), len(pairs), p,
-                "%.2f" % kappa([res[k]["transfer"] for k in ks], [v[k]["borrows"] for k in ks]) if ks else "–"))
+                f_kappa(kappa([res[k]["transfer"] for k in ks], [v[k]["borrows"] for k in ks]))))
         out += ["", "By board (a family that judged only part of the items shows only what it saw):", "",
                 "| judge | board | borrows: memory items | borrows: no-memory items |", "|---|---|---|---|"]
         for fam, v in jud.items():

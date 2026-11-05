@@ -231,6 +231,23 @@ class Generation(unittest.TestCase):
             B.run_thread(t, "/x/", fake, source=None, arm="none", budget=budget)
         self.assertEqual(len(calls), 3)
 
+    def test_a_resumed_run_starts_from_what_earlier_runs_spent(self):
+        # resuming with the same --cap must not grant a fresh cap (review of PR #4)
+        import json, os, shutil, tempfile
+        root = tempfile.mkdtemp()
+        try:
+            for name, usd in (("spend-20261101T100000Z.json", 7.5), ("spend-20261101T120000Z.json", 4.25)):
+                with open(os.path.join(root, name), "w", encoding="utf-8") as f:
+                    json.dump({"design": "full", "cap": 20, "spent": usd, "calls": 10}, f)
+            self.assertAlmostEqual(B.prior_spend(root), 11.75)
+            self.assertEqual(B.prior_spend(os.path.join(root, "missing")), 0.0)
+            budget = B.Budget(cap=12.0, spent=B.prior_spend(root))
+            budget.add(0.5)
+            with self.assertRaises(B.OverBudget):
+                budget.check()
+        finally:
+            shutil.rmtree(root)
+
 
 class Manifest(unittest.TestCase):
     def test_every_private_file_by_hash_sorted_by_path(self):

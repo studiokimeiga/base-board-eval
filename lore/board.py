@@ -201,9 +201,21 @@ class OverBudget(Exception):
     pass
 
 
+def prior_spend(root):
+    """What earlier runs into `root` spent, from the spend-*.json each run writes on exit (its
+    `finally` covers interrupted threads too; a hard kill that skips it is not counted)."""
+    total = 0.0
+    if os.path.isdir(root):
+        for name in sorted(os.listdir(root)):
+            if name.startswith("spend-") and name.endswith(".json"):
+                with open(os.path.join(root, name), encoding="utf-8") as f:
+                    total += float(json.load(f).get("spent", 0.0))
+    return total
+
+
 class Budget:
-    def __init__(self, cap):
-        self.cap, self.spent, self.calls, self.lock = cap, 0.0, 0, threading.Lock()
+    def __init__(self, cap, spent=0.0):
+        self.cap, self.spent, self.calls, self.lock = cap, spent, 0, threading.Lock()
         self.halted = False
 
     def halt(self):
@@ -431,14 +443,19 @@ def main():
                        "providers": [r["provider"] for r in same]}, f, indent=1)
     elif a.cmd == "run":
         root = os.path.join(PRIVATE, "run")
-        budget = Budget(cap=a.cap)
+        before = prior_spend(root)          # --cap bounds the total across resumed runs
+        budget = Budget(cap=a.cap, spent=before)
         try:
             run(sched, a.design, gemini(openrouter_key()), budget, root, workers=a.workers)
         finally:
+            os.makedirs(root, exist_ok=True)
+            # each log holds only its own run's spend, so prior_spend can sum them
             with open(os.path.join(root, "spend-%s.json" % datetime.datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")),
                       "w", encoding="utf-8") as f:
-                json.dump({"design": a.design, "cap": a.cap, "spent": budget.spent, "calls": budget.calls}, f)
-            print("spent $%.4f over %d calls" % (budget.spent, budget.calls))
+                json.dump({"design": a.design, "cap": a.cap, "spent": budget.spent - before,
+                           "calls": budget.calls}, f)
+            print("spent $%.4f over %d calls (total $%.4f of the $%.2f cap)"
+                  % (budget.spent - before, budget.calls, budget.spent, a.cap))
     elif a.cmd == "manifest":
         n = manifest(PRIVATE, HERE, os.path.join(HERE, "MANIFEST.sha256"))
         print("hashed %d private files into lore/MANIFEST.sha256" % n)

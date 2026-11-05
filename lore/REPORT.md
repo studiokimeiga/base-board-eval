@@ -31,7 +31,7 @@ here tests whether an item survives a second hop, or recurs in a thread that nev
 | | prediction | result | verdict |
 |---|---|---|---|
 | **H1**, memory raises transfer (tracker) | 30–60% vs ≤10% | 54/92 (59%) vs 11/92 (12%); 46 pairs to 3, McNemar p < 0.0001; +0.47 (95% CI +0.34 to +0.59). `/x/` 32/46 vs 8/46, `/misc/` 22/46 vs 3/46 | supported, **but inflated by post length** (below) |
-| **H2**, most transfer is reference or mix-up; lore-level reuse ≤10% | – | items come from what the earlier thread's replies invented (52 targets), almost never from its premise (5); gpt-5.4 calls 308 of 383 borrowings in memory items *reuse*; lore level 36/92 by gpt-5.4 | **falsified**: reuse dominates |
+| **H2**, most transfer is reference or mix-up; lore-level reuse ≤10% | – | items come from what the earlier thread's replies invented (52 targets), almost never from its premise (5); gpt-5.4 calls 308 of 383 borrowings in memory items *reuse*; lore level 34/92 by gpt-5.4 (36 before the deviation 7 correction) | **falsified**: reuse dominates |
 | **H3**, thread-number play in both arms, similar rates | similar | 0/92 vs 1/92: Gemini barely plays with thread numbers, unlike the small cast on v2.1 | similar (both near zero) |
 | **H4**, more genre vocabulary under `/x/` | yes | pre-registered genre list: 0.019 vs 0.013 of posts, 12 vs 10 pairs, p = 0.83 | **not supported by the pre-registered measure**, which turned out to miss the genre (below) |
 | **H5**, recurrence in both targets of a source | ≤3 of 46 sources | 12 sources vs 0 (`/x/` 8, `/misc/` 4) | more than predicted; on `/x/` mostly register vocabulary |
@@ -54,13 +54,14 @@ topic tag, not its topic twin) and asks whether its real source scores highest:
 
 | | real source scores highest | chance | mean percentile of the real source |
 |---|---:|---:|---:|
-| `/x/` memory | 10 / 46 | 3.1 | 0.71 |
+| `/x/` memory | 11 / 46 | 3.1 | 0.71 |
 | `/x/` no memory | 1 / 46 | 3.1 | 0.48 |
-| `/misc/` memory | 15 / 46 | 3.1 | 0.68 |
+| `/misc/` memory | 14 / 46 | 3.1 | 0.68 |
 | `/misc/` no memory | 0 / 46 | 3.1 | 0.47 |
 
 Paired: identified with memory only in 25 targets, without only in 1 (McNemar p = 8×10⁻⁷). The real
-source ranks higher with memory in 65 targets and lower in 21. This was decided after seeing the
+source ranks higher with memory in 64 targets and lower in 22. (Before the deviation 7 correction:
+`/x/` 10, `/misc/` 15, and 65 against 21; the paired 25 against 1 did not move.) This was decided after seeing the
 data, so it is a corrected estimate, not a confirmed one. But it is the number to quote for "how
 often does specific material travel": about a quarter of threads, not three fifths.
 
@@ -109,7 +110,7 @@ kenji's cat) and thread numbers carry over more readily than any phrase.
 | L0 format play | what the page furniture explains | Gemini barely plays with thread numbers (≤1/92 per arm). Memory transfers *format*, though: the `>>NNNN /` reply style |
 | L1 reference | a pointer only the earlier thread explains | 20/92 with memory, 2/92 without (handles 19, thread numbers 4, "last/other thread" 2) |
 | L2 transfer | distinctive material reappears | tracker 54/92 vs 11/92, inflated by length; **25/92 vs 1/92** with length held fixed |
-| L3 lore | reused in the new situation, by ≥2 posters, judged *reuse* | gpt-5.4: 36/92 vs 5/92 (see the judges below) |
+| L3 lore | reused in the new situation, by ≥2 posters, judged *reuse* | gpt-5.4: 34/92 vs 5/92 (see the judges below; 36/92 before deviation 7) |
 | L4 persistent culture | recurs in unrelated threads that each saw it once; or survives more than one hop; or is treated as known | the first criterion, on `/misc/`: the duck union, Brenda's lavender and the hedge trimmer each reached both of their source's targets. More hops: **not tested** |
 
 So, by the definitions fixed in advance: **the board has lore (L3), and the first sign of
@@ -132,7 +133,8 @@ hidden.
 - **Claude made no false positive** in 62 no-memory items across both boards.
 - **The two families agree at κ = 0.71 on `/misc/`.** Both separate the arms (McNemar p < 0.0001).
 - **Lore level (L3), by the pre-registered rule** (tracker transfer, at least two posters, a judged
-  *reuse*): gpt-5.4 36/92 against 5/92; Claude on `/misc/` 11/46 against 0/46.
+  *reuse*): gpt-5.4 34/92 against 5/92; Claude on `/misc/` 9/46 against 0/46 (36/92 and 11/46
+  before the deviation 7 correction).
 
 The blind judges therefore agree with the length-matched estimate rather than the raw flag. On
 `/misc/`, where both judged, Claude finds borrowing in 39% of memory threads and none without, and
@@ -184,6 +186,21 @@ was blind to whatever they carried. A public board needs a real classifier, not 
    complete pairs.
 6. **Exploratory analyses** (`explore.py`: identification, register, genre by arm, gate) and the
    horror-imperative count were decided after seeing the results.
+7. **Tracker corrections after code review (2026-11-05).** The frozen tracker had three bugs, fixed
+   in `tracker.py` with a regression test each, and every table here recomputed from the same
+   private run (all 429 files match `MANIFEST.sha256`):
+   - *L3 uptake was counted across items.* The pre-registered rule is one item used by at least two
+     posters; the code counted every poster who used *any* item. `/misc/` memory targets t20 and
+     t43 passed only through two posters borrowing different things. L3: gpt-5.4 36/92 → 34/92,
+     Claude 11/46 → 9/46; no-memory targets unchanged (5/92, 0/46). "Uptake ≥2 posters" on
+     `/misc/` memory: 19/46 → 17/46. The old count is kept as `posters` in `results.json`.
+   - *A word pair was counted once per matching source post*, so repetition in the source inflated
+     a target's score. Identification: `/x/` memory 10 → 11, `/misc/` memory 15 → 14, percentile
+     sign test 65/21 → 64/22; the paired 25 against 1 is unchanged.
+   - *Cast handles were not normalised* before being excluded ("ines" → "ine"). No reported number
+     depended on it in this run.
+   The conclusions are unchanged. A fourth fix (a resumed run now counts earlier spend against
+   `--cap`) affects future runs only.
 
 ## Cost
 

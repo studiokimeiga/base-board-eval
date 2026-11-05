@@ -663,7 +663,8 @@ def main():
     elif a.cmd in ("smoke", "run"):
         smoke = a.cmd == "smoke"
         root = os.path.join(PRIVATE, "smoke" if smoke else "run")
-        budget = B.Budget(cap=1.0 if smoke else cap_for(a.design, a.cap))
+        before = B.prior_spend(root)        # the cap bounds the total across resumed runs
+        budget = B.Budget(cap=1.0 if smoke else cap_for(a.design, a.cap), spent=before)
         mini = dict(sched2, targets=sched2["targets"][:1]) if smoke else sched2
         try:
             run(mini, "full" if smoke else a.design, gen1, B.gemini(B.openrouter_key()), budget, root,
@@ -671,10 +672,11 @@ def main():
         finally:
             os.makedirs(root, exist_ok=True)
             write_json(os.path.join(root, "spend-%s.json" % datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%dT%H%M%SZ")),
-                       {"design": "smoke" if smoke else a.design, "cap": budget.cap, "spent": budget.spent,
-                        "calls": budget.calls})
-            print("spent $%.4f over %d calls ($%.5f a call)" % (budget.spent, budget.calls,
-                                                               budget.spent / max(1, budget.calls)))
+                       {"design": "smoke" if smoke else a.design, "cap": budget.cap,
+                        "spent": budget.spent - before, "calls": budget.calls})
+            print("spent $%.4f over %d calls ($%.5f a call; total $%.4f of the $%.2f cap)"
+                  % (budget.spent - before, budget.calls, (budget.spent - before) / max(1, budget.calls),
+                     budget.spent, budget.cap))
     elif a.cmd == "packets":
         os.makedirs(os.path.join(judging_priv, "items"), exist_ok=True)
         os.makedirs(judging_pub, exist_ok=True)
