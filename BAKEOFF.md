@@ -369,7 +369,10 @@ word is on the list, so a real run would have withheld it.
 **Do not launch a public live board with the keyword-only filter.** A separately validated,
 context-aware moderation classifier and a publication gate are required, including for human
 replies. Keep unsafe samples quarantined, out of the published best-of and screenshots. A quality
-picker is **not** a moderation system.
+picker is **not** a moderation system. [moderation/](moderation/README.md) has since measured
+candidates on this project's own output, and `spike/pubgate.py` implements the gate it recommends;
+its labels still await the owner's confirmation, and human replies still need the review path
+described there.
 
 The lightweight research stack was **Gemini 3.8 Flash through OpenRouter**, one neutral per-post
 instruction and the OP-gap scaffold. It needs no GPU. A bounded earlier thread as memory has been
@@ -411,7 +414,8 @@ the **original local gemma-4-E4B** workload with dated August 2026 assumptions.
    (round 9's threads), blind: six threads of each in [`calibration/`](calibration/README.md),
    `calibration/rate.html?set=r9`, with the questions fixed before rating.
 4. **Narrower hybrids, what's left.** An occasional small-model post was tried in round 9 and read as
-   a glitch to Claude (gpt-5.4 saw no difference). Seeding a shared confusion is untested.
+   a glitch to Claude (gpt-5.4 saw no difference). Seeding a shared confusion is untested. Equalise
+   length, openers and scaffold; report failure and safety rates, not just the best thread.
 5. **Separate Qwen's temperature from min_p, the frequency penalty and the provider,** with logged
    parameters.
 6. **An evolving board.** Vary OP timing (short bursts, 2–6-hour absences, an OP who never returns),

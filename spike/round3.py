@@ -136,19 +136,28 @@ def chat_arm(kind):
 
 
 # ---- best-of-3 with a gpt-5.4 picker ----
+def _budget():
+    if not os.path.exists(BUDGET):
+        return {}
+    with open(BUDGET) as f:
+        return json.load(f)
+
+
 def budget_add(tokens):
     day = time.strftime("%Y-%m-%d", time.gmtime())
     with LOCK:
-        b = json.load(open(BUDGET)) if os.path.exists(BUDGET) else {}
+        b = _budget()
         b[day] = b.get(day, 0) + tokens
-        json.dump(b, open(BUDGET, "w"), indent=1)
+        with open(BUDGET, "w") as f:     # readers take LOCK too, so none sees it half-written
+            json.dump(b, f, indent=1)
         SPEND["openai_tokens"] += tokens
         return b[day]
 
 
 def budget_left():
     day = time.strftime("%Y-%m-%d", time.gmtime())
-    b = json.load(open(BUDGET)) if os.path.exists(BUDGET) else {}
+    with LOCK:
+        b = _budget()
     return DAILY_CAP - b.get(day, 0)
 
 
@@ -509,6 +518,7 @@ def main():
         return
     complete, workers = build(arm)
     G.complete = complete
+    os.makedirs(out_dir(), exist_ok=True)   # before any paid post, so finished threads get saved
     out = os.path.join(out_dir(), "bakeoff-%s.json" % arm)
     naif_at = {t: naif_posts(opener_index(t)) for t in OPENER_PICKS} if arm == "rolesshort9naif" else {}
     done = {}

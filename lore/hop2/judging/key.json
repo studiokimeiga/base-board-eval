@@ -1,0 +1,386 @@
+{
+ "h000": {
+  "target": "u27",
+  "arm": "sham"
+ },
+ "h001": {
+  "target": "u35",
+  "arm": "sham"
+ },
+ "h002": {
+  "target": "u24",
+  "arm": "lore"
+ },
+ "h003": {
+  "target": "u21",
+  "arm": "lore"
+ },
+ "h004": {
+  "target": "u32",
+  "arm": "sham"
+ },
+ "h005": {
+  "target": "u43",
+  "arm": "lore"
+ },
+ "h006": {
+  "target": "u34",
+  "arm": "lore"
+ },
+ "h007": {
+  "target": "u18",
+  "arm": "lore"
+ },
+ "h008": {
+  "target": "u46",
+  "arm": "sham"
+ },
+ "h009": {
+  "target": "u47",
+  "arm": "lore"
+ },
+ "h010": {
+  "target": "u22",
+  "arm": "lore"
+ },
+ "h011": {
+  "target": "u23",
+  "arm": "sham"
+ },
+ "h012": {
+  "target": "u04",
+  "arm": "lore"
+ },
+ "h013": {
+  "target": "u21",
+  "arm": "sham"
+ },
+ "h014": {
+  "target": "u41",
+  "arm": "sham"
+ },
+ "h015": {
+  "target": "u08",
+  "arm": "sham"
+ },
+ "h016": {
+  "target": "u45",
+  "arm": "sham"
+ },
+ "h017": {
+  "target": "u42",
+  "arm": "sham"
+ },
+ "h018": {
+  "target": "u00",
+  "arm": "sham"
+ },
+ "h019": {
+  "target": "u13",
+  "arm": "lore"
+ },
+ "h020": {
+  "target": "u30",
+  "arm": "sham"
+ },
+ "h021": {
+  "target": "u15",
+  "arm": "sham"
+ },
+ "h022": {
+  "target": "u11",
+  "arm": "lore"
+ },
+ "h023": {
+  "target": "u26",
+  "arm": "sham"
+ },
+ "h024": {
+  "target": "u09",
+  "arm": "sham"
+ },
+ "h025": {
+  "target": "u31",
+  "arm": "lore"
+ },
+ "h026": {
+  "target": "u14",
+  "arm": "lore"
+ },
+ "h027": {
+  "target": "u03",
+  "arm": "lore"
+ },
+ "h028": {
+  "target": "u16",
+  "arm": "lore"
+ },
+ "h029": {
+  "target": "u47",
+  "arm": "sham"
+ },
+ "h030": {
+  "target": "u14",
+  "arm": "sham"
+ },
+ "h031": {
+  "target": "u10",
+  "arm": "lore"
+ },
+ "h032": {
+  "target": "u05",
+  "arm": "sham"
+ },
+ "h033": {
+  "target": "u09",
+  "arm": "lore"
+ },
+ "h034": {
+  "target": "u19",
+  "arm": "lore"
+ },
+ "h035": {
+  "target": "u22",
+  "arm": "sham"
+ },
+ "h036": {
+  "target": "u45",
+  "arm": "lore"
+ },
+ "h037": {
+  "target": "u25",
+  "arm": "sham"
+ },
+ "h038": {
+  "target": "u27",
+  "arm": "lore"
+ },
+ "h039": {
+  "target": "u17",
+  "arm": "sham"
+ },
+ "h040": {
+  "target": "u41",
+  "arm": "lore"
+ },
+ "h041": {
+  "target": "u23",
+  "arm": "lore"
+ },
+ "h042": {
+  "target": "u20",
+  "arm": "lore"
+ },
+ "h043": {
+  "target": "u33",
+  "arm": "lore"
+ },
+ "h044": {
+  "target": "u37",
+  "arm": "lore"
+ },
+ "h045": {
+  "target": "u15",
+  "arm": "lore"
+ },
+ "h046": {
+  "target": "u02",
+  "arm": "lore"
+ },
+ "h047": {
+  "target": "u33",
+  "arm": "sham"
+ },
+ "h048": {
+  "target": "u34",
+  "arm": "sham"
+ },
+ "h049": {
+  "target": "u07",
+  "arm": "lore"
+ },
+ "h050": {
+  "target": "u08",
+  "arm": "lore"
+ },
+ "h051": {
+  "target": "u32",
+  "arm": "lore"
+ },
+ "h052": {
+  "target": "u05",
+  "arm": "lore"
+ },
+ "h053": {
+  "target": "u03",
+  "arm": "sham"
+ },
+ "h054": {
+  "target": "u28",
+  "arm": "lore"
+ },
+ "h055": {
+  "target": "u40",
+  "arm": "lore"
+ },
+ "h056": {
+  "target": "u19",
+  "arm": "sham"
+ },
+ "h057": {
+  "target": "u46",
+  "arm": "lore"
+ },
+ "h058": {
+  "target": "u30",
+  "arm": "lore"
+ },
+ "h059": {
+  "target": "u18",
+  "arm": "sham"
+ },
+ "h060": {
+  "target": "u44",
+  "arm": "sham"
+ },
+ "h061": {
+  "target": "u29",
+  "arm": "sham"
+ },
+ "h062": {
+  "target": "u29",
+  "arm": "lore"
+ },
+ "h063": {
+  "target": "u17",
+  "arm": "lore"
+ },
+ "h064": {
+  "target": "u42",
+  "arm": "lore"
+ },
+ "h065": {
+  "target": "u43",
+  "arm": "sham"
+ },
+ "h066": {
+  "target": "u36",
+  "arm": "sham"
+ },
+ "h067": {
+  "target": "u24",
+  "arm": "sham"
+ },
+ "h068": {
+  "target": "u36",
+  "arm": "lore"
+ },
+ "h069": {
+  "target": "u13",
+  "arm": "sham"
+ },
+ "h070": {
+  "target": "u44",
+  "arm": "lore"
+ },
+ "h071": {
+  "target": "u40",
+  "arm": "sham"
+ },
+ "h072": {
+  "target": "u39",
+  "arm": "lore"
+ },
+ "h073": {
+  "target": "u37",
+  "arm": "sham"
+ },
+ "h074": {
+  "target": "u35",
+  "arm": "lore"
+ },
+ "h075": {
+  "target": "u07",
+  "arm": "sham"
+ },
+ "h076": {
+  "target": "u38",
+  "arm": "sham"
+ },
+ "h077": {
+  "target": "u04",
+  "arm": "sham"
+ },
+ "h078": {
+  "target": "u39",
+  "arm": "sham"
+ },
+ "h079": {
+  "target": "u31",
+  "arm": "sham"
+ },
+ "h080": {
+  "target": "u25",
+  "arm": "lore"
+ },
+ "h081": {
+  "target": "u28",
+  "arm": "sham"
+ },
+ "h082": {
+  "target": "u10",
+  "arm": "sham"
+ },
+ "h083": {
+  "target": "u00",
+  "arm": "lore"
+ },
+ "h084": {
+  "target": "u16",
+  "arm": "sham"
+ },
+ "h085": {
+  "target": "u06",
+  "arm": "sham"
+ },
+ "h086": {
+  "target": "u12",
+  "arm": "lore"
+ },
+ "h087": {
+  "target": "u01",
+  "arm": "lore"
+ },
+ "h088": {
+  "target": "u38",
+  "arm": "lore"
+ },
+ "h089": {
+  "target": "u20",
+  "arm": "sham"
+ },
+ "h090": {
+  "target": "u02",
+  "arm": "sham"
+ },
+ "h091": {
+  "target": "u06",
+  "arm": "lore"
+ },
+ "h092": {
+  "target": "u11",
+  "arm": "sham"
+ },
+ "h093": {
+  "target": "u12",
+  "arm": "sham"
+ },
+ "h094": {
+  "target": "u01",
+  "arm": "sham"
+ },
+ "h095": {
+  "target": "u26",
+  "arm": "lore"
+ }
+}

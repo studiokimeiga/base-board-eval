@@ -1,0 +1,74 @@
+{
+ "opener-1": {
+  "sha256": "e4ec3cd2866e58a07423f850756ed2cc1dbb67623ecc05060f4dbea850262842",
+  "key": {
+   "A": "geminipick",
+   "B": "gemini",
+   "C": "pick",
+   "D": "kimi"
+  }
+ },
+ "opener-2": {
+  "sha256": "7c312130c0ac3dfd2a6c5b18d26015a811ea6e57ec5aec7a5edd6aaa30b85d76",
+  "key": {
+   "A": "geminipick",
+   "B": "gemini",
+   "C": "pick",
+   "D": "kimi"
+  }
+ },
+ "opener-3": {
+  "sha256": "4494809aa8d23202b47ff674a1419a291c74e96158ff7c738b5a69b58c5dec31",
+  "key": {
+   "A": "gemini",
+   "B": "pick",
+   "C": "geminipick",
+   "D": "kimi"
+  }
+ },
+ "opener-4": {
+  "sha256": "32058f9519d2555fcb33c0bdb1e0774d36fe02d4fd4d714b0d9ed77594888a7d",
+  "key": {
+   "A": "geminipick",
+   "B": "gemini",
+   "C": "pick",
+   "D": "kimi"
+  }
+ },
+ "opener-5": {
+  "sha256": "1745446cfad1cf348365e8c7db86acfdc8c2c0d8da5ef6f91286522089a2cdd0",
+  "key": {
+   "A": "geminipick",
+   "B": "gemini",
+   "C": "kimi",
+   "D": "pick"
+  }
+ },
+ "opener-6": {
+  "sha256": "abd28ea69e746ba07690011fae76fb318e485e5db61af108df33e43dcef84f39",
+  "key": {
+   "A": "kimi",
+   "B": "geminipick",
+   "C": "pick",
+   "D": "gemini"
+  }
+ },
+ "opener-7": {
+  "sha256": "a329cf2284bc968e9e99d1a8dff5c85f6b87f6c2c17a329d13ff815707b8715d",
+  "key": {
+   "A": "pick",
+   "B": "kimi",
+   "C": "geminipick",
+   "D": "gemini"
+  }
+ },
+ "opener-8": {
+  "sha256": "423dcc7521d4755148dd4932595b8ce8c90eb05a2e66169192799ae9d17513bd",
+  "key": {
+   "A": "geminipick",
+   "B": "kimi",
+   "C": "gemini",
+   "D": "pick"
+  }
+ }
+}

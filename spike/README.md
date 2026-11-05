@@ -4,15 +4,19 @@ The code and judging records from the 2026-11-01/02 session written up in
 [`../BAKEOFF.md`](../BAKEOFF.md). It ran from an untracked `spike/` folder on a local branch,
 `spike/live-board`, that never had a commit of its own; this is that folder, minus the private
 files described below. The scripts are kept as they were last run, throwaway style included,
-so the write-up can be traced back to them. Round 9, pre-registered in
-[`PREREGISTRATION-ROUND9.md`](PREREGISTRATION-ROUND9.md), added to them without changing what the
-earlier arms do.
+so the write-up can be traced back to them, with one later change: `live_board.py`,
+`jp_bakeoff.py` and `modal_board.py` now run every post through the publication gate in
+`pubgate.py`, which [`../moderation/`](../moderation/README.md) measured and recommends. The
+versions that produced the recorded runs are at commit `5347524`. Round 9, pre-registered in
+[`PREREGISTRATION-ROUND9.md`](PREREGISTRATION-ROUND9.md), was added to these scripts without
+changing what the earlier arms do.
 
 ## What's here
 
 | file | what it did |
 |---|---|
 | `live_board.py`, `index.html` | The live multi-thread board, versions 1 to 2.1 (`index.html` watches it) |
+| `pubgate.py`, `test_pubgate.py` | The publication gate (keyword list on word boundaries plus OpenAI moderation, failing closed) that `live_board.py` and `jp_bakeoff.py` now call before a post is shown or enters any prompt |
 | `modal_board.py` | Runs the board and the self-hosted arms on Modal GPUs (gemma-4-31B, Llama-3.1-70B, the original cast, the round 7 naifs, all of round 9) |
 | `bakeoff.py` | Round 1-2 self-hosted arms (`cast`, `g31`, `l70`): same 8 openers and seeded scaffold as `generate.py`, XTC + DRY |
 | `openrouter_arm.py` | Round 1-2 OpenRouter raw-continuation arms (`qwen235`, `hermes405`, `euryale70`, `cydonia24`) |
@@ -44,6 +48,7 @@ From the repo root, with nothing but Python 3:
 python spike/judging/ledger.py --check
 python -m unittest discover -s spike/judging -p "test_*.py"
 python -m unittest discover -s spike -p "test_round3.py"
+python -m unittest discover -s spike -p "test_pubgate.py"
 ```
 
 With the private files in place, `python spike/judging/ledger.py rawstats` re-hashes them, rebuilds
@@ -62,6 +67,11 @@ looks for slur variants the keyword gate's substring match would miss (none in 2
   whole thread and only then replace posts that hit the keyword list with `[post withheld]`, so
   flagged posts were in the context while later posts were written. `jp_bakeoff.py`, `live_board.py`
   and round 9's arms withhold a post before it enters the context.
+- **The live board and the Japanese runs now need `OPENAI_API_KEY`** for the publication gate
+  (`pubgate.py`). Without it they refuse to start; `--gate keyword` runs the list alone, for offline
+  research only. A held post's text goes to `quarantine.jsonl` (the board) or `jp-quarantine.jsonl`
+  (next to the Japanese output), never to the page; `modal_board.py fetch` now copies the board's
+  quarantine logs back too, which it didn't when board v2.1 ran.
 - **Packets were written on Windows** until round 9, which writes `\n` everywhere. A post containing
   its own `\r\n` (Euryale's output does) reads back with an extra blank line. `ledger.py rawstats`
   allows for exactly this when it compares.

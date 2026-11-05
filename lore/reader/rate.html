@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Earlier thread, two follow-ups</title>
+<style>
+:root {
+  --bg: #f4f5f8; --panel: #ffffff; --ink: #1b1d2a; --muted: #62667a; --line: #d9dce6;
+  --name: #117743; --accent: #3651d4; --gt: #5f7f1a; --src: #eef0f6;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #14161c; --panel: #1d2029; --ink: #e2e5ec; --muted: #8e93a6; --line: #313545;
+          --name: #5fd39a; --accent: #8fa2ff; --gt: #a6c95a; --src: #191c24; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink);
+       font: 15px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+header { padding: 16px; border-bottom: 1px solid var(--line); }
+header h1 { margin: 0 0 4px; font-size: 20px; }
+header p { margin: 0 0 6px; color: var(--muted); max-width: 860px; }
+header input { font: inherit; padding: 4px 8px; border: 1px solid var(--line); border-radius: 6px;
+               background: var(--panel); color: var(--ink); }
+nav { display: flex; gap: 6px; flex-wrap: wrap; padding: 12px 16px; }
+nav button { font: inherit; min-width: 36px; border: 1px solid var(--line); background: var(--panel);
+             color: var(--ink); border-radius: 6px; padding: 4px 8px; cursor: pointer; }
+nav button.on { outline: 2px solid var(--accent); }
+nav button.done { color: var(--name); }
+main { padding: 0 16px 80px; max-width: 1400px; }
+details.src { background: var(--src); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin-bottom: 14px; }
+details.src summary { cursor: pointer; font-weight: 600; color: var(--muted); }
+.pair { display: grid; gap: 14px; grid-template-columns: 1fr; }
+@media (min-width: 1100px) { .pair { grid-template-columns: 1fr 1fr; } }
+.thread { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; min-width: 0; }
+.thread h2 { margin: 0 0 2px; font-size: 16px; }
+.thread .hd { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+.post { padding: 6px 0; border-top: 1px solid var(--line); }
+.post:first-of-type { border-top: 0; }
+.post .h { font-size: 12px; color: var(--muted); }
+.post .who { color: var(--name); font-weight: 600; }
+.post .txt { white-space: pre-wrap; overflow-wrap: anywhere; }
+.post .txt .gt { color: var(--gt); }
+.rate { margin-top: 12px; display: grid; gap: 10px; border-top: 2px solid var(--line); padding-top: 10px; }
+.scale .q { font-weight: 600; }
+.scale .q span { font-weight: 400; color: var(--muted); }
+.scale .row { display: flex; gap: 4px; margin: 4px 0 2px; }
+.scale .row button { flex: 1; font: inherit; padding: 6px 0; border: 1px solid var(--line); border-radius: 6px;
+                     background: transparent; color: var(--ink); cursor: pointer; }
+.scale .row button.on { background: var(--accent); color: #fff; border-color: var(--accent); }
+.scale .ends { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
+.checks label { display: flex; gap: 6px; align-items: center; cursor: pointer; font-size: 14px; }
+.prefer { margin-top: 16px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px; }
+textarea { font: inherit; width: 100%; min-height: 48px; padding: 6px 8px; border: 1px solid var(--line);
+           border-radius: 6px; background: var(--panel); color: var(--ink); margin-top: 8px; }
+.bar { display: flex; gap: 8px; align-items: center; margin-top: 18px; flex-wrap: wrap; }
+.bar button { font: inherit; padding: 8px 14px; border-radius: 6px; border: 1px solid var(--accent);
+              background: var(--accent); color: #fff; cursor: pointer; }
+.bar button.ghost { background: transparent; color: var(--accent); }
+.hint { color: var(--muted); font-size: 13px; }
+table.reveal { border-collapse: collapse; margin-top: 12px; }
+table.reveal td, table.reveal th { border: 1px solid var(--line); padding: 4px 10px; text-align: left; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Earlier thread, two follow-ups</h1>
+  <p id="intro"></p>
+  <p>Ratings stay in this browser until you press <b>Export</b>; you can stop and come back. Which
+     follow-up saw the earlier thread is shown only after you export.</p>
+  <label>Your name <input id="rater" autocomplete="off" placeholder="for the export file"></label>
+</header>
+<nav id="nav" aria-label="Sets"></nav>
+<main>
+  <div id="page"></div>
+  <div class="bar">
+    <button id="prev" class="ghost">← Previous</button>
+    <button id="next">Next →</button>
+    <button id="export" class="ghost">Export ratings</button>
+    <span class="hint" id="progress"></span>
+  </div>
+  <div id="reveal"></div>
+</main>
+<script>
+const STORE = "lore-reader-v1";
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+const fmt = t => esc(t).split("\n").map(l => l.startsWith("&gt;") ? `<span class="gt">${l}</span>` : l).join("\n");
+let rubric, items = {}, S = {}, cur = 0;
+
+function save() { try { localStorage.setItem(STORE, JSON.stringify(S)); } catch (e) {} }
+function restore() { try { return JSON.parse(localStorage.getItem(STORE) || "null"); } catch (e) { return null; } }
+
+// a seeded shuffle, so the order survives reloads but differs from rater to rater
+function shuffled(ids, seed) {
+  let a = seed >>> 0;
+  const rand = () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  const out = ids.slice();
+  for (let k = out.length - 1; k > 0; k--) { const j = Math.floor(rand() * (k + 1)); [out[k], out[j]] = [out[j], out[k]]; }
+  return out;
+}
+
+const side = () => ({ seen: false });
+const entry = id => (S.ratings[id] = S.ratings[id] || { A: side(), B: side(), prefer: null, note: "" });
+const sideDone = s => rubric.scales.every(x => s[x.id]) && typeof s.repost === "boolean" && typeof s.pickup === "boolean";
+const isDone = id => { const r = S.ratings[id]; return !!r && sideDone(r.A) && sideDone(r.B) && (r.prefer === "A" || r.prefer === "B"); };
+
+const posts = th => th.posts.map(p => `<div class="post">
+  <div class="h">${p.n}. <span class="who">${esc(p.who)}</span>${p.op ? " (OP)" : ""}</div>
+  <div class="txt">${p.text ? fmt(p.text) : "<i>(empty post)</i>"}</div></div>`).join("");
+
+const yesno = (key, val, s) => `<div class="row"><button class="${s[key] === true ? "on" : ""}" data-s="${s.__side}" data-${key}="1">Yes</button>
+  <button class="${s[key] === false ? "on" : ""}" data-s="${s.__side}" data-${key}="0">No</button></div>`;
+
+function follow(id, k) {
+  const it = items[id], r = entry(id), s = Object.assign({ __side: k }, r[k]);
+  return `<div class="thread"><h2>Follow-up ${k}</h2><div class="hd">${esc(it[k].header)}</div>${posts(it[k])}
+    <div class="rate">
+      ${rubric.scales.map(x => `<div class="scale"><div class="q">${esc(x.label)} <span>${esc(x.ask)}</span></div>
+        <div class="row">${[1, 2, 3, 4, 5].map(v => `<button class="${s[x.id] === v ? "on" : ""}" data-s="${k}" data-scale="${x.id}" data-v="${v}">${v}</button>`).join("")}</div>
+        <div class="ends"><span>1 = ${esc(x.low)}</span><span>5 = ${esc(x.high)}</span></div></div>`).join("")}
+      <div class="scale"><div class="q">Would repost <span>${esc(rubric.repost)}</span></div>${yesno("repost", 0, s)}</div>
+      <div class="scale"><div class="q">Picks up the earlier thread <span>${esc(rubric.pickup)}</span></div>${yesno("pickup", 0, s)}</div>
+      <div class="checks"><label><input type="checkbox" data-s="${k}" data-seen ${s.seen ? "checked" : ""}> ${esc(rubric.seen)}</label></div>
+    </div></div>`;
+}
+
+function render() {
+  const id = S.order[cur], it = items[id], r = entry(id);
+  $("nav").innerHTML = S.order.map((x, k) =>
+    `<button class="${k === cur ? "on" : ""} ${isDone(x) ? "done" : ""}" data-go="${k}" aria-label="Set ${k + 1}${isDone(x) ? ", rated" : ""}">${k + 1}${isDone(x) ? "✓" : ""}</button>`).join("");
+  $("page").innerHTML = `<details class="src" open><summary>Set ${cur + 1} of ${S.order.length}: an earlier thread on this board (${esc(it.source.header)})</summary>
+      ${posts(it.source)}</details>
+    <div class="pair">${follow(id, "A")}${follow(id, "B")}</div>
+    <div class="prefer"><div class="scale"><div class="q">${esc(rubric.prefer)}</div>
+      <div class="row"><button class="${r.prefer === "A" ? "on" : ""}" data-prefer="A">Follow-up A</button>
+      <button class="${r.prefer === "B" ? "on" : ""}" data-prefer="B">Follow-up B</button></div></div>
+      <textarea data-note placeholder="Notes (optional)">${esc(r.note || "")}</textarea></div>`;
+  $("progress").textContent = `${S.order.filter(isDone).length} of ${S.order.length} sets rated`;
+}
+
+function touch(id) { S.ratings[id].t = new Date().toISOString(); save(); }
+
+document.addEventListener("click", e => {
+  const id = S.order && S.order[cur];
+  const go = e.target.closest("[data-go]"); if (go) { cur = +go.dataset.go; render(); scrollTo(0, 0); return; }
+  const sc = e.target.closest("[data-scale]"); if (sc) { entry(id)[sc.dataset.s][sc.dataset.scale] = +sc.dataset.v; touch(id); render(); return; }
+  for (const key of ["repost", "pickup"]) {
+    const b = e.target.closest(`[data-${key}]`);
+    if (b) { entry(id)[b.dataset.s][key] = b.dataset[key] === "1"; touch(id); render(); return; }
+  }
+  const pf = e.target.closest("[data-prefer]"); if (pf) { entry(id).prefer = pf.dataset.prefer; touch(id); render(); }
+});
+document.addEventListener("change", e => {
+  if (e.target.matches("[data-seen]")) { const id = S.order[cur]; entry(id)[e.target.dataset.s].seen = e.target.checked; touch(id); render(); }
+});
+document.addEventListener("input", e => {
+  if (e.target.matches("[data-note]")) { entry(S.order[cur]).note = e.target.value; touch(S.order[cur]); }
+  if (e.target.id === "rater") { S.rater = e.target.value.trim(); save(); }
+});
+$("prev").onclick = () => { cur = (cur + S.order.length - 1) % S.order.length; render(); scrollTo(0, 0); };
+$("next").onclick = () => { cur = (cur + 1) % S.order.length; render(); scrollTo(0, 0); };
+
+function reveal() {
+  fetch("key.json?" + Date.now()).then(r => r.json()).then(key => {
+    const rows = S.order.map((id, k) => { const r = S.ratings[id] || {}, m = key[id] && key[id].memory;
+      return `<tr><td>Set ${k + 1}</td><td>${esc(key[id] ? key[id].board : "?")}</td><td>Follow-up ${esc(m || "?")}</td>
+        <td>${r.prefer ? (r.prefer === m ? "the one that saw it" : "the one that didn't") : "–"}</td></tr>`; }).join("");
+    $("reveal").innerHTML = `<h2>Which follow-up saw the earlier thread</h2>
+      <table class="reveal"><tr><th>set</th><th>board</th><th>saw the earlier thread</th><th>you preferred</th></tr>${rows}</table>`;
+  }).catch(() => { $("reveal").innerHTML = `<p class="hint">Exported. The key (key.json) couldn't be loaded here.</p>`; });
+}
+
+$("export").onclick = () => {
+  const n = S.order.filter(isDone).length;
+  if (!S.rater) { alert("Add your name first, so the file says whose ratings these are."); $("rater").focus(); return; }
+  if (n < S.order.length && !confirm(`${n} of ${S.order.length} sets are fully rated. Export anyway? The answers are shown after exporting.`)) return;
+  const out = { rater: S.rater, rubric_version: rubric.version, seed: S.seed, order: S.order,
+                started: S.started, exported: new Date().toISOString(), ratings: S.ratings };
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(out, null, 1)], { type: "application/json" }));
+  a.download = `ratings-${S.rater.replace(/[^a-z0-9_-]+/gi, "-")}-${out.exported.slice(0, 10)}.json`;
+  a.click();
+  reveal();
+};
+
+Promise.all([fetch("rubric.json").then(r => r.json()),
+             fetch("items.json?" + Date.now()).then(r => { if (!r.ok) throw new Error("items.json " + r.status); return r.json(); })])
+  .then(([rb, data]) => {
+    rubric = rb;
+    $("intro").textContent = rubric.intro;
+    data.items.forEach(it => items[it.id] = it);
+    const ids = Object.keys(items).sort();
+    const old = restore();
+    if (old && old.order && old.order.length === ids.length && old.order.every(x => items[x])) S = old;
+    else { const seed = Math.floor(Math.random() * 2 ** 32);
+           S = { seed, order: shuffled(ids, seed), started: new Date().toISOString(), ratings: {}, rater: "" }; save(); }
+    $("rater").value = S.rater || "";
+    const first = S.order.findIndex(x => !isDone(x));
+    cur = first < 0 ? 0 : first;
+    render();
+  })
+  .catch(e => { $("page").innerHTML = `<p class="hint">Couldn't load the sets (${esc(String(e))}). Build them with
+    <code>python lore/reader/build.py --run &lt;run folder&gt;</code>, then serve the repo root with
+    <code>python -m http.server 8000</code> and open /lore/reader/rate.html.</p>`; });
+</script>
+</body>
+</html>

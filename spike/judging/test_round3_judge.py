@@ -63,9 +63,12 @@ class Checks(unittest.TestCase):
 class AskAll(unittest.TestCase):
     def test_a_malformed_reply_is_asked_again_paid_for_and_never_asked_twice(self):
         tmp = tempfile.mkdtemp()
-        for p in (1, 2):
-            RJ.write(os.path.join(tmp, "opener-%d-v1.txt" % p),
-                     "OPENER %d: x\n\n====\nTHREAD A\n====\n1. a (OP): x\n\n====\nTHREAD B\n====\n1. a (OP): x\n" % p)
+        # recorded as `packets r9` records them, so gpt()'s packet binding accepts them
+        key = {"%d-v1" % p: {"A": "gemini", "B": "rolesshort"} for p in (1, 2)}
+        RJ.PR.write(tmp, {"opener-" + n: "OPENER %s: x\n\n====\nTHREAD A\n====\n1. a (OP): x\n\n====\nTHREAD B\n"
+                          "====\n1. a (OP): x\n" % n[0] for n in key}, {"opener-" + n: k for n, k in key.items()},
+                    eol="\n")
+        RJ.dump(key, os.path.join(tmp, "key.json"))
         calls, lock = [], threading.Lock()
 
         def fake_post_json(url, key, body, timeout=240):

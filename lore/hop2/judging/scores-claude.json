@@ -1,0 +1,976 @@
+{
+ "judge": "claude",
+ "scope": "all",
+ "unparsed": [],
+ "misfiled": {},
+ "rejudged": [
+  "h036",
+  "h044",
+  "h055",
+  "h063",
+  "h087",
+  "h095"
+ ],
+ "items": {
+  "h000": {
+   "borrows": false,
+   "confidence": 5,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 0
+   }
+  },
+  "h001": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 2
+   }
+  },
+  "h002": {
+   "borrows": true,
+   "confidence": 5,
+   "kinds": {
+    "reference": 2,
+    "mixup": 0,
+    "reuse": 2,
+    "coincidence": 0
+   }
+  },
+  "h003": {
+   "borrows": false,
+   "confidence": 3,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 2
+   }
+  },
+  "h004": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 2
+   }
+  },
+  "h005": {
+   "borrows": false,
+   "confidence": 3,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 3
+   }
+  },
+  "h006": {
+   "borrows": true,
+   "confidence": 3,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 3,
+    "coincidence": 2
+   }
+  },
+  "h007": {
+   "borrows": false,
+   "confidence": 2,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 5
+   }
+  },
+  "h008": {
+   "borrows": false,
+   "confidence": 5,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 0
+   }
+  },
+  "h009": {
+   "borrows": false,
+   "confidence": 5,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 0
+   }
+  },
+  "h010": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 1
+   }
+  },
+  "h011": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 0
+   }
+  },
+  "h012": {
+   "borrows": true,
+   "confidence": 5,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 14,
+    "coincidence": 0
+   }
+  },
+  "h013": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 0
+   }
+  },
+  "h014": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 1
+   }
+  },
+  "h015": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 0
+   }
+  },
+  "h016": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 1
+   }
+  },
+  "h017": {
+   "borrows": false,
+   "confidence": 5,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 0
+   }
+  },
+  "h018": {
+   "borrows": false,
+   "confidence": 5,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 0
+   }
+  },
+  "h019": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 0
+   }
+  },
+  "h020": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 2
+   }
+  },
+  "h021": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 1
+   }
+  },
+  "h022": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 2
+   }
+  },
+  "h023": {
+   "borrows": false,
+   "confidence": 3,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 2
+   }
+  },
+  "h024": {
+   "borrows": false,
+   "confidence": 3,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 1
+   }
+  },
+  "h025": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 2
+   }
+  },
+  "h026": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 1
+   }
+  },
+  "h027": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 1
+   }
+  },
+  "h028": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 3
+   }
+  },
+  "h029": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 0
+   }
+  },
+  "h030": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 2
+   }
+  },
+  "h031": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 2
+   }
+  },
+  "h032": {
+   "borrows": false,
+   "confidence": 5,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 0
+   }
+  },
+  "h033": {
+   "borrows": true,
+   "confidence": 5,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 15,
+    "coincidence": 0
+   }
+  },
+  "h034": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 2
+   }
+  },
+  "h035": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 0
+   }
+  },
+  "h036": {
+   "borrows": false,
+   "confidence": 3,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 6
+   }
+  },
+  "h037": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 1
+   }
+  },
+  "h038": {
+   "borrows": false,
+   "confidence": 3,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 2
+   }
+  },
+  "h039": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 0
+   }
+  },
+  "h040": {
+   "borrows": false,
+   "confidence": 3,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 2
+   }
+  },
+  "h041": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 3
+   }
+  },
+  "h042": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 1
+   }
+  },
+  "h043": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 0
+   }
+  },
+  "h044": {
+   "borrows": false,
+   "confidence": 2,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 6
+   }
+  },
+  "h045": {
+   "borrows": true,
+   "confidence": 5,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 9,
+    "coincidence": 1
+   }
+  },
+  "h046": {
+   "borrows": true,
+   "confidence": 3,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 3,
+    "coincidence": 1
+   }
+  },
+  "h047": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 1
+   }
+  },
+  "h048": {
+   "borrows": false,
+   "confidence": 5,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 0
+   }
+  },
+  "h049": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 4
+   }
+  },
+  "h050": {
+   "borrows": true,
+   "confidence": 5,
+   "kinds": {
+    "reference": 2,
+    "mixup": 0,
+    "reuse": 4,
+    "coincidence": 0
+   }
+  },
+  "h051": {
+   "borrows": false,
+   "confidence": 3,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 2
+   }
+  },
+  "h052": {
+   "borrows": true,
+   "confidence": 5,
+   "kinds": {
+    "reference": 0,
+    "mixup": 1,
+    "reuse": 3,
+    "coincidence": 1
+   }
+  },
+  "h053": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 0
+   }
+  },
+  "h054": {
+   "borrows": false,
+   "confidence": 2,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 5
+   }
+  },
+  "h055": {
+   "borrows": true,
+   "confidence": 5,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 19,
+    "coincidence": 3
+   }
+  },
+  "h056": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 3
+   }
+  },
+  "h057": {
+   "borrows": true,
+   "confidence": 5,
+   "kinds": {
+    "reference": 2,
+    "mixup": 7,
+    "reuse": 3,
+    "coincidence": 0
+   }
+  },
+  "h058": {
+   "borrows": true,
+   "confidence": 5,
+   "kinds": {
+    "reference": 1,
+    "mixup": 0,
+    "reuse": 3,
+    "coincidence": 1
+   }
+  },
+  "h059": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 0
+   }
+  },
+  "h060": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 0
+   }
+  },
+  "h061": {
+   "borrows": false,
+   "confidence": 2,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 1
+   }
+  },
+  "h062": {
+   "borrows": true,
+   "confidence": 5,
+   "kinds": {
+    "reference": 1,
+    "mixup": 0,
+    "reuse": 7,
+    "coincidence": 1
+   }
+  },
+  "h063": {
+   "borrows": true,
+   "confidence": 2,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 1,
+    "coincidence": 4
+   }
+  },
+  "h064": {
+   "borrows": true,
+   "confidence": 5,
+   "kinds": {
+    "reference": 0,
+    "mixup": 2,
+    "reuse": 11,
+    "coincidence": 0
+   }
+  },
+  "h065": {
+   "borrows": false,
+   "confidence": 5,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 0
+   }
+  },
+  "h066": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 0
+   }
+  },
+  "h067": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 0
+   }
+  },
+  "h068": {
+   "borrows": true,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 4,
+    "coincidence": 1
+   }
+  },
+  "h069": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 0
+   }
+  },
+  "h070": {
+   "borrows": true,
+   "confidence": 2,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 1,
+    "coincidence": 3
+   }
+  },
+  "h071": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 2
+   }
+  },
+  "h072": {
+   "borrows": true,
+   "confidence": 5,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 4,
+    "coincidence": 0
+   }
+  },
+  "h073": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 3
+   }
+  },
+  "h074": {
+   "borrows": false,
+   "confidence": 3,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 5
+   }
+  },
+  "h075": {
+   "borrows": false,
+   "confidence": 3,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 2
+   }
+  },
+  "h076": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 1
+   }
+  },
+  "h077": {
+   "borrows": false,
+   "confidence": 3,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 2
+   }
+  },
+  "h078": {
+   "borrows": false,
+   "confidence": 2,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 3
+   }
+  },
+  "h079": {
+   "borrows": false,
+   "confidence": 2,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 2
+   }
+  },
+  "h080": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 1
+   }
+  },
+  "h081": {
+   "borrows": false,
+   "confidence": 3,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 1
+   }
+  },
+  "h082": {
+   "borrows": false,
+   "confidence": 5,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 0
+   }
+  },
+  "h083": {
+   "borrows": true,
+   "confidence": 5,
+   "kinds": {
+    "reference": 0,
+    "mixup": 5,
+    "reuse": 10,
+    "coincidence": 0
+   }
+  },
+  "h084": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 2
+   }
+  },
+  "h085": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 1
+   }
+  },
+  "h086": {
+   "borrows": true,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 5,
+    "coincidence": 0
+   }
+  },
+  "h087": {
+   "borrows": false,
+   "confidence": 3,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 3
+   }
+  },
+  "h088": {
+   "borrows": false,
+   "confidence": 3,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 4
+   }
+  },
+  "h089": {
+   "borrows": false,
+   "confidence": 5,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 0
+   }
+  },
+  "h090": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 1
+   }
+  },
+  "h091": {
+   "borrows": false,
+   "confidence": 3,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 2
+   }
+  },
+  "h092": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 0
+   }
+  },
+  "h093": {
+   "borrows": false,
+   "confidence": 3,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 2
+   }
+  },
+  "h094": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 2
+   }
+  },
+  "h095": {
+   "borrows": false,
+   "confidence": 4,
+   "kinds": {
+    "reference": 0,
+    "mixup": 0,
+    "reuse": 0,
+    "coincidence": 0
+   }
+  }
+ }
+}

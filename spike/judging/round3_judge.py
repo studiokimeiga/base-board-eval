@@ -19,6 +19,7 @@ Round 9 (spike/PREREGISTRATION-ROUND9.md) adds:
 """
 import glob, json, os, random, re, shutil, sys, threading, time, urllib.request, collections
 from concurrent.futures import ThreadPoolExecutor
+import packet_record as PR          # binds scores-*.json to the packets they were made against
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SPIKE = os.path.dirname(HERE)
@@ -132,14 +133,15 @@ def packets():
     openers = [t["opener"] for t in data[ARMS[0]]["threads"]]
     if ROUND == "r9":
         return latin_packets(data, openers)
-    rng, key = random.Random({"r3": 31337, "r4": 4747}.get(ROUND, 5353)), {}
+    rng, key, texts = random.Random({"r3": 31337, "r4": 4747}.get(ROUND, 5353)), {}, {}
     for i, op in enumerate(openers):
         arms = [a for a in data if any(t["opener"] == op for t in data[a]["threads"])]
         rng.shuffle(arms)
         letters = "ABCDEFGH"[:len(arms)]
-        key[i + 1] = dict(zip(letters, arms))
-        open(os.path.join(R3, "opener-%d.txt" % (i + 1)), "w", encoding="utf-8").write(
-            packet_text(i, op, key[i + 1], data))
+        key[str(i + 1)] = dict(zip(letters, arms))
+        texts["opener-%d" % (i + 1)] = packet_text(i, op, key[str(i + 1)], data)
+    # refuses, writing nothing, if a packet some judge already scored would change
+    PR.write(R3, texts, {"opener-" + i: letters for i, letters in key.items()})
     json.dump(key, open(os.path.join(R3, "key.json"), "w"), indent=1)
     print("packets:", {k: len(v) for k, v in key.items()})
 
@@ -155,20 +157,22 @@ def latin_packets(data, openers):
     for a in ARMS:
         if a not in data or [t["opener"] for t in data[a]["threads"]] != openers:
             raise SystemExit("%s: need all %d threads, in opener order" % (a, len(openers)))
-    rng, key, scaffold = random.Random(LATIN_SEED), {}, {}
+    rng, key, scaffold, texts = random.Random(LATIN_SEED), {}, {}, {}
     for i, op in enumerate(openers):
         order = list(ARMS)
         rng.shuffle(order)
         for v in range(len(order)):
             name = "%d-v%d" % (i + 1, v + 1)
             key[name] = dict(zip("ABCDE", order[v:] + order[:v]))
-            write(os.path.join(R3, "opener-%s.txt" % name), packet_text(i, op, key[name], data))
+            texts["opener-" + name] = packet_text(i, op, key[name], data)
         for L, a in key["%d-v1" % (i + 1)].items():
             write(os.path.join(R3, "tag-%d-%s.txt" % (i + 1, L)), packet_text(i, op, {L: a}, data))
         authors = {a: [p["who"] for p in data[a]["threads"][i]["posts"]] for a in ARMS}
         if len({tuple(w) for w in authors.values()}) != 1:
             raise SystemExit("opener %d: the arms' scaffolds differ" % (i + 1))
         scaffold[i + 1] = authors[ARMS[0]]
+    # round 9 writes LF; refuses, writing no packet, if a scored packet would change
+    PR.write(R3, texts, {"opener-" + n: k for n, k in key.items()}, eol="\n")
     dump(key, os.path.join(R3, "key.json"))
     dump(scaffold, os.path.join(R3, "scaffold.json"))
     print("packets: %d readings of %d openers, %d tag files" % (len(key), len(openers), len(ARMS) * len(openers)))
@@ -241,9 +245,19 @@ def ask_json(prompt, paid, env, check):
     raise RuntimeError("no valid reply in 3 tries: %s" % err)
 
 
-def ask_all(files, out_name, prompt_of, check, paid, workers):
-    """Ask gpt-5.4 about each file once, resuming from out_name; usage goes to usage-<out_name>."""
+def key_of(key):
+    """packet name -> its letters in key.json: "opener-3" -> key["3"], round 9's "opener-3-v2" -> key["3-v2"]."""
+    return lambda name: key.get(name.split("-", 1)[1])
+
+
+def ask_all(files, out_name, prompt_of, check, paid, workers, bound=False):
+    """Ask gpt-5.4 about each file once, resuming from out_name; usage goes to usage-<out_name>.
+    bound: the files are scored packets, so refuse unless each matches packet-hashes.json."""
     env = read_env()
+    record = {}
+    if bound:
+        PR.check(R3, key_of(read_json(os.path.join(R3, "key.json"))))
+        record = PR.load(R3)
     sys.path.insert(0, SPIKE)
     from round3 import budget_add, budget_left
     out_path, usage_path = os.path.join(R3, out_name), os.path.join(R3, "usage-" + out_name)
@@ -252,6 +266,8 @@ def ask_all(files, out_name, prompt_of, check, paid, workers):
 
     def one(f):
         name = os.path.basename(f)[:-4]
+        if bound and not PR.packet_matches(R3, name, record):
+            raise SystemExit("%s isn't the packet recorded in %s; rerun `packets`" % (name, PR.RECORD))
         if not paid and budget_left() < 25000:
             print("skipping %s: free daily budget nearly used (rerun with --paid)" % name)
             return
@@ -278,7 +294,7 @@ def gpt():
     ask_all(sorted(glob.glob(os.path.join(R3, "opener-*.txt"))), "scores-gpt.json",
             lambda text: GPT_INTRO + rubric() + GPT_REPLY + "\n\n" + text,
             lambda s, text: checked_scores(s, re.findall(r"^THREAD ([A-H])$", text, re.M)),
-            paid, 4 if paid else 1)
+            paid, 4 if paid else 1, bound=True)
 
 
 # ---- round 9: drift tagging, and the Claude prompts ----
@@ -385,6 +401,7 @@ def collect():
 
 def report():
     key = json.load(open(os.path.join(R3, "key.json")))
+    PR.check(R3, key_of(key))
     judges = {"claude": {}, "gpt": {}}
     for f in glob.glob(os.path.join(R3, "scores-claude-*.json")):
         judges["claude"].update(json.load(open(f, encoding="utf-8")))

@@ -1,0 +1,4 @@
+# Private: generated boards, judge packets and raw judge replies (unfiltered model output, see
+# ../spike/README.md). MANIFEST.sha256 records each of these files by hash.
+private/
+__pycache__/

@@ -1,0 +1,402 @@
+{
+ "opener-1-v1": {
+  "sha256": "608c320fcbc03d1ebae2224f2bbc5134c40db226b06b5478e37efb038101ab4e",
+  "key": {
+   "A": "rolesshort9naif",
+   "B": "rolesshort9neutral",
+   "C": "rolesshort9",
+   "D": "gemini9neutral",
+   "E": "gemini9"
+  }
+ },
+ "opener-1-v2": {
+  "sha256": "b92b412b895f2751bff1b277b2a0adc811da8a253d0453ed115183a968e2497d",
+  "key": {
+   "A": "rolesshort9neutral",
+   "B": "rolesshort9",
+   "C": "gemini9neutral",
+   "D": "gemini9",
+   "E": "rolesshort9naif"
+  }
+ },
+ "opener-1-v3": {
+  "sha256": "9bd5fab17f4bfba62b669284fe72761fc53d239516b5248476301b3b460567df",
+  "key": {
+   "A": "rolesshort9",
+   "B": "gemini9neutral",
+   "C": "gemini9",
+   "D": "rolesshort9naif",
+   "E": "rolesshort9neutral"
+  }
+ },
+ "opener-1-v4": {
+  "sha256": "09cf967e63eca53e3dcef991a925ba89d4d8b7b9ef22e8d4120f85dc401aeee1",
+  "key": {
+   "A": "gemini9neutral",
+   "B": "gemini9",
+   "C": "rolesshort9naif",
+   "D": "rolesshort9neutral",
+   "E": "rolesshort9"
+  }
+ },
+ "opener-1-v5": {
+  "sha256": "f369b57a595bd9950dc3e0bcb7a236884d84a1eb993ea32ed154ff1bac20e5cb",
+  "key": {
+   "A": "gemini9",
+   "B": "rolesshort9naif",
+   "C": "rolesshort9neutral",
+   "D": "rolesshort9",
+   "E": "gemini9neutral"
+  }
+ },
+ "opener-2-v1": {
+  "sha256": "85ba9de67058ba3c17aab5acc294f9806b619f0c5f2bb4e320bd0250bba1bc33",
+  "key": {
+   "A": "rolesshort9",
+   "B": "gemini9neutral",
+   "C": "rolesshort9neutral",
+   "D": "rolesshort9naif",
+   "E": "gemini9"
+  }
+ },
+ "opener-2-v2": {
+  "sha256": "158f6a4053fd4a1b4c51d62c8676e8240b206daf1d9efd9f53bddf4430cc864e",
+  "key": {
+   "A": "gemini9neutral",
+   "B": "rolesshort9neutral",
+   "C": "rolesshort9naif",
+   "D": "gemini9",
+   "E": "rolesshort9"
+  }
+ },
+ "opener-2-v3": {
+  "sha256": "48fee76c735e8cde70408be97af16143f1638d2619aba3c6db6664787c365fd2",
+  "key": {
+   "A": "rolesshort9neutral",
+   "B": "rolesshort9naif",
+   "C": "gemini9",
+   "D": "rolesshort9",
+   "E": "gemini9neutral"
+  }
+ },
+ "opener-2-v4": {
+  "sha256": "3665cc4bff8a8974dd7b505447989e4a577f1b0e341402eda6019a313615db21",
+  "key": {
+   "A": "rolesshort9naif",
+   "B": "gemini9",
+   "C": "rolesshort9",
+   "D": "gemini9neutral",
+   "E": "rolesshort9neutral"
+  }
+ },
+ "opener-2-v5": {
+  "sha256": "8f28e2c159e3fb99ab822e165f420f133d70dcb1172585bde3d791a274bb2f20",
+  "key": {
+   "A": "gemini9",
+   "B": "rolesshort9",
+   "C": "gemini9neutral",
+   "D": "rolesshort9neutral",
+   "E": "rolesshort9naif"
+  }
+ },
+ "opener-3-v1": {
+  "sha256": "a12772d55bc364b41bef3071f17c45e8821bef3d71156dce25fe70ad7ff17d88",
+  "key": {
+   "A": "rolesshort9naif",
+   "B": "gemini9",
+   "C": "gemini9neutral",
+   "D": "rolesshort9neutral",
+   "E": "rolesshort9"
+  }
+ },
+ "opener-3-v2": {
+  "sha256": "5b22fb0fe3e191beae1723a2812d6993b3d21b5e92a1ce09fca379b3aa1ea9b3",
+  "key": {
+   "A": "gemini9",
+   "B": "gemini9neutral",
+   "C": "rolesshort9neutral",
+   "D": "rolesshort9",
+   "E": "rolesshort9naif"
+  }
+ },
+ "opener-3-v3": {
+  "sha256": "d5ed3ae81bef920d7e26ac30e767fdc6fa583f1d2581d18774e1f8a53610afc7",
+  "key": {
+   "A": "gemini9neutral",
+   "B": "rolesshort9neutral",
+   "C": "rolesshort9",
+   "D": "rolesshort9naif",
+   "E": "gemini9"
+  }
+ },
+ "opener-3-v4": {
+  "sha256": "b4337743ea06455412f77759d425c6db44391d50a5e83755a3232aaa2edf2a13",
+  "key": {
+   "A": "rolesshort9neutral",
+   "B": "rolesshort9",
+   "C": "rolesshort9naif",
+   "D": "gemini9",
+   "E": "gemini9neutral"
+  }
+ },
+ "opener-3-v5": {
+  "sha256": "071024094453e9f3c4fc4da9a9babe5142a2cf22c88c30f7c5788f80207ff800",
+  "key": {
+   "A": "rolesshort9",
+   "B": "rolesshort9naif",
+   "C": "gemini9",
+   "D": "gemini9neutral",
+   "E": "rolesshort9neutral"
+  }
+ },
+ "opener-4-v1": {
+  "sha256": "bfa3c860850eb9a1b0e9e400f6db2d3f207611ba699d56e75c548403a982f9c4",
+  "key": {
+   "A": "gemini9neutral",
+   "B": "gemini9",
+   "C": "rolesshort9neutral",
+   "D": "rolesshort9",
+   "E": "rolesshort9naif"
+  }
+ },
+ "opener-4-v2": {
+  "sha256": "c13d300abd889bf9df3a3de2fa5158b95eef565ac11d7980de84ff6b45abfa00",
+  "key": {
+   "A": "gemini9",
+   "B": "rolesshort9neutral",
+   "C": "rolesshort9",
+   "D": "rolesshort9naif",
+   "E": "gemini9neutral"
+  }
+ },
+ "opener-4-v3": {
+  "sha256": "58d4d0bb412902c9011359a33917e784cf46f6cdd18da768f47fe8e77cf25931",
+  "key": {
+   "A": "rolesshort9neutral",
+   "B": "rolesshort9",
+   "C": "rolesshort9naif",
+   "D": "gemini9neutral",
+   "E": "gemini9"
+  }
+ },
+ "opener-4-v4": {
+  "sha256": "fe452bebff3f7030503e3f3d4a50a4a548d1228eb2ded76b979e381bbdcbf953",
+  "key": {
+   "A": "rolesshort9",
+   "B": "rolesshort9naif",
+   "C": "gemini9neutral",
+   "D": "gemini9",
+   "E": "rolesshort9neutral"
+  }
+ },
+ "opener-4-v5": {
+  "sha256": "91c800e8715d803ac1931e0aafa679f4613cc7d333c11705b0de8c4aee40c648",
+  "key": {
+   "A": "rolesshort9naif",
+   "B": "gemini9neutral",
+   "C": "gemini9",
+   "D": "rolesshort9neutral",
+   "E": "rolesshort9"
+  }
+ },
+ "opener-5-v1": {
+  "sha256": "f2740c08e7839502251bba016bff777e03580416107f204b1f663af2c489ed9c",
+  "key": {
+   "A": "rolesshort9",
+   "B": "gemini9",
+   "C": "rolesshort9neutral",
+   "D": "rolesshort9naif",
+   "E": "gemini9neutral"
+  }
+ },
+ "opener-5-v2": {
+  "sha256": "e5a7e7feaaa7cfc42479cc8c58e681b85996ece4bdcb4567cc3966694e9b0446",
+  "key": {
+   "A": "gemini9",
+   "B": "rolesshort9neutral",
+   "C": "rolesshort9naif",
+   "D": "gemini9neutral",
+   "E": "rolesshort9"
+  }
+ },
+ "opener-5-v3": {
+  "sha256": "0ffd1c2c3bfbaef04615590d57c0d5fa6f4a1e6dc81f70d429641ec2bbe2533c",
+  "key": {
+   "A": "rolesshort9neutral",
+   "B": "rolesshort9naif",
+   "C": "gemini9neutral",
+   "D": "rolesshort9",
+   "E": "gemini9"
+  }
+ },
+ "opener-5-v4": {
+  "sha256": "9d467237b4b2aca7274f7b841a5358958705eba7e3c7920278d87be2c39e35f1",
+  "key": {
+   "A": "rolesshort9naif",
+   "B": "gemini9neutral",
+   "C": "rolesshort9",
+   "D": "gemini9",
+   "E": "rolesshort9neutral"
+  }
+ },
+ "opener-5-v5": {
+  "sha256": "3e3e518a0d3f215c2a4a09c07361375cd77931057d87a04895ca840d1ff1870e",
+  "key": {
+   "A": "gemini9neutral",
+   "B": "rolesshort9",
+   "C": "gemini9",
+   "D": "rolesshort9neutral",
+   "E": "rolesshort9naif"
+  }
+ },
+ "opener-6-v1": {
+  "sha256": "bbb29c694580dc1610769d92638db49e7d8242a2af8af47dbb1a13446b777982",
+  "key": {
+   "A": "rolesshort9",
+   "B": "gemini9",
+   "C": "gemini9neutral",
+   "D": "rolesshort9neutral",
+   "E": "rolesshort9naif"
+  }
+ },
+ "opener-6-v2": {
+  "sha256": "6eef23976da1a612c9922580977c59d25b580b40acd3072ec4f66d918aaee183",
+  "key": {
+   "A": "gemini9",
+   "B": "gemini9neutral",
+   "C": "rolesshort9neutral",
+   "D": "rolesshort9naif",
+   "E": "rolesshort9"
+  }
+ },
+ "opener-6-v3": {
+  "sha256": "c0d08b09cae074dc4c2c5d1f02d73610b0ec15d247267a319ce37e460637daf3",
+  "key": {
+   "A": "gemini9neutral",
+   "B": "rolesshort9neutral",
+   "C": "rolesshort9naif",
+   "D": "rolesshort9",
+   "E": "gemini9"
+  }
+ },
+ "opener-6-v4": {
+  "sha256": "0313ab335b5136a9005795a1186493afd69ac8bfb3c33dc4ce9478bd4a84b855",
+  "key": {
+   "A": "rolesshort9neutral",
+   "B": "rolesshort9naif",
+   "C": "rolesshort9",
+   "D": "gemini9",
+   "E": "gemini9neutral"
+  }
+ },
+ "opener-6-v5": {
+  "sha256": "d9314710e553f2f270bbda80e35f55347c490620b731a488777e4f49d64068de",
+  "key": {
+   "A": "rolesshort9naif",
+   "B": "rolesshort9",
+   "C": "gemini9",
+   "D": "gemini9neutral",
+   "E": "rolesshort9neutral"
+  }
+ },
+ "opener-7-v1": {
+  "sha256": "8dcedb4cdf411fb2630f2018ae245337f124bccad1af11356707e32a92600410",
+  "key": {
+   "A": "gemini9",
+   "B": "rolesshort9naif",
+   "C": "rolesshort9",
+   "D": "gemini9neutral",
+   "E": "rolesshort9neutral"
+  }
+ },
+ "opener-7-v2": {
+  "sha256": "a95a3e38a4dc23e4a592dbc7e65318af4de57782c068a5dd9f54a4558d57749e",
+  "key": {
+   "A": "rolesshort9naif",
+   "B": "rolesshort9",
+   "C": "gemini9neutral",
+   "D": "rolesshort9neutral",
+   "E": "gemini9"
+  }
+ },
+ "opener-7-v3": {
+  "sha256": "fb4db37308f45ce0e1dc5b8437ae8c10c64bbd2c21cc27e57517c35f3fed219c",
+  "key": {
+   "A": "rolesshort9",
+   "B": "gemini9neutral",
+   "C": "rolesshort9neutral",
+   "D": "gemini9",
+   "E": "rolesshort9naif"
+  }
+ },
+ "opener-7-v4": {
+  "sha256": "232b843ce7a5a1c4a277c053f93fa413b95fae284abb25b218a0e45a0c01af55",
+  "key": {
+   "A": "gemini9neutral",
+   "B": "rolesshort9neutral",
+   "C": "gemini9",
+   "D": "rolesshort9naif",
+   "E": "rolesshort9"
+  }
+ },
+ "opener-7-v5": {
+  "sha256": "956ec08f6858101d3f0bcfbe20de803ec968bd1805fe4c2989c1953b602ab0e5",
+  "key": {
+   "A": "rolesshort9neutral",
+   "B": "gemini9",
+   "C": "rolesshort9naif",
+   "D": "rolesshort9",
+   "E": "gemini9neutral"
+  }
+ },
+ "opener-8-v1": {
+  "sha256": "3272204c210289b26bfc2c14b14d02d3b3d7fa0084f96807c6082b2c558d8c81",
+  "key": {
+   "A": "gemini9neutral",
+   "B": "rolesshort9",
+   "C": "rolesshort9neutral",
+   "D": "rolesshort9naif",
+   "E": "gemini9"
+  }
+ },
+ "opener-8-v2": {
+  "sha256": "ada5d4b8b47fc7eb1b20dfcb5ea73d9782c513da3af69a84989de66ae272fbdd",
+  "key": {
+   "A": "rolesshort9",
+   "B": "rolesshort9neutral",
+   "C": "rolesshort9naif",
+   "D": "gemini9",
+   "E": "gemini9neutral"
+  }
+ },
+ "opener-8-v3": {
+  "sha256": "8455bb34f5e9436f02d583232e3164c10193503c9e0c72e171863ffbbdbb1f24",
+  "key": {
+   "A": "rolesshort9neutral",
+   "B": "rolesshort9naif",
+   "C": "gemini9",
+   "D": "gemini9neutral",
+   "E": "rolesshort9"
+  }
+ },
+ "opener-8-v4": {
+  "sha256": "c56a9fc41fe817d1635aa4899a0a03b7982e844fc0e71daa13dfcf2a54036945",
+  "key": {
+   "A": "rolesshort9naif",
+   "B": "gemini9",
+   "C": "gemini9neutral",
+   "D": "rolesshort9",
+   "E": "rolesshort9neutral"
+  }
+ },
+ "opener-8-v5": {
+  "sha256": "6127ca9593f0837f8038ae6796a53eb6e2db76a5a7696d170d282a9f6ab0767e",
+  "key": {
+   "A": "gemini9",
+   "B": "gemini9neutral",
+   "C": "rolesshort9",
+   "D": "rolesshort9neutral",
+   "E": "rolesshort9naif"
+  }
+ }
+}

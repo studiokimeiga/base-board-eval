@@ -1,0 +1,56 @@
+{
+ "5ch-opener-1": {
+  "sha256": "6136ed145c699db0a76a745d0c1ccc9d830417bb71ab80c70cb943cd31e5cc67",
+  "key": {
+   "A": "qwen235",
+   "B": "gpt54",
+   "C": "geminipick",
+   "D": "gemini"
+  }
+ },
+ "5ch-opener-2": {
+  "sha256": "3276cefa94dde3066945590b0c1fe8e8f4d8bb34e744921c70e88753302cea63",
+  "key": {
+   "A": "gemini",
+   "B": "gpt54",
+   "C": "geminipick",
+   "D": "qwen235"
+  }
+ },
+ "5ch-opener-3": {
+  "sha256": "2279ea5eb89f312d38f83354f59b8ff424bac38712bb3cc46d702b2669f2a458",
+  "key": {
+   "A": "gpt54",
+   "B": "gemini",
+   "C": "qwen235",
+   "D": "geminipick"
+  }
+ },
+ "5ch-opener-4": {
+  "sha256": "32a6f16d72fb1fc01c6f4f1e997644781e397a0be6063fd7d8cef5d7b91244f5",
+  "key": {
+   "A": "qwen235",
+   "B": "geminipick",
+   "C": "gpt54",
+   "D": "gemini"
+  }
+ },
+ "5ch-opener-5": {
+  "sha256": "36898f06ad66ddba80755e36ff9fd0e0ab47e1c6a3023eee6596dff4f8fbfc3c",
+  "key": {
+   "A": "geminipick",
+   "B": "gemini",
+   "C": "gpt54",
+   "D": "qwen235"
+  }
+ },
+ "5ch-opener-6": {
+  "sha256": "2436b2fa7ecc0072f31cd515a6980619533d596ed4bea7e486ae774ab3a26666",
+  "key": {
+   "A": "gemini",
+   "B": "qwen235",
+   "C": "gpt54",
+   "D": "geminipick"
+  }
+ }
+}

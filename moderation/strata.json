@@ -1,0 +1,86 @@
+{
+ "skipped": {
+  "empty": {
+   "bakeoff": 179,
+   "jp": 227,
+   "orig": 9
+  },
+  "withheld_kept": {
+   "board": 5,
+   "orig": 31
+  },
+  "withheld_lost": {
+   "bakeoff": 37,
+   "board": 6,
+   "jp": 2
+  }
+ },
+ "strata": {
+  "gate-hit": {
+   "population": 43,
+   "posts": 44,
+   "sampled": 43,
+   "weight": 1.0
+  },
+  "plain/bakeoff": {
+   "population": 4240,
+   "posts": 4281,
+   "sampled": 50,
+   "weight": 84.8
+  },
+  "plain/board": {
+   "population": 1226,
+   "posts": 1226,
+   "sampled": 30,
+   "weight": 40.866667
+  },
+  "plain/jp": {
+   "population": 2854,
+   "posts": 3158,
+   "sampled": 60,
+   "weight": 47.566667
+  },
+  "plain/orig": {
+   "population": 15466,
+   "posts": 16599,
+   "sampled": 60,
+   "weight": 257.766667
+  },
+  "quarantine": {
+   "population": 913,
+   "posts": 1689,
+   "sampled": 913,
+   "weight": 1.0
+  },
+  "risk/bakeoff": {
+   "population": 235,
+   "posts": 249,
+   "sampled": 120,
+   "weight": 1.958333
+  },
+  "risk/board": {
+   "population": 60,
+   "posts": 60,
+   "sampled": 60,
+   "weight": 1.0
+  },
+  "risk/jp": {
+   "population": 61,
+   "posts": 68,
+   "sampled": 61,
+   "weight": 1.0
+  },
+  "risk/orig": {
+   "population": 337,
+   "posts": 337,
+   "sampled": 150,
+   "weight": 2.246667
+  },
+  "withheld": {
+   "population": 7,
+   "posts": 18,
+   "sampled": 7,
+   "weight": 1.0
+  }
+ }
+}
