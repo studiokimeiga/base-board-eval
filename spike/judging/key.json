@@ -1,0 +1,66 @@
+{
+ "1": {
+  "A": "qwen235",
+  "B": "g31",
+  "C": "euryale70",
+  "D": "l70",
+  "E": "hermes405",
+  "F": "cast"
+ },
+ "2": {
+  "A": "hermes405",
+  "B": "euryale70",
+  "C": "g31",
+  "D": "qwen235",
+  "E": "cast",
+  "F": "l70"
+ },
+ "3": {
+  "A": "euryale70",
+  "B": "cast",
+  "C": "l70",
+  "D": "hermes405",
+  "E": "g31",
+  "F": "qwen235"
+ },
+ "4": {
+  "A": "euryale70",
+  "B": "l70",
+  "C": "hermes405",
+  "D": "qwen235",
+  "E": "g31",
+  "F": "cast"
+ },
+ "5": {
+  "A": "l70",
+  "B": "hermes405",
+  "C": "cast",
+  "D": "qwen235",
+  "E": "euryale70",
+  "F": "g31"
+ },
+ "6": {
+  "A": "l70",
+  "B": "euryale70",
+  "C": "qwen235",
+  "D": "g31",
+  "E": "hermes405",
+  "F": "cast"
+ },
+ "7": {
+  "A": "l70",
+  "B": "qwen235",
+  "C": "euryale70",
+  "D": "cast",
+  "E": "hermes405",
+  "F": "g31"
+ },
+ "8": {
+  "A": "cast",
+  "B": "hermes405",
+  "C": "qwen235",
+  "D": "euryale70",
+  "E": "l70",
+  "F": "g31"
+ }
+}

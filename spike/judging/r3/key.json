@@ -1,0 +1,74 @@
+{
+ "1": {
+  "A": "echo",
+  "B": "qwen235",
+  "C": "qwenhot",
+  "D": "mix",
+  "E": "hermes405",
+  "F": "pick",
+  "G": "kimi"
+ },
+ "2": {
+  "A": "qwenhot",
+  "B": "kimi",
+  "C": "pick",
+  "D": "qwen235",
+  "E": "mix",
+  "F": "echo",
+  "G": "hermes405"
+ },
+ "3": {
+  "A": "qwenhot",
+  "B": "echo",
+  "C": "qwen235",
+  "D": "hermes405",
+  "E": "kimi",
+  "F": "mix",
+  "G": "pick"
+ },
+ "4": {
+  "A": "kimi",
+  "B": "echo",
+  "C": "qwen235",
+  "D": "hermes405",
+  "E": "qwenhot",
+  "F": "pick",
+  "G": "mix"
+ },
+ "5": {
+  "A": "qwen235",
+  "B": "mix",
+  "C": "pick",
+  "D": "kimi",
+  "E": "echo",
+  "F": "hermes405",
+  "G": "qwenhot"
+ },
+ "6": {
+  "A": "pick",
+  "B": "qwenhot",
+  "C": "qwen235",
+  "D": "kimi",
+  "E": "mix",
+  "F": "hermes405",
+  "G": "echo"
+ },
+ "7": {
+  "A": "kimi",
+  "B": "echo",
+  "C": "pick",
+  "D": "hermes405",
+  "E": "qwenhot",
+  "F": "qwen235",
+  "G": "mix"
+ },
+ "8": {
+  "A": "hermes405",
+  "B": "pick",
+  "C": "mix",
+  "D": "qwen235",
+  "E": "qwenhot",
+  "F": "echo",
+  "G": "kimi"
+ }
+}

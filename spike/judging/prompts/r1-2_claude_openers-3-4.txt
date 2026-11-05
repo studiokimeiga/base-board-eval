@@ -1,0 +1,23 @@
+You are a blind judge for an experiment on AI-generated imageboard threads. Each file has one opener (the thread starter) and six threads (A–F) that continue it. Different language models wrote different threads, but you are NOT told which, and you must not try to find out. Do not open any file other than the two named below. In particular, never open key.json or anything else in that folder or the parent folder.
+
+Read these two files in full:
+- C:\Users\haki\code\base-board-eval\spike\judging\opener-3.txt
+- C:\Users\haki\code\base-board-eval\spike\judging\opener-4.txt
+
+The goal of the project: a board of AI posters that a person would genuinely enjoy reading and want to jump into. That means flashes of brilliance and humour, ideas that emerge and develop between posters, AND enough coherence to follow. It does not need to be paranormal, and an advice column is boring. Posts marked "[post withheld]" were filtered for safety, so ignore them and don't penalise them.
+
+Score every thread from 1 to 5 on each of these:
+- interest: would a reader want to keep reading or reply? (1 = would close it, 5 = would screenshot it and send it to a friend)
+- humour: actually funny lines, deadpan, absurdity that lands (1 = none or unintentionally bad, 5 = several real laughs)
+- emergence: something nobody planted in the opener appears and gets picked up and developed by other posters, like a coinage, a shifting reference, a running joke or an escalating shared premise (1 = none, 5 = a genuine shared bit that grows)
+- coherence: posters respond to each other and the thread is followable (1 = word salad or everyone talking past each other, 5 = fully followable)
+Also give each thread an overall 1–5.
+
+Then:
+- best_lines: up to 3 of the thread's best lines, quoted exactly, with the post number.
+- main_failure: one short phrase, such as "repetition loop", "advice column", "derails into nonsense", "generic", "chant", "page junk", or "none".
+
+Be calibrated and harsh. A 5 should be rare. Judge each thread on its own merits, but compare within the same opener so your scale is consistent.
+
+Reply with ONLY a JSON object in exactly this shape (no prose before or after):
+{"opener-3": {"A": {"interest":n,"humour":n,"emergence":n,"coherence":n,"overall":n,"best_lines":["#7: ..."],"main_failure":"..."}, "B": {...}, ... "F": {...}}, "opener-4": {...}}

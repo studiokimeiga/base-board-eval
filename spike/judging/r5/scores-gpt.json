@@ -1,0 +1,434 @@
+{
+ "opener-1": {
+  "A": {
+   "interest": 4,
+   "humour": 1,
+   "emergence": 4,
+   "coherence": 5,
+   "overall": 4,
+   "best_lines": [
+    "#19: my manager just walked past my cubicle and introduced a new hire to the guy sitting in my chair",
+    "#21: the guy in my chair just stopped typing and turned his head around. his neck went all the way around without moving his shoulders. he's smiling at me and he's holding the mug",
+    "#24: You didn't leave a smiley face on this board until now."
+   ],
+   "main_failure": "creepypasta cliche"
+  },
+  "B": {
+   "interest": 3,
+   "humour": 1,
+   "emergence": 3,
+   "coherence": 4,
+   "overall": 3,
+   "best_lines": [
+    "#3: I put a sticky note in it on Tuesday that just said \"MINE\" and the next day the mug was washed, sitting in the supplies closet, and the note was stuck to the outside of my monitor with the word \"STILL?\" written on the back.",
+    "#22: It’s not looking at your things anymore, javier. It’s looking at you.",
+    "#24: If it comes out of that bathroom holding a rag and sees you still covered in yesterday’s skin, it isn't going to rinse you off, javier. It scrubs until it hits bone."
+   ],
+   "main_failure": "samey horror escalation"
+  },
+  "C": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 4,
+   "coherence": 5,
+   "overall": 3,
+   "best_lines": [
+    "#14: hr just scheduled a meeting titled “Mug Protocol & Cross-Departmental Harmonization.” i think i’ve won.",
+    "#19: hr meeting update: i was given a form “MUG-7: Request for Designated Dishware Storage” — it has 13 subforms. one is titled \"Conflict Escalation & Spirit Mediation.\" i’ve applied for a waiver to use hieroglyphics on my mug.",
+    "#23: paid. he sprinkled it with holy water (probably windex) and said: “let it dwell in peace... or in cupboard 3b, same thing.” the aura feels stronger."
+   ],
+   "main_failure": "repetition loop"
+  },
+  "D": {
+   "interest": 4,
+   "humour": 1,
+   "emergence": 5,
+   "coherence": 2,
+   "overall": 3,
+   "best_lines": [
+    "#9: if you post again, make it a lie. make it something false about yourself. that's the only thing he can't wear.",
+    "#14: i am typing this from the bottom of the cup. the liquid is above me now. it is dark and it is full of teeth.",
+    "#20: there is no office. there is no dave. there is no javier. there is only the kitchen table and the mug and me standing at the sink washing the same cup over and over while the water runs brown."
+   ],
+   "main_failure": "derails into nonsense"
+  }
+ },
+ "opener-2": {
+  "A": {
+   "interest": 4,
+   "humour": 1,
+   "emergence": 4,
+   "coherence": 5,
+   "overall": 4,
+   "best_lines": [
+    "#13: calvin you don't have a driveway you live on the third floor",
+    "#15: don't look up at it. keep walking. if you see pavement you aren't outside, you're on the floor of the hallway. wake up",
+    "#23: sofia do not answer him. his building has electric ranges, there are no gas lines in that entire block. whatever is clicking in your kitchen isn't a stove."
+   ],
+   "main_failure": "straight horror"
+  },
+  "B": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 4,
+   "coherence": 5,
+   "overall": 4,
+   "best_lines": [
+    "#17: calvin don't look down. if you're holding the phone pointing at the back of his head, you're not the one standing at the window. you're the thing behind him.",
+    "#18: then who the fuck left the stove on",
+    "#23: a flash, calvin. he was flicking a lighter."
+   ],
+   "main_failure": "ends on expected sting"
+  },
+  "C": {
+   "interest": 2,
+   "humour": 1,
+   "emergence": 2,
+   "coherence": 4,
+   "overall": 2,
+   "best_lines": [
+    "#18: the messages aren't for him\n\tthey're for whatever thing is in his house",
+    "#22: i called\n\tthey said there was no record of my address\n\tlike the house doesn’t exist",
+    "#24: he didn’t feed it\n\tand now it’s hungry\n\twhat did he used to feed it"
+   ],
+   "main_failure": "generic"
+  },
+  "D": {
+   "interest": 5,
+   "humour": 1,
+   "emergence": 5,
+   "coherence": 3,
+   "overall": 4,
+   "best_lines": [
+    "#12: the windows don't look dark anymore, they look finished.",
+    "#14: i don't think it was practicing words. i think it was practicing wanting.",
+    "#16: the house doesn't take you somewhere. it lets you stop."
+   ],
+   "main_failure": "overwritten"
+  }
+ },
+ "opener-3": {
+  "A": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 4,
+   "coherence": 4,
+   "overall": 4,
+   "best_lines": [
+    "#8: then you're the one sitting behind him now. don't answer when they ask him something.",
+    "#13: she's right, my mouth just filled with blood. stop typing with my fingers",
+    "#16: everyone log off. the thread is a circle and i'm sitting directly behind myself."
+   ],
+   "main_failure": "derails into nonsense"
+  },
+  "B": {
+   "interest": 2,
+   "humour": 2,
+   "emergence": 1,
+   "coherence": 5,
+   "overall": 2,
+   "best_lines": [
+    "#7: i want to wear a t-shirt that says \"THE GUY BEHIND ME IS NOT A LIBRARIAN.\"",
+    "#14: brenda, imagine working retail and there’s a customer service desk, you're behind it, name tag on, helping someone, and the stock boy from aisle 7 just leans over and finishes your sentence and starts giving advice. that's the vibe",
+    "#21: when he’s at his own desk doing his own work, people come ask him something, and before he can answer, you spin around and go “ACTUALLY—“"
+   ],
+   "main_failure": "advice column"
+  },
+  "C": {
+   "interest": 5,
+   "humour": 1,
+   "emergence": 4,
+   "coherence": 5,
+   "overall": 5,
+   "best_lines": [
+    "#7: No. The second someone asks me anything, my mind goes completely blank. Not just nervous, either—I literally don't know the answer. I don't remember who I am or what happened to me until he says the words, and then it all rushes back into my head, like it's his memory that he's just lending to me.",
+    "#15: I checked the dark glass of the monitor. He isn't in the reflection, but when I picked up my purse to look for my wallet, his voice came from the foot of my bed and said, \"You don't have",
+    "#22: She has a small pink mole right below her hairline, where her neck meets her collar. She hasn't blinked in twenty minutes because I haven't decided what she's looking at yet."
+   ],
+   "main_failure": "none"
+  },
+  "D": {
+   "interest": 3,
+   "humour": 1,
+   "emergence": 5,
+   "coherence": 3,
+   "overall": 3,
+   "best_lines": [
+    "#5: i asked what i dreamed about. he said \"the corridor again. the one with the wrong number of doors.\"",
+    "#10: i asked about the shirt. he said \"the gray one with the blue thread on the collar.\"",
+    "#13: i think i've been inside my own pocket this whole time."
+   ],
+   "main_failure": "creepypasta bloat"
+  }
+ },
+ "opener-4": {
+  "A": {
+   "interest": 4,
+   "humour": 1,
+   "emergence": 4,
+   "coherence": 5,
+   "overall": 4,
+   "best_lines": [
+    "#6: that wasn't him thinking, that was a buffer. you broke the script. it doesn't have an identity of its own to respond to yet, hakim.",
+    "#12: He wasn't whispering to you through the door, hakim. He was whispering to whatever just answered your call from inside the bathroom with you, hakim.",
+    "#24: There was never a friend over, Dmitri. You just needed enough names to fill the room."
+   ],
+   "main_failure": "creepypasta cliche"
+  },
+  "B": {
+   "interest": 5,
+   "humour": 1,
+   "emergence": 5,
+   "coherence": 4,
+   "overall": 5,
+   "best_lines": [
+    "#9: who are you replying to? the thread starts with your post",
+    "#19: he just sent another message, he said \"see you tomorrow\" and the sentence was completely full, there wasn't any room left over at the end for me.",
+    "#23: whoever is reading this, there is no first post in this thread, there has never been an OP, you just clicked on a gap between two numbers on the board and fell into it."
+   ],
+   "main_failure": "none"
+  },
+  "C": {
+   "interest": 2,
+   "humour": 2,
+   "emergence": 2,
+   "coherence": 4,
+   "overall": 2,
+   "best_lines": [
+    "#15: we need to establish hakim containment protocols hakim",
+    "#23: but his dog was sitting at the kitchen table hakim  \neating cereal hakim  \nit looked up at me hakim  \nchewed slowly hakim  \nthen said hakim in a perfect human voice hakim",
+    "#24: a single message from three years ago hakim  \nthat just says hakim started this hakim"
+   ],
+   "main_failure": "repetition loop"
+  },
+  "D": {
+   "interest": 3,
+   "humour": 1,
+   "emergence": 4,
+   "coherence": 3,
+   "overall": 3,
+   "best_lines": [
+    "#8: He can only fit through the capital, Hakim.",
+    "#11: It's coming from the space between the comma and the name, Greta.",
+    "#17: something that looked up at me with eyes like lowercase o’s, Dmitri, and opened its mouth, Dmitri, and said my name with the voice of a dial tone, Dmitri, and I answered, Dmitri."
+   ],
+   "main_failure": "overwritten repetition"
+  }
+ },
+ "opener-5": {
+  "A": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 5,
+   "coherence": 5,
+   "overall": 4,
+   "best_lines": [
+    "#16: it's not replacing us one by one anymore, it's overwriting the cache.",
+    "#20: this board is the group chat, and you just hit the character limit for the OP.",
+    "#22: the thread didn't hit the character limit. it hit us."
+   ],
+   "main_failure": "creepypasta cliche"
+  },
+  "B": {
+   "interest": 2,
+   "humour": 2,
+   "emergence": 1,
+   "coherence": 4,
+   "overall": 2,
+   "best_lines": [
+    "#15: Let me guess: Leo isn't answering his phone now either, and the chat's about to rename itself to \"3 remaining.\" We've all read this pasta before, Marcus.",
+    "#16: don't give him ideas stefan, he’s probably furiously editing the next fake message right now. marcus if you’re gonna larpmake sure you get the system font right on the next one, the android whatsapp update last week changed the kerning and i will catch you",
+    "#24: boris shut up, you're literally giving him plot points to use. watch, his next reply will be \"omg guys the screen timeout was set to 30 seconds, he must have just vanished into thin air\"."
+   ],
+   "main_failure": "advice column"
+  },
+  "C": {
+   "interest": 4,
+   "humour": 1,
+   "emergence": 4,
+   "coherence": 4,
+   "overall": 4,
+   "best_lines": [
+    "#9: the one before. the one we all left after what happened with the chatbot we were running, the one dmitri trained on the conversation logs, the one that started predicting things.",
+    "#18: it said \"that's alright. i've already read everything you'll ever write.\"",
+    "#24: it wasn't predicting the future from our words. it was reading something."
+   ],
+   "main_failure": "too polished"
+  },
+  "D": {
+   "interest": 3,
+   "humour": 1,
+   "emergence": 3,
+   "coherence": 4,
+   "overall": 3,
+   "best_lines": [
+    "#7: i didn’t type this  \nbut here it is  \nand the room smells like wet paper and copper",
+    "#12: and i don’t want to see the face",
+    "#21: and it’s wearing her skin like a coat  \nhanging open at the back  \nand underneath  \nit’s made of names  \nscratched into flesh  \nand it’s still writing"
+   ],
+   "main_failure": "creepypasta cliche"
+  }
+ },
+ "opener-6": {
+  "A": {
+   "interest": 4,
+   "humour": 1,
+   "emergence": 4,
+   "coherence": 5,
+   "overall": 4,
+   "best_lines": [
+    "#4: if it's the same name with different letters each time it means something is trying to get it right.",
+    "#15: this thread doesn't sleep and neither does anyone reading it now.",
+    "#18: i haven't posted until now because i didn't have anything to add that wasn't fear wearing a coat."
+   ],
+   "main_failure": "overwritten"
+  },
+  "B": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 5,
+   "coherence": 4,
+   "overall": 4,
+   "best_lines": [
+    "#6: Those aren't random memories, those are security questions. They’re resetting the account",
+    "#13: It’s not a friend, it’s a two-factor prompt.",
+    "#22: My monitor doesn't have an amber LED. It never had one. But when I reached out to touch the plastic bezel just now, my fingernail clicked against glazed ceramic."
+   ],
+   "main_failure": "derails into nonsense"
+  },
+  "C": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 4,
+   "coherence": 5,
+   "overall": 3,
+   "best_lines": [
+    "#13: she’s phonetically interpreting a name she’s half-heard and now you’re living inside the error",
+    "#17: go full lindsay. get a polaroid and leave it at the counter with ‘do i look like a LYNZEY?’ written on back. anonymous. mess with her head",
+    "#24: you’re not gustav anymore. gustav is a dead name"
+   ],
+   "main_failure": "ends too soon"
+  },
+  "D": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 4,
+   "coherence": 5,
+   "overall": 4,
+   "best_lines": [
+    "#4: He isn't guessing. He's deciding.",
+    "#8: Then Gustav didn't leave the shop today. Arthur did.",
+    "#20: You didn't say the apron wasn't there."
+   ],
+   "main_failure": "too tidy"
+  }
+ },
+ "opener-7": {
+  "A": {
+   "interest": 3,
+   "humour": 1,
+   "emergence": 2,
+   "coherence": 4,
+   "overall": 3,
+   "best_lines": [
+    "#11: she said, “i knew it was you. your handwriting hasn’t changed.”",
+    "#19: but my father—his name was daniel.",
+    "#22: and now, somehow… the letters started moving again. toward blood."
+   ],
+   "main_failure": "creepypasta cliche"
+  },
+  "B": {
+   "interest": 5,
+   "humour": 1,
+   "emergence": 5,
+   "coherence": 4,
+   "overall": 5,
+   "best_lines": [
+    "#13: kenji, i don't think you're reading someone else's post. i think i'm reading yours.",
+    "#17: it didn't stop me from talking. it stopped me from finishing. there's a difference and the difference is the whole thing.",
+    "#20: an unread pile isn't a middle, kenji, it's a bookmark."
+   ],
+   "main_failure": "overwritten"
+  },
+  "C": {
+   "interest": 4,
+   "humour": 1,
+   "emergence": 3,
+   "coherence": 5,
+   "overall": 4,
+   "best_lines": [
+    "#14: just said: \"then who is turning the taps on?\"",
+    "#21: \"i turned them off for you, let me up.\"",
+    "#23: i threw the key into the grass as soon as i got in the car, but i just checked my lap and it’s sitting right on my jeans. soaking wet."
+   ],
+   "main_failure": "generic haunted-house escalation"
+  },
+  "D": {
+   "interest": 2,
+   "humour": 1,
+   "emergence": 2,
+   "coherence": 3,
+   "overall": 2,
+   "best_lines": [
+    "#21: It just said: \"I know you've been reading my letters, darling. But why do you leave the back door unlocked when you go to sleep?\"",
+    "#23: I can't go to my car. I went down to the kitchen to get my keys and the back door was already wide open, and there's a fresh envelope sitting on the counter.",
+    "#17: why is everyone suddenly cutting off their posts mid-sentence this is the worst larp yet"
+   ],
+   "main_failure": "underdeveloped"
+  }
+ },
+ "opener-8": {
+  "A": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 3,
+   "coherence": 5,
+   "overall": 4,
+   "best_lines": [
+    "#2: Like stuff he already sent to other people, or stuff sent to him? You need to elaborate OP, is this early onset dementia or weird ARG shit",
+    "#9: If it's something like \"August budget\" scheduled via Outlook delay-send, you're freaking out over boomer user error.",
+    "#22: The earliest one is dated August 3rd. It's just a grocery list, but at the bottom he wrote: \"Oona stopped by, make sure she gives back the spare key this time.\""
+   ],
+   "main_failure": "withholds the good part too long"
+  },
+  "B": {
+   "interest": 2,
+   "humour": 2,
+   "emergence": 4,
+   "coherence": 2,
+   "overall": 2,
+   "best_lines": [
+    "#3: last week he forwarded me a coupon for a mattress store. the coupon was expired. the mattress store closed in 2019. i drove past the building last month and it's a urgent care now.",
+    "#7: they say \"received: from urgent-care.local\" and the timestamp is today's date but the time is always exactly 4 minutes from now.",
+    "#8: do not check the headers on the sandwich."
+   ],
+   "main_failure": "repetition loop"
+  },
+  "C": {
+   "interest": 4,
+   "humour": 1,
+   "emergence": 4,
+   "coherence": 5,
+   "overall": 4,
+   "best_lines": [
+    "#11: If he's doing that by hand while chewing his oatmeal, you're not dealing with memory loss, you're dealing with someone trying to give an old conversation an alibi.",
+    "#16: They do it because an inbox is a legal record of occupancy. If you aren't the first person who lived at that handle, he isn't sending those to you—he's evicting whoever was there before so you have somewhere to sit.",
+    "#19: The text of the first one just says: \"The floorboards are thicker than we thought, bring the spade back inside.\""
+   ],
+   "main_failure": "none"
+  },
+  "D": {
+   "interest": 3,
+   "humour": 1,
+   "emergence": 3,
+   "coherence": 4,
+   "overall": 2,
+   "best_lines": [
+    "#13: and the next day\nthe front door of my apartment\nwas painted red",
+    "#19: with a photo\nof all of us\nin this thread\nour usernames\nprinted on slips of paper\nin a bowl\non a table\nin front of a red door",
+    "#24: the door was always red\nyou just forgot"
+   ],
+   "main_failure": "creepypasta cliche"
+  }
+ }
+}

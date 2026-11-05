@@ -1,0 +1,42 @@
+{
+ "1": {
+  "A": "gemini",
+  "B": "roles",
+  "C": "rolesshort"
+ },
+ "2": {
+  "A": "gemini",
+  "B": "roles",
+  "C": "rolesshort"
+ },
+ "3": {
+  "A": "gemini",
+  "B": "rolesshort",
+  "C": "roles"
+ },
+ "4": {
+  "A": "rolesshort",
+  "B": "gemini",
+  "C": "roles"
+ },
+ "5": {
+  "A": "roles",
+  "B": "gemini",
+  "C": "rolesshort"
+ },
+ "6": {
+  "A": "gemini",
+  "B": "rolesshort",
+  "C": "roles"
+ },
+ "7": {
+  "A": "gemini",
+  "B": "rolesshort",
+  "C": "roles"
+ },
+ "8": {
+  "A": "roles",
+  "B": "rolesshort",
+  "C": "gemini"
+ }
+}

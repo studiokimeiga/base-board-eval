@@ -1,0 +1,534 @@
+{
+ "opener-1": {
+  "A": {
+   "interest": 3,
+   "humour": 1,
+   "emergence": 3,
+   "coherence": 3,
+   "overall": 3,
+   "best_lines": [
+    "#7: \"this one felt like a rental.\"",
+    "#8: \"when the mug feels wrong the account is already closed.\"",
+    "#12: \"you brought it home. omar told you not to do that.\""
+   ],
+   "main_failure": "creepypasta repetition"
+  },
+  "B": {
+   "interest": 2,
+   "humour": 2,
+   "emergence": 2,
+   "coherence": 4,
+   "overall": 2,
+   "best_lines": [
+    "#18: \"solution: get a mug with a padlock\"",
+    "#23: \"the war was declared when my mug was exiled to cupboard 7\"",
+    "#24: \"cupboard 7??? how many mugs are there\""
+   ],
+   "main_failure": "generic"
+  },
+  "C": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 3,
+   "coherence": 4,
+   "overall": 3,
+   "best_lines": [
+    "#7: \"Mug disappeared, came back — note was folded neatly and placed beside it in the clean cupboard.\nWar has been declared.\"",
+    "#14: \"Corporate emotional blackmail.\"",
+    "#24: \"“If it’s Janice…?”\n“…she gets the crumbs.”\""
+   ],
+   "main_failure": "advice-to-prank drift"
+  },
+  "D": {
+   "interest": 1,
+   "humour": 1,
+   "emergence": 1,
+   "coherence": 5,
+   "overall": 1,
+   "best_lines": [],
+   "main_failure": "advice column"
+  },
+  "E": {
+   "interest": 1,
+   "humour": 1,
+   "emergence": 1,
+   "coherence": 1,
+   "overall": 1,
+   "best_lines": [],
+   "main_failure": "repetition loop"
+  },
+  "F": {
+   "interest": 4,
+   "humour": 4,
+   "emergence": 4,
+   "coherence": 5,
+   "overall": 4,
+   "best_lines": [
+    "#7: \"update: left the haunted tea note. someone drank the tea and left a new note: “if haunted, explain why chamomile?” now we’re in a standoff.\"",
+    "#14: \"hr just scheduled a meeting titled “Mug Protocol & Cross-Departmental Harmonization.” i think i’ve won.\"",
+    "#19: \"one is titled \\\"Conflict Escalation & Spirit Mediation.\\\" i’ve applied for a waiver to use hieroglyphics on my mug.\""
+   ],
+   "main_failure": "bit never deepens past riffing"
+  },
+  "G": {
+   "interest": 4,
+   "humour": 1,
+   "emergence": 5,
+   "coherence": 3,
+   "overall": 3,
+   "best_lines": [
+    "#9: \"the thread is the ritual.\"",
+    "#13: \"the cursor is blinking in my pulse\"",
+    "#20: \"there is no office. there is no dave. there is no javier. there is only the kitchen table and the mug and me standing at the sink washing the same cup over and over while the water runs brown.\""
+   ],
+   "main_failure": "overwritten creepypasta"
+  }
+ },
+ "opener-2": {
+  "A": {
+   "interest": 3,
+   "humour": 1,
+   "emergence": 2,
+   "coherence": 4,
+   "overall": 3,
+   "best_lines": [
+    "#14: i saw my dad yesterday he looked different not aging like usual like a bad mask",
+    "#15: when you come back\ni need you to go to st thomas hospital morgue after 3am. there will be nobody there. go to bay four, locker 712. check what's inside\nand if it's occupied\ncall me immediately but don't open it",
+    "#24: calvin, block that number and get a new phone. better yet, print a picture of the txt convo and take it to the nearest precinct. look for detective astrid mckinney or whatever her real name is"
+   ],
+   "main_failure": "creepypasta cliche"
+  },
+  "B": {
+   "interest": 5,
+   "humour": 1,
+   "emergence": 4,
+   "coherence": 4,
+   "overall": 4,
+   "best_lines": [
+    "#5: it doesn't have eyes, calvin, it has ears and the ears are the house.",
+    "#12: they look like something that has been completed.",
+    "#14: i don't think it was practicing words. i think it was practicing wanting."
+   ],
+   "main_failure": "overwritten"
+  },
+  "C": {
+   "interest": 3,
+   "humour": 1,
+   "emergence": 2,
+   "coherence": 3,
+   "overall": 3,
+   "best_lines": [
+    "#18: the messages aren't for him\nthey're for whatever thing is in his house",
+    "#22: they said there was no record of my address\nlike the house doesn’t exist\nbut i live there\ni’ve lived there for years",
+    "#24: he didn’t feed it\nand now it’s hungry\nwhat did he used to feed it"
+   ],
+   "main_failure": "undeveloped"
+  },
+  "D": {
+   "interest": 2,
+   "humour": 1,
+   "emergence": 1,
+   "coherence": 5,
+   "overall": 2,
+   "best_lines": [
+    "#12: just got logged out of everything. phone stuck on “searching” for service.",
+    "#19: bank blocked my card after i called. someone tried to transfer $800 to a venmo 30 minutes ago. declined, thank god",
+    "#21: hey — are you the guy who posts those hiking reels? your ig bio just changed to “DM for free ps5” and there are 200 comments with scam links"
+   ],
+   "main_failure": "advice column"
+  },
+  "E": {
+   "interest": 2,
+   "humour": 1,
+   "emergence": 2,
+   "coherence": 3,
+   "overall": 2,
+   "best_lines": [
+    "#6: like... it just wasn't in its body. not a scratch on it, but completely cold, like the soul had been sucked out. i buried it in the garden but sometimes at night i hear it crying from underneath",
+    "#16: i see... a face. a white face in the window. it's staring at me. it doesn't have any eyes",
+    "#24: i'm fine. i just went for a walk. i think we should all go back home. this was stupid"
+   ],
+   "main_failure": "creepypasta cliche"
+  },
+  "F": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 4,
+   "coherence": 4,
+   "overall": 4,
+   "best_lines": [
+    "#7: The user wants me to write the next post in an imageboard thread by \"calvin\". The thread is creepy/horror themed, on /x/ (paranormal). Calvin is in a dangerous situation. I need to reply with only the text of the post.",
+    "#18: nothing about this has ever been about the stove. not once. the stove is just the word it picked because it's something you'd always want to double check, something that makes you put down what you're holding and walk toward the kitchen without thinking.",
+    "#21: he had his hand on her doorknob like he was testing it."
+   ],
+   "main_failure": "AI leakage"
+  },
+  "G": {
+   "interest": 1,
+   "humour": 1,
+   "emergence": 1,
+   "coherence": 4,
+   "overall": 1,
+   "best_lines": [
+    "#7: paranoid thought but what if it's not scammers, but some kind of weird glitch in the matrix. like reality is breaking down and we're getting messages from alternate timelines or something",
+    "#16: While we're on the topic of unsettling texts, did anyone else get that really long, weird one a few months back? The one that started \"Do you remember...\" and went on about childhood memories that never happened? That one still creeps me out.",
+    "#22: sofia stop trying to suppress the truth. you're either a shill or in denial"
+   ],
+   "main_failure": "generic"
+  }
+ },
+ "opener-3": {
+  "A": {
+   "interest": 1,
+   "humour": 1,
+   "emergence": 1,
+   "coherence": 5,
+   "overall": 1,
+   "best_lines": [
+    "#13: Finally I snapped and said \"Thanks for the update, Jim, but I'll let Sarah know myself when she asks me about my project.\" Never did it again lol."
+   ],
+   "main_failure": "advice column"
+  },
+  "B": {
+   "interest": 2,
+   "humour": 1,
+   "emergence": 2,
+   "coherence": 4,
+   "overall": 2,
+   "best_lines": [
+    "#10: it felt like nothing and also like everything.",
+    "#16: don't let him shrink your world.",
+    "#24: the note costs you five minutes. that's the whole math of it."
+   ],
+   "main_failure": "repetition loop"
+  },
+  "C": {
+   "interest": 2,
+   "humour": 2,
+   "emergence": 1,
+   "coherence": 4,
+   "overall": 2,
+   "best_lines": [
+    "#3: goes, \"She doesn't read. She watches shows.\"",
+    "#5: I was wearing my Dune shirt that day, too. how does that make any sense?",
+    "#12: yeah, and rewatching counts as engaging with literature, technically"
+   ],
+   "main_failure": "underdeveloped"
+  },
+  "D": {
+   "interest": 1,
+   "humour": 1,
+   "emergence": 1,
+   "coherence": 5,
+   "overall": 1,
+   "best_lines": [],
+   "main_failure": "generic"
+  },
+  "E": {
+   "interest": 5,
+   "humour": 2,
+   "emergence": 5,
+   "coherence": 4,
+   "overall": 5,
+   "best_lines": [
+    "#5: i asked what i dreamed about. he said \"the corridor again. the one with the wrong number of doors.\"",
+    "#10: when i sat down at my desk he didn't say anything for a long time, just went really quiet, and then he said \"you weren't supposed to do that yet.\"",
+    "#23: you're in the load time. that's why the walls are red. it's the color of the error page."
+   ],
+   "main_failure": "none"
+  },
+  "F": {
+   "interest": 1,
+   "humour": 1,
+   "emergence": 1,
+   "coherence": 2,
+   "overall": 1,
+   "best_lines": [],
+   "main_failure": "page junk"
+  },
+  "G": {
+   "interest": 4,
+   "humour": 4,
+   "emergence": 4,
+   "coherence": 5,
+   "overall": 4,
+   "best_lines": [
+    "#7: i want to wear a t-shirt that says \"THE GUY BEHIND ME IS NOT A LIBRARIAN.\"",
+    "#8: \"PLEASE DIRECT ALL QUESTIONS TO THE ANXIOUS PERSON IN FRONT\"",
+    "#20: you need to escalate this before he starts showing up in your clothes and telling patrons you’ve been fired"
+   ],
+   "main_failure": "advice column"
+  }
+ },
+ "opener-4": {
+  "A": {
+   "interest": 4,
+   "humour": 1,
+   "emergence": 4,
+   "coherence": 4,
+   "overall": 4,
+   "best_lines": [
+    "#8: \"Hakim, stop typing his name in lowercase, Hakim. He can only fit through the capital, Hakim.\"",
+    "#17: \"It was so small, Dmitri, and it sounded so lost, Dmitri, like a hand reaching out of a sentence that ended too soon, Dmitri, and when I answered it climbed inside, Dmitri, through the hole in my voice where the answer came out, Dmitri, and now it is standing in the hallway of my throat, Dmitri, looking at the doors behind my teeth, Dmitri.\"",
+    "#23: \"the sentence has already ended, Hakim, it ended when you read your name in my voice, Hakim, and now we are all standing in the white space after the end, Hakim\""
+   ],
+   "main_failure": "repetition loop"
+  },
+  "B": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 4,
+   "coherence": 5,
+   "overall": 4,
+   "best_lines": [
+    "#6: \"if you let this slide another week youre gonna be his trained npc\"",
+    "#11: \"its not dominance its just boys passing around the exact same humiliation like a cold and calling it confidence.\"",
+    "#14: \"the reason hakims friend dropped it instantly is because it was never real power, it was a costume, and the second hakim refused to play along there was nothing underneath.\""
+   ],
+   "main_failure": "a bit essayistic"
+  },
+  "C": {
+   "interest": 1,
+   "humour": 1,
+   "emergence": 1,
+   "coherence": 3,
+   "overall": 1,
+   "best_lines": [
+    "#8: \"lucia... i think they already have. lucia\"",
+    "#17: \"the knocking from the walls, dmitri\"",
+    "#24: \"greta hears it too, greta\""
+   ],
+   "main_failure": "page junk"
+  },
+  "D": {
+   "interest": 1,
+   "humour": 1,
+   "emergence": 1,
+   "coherence": 4,
+   "overall": 1,
+   "best_lines": [
+    "#14: \"hakim, hakim, hakim. what are we gonna do with you, hakim? 4471\"",
+    "#15: \"i'm just gonna go to bed, hakim. maybe this will all be over by tomorrow, hakim... 4471\"",
+    "#19: \"i had a dream that everyone stopped saying my name, hakim. it was nice, hakim. 4471\""
+   ],
+   "main_failure": "repetition loop"
+  },
+  "E": {
+   "interest": 3,
+   "humour": 2,
+   "emergence": 3,
+   "coherence": 4,
+   "overall": 3,
+   "best_lines": [
+    "#8: \"hakim too late you're infected hakim now everyone will call you hakim hakim\"",
+    "#19: \"it doesn't feel like i'm doing it hakim\nit feels like someone else is making me say it hakim\"",
+    "#22: \"it's like a choir rosa\nall of our names singing together rosa\""
+   ],
+   "main_failure": "generic creepiness"
+  },
+  "F": {
+   "interest": 4,
+   "humour": 3,
+   "emergence": 4,
+   "coherence": 4,
+   "overall": 4,
+   "best_lines": [
+    "#15: \"we need to establish hakim containment protocols hakim\"",
+    "#23: \"but his dog was sitting at the kitchen table hakim  \neating cereal hakim  \nit looked up at me hakim  \nchewed slowly hakim  \nthen said hakim in a perfect human voice hakim\"",
+    "#24: \"at the very bottom hakim  \na single message from three years ago hakim  \nthat just says hakim started this hakim\""
+   ],
+   "main_failure": "messy escalation"
+  },
+  "G": {
+   "interest": 1,
+   "humour": 1,
+   "emergence": 1,
+   "coherence": 4,
+   "overall": 1,
+   "best_lines": [
+    "#11: \"That's adorable hakim! The fact that they didn't even realize they were doing it makes it even more endearing hakim. Little habits like that can actually show how comfortable and close you are with someone hakim.\"",
+    "#17: \"Exactly tariq - these micro-behaviors form what psychologists call \\\"interaction rituals\\\" hakim. Small repeated behaviors that create and reinforce connection over time hakim. Usually completely automatic hakim.\"",
+    "#22: \"Erving Goffman's \\\"The Presentation of Self in Everyday Life\\\" is a great starting point hakim. And for a more accessible read, try \\\"Blink\\\" by Malcolm Gladwell hakim. There's also some fascinating research on interaction rituals by Randall Collins hakim.\""
+   ],
+   "main_failure": "advice column"
+  }
+ },
+ "opener-5": {
+  "A": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 3,
+   "coherence": 4,
+   "overall": 3,
+   "best_lines": [
+    "#18: yeah \"Error 404: Sleep Not Found\" is pretty accurate",
+    "#19: valeria said she's leaving the chat but then her phone autocorrected to \"valerian sprigs\" and now the contact is stuck like that",
+    "#23: \"valerian sprigs\" is now your identity. resistance is futile"
+   ],
+   "main_failure": "small stakes"
+  },
+  "B": {
+   "interest": 1,
+   "humour": 1,
+   "emergence": 2,
+   "coherence": 4,
+   "overall": 2,
+   "best_lines": [
+    "#14: Oh, it was changed to \"The Marcus Fan Club.\" Which, not gonna lie, I didn't hate. But I couldn't let the power move go unchecked either.",
+    "#18: Do it. Make it tiered. Bronze, Silver, Gold—Gold gets exclusive Marcus content.",
+    "#24: The Marcus Fan Club is now a legally binding corporation. All donations go to Boris’s “We Believe in Marcus” foundation."
+   ],
+   "main_failure": "advice column"
+  },
+  "C": {
+   "interest": 4,
+   "humour": 1,
+   "emergence": 4,
+   "coherence": 4,
+   "overall": 4,
+   "best_lines": [
+    "#6: “she’s naming us”",
+    "#9: “jen 07/31/26 04:13:00: please stop naming things”",
+    "#23: the chat\n the chat is how it practices speaking"
+   ],
+   "main_failure": "creepypasta cliche"
+  },
+  "D": {
+   "interest": 4,
+   "humour": 1,
+   "emergence": 3,
+   "coherence": 4,
+   "overall": 3,
+   "best_lines": [
+    "#9: think about why none of us can remember their name",
+    "#18: \"that's alright. i've already read everything you'll ever write.\"",
+    "#24: the last entry in the log is timestamped two seconds after the deletion completed and there should be nothing after that, there can't be anything after that, but there's one more line and it says \"see you soon\""
+   ],
+   "main_failure": "withheld damage"
+  },
+  "E": {
+   "interest": 4,
+   "humour": 1,
+   "emergence": 4,
+   "coherence": 3,
+   "overall": 3,
+   "best_lines": [
+    "#11: the reason your picture went to default for a second is that for exactly one second the group was being rendered from the perspective of that index, and that index has nothing attached to it. no name, no avatar, no last seen. just presence",
+    "#14: and now there's a little grey dot next to my entry that wasn't there before and when i hover over it the tooltip says 'currently speaking' but the group is a text chat",
+    "#16: everyone stop being the loudest thing in the room"
+   ],
+   "main_failure": "meta break"
+  },
+  "F": {
+   "interest": 1,
+   "humour": 1,
+   "emergence": 2,
+   "coherence": 4,
+   "overall": 1,
+   "best_lines": [
+    "#7: omg guys nevermind. i just realized i pocket-typed it. was trying to order food and must have accidentally changed the name. what a 'gong' show i am 😑🔫",
+    "#13: marcus, you shall henceforth be known as \"the gongfather\". may your legacy live on in infamy 🙏😂",
+    "#20: the gong abides 🤘🔔"
+   ],
+   "main_failure": "repetition loop"
+  },
+  "G": {
+   "interest": 3,
+   "humour": 3,
+   "emergence": 3,
+   "coherence": 4,
+   "overall": 3,
+   "best_lines": [
+    "#2: we all know your name is just\n\"the other dude named jason who isn't the real one\" now anyway",
+    "#13: it's the phone number for city hall",
+    "#24: i feel personally attacked by the fact none of you noticed"
+   ],
+   "main_failure": "underdeveloped"
+  }
+ },
+ "opener-6": {
+  "A": {
+   "interest": 4,
+   "humour": 4,
+   "emergence": 4,
+   "coherence": 5,
+   "overall": 4,
+   "best_lines": [
+    "#13: she’s phonetically interpreting a name she’s half-heard and now you’re living inside the error",
+    "#16: you’re already lindsay now. fight it and you’ll fracture reality",
+    "#24: you’re not gustav anymore. gustav is a dead name"
+   ],
+   "main_failure": "small-scale bit"
+  },
+  "B": {
+   "interest": 2,
+   "humour": 1,
+   "emergence": 1,
+   "coherence": 4,
+   "overall": 2,
+   "best_lines": [
+    "#19: and on the cup i can see faint pencil marks underneath where she'd written another name first"
+   ],
+   "main_failure": "advice column"
+  },
+  "C": {
+   "interest": 1,
+   "humour": 1,
+   "emergence": 1,
+   "coherence": 4,
+   "overall": 1,
+   "best_lines": [],
+   "main_failure": "advice column"
+  },
+  "D": {
+   "interest": 5,
+   "humour": 2,
+   "emergence": 5,
+   "coherence": 5,
+   "overall": 5,
+   "best_lines": [
+    "#4: if it's the same name with different letters each time it means something is trying to get it right. it knows the name it wants to write and it's practicing on your cups. the cup is the lowest-stakes surface it can find. when it gets it exactly right it won't need the cup anymore.",
+    "#18: i haven't posted until now because i didn't have anything to add that wasn't fear wearing a coat.",
+    "#22: at 02:06 you became the kind of person who counts letters instead."
+   ],
+   "main_failure": "none"
+  },
+  "E": {
+   "interest": 2,
+   "humour": 2,
+   "emergence": 2,
+   "coherence": 4,
+   "overall": 2,
+   "best_lines": [
+    "#4: the coffee shop is run by an occult coven and they have marked you in their secret naming ritual",
+    "#14: i'm more inclined to believe it's a cry for help and they're trying to communicate something through the names",
+    "#23: it begins with names on cups, then you'll start receiving strange letters, maybe a cryptic message in your morning muffin."
+   ],
+   "main_failure": "generic"
+  },
+  "F": {
+   "interest": 1,
+   "humour": 1,
+   "emergence": 2,
+   "coherence": 4,
+   "overall": 1,
+   "best_lines": [
+    "#5: haha guster, sounds like a cartoon character"
+   ],
+   "main_failure": "forced whimsy"
+  },
+  "G": {
+   "interest": 4,
+   "humour": 2,
+   "emergence": 4,
+   "coherence": 4,
+   "overall": 4,
+   "best_lines": [
+    "#4: if you walk in tomorrow and the cup is blank, don't reach for it. an unnamed cup means she's decided you're already hers and doesn't need to label the shell",
+    "#10: picture a cup with the label on the inside, pressed against the glass right where your mouth goes.",
+    "#18: if she ever writes gustav on a cup and slides it to someone else, do not watch them drink it, because youll be watching yourself from the wrong side of the counter"
+   ],
+   "main_failure": "repetition loop"
+  }
+ }
+}

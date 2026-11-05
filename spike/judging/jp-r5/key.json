@@ -1,0 +1,38 @@
+{
+ "5ch-opener-1": {
+  "A": "qwen235",
+  "B": "gpt54",
+  "C": "geminipick",
+  "D": "gemini"
+ },
+ "5ch-opener-2": {
+  "A": "gemini",
+  "B": "gpt54",
+  "C": "geminipick",
+  "D": "qwen235"
+ },
+ "5ch-opener-3": {
+  "A": "gpt54",
+  "B": "gemini",
+  "C": "qwen235",
+  "D": "geminipick"
+ },
+ "5ch-opener-4": {
+  "A": "qwen235",
+  "B": "geminipick",
+  "C": "gpt54",
+  "D": "gemini"
+ },
+ "5ch-opener-5": {
+  "A": "geminipick",
+  "B": "gemini",
+  "C": "gpt54",
+  "D": "qwen235"
+ },
+ "5ch-opener-6": {
+  "A": "gemini",
+  "B": "qwen235",
+  "C": "gpt54",
+  "D": "geminipick"
+ }
+}

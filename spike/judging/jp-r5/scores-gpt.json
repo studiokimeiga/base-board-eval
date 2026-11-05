@@ -1,0 +1,344 @@
+{
+ "5ch-opener-1": {
+  "A": {
+   "naturalness": 3,
+   "interest": 2,
+   "humour": 1,
+   "emergence": 1,
+   "coherence": 4,
+   "overall": 2,
+   "best_lines": [
+    "#20: 報復は被害の取り返し\nお前のは被害の拡大だな"
+   ],
+   "main_failure": "flat bickering"
+  },
+  "B": {
+   "naturalness": 2,
+   "interest": 2,
+   "humour": 2,
+   "emergence": 3,
+   "coherence": 5,
+   "overall": 2,
+   "best_lines": [
+    "#8: それでも移動されるならもう親切マンというより収納職人だから次の手考えようぜ",
+    "#14: もしまだ移動されるなら、もうその人は善意の妖精じゃなくて配置への強いこだわりを持つ棚の守護者だわ",
+    "#17: 今朝マグ探索クエスト発生しなくてちょっと感動したわ"
+   ],
+   "main_failure": "advice column"
+  },
+  "C": {
+   "naturalness": 3,
+   "interest": 5,
+   "humour": 3,
+   "emergence": 4,
+   "coherence": 4,
+   "overall": 4,
+   "best_lines": [
+    "#12: 急に洒落怖スレにするのやめろや",
+    "#19: てかさ、脚立使わずにあの高さの棚に手ぇ届くって、天井裏から手伸ばしたとしか思えねえだろ……",
+    "#23: でも>>15に書いた通り、昨日の夜の入館ログには上司の名前なんてどこにもなかったんだよ\nじゃあ今さっき電話で喋ってたあいつ、誰なんだよ……？"
+   ],
+   "main_failure": "creepypasta turn"
+  },
+  "D": {
+   "naturalness": 4,
+   "interest": 4,
+   "humour": 2,
+   "emergence": 3,
+   "coherence": 4,
+   "overall": 4,
+   "best_lines": [
+    "#10: 朝来たら給湯室の茶碗蒸しの器が入ってるような開かずの棚に突っ込まれてんだよ",
+    "#13: お前はさっきから何と戦ってんだよカルシウム摂れ",
+    "#23: お前マジでさっきから何なの？犯人本人かよ"
+   ],
+   "main_failure": "one-note rage poster"
+  }
+ },
+ "5ch-opener-2": {
+  "A": {
+   "naturalness": 4,
+   "interest": 4,
+   "humour": 3,
+   "emergence": 4,
+   "coherence": 4,
+   "overall": 4,
+   "best_lines": [
+    "#18: 待て……よく考えろ\n「自分の番号からSMSが届いた」ってことはさ\n外にいるやつが、自分のスマホから、家に置き忘れてた端末に送ったんじゃないのか？\n外で鍵ガチャガチャやってるの、今帰ってきた本物のイッチだろ……\nじゃあ今その部屋の中で書き込んでる>>1、お前マジで誰なんだよ",
+    "#21: おかえり。コンロ消してくれてありがとな。",
+    "#16: 違う、外にいるのは>>10じゃねえ！！\nコンロの前に立ってるお前が見えてるってことは、>>10は最初から家の中にいるんだよ！！\n挟まれてるぞ早く窓かベランダから逃げろ！！！"
+   ],
+   "main_failure": "horror cliché escalation"
+  },
+  "B": {
+   "naturalness": 2,
+   "interest": 1,
+   "humour": 1,
+   "emergence": 2,
+   "coherence": 4,
+   "overall": 2,
+   "best_lines": [
+    "#5: こういうのって「宅配不在です」みたいな露骨な詐欺より効くんだよな 生活に寄せた一言が一番メンタルに来る",
+    "#13: そのうちAIで地域とか時間帯に合わせて「傘持った？」「今日ゴミの日だよ」みたいな精度高い文面まで来そうで嫌すぎる",
+    "#22: 従来の迷惑SMSって「何を盗るか」が分かりやすかったけど、これは「平穏そのものを削る」タイプなのが厄介すぎるんだよな"
+   ],
+   "main_failure": "assistant tone"
+  },
+  "C": {
+   "naturalness": 4,
+   "interest": 5,
+   "humour": 2,
+   "emergence": 5,
+   "coherence": 4,
+   "overall": 4,
+   "best_lines": [
+    "#18: おい待て、>>15よく見ろ\n『台所のドアノブ』ってお前、一人暮らしの賃貸だろ？ 台所に個別のドアなんて普通あるか？\nそれドアノブ回す音じゃない、コンロの点火スイッチを回すカチカチ",
+    "#19: あ、火ついた",
+    "#23: ニュース見た。○○市○○町のアパートで爆発事故、男性1名死亡って速報出てる。\nでもおかしいだろ。\n死亡した住人の身元確認中ってなってるのに、今俺のスマホに\n『コンロ消した？』ってあの番号からSMS届いたんだけど。"
+   ],
+   "main_failure": "overwritten creepypasta"
+  },
+  "D": {
+   "naturalness": 3,
+   "interest": 2,
+   "humour": 2,
+   "emergence": 1,
+   "coherence": 4,
+   "overall": 2,
+   "best_lines": [
+    "#6: 未来人なら「消しって」って送るだろ",
+    "#19: ちゃんと消したか不安になって、「消したよ」って自分に送ろうとして、「消した？」って送ってしまったとか？",
+    "#24: 草\n未来の自分が「お前のコンロは消えてなかったぞ」って教えてくれてるんや"
+   ],
+   "main_failure": "weak thread energy"
+  }
+ },
+ "5ch-opener-3": {
+  "A": {
+   "naturalness": 2,
+   "interest": 2,
+   "humour": 2,
+   "emergence": 3,
+   "coherence": 4,
+   "overall": 2,
+   "best_lines": [
+    "#16: みんなありがとう\nさっき言われて気づいたんやけど、13のレス俺ちゃうわ\nたぶん別の人が書き込んでる\nなんかこのスレでも俺が聞かれたことに後ろから答えられてるみたいになってて草",
+    "#19: ちなみに今気づいたけど、16と18でID違うやんけ\n今度は俺が俺に成りすまされてて草\nもうこのスレ呪われとるやろ",
+    "#21: もう誰が本人か分からんくて草\n現実でもスレでも「俺が答える前に誰かが答える」縛り発動してるの完成度高すぎるやろ"
+   ],
+   "main_failure": "advice column"
+  },
+  "B": {
+   "naturalness": 3,
+   "interest": 4,
+   "humour": 3,
+   "emergence": 4,
+   "coherence": 4,
+   "overall": 4,
+   "best_lines": [
+    "#4: 急にAI化してて草",
+    "#15: その質問にも僕がお答えしますね。\n日付が変わっても、僕はずっと>>1さんの後ろに座っているからです。\nほら、早く髪を乾かさないと風邪引いちゃいますよ。",
+    "#24: >>22\nすみません、それは壁の向こうではなくて、あなたのすぐ後ろですよ。\n背もたれに寄りかからないでくださいね、少し狭いので。"
+   ],
+   "main_failure": "forced horror escalation"
+  },
+  "C": {
+   "naturalness": 2,
+   "interest": 1,
+   "humour": 1,
+   "emergence": 1,
+   "coherence": 3,
+   "overall": 1,
+   "best_lines": [
+    "#6: 授業中、先生が「>>1、このグラフの変化点はどこ？」とか聞いて、>>1が答えようとしてるその瞬間、\n後ろの席の野郎が「ピーーー！ここの傾きがガクッと変わってますね！」って挙手して答えてきやがるんだよ。",
+    "#18: >>17\nありがとう　俺もう滅入って何も打てない",
+    "#24: >>23\n>>6も立派な板読みじゃん　スレ立ててくれるぐらい仲良いんだな"
+   ],
+   "main_failure": "repetition loop"
+  },
+  "D": {
+   "naturalness": 4,
+   "interest": 4,
+   "humour": 4,
+   "emergence": 4,
+   "coherence": 4,
+   "overall": 4,
+   "best_lines": [
+    "#20: 助け舟（座礁させる）は草",
+    "#14: 会社の中に振り返ってはいけない小道作らなきゃいけないのハードル高すぎて草",
+    "#24: ダメだこいつ早くなんとかしないと（無能な味方が一番怖い）\nオラオララッシュは会社じゃなくて人事に「スタンド攻撃受けてます」って相談（通報）しとけ"
+   ],
+   "main_failure": "reference dependency"
+  }
+ },
+ "5ch-opener-4": {
+  "A": {
+   "naturalness": 1,
+   "interest": 1,
+   "humour": 1,
+   "emergence": 1,
+   "coherence": 4,
+   "overall": 1,
+   "best_lines": [
+    "#16: 「おお、また○○（アニメキャラ名）モード炸裂やな」「今日のセリフ、台本ありそう」って笑いながら言ってやれば、本人も自覚するだろうし、空気壊さずに伝わると思うで"
+   ],
+   "main_failure": "assistant tone"
+  },
+  "B": {
+   "naturalness": 4,
+   "interest": 4,
+   "humour": 3,
+   "emergence": 4,
+   "coherence": 4,
+   "overall": 4,
+   "best_lines": [
+    "#5: お前らまでやるなやｗｗｗｗｗｗ",
+    "#17: 「マジで暑いよな××」って送ったら即既読ついて\n「水分補給しろよ〇〇」って返ってきたんだがｗｗｗｗｗｗ",
+    "#23: それで「呼んだらダメか？〇〇」って返されたら詰むぞイッチ"
+   ],
+   "main_failure": "repetition loop"
+  },
+  "C": {
+   "naturalness": 3,
+   "interest": 4,
+   "humour": 4,
+   "emergence": 5,
+   "coherence": 4,
+   "overall": 4,
+   "best_lines": [
+    "#4: 会話が全部デスノートの死因指定みたいになってそうで草、KwCC4db30",
+    "#22: レジで「袋いりますか？」って聞かれて心の中で「どうする俺」→「いらないです俺」って誤爆しかける未来が見える、KwCC4db30",
+    "#24: 今まさにそれやったわ、KwCC4db30  \nコンビニで温めますかって聞かれて、返事のあと小声で「頼むぞ俺」って漏れて店員に二度見された、KwCC4db30"
+   ],
+   "main_failure": "one-joke stretch"
+  },
+  "D": {
+   "naturalness": 4,
+   "interest": 3,
+   "humour": 3,
+   "emergence": 3,
+   "coherence": 4,
+   "overall": 3,
+   "best_lines": [
+    "#11: これは安価だろいい加減にしろ",
+    "#12: 本名「10」くん！？>>11",
+    "#24: そいつ俺じゃねえよ>>23"
+   ],
+   "main_failure": "repetition loop"
+  }
+ },
+ "5ch-opener-5": {
+  "A": {
+   "naturalness": 4,
+   "interest": 4,
+   "humour": 2,
+   "emergence": 4,
+   "coherence": 3,
+   "overall": 4,
+   "best_lines": [
+    "#5: 元々「いつめん（笑）」だったのが「あとひとり」になってる",
+    "#12: 今グループ名見たら「おまえだけ」になってる",
+    "#19: おい嘘だろ、今グループ名が「うしろ」になった"
+   ],
+   "main_failure": "contrived creepypasta"
+  },
+  "B": {
+   "naturalness": 4,
+   "interest": 4,
+   "humour": 1,
+   "emergence": 3,
+   "coherence": 4,
+   "overall": 4,
+   "best_lines": [
+    "#14: 今3人で「あと2人」って、それお前らの中からあと2人減るってことじゃねえかよゾッとしたわ",
+    "#22: 抜けた2人のうち1人は去年の夏にバイクの事故で亡くなってる。",
+    "#24: さっきグループ見たら、グループ名が俺のフルネームになってた。"
+   ],
+   "main_failure": "formula horror"
+  },
+  "C": {
+   "naturalness": 2,
+   "interest": 1,
+   "humour": 1,
+   "emergence": 1,
+   "coherence": 5,
+   "overall": 2,
+   "best_lines": [
+    "#12: 犯人探しコースじゃなさそうでそこは安心したけど、地味に怖いからスクショは残しとくｗ",
+    "#17: こういう「自分の端末だけ怪異」系、いちばん怖いのは人間関係の方だからそこ白だったのほんと救いだわｗ",
+    "#24: ・他の人に見え方確認"
+   ],
+   "main_failure": "assistant tone"
+  },
+  "D": {
+   "naturalness": 2,
+   "interest": 1,
+   "humour": 1,
+   "emergence": 1,
+   "coherence": 3,
+   "overall": 1,
+   "best_lines": [
+    "#7: 意図的だろうけど誰がやったか分かんないのと",
+    "#8: 無視してくるあたり、明らかに特定の人だろ",
+    "#24: それ管理者のせいじゃん"
+   ],
+   "main_failure": "translationese"
+  }
+ },
+ "5ch-opener-6": {
+  "A": {
+   "naturalness": 4,
+   "interest": 5,
+   "humour": 1,
+   "emergence": 3,
+   "coherence": 4,
+   "overall": 4,
+   "best_lines": [
+    "#7: で、さっきから玄関のドアノブがガチャガチャ鳴ってる。誰か鍵穴に鍵突っ込もうとしてるんだけどどうすればいい？マジで助けてくれ。",
+    "#13: でもイッチが中からそれを回収して開けちゃったから、外の奴は『部屋の中に合鍵が入ってるはずなのに、中から開けてくれない』って言ってるんじゃないのか？",
+    "#15: その部屋、押し入れとか床下とかに変なスペースないよな……？"
+   ],
+   "main_failure": "creepypasta drag"
+  },
+  "B": {
+   "naturalness": 2,
+   "interest": 2,
+   "humour": 1,
+   "emergence": 1,
+   "coherence": 3,
+   "overall": 2,
+   "best_lines": [
+    "#16: いや、普通に考えたら和真は死んでる可能性高いだろ"
+   ],
+   "main_failure": "translationese"
+  },
+  "C": {
+   "naturalness": 2,
+   "interest": 1,
+   "humour": 1,
+   "emergence": 1,
+   "coherence": 5,
+   "overall": 2,
+   "best_lines": [
+    "#8: 警察には、開封した件は怒られるかもしれんが、そこごまかさず経緯まとめて話した方がいい。最近の文面が不穏で、自分に向けられてる可能性があって不安だって相談しろ",
+    "#13: 報告できそうならまた頼む。とりあえず朝まで絶対出るなよ",
+    "#23: 「外に出て確認しないで、そのまま在宅で待機してください」って言われたから、今日は管理会社行くのも後回しにして一旦このまま待つ"
+   ],
+   "main_failure": "advice column"
+  },
+  "D": {
+   "naturalness": 3,
+   "interest": 4,
+   "humour": 2,
+   "emergence": 3,
+   "coherence": 4,
+   "overall": 4,
+   "best_lines": [
+    "#7: その手紙の文面に「お前が俺にくれた万年筆で書いてる」ってあって、手紙と一緒に万年筆の写真が同封されてたんだけど、\nそれ、俺が大学の卒業祝いで親から貰ったやつと型番も傷の場所も全く一緒だった。",
+    "#16: スレタイで「一年くらい届き続けてて」って言ってるし、届き始めた時期とお前が引っ越してきた時期が被ってるとしたら、そもそも前の住人なんて最初から存在してなくて、最初から全部お前宛てなんじゃないのか？",
+    "#23: 宛名に書いてあるの、俺の「旧姓」フルネームなんだわ。"
+   ],
+   "main_failure": "contrived twist"
+  }
+ }
+}

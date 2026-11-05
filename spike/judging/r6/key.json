@@ -1,0 +1,66 @@
+{
+ "1": {
+  "A": "gemini",
+  "B": "geminit15",
+  "C": "geminit19",
+  "D": "qwen235",
+  "E": "qwent18",
+  "F": "qwent14"
+ },
+ "2": {
+  "A": "geminit15",
+  "B": "qwent14",
+  "C": "gemini",
+  "D": "qwent18",
+  "E": "geminit19",
+  "F": "qwen235"
+ },
+ "3": {
+  "A": "gemini",
+  "B": "geminit15",
+  "C": "qwent14",
+  "D": "geminit19",
+  "E": "qwent18",
+  "F": "qwen235"
+ },
+ "4": {
+  "A": "qwent18",
+  "B": "geminit19",
+  "C": "qwen235",
+  "D": "gemini",
+  "E": "qwent14",
+  "F": "geminit15"
+ },
+ "5": {
+  "A": "gemini",
+  "B": "qwen235",
+  "C": "geminit15",
+  "D": "geminit19",
+  "E": "qwent14",
+  "F": "qwent18"
+ },
+ "6": {
+  "A": "geminit15",
+  "B": "gemini",
+  "C": "qwent14",
+  "D": "qwent18",
+  "E": "qwen235",
+  "F": "geminit19"
+ },
+ "7": {
+  "A": "qwent18",
+  "B": "qwen235",
+  "C": "gemini",
+  "D": "geminit15",
+  "E": "qwent14",
+  "F": "geminit19"
+ },
+ "8": {
+  "A": "geminit15",
+  "B": "gemini",
+  "C": "qwent14",
+  "D": "geminit19",
+  "E": "qwent18",
+  "F": "qwen235"
+ }
+}

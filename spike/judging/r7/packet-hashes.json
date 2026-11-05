@@ -1,0 +1,74 @@
+{
+ "opener-1": {
+  "sha256": "a3db15c1c98ea0f9163b372a09f6ab175e5e6a1aaaab8a5116d909b4b822855a",
+  "key": {
+   "A": "gemini",
+   "B": "roles",
+   "C": "naif",
+   "D": "naifroles"
+  }
+ },
+ "opener-2": {
+  "sha256": "948cb544dee4938f57d9e5f5cd05e0bea2f5b3b556e82bb0875219f7c1268afc",
+  "key": {
+   "A": "gemini",
+   "B": "roles",
+   "C": "naif",
+   "D": "naifroles"
+  }
+ },
+ "opener-3": {
+  "sha256": "d3d8aedfafae693e76eead57ab1edbafd290771683832707f87bc52fb1514cc7",
+  "key": {
+   "A": "roles",
+   "B": "naif",
+   "C": "gemini",
+   "D": "naifroles"
+  }
+ },
+ "opener-4": {
+  "sha256": "8f1766bb456896771d7fa3714b92157e63d4b3ebca2cf8bfd33eba4b3d251a24",
+  "key": {
+   "A": "gemini",
+   "B": "roles",
+   "C": "naif",
+   "D": "naifroles"
+  }
+ },
+ "opener-5": {
+  "sha256": "0c025007331051a3fc6cd4e724039fea934be8bde0dd4931468298070df03da9",
+  "key": {
+   "A": "gemini",
+   "B": "roles",
+   "C": "naifroles",
+   "D": "naif"
+  }
+ },
+ "opener-6": {
+  "sha256": "0dce7fc44c85e6c0ea10d9be695d7399d8ef6974621eb68c3112b661d92bad6d",
+  "key": {
+   "A": "naifroles",
+   "B": "gemini",
+   "C": "naif",
+   "D": "roles"
+  }
+ },
+ "opener-7": {
+  "sha256": "f2839c19baee3779b55af79612bc373705218218e1c0cc66e6bb38670e3ceaea",
+  "key": {
+   "A": "naif",
+   "B": "naifroles",
+   "C": "gemini",
+   "D": "roles"
+  }
+ },
+ "opener-8": {
+  "sha256": "ed6f22264a6291234f6ec5b4ee2ea55566944cf4798bbf4b023f8bd31fb8c10c",
+  "key": {
+   "A": "gemini",
+   "B": "naifroles",
+   "C": "roles",
+   "D": "naif"
+  }
+ }
+}

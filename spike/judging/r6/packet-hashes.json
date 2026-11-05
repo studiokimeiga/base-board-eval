@@ -1,0 +1,90 @@
+{
+ "opener-1": {
+  "sha256": "47c8749ba353d61d8a89f97aa0e1532f6c194f0c6aed0ece2573b0eae3d198c3",
+  "key": {
+   "A": "gemini",
+   "B": "geminit15",
+   "C": "geminit19",
+   "D": "qwen235",
+   "E": "qwent18",
+   "F": "qwent14"
+  }
+ },
+ "opener-2": {
+  "sha256": "c176f638ba2c8dcf12e757e5b812e60ce3b76b28c3ec4318df1b6e6bd00b0459",
+  "key": {
+   "A": "geminit15",
+   "B": "qwent14",
+   "C": "gemini",
+   "D": "qwent18",
+   "E": "geminit19",
+   "F": "qwen235"
+  }
+ },
+ "opener-3": {
+  "sha256": "975dc189b7760e4d822c32aeb04c94517283160fae53072a0df290f5cded9bfe",
+  "key": {
+   "A": "gemini",
+   "B": "geminit15",
+   "C": "qwent14",
+   "D": "geminit19",
+   "E": "qwent18",
+   "F": "qwen235"
+  }
+ },
+ "opener-4": {
+  "sha256": "ee7c38c1e96a7f4a16a8b9e225c302caeafa1b04c00cb2469fc4aa61dc573473",
+  "key": {
+   "A": "qwent18",
+   "B": "geminit19",
+   "C": "qwen235",
+   "D": "gemini",
+   "E": "qwent14",
+   "F": "geminit15"
+  }
+ },
+ "opener-5": {
+  "sha256": "2c4a84c955db8b32f4e4c09324db2ceba52d376b974820d78c08ed71366c5052",
+  "key": {
+   "A": "gemini",
+   "B": "qwen235",
+   "C": "geminit15",
+   "D": "geminit19",
+   "E": "qwent14",
+   "F": "qwent18"
+  }
+ },
+ "opener-6": {
+  "sha256": "d8c182a76e0cffdb3a0d58dc6066fd15ddb360fe18ec70ef4f49d12ca083b943",
+  "key": {
+   "A": "geminit15",
+   "B": "gemini",
+   "C": "qwent14",
+   "D": "qwent18",
+   "E": "qwen235",
+   "F": "geminit19"
+  }
+ },
+ "opener-7": {
+  "sha256": "0cc3a8acaf3ff28cafb86818a81729139bae477079895868377ccd4801f9fa70",
+  "key": {
+   "A": "qwent18",
+   "B": "qwen235",
+   "C": "gemini",
+   "D": "geminit15",
+   "E": "qwent14",
+   "F": "geminit19"
+  }
+ },
+ "opener-8": {
+  "sha256": "16c2bb29a0b2fc1f5dfee2d3f49b7b3f376437e3b77a6f07eb43b10b1721053f",
+  "key": {
+   "A": "geminit15",
+   "B": "gemini",
+   "C": "qwent14",
+   "D": "geminit19",
+   "E": "qwent18",
+   "F": "qwen235"
+  }
+ }
+}

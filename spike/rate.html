@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blind bake-off</title>
+<style>
+:root {
+  --bg: #f4f5f8; --panel: #ffffff; --ink: #1b1d2a; --muted: #62667a; --line: #d9dce6;
+  --name: #117743; --accent: #3651d4; --star: #c98a00; --gt: #5f7f1a; --pick: #e8ecff;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #14161c; --panel: #1d2029; --ink: #e2e5ec; --muted: #8e93a6; --line: #313545;
+          --name: #5fd39a; --accent: #8fa2ff; --star: #ffc94a; --gt: #a6c95a; --pick: #262c45; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink);
+       font: 15px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+header { padding: 16px; border-bottom: 1px solid var(--line); }
+header h1 { margin: 0 0 4px; font-size: 20px; }
+header p { margin: 0; color: var(--muted); max-width: 820px; }
+nav { display: flex; gap: 6px; flex-wrap: wrap; padding: 12px 16px; }
+nav button { font: inherit; border: 1px solid var(--line); background: var(--panel); color: var(--ink);
+             border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+nav button.on { outline: 2px solid var(--accent); }
+nav button.done::after { content: " ✓"; color: var(--name); }
+main { padding: 0 16px 80px; }
+.opener { font-size: 17px; margin: 8px 0 14px; }
+.opener small { color: var(--muted); display: block; font-size: 13px; }
+.cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: start; }
+@media (max-width: 980px) { .cols { grid-template-columns: 1fr; } }
+.thread { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; }
+.thread.picked { background: var(--pick); outline: 2px solid var(--accent); }
+.thread h2 { margin: 0 0 8px; font-size: 15px; display: flex; justify-content: space-between; align-items: center; }
+.post { padding: 6px 0; border-top: 1px solid var(--line); cursor: pointer; }
+.post:first-of-type { border-top: 0; }
+.post .h { font-size: 12px; color: var(--muted); }
+.post .who { color: var(--name); font-weight: 600; }
+.post .txt { white-space: pre-wrap; overflow-wrap: anywhere; }
+.post .txt .gt { color: var(--gt); }
+.post.star { box-shadow: inset 3px 0 0 var(--star); padding-left: 8px; }
+.post.star .h::after { content: " ★ great line"; color: var(--star); }
+.post.withheld .txt { color: var(--muted); font-style: italic; }
+.rate { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 14px; }
+.rate .scale { display: flex; gap: 4px; margin: 6px 0; }
+.rate .scale button { flex: 1; font: inherit; padding: 6px 0; border: 1px solid var(--line); border-radius: 6px;
+                      background: transparent; color: var(--ink); cursor: pointer; }
+.rate .scale button.on { background: var(--accent); color: #fff; border-color: var(--accent); }
+.rate label { display: flex; gap: 6px; align-items: center; cursor: pointer; }
+.hint { color: var(--muted); font-size: 13px; }
+#results { margin-top: 24px; }
+table { border-collapse: collapse; margin: 8px 0; }
+th, td { padding: 6px 12px; border-bottom: 1px solid var(--line); text-align: left; }
+.bar { display: flex; gap: 8px; align-items: center; margin-top: 18px; flex-wrap: wrap; }
+.bar button { font: inherit; padding: 8px 14px; border-radius: 6px; border: 1px solid var(--accent);
+              background: var(--accent); color: #fff; cursor: pointer; }
+.bar button.ghost { background: transparent; color: var(--accent); }
+</style>
+</head>
+<body>
+<header>
+  <h1>Blind bake-off <span id="round"></span></h1>
+  <p>Each opener has one thread per model, in random order. Rate each one for
+     <b>how much you'd want to keep reading or jump in</b>, pick your favourite, and click any
+     line that made you laugh or felt genuinely clever to mark it ★. Models are revealed at the end.</p>
+</header>
+<nav id="nav"></nav>
+<main>
+  <div id="page"></div>
+  <div class="bar">
+    <button id="next">Next opener →</button>
+    <button id="reveal" class="ghost">Reveal results</button>
+    <span class="hint" id="progress"></span>
+  </div>
+  <div id="results"></div>
+</main>
+<script>
+// ?round=2 rates the OpenRouter arms; each round keeps its own ratings
+const ROUND = new URLSearchParams(location.search).get("round") === "2" ? 2 : 1;
+let ARMS = ROUND === 2 ? ["cydonia24", "euryale70", "hermes405", "qwen235"] : ["cast", "g31", "l70", "echo"];
+const STORE = ROUND === 2 ? "bakeoff-r2" : "bakeoff";
+const NAMES = { cast: "current cast (gemma-E4B / qwen-4B / olmo-7B)", g31: "gemma-4-31B base", l70: "Llama-3.1-70B base", echo: "Echo (Fulcrum, chat model, persona \"4chan anon\")",
+  cydonia24: "Cydonia 24B (creative fine-tune)", euryale70: "Euryale 70B (roleplay fine-tune)",
+  hermes405: "Hermes 3 405B (light-tuned Llama 405B)", qwen235: "Qwen3-235B Instruct (control)" };
+let data = {}, openers = [], cur = 0, S = { rate: {}, pick: {}, star: {} };
+const $ = id => document.getElementById(id);
+const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmt = t => esc(t).split("\n").map(l => l.startsWith("&gt;") ? `<span class="gt">${l}</span>` : l).join("\n");
+const save = () => { try { localStorage.setItem(STORE, JSON.stringify(S)); } catch (e) {} };
+try { S = Object.assign(S, JSON.parse(localStorage.getItem(STORE) || "{}")); } catch (e) {}
+
+// fixed shuffle per opener so the order survives reloads but carries no information.
+// mulberry32 keeps every step in 32-bit integers (Math.imul); the earlier LCG multiplied past
+// 2^53, lost the low bits it shuffled with, and put the same model in the same column every time.
+function mulberry32(a) {
+  return () => {
+    a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+function order(i) {
+  const rand = mulberry32(Math.imul(i + 1, 0x9E3779B1) ^ ROUND);
+  const a = ARMS.slice();
+  for (let k = a.length - 1; k > 0; k--) { const j = Math.floor(rand() * (k + 1)); [a[k], a[j]] = [a[j], a[k]]; }
+  return a;
+}
+const doneOpener = i => order(i).every(arm => S.rate[i + ":" + arm]) && S.pick[i];
+
+function render() {
+  $("round").textContent = "· round " + ROUND;
+  $("nav").innerHTML = openers.map((o, i) =>
+    `<button class="${i === cur ? "on" : ""} ${doneOpener(i) ? "done" : ""}" data-i="${i}">${i + 1}</button>`).join("");
+  const arms = order(cur), letters = "ABCD";
+  $("page").innerHTML = `<div class="opener"><small>Opener ${cur + 1} of ${openers.length}</small>${esc(openers[cur])}</div>
+    <div class="cols">${arms.map((arm, k) => {
+      const t = data[arm].threads.find(t => t.opener === openers[cur]);
+      const key = cur + ":" + arm;
+      return `<div class="thread ${S.pick[cur] === arm ? "picked" : ""}"><h2>Thread ${letters[k]}</h2>
+        ${t.posts.map((p, n) => {
+          const sk = key + ":" + n;
+          return `<div class="post ${S.star[sk] ? "star" : ""} ${p.withheld ? "withheld" : ""}" data-star="${sk}">
+            <div class="h"><span class="who">${esc(p.who)}</span> ${esc(p.ts)}</div>
+            <div class="txt">${p.text ? fmt(p.text) : "<i>(empty post)</i>"}</div></div>`; }).join("")}
+        <div class="rate">Want to keep reading / jump in?
+          <div class="scale">${[1,2,3,4,5].map(v => `<button class="${S.rate[key] === v ? "on" : ""}" data-rate="${key}" data-v="${v}">${v}</button>`).join("")}</div>
+          <label><input type="radio" name="pick" ${S.pick[cur] === arm ? "checked" : ""} data-pick="${arm}"> favourite</label>
+        </div></div>`; }).join("")}</div>`;
+  const n = openers.filter((_, i) => doneOpener(i)).length;
+  $("progress").textContent = `${n} of ${openers.length} openers rated`;
+}
+
+document.addEventListener("click", e => {
+  const nb = e.target.closest("nav button"); if (nb) { cur = +nb.dataset.i; render(); scrollTo(0, 0); return; }
+  const r = e.target.closest("[data-rate]"); if (r) { S.rate[r.dataset.rate] = +r.dataset.v; save(); render(); return; }
+  const p = e.target.closest("[data-pick]"); if (p) { S.pick[cur] = p.dataset.pick; save(); render(); return; }
+  const s = e.target.closest("[data-star]"); if (s) { const k = s.dataset.star; if (S.star[k]) delete S.star[k]; else S.star[k] = 1; save(); render(); }
+});
+$("next").onclick = () => { cur = (cur + 1) % openers.length; render(); scrollTo(0, 0); };
+$("reveal").onclick = () => {
+  const n = openers.filter((_, i) => doneOpener(i)).length;
+  if (n < openers.length && !confirm(`Only ${n} of ${openers.length} openers are fully rated. Reveal anyway?`)) return;
+  const rows = ARMS.map(arm => {
+    const rs = openers.map((_, i) => S.rate[i + ":" + arm]).filter(Boolean);
+    const avg = rs.length ? (rs.reduce((a, b) => a + b, 0) / rs.length).toFixed(2) : "–";
+    const wins = Object.values(S.pick).filter(x => x === arm).length;
+    const stars = Object.keys(S.star).filter(k => k.split(":")[1] === arm).length;
+    return `<tr><td>${NAMES[arm]}</td><td>${avg}</td><td>${wins}</td><td>${stars}</td></tr>`; }).join("");
+  $("results").innerHTML = `<h2>Results</h2><table><tr><th>model</th><th>avg rating</th><th>favourite</th><th>★ lines</th></tr>${rows}</table>
+    <p class="hint">Per opener, the order was: ${openers.map((_, i) => (i + 1) + ": " + order(i).join("/")).join(" · ")}</p>`;
+};
+
+// an arm whose file is missing (e.g. it never finished) is left out of the round
+Promise.allSettled(ARMS.map(a => fetch("remote/bakeoff-" + a + ".json?" + Date.now()).then(r => { if (!r.ok) throw r.status; return r.json(); })))
+  .then(rs => { ARMS = ARMS.filter((a, i) => rs[i].status === "fulfilled" && (data[a] = rs[i].value));
+    if (!ARMS.length) throw new Error("no arms found");
+    openers = data[ARMS[0]].threads.map(t => t.opener).filter(o => ARMS.every(a => data[a].threads.some(t => t.opener === o)));
+    render(); })
+  .catch(e => { $("page").innerHTML = `<p class="hint">Couldn't load the bake-off files (${esc(String(e))}).</p>`; });
+</script>
+</body>
+</html>
