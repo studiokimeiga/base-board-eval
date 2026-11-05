@@ -31,6 +31,11 @@ class Stats(unittest.TestCase):
         self.assertAlmostEqual(A.kappa([True, False], [True, False]), 1.0)
         self.assertIsNone(A.kappa([True, True], [True, True]))
 
+    def test_undefined_kappa_formats_as_a_dash(self):
+        # a null run (nobody borrows, by tracker or judge) must still produce its report
+        self.assertEqual(A.f_kappa(A.kappa([False] * 4, [False] * 4)), "–")
+        self.assertEqual(A.f_kappa(0.5), "0.50")
+
     def test_cluster_bootstrap(self):
         always = [[(True, False), (True, False)]] * 5
         self.assertEqual(A.bootstrap_diff(always), (1.0, 1.0))
