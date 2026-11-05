@@ -19,6 +19,8 @@ body { margin: 0; background: var(--bg); color: var(--ink);
 header { padding: 16px; border-bottom: 1px solid var(--line); }
 header h1 { margin: 0 0 4px; font-size: 20px; }
 header p { margin: 0 0 6px; color: var(--muted); max-width: 820px; }
+header p.intro { color: var(--ink); font-weight: 600; }
+header p.intro:empty { display: none; }
 header label { font-size: 14px; }
 header input { font: inherit; padding: 4px 8px; border: 1px solid var(--line); border-radius: 6px;
                background: var(--panel); color: var(--ink); }
@@ -63,6 +65,7 @@ textarea { font: inherit; width: 100%; min-height: 48px; padding: 6px 8px; borde
   <p><span id="count">The</span> threads, one at a time, in an order made for you. Nothing says who
      or what wrote each one. Rate each thread on its own; click any line you think is great to mark
      it ★. Ratings stay in this browser until you press <b>Export</b>.</p>
+  <p id="intro" class="intro"></p>
   <label>Your name <input id="rater" autocomplete="off" placeholder="for the export file"></label>
 </header>
 <nav id="nav" aria-label="Threads"></nav>
@@ -162,6 +165,8 @@ Promise.all([fetch("rubric.json").then(r => r.json()),
              fetch(ITEMS + "?" + Date.now()).then(r => { if (!r.ok) throw new Error(ITEMS + " " + r.status); return r.json(); })])
   .then(([rb, data]) => {
     rubric = rb;
+    // the same instructions the AI judges get, including "Keep 5 rare"
+    $("intro").textContent = rubric.intro || "";
     data.items.forEach(it => items[it.id] = it);
     $("count").textContent = data.items.length;
     const ids = Object.keys(items).sort();

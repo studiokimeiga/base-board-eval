@@ -65,12 +65,14 @@ The reader's side is waiting.
 
 ## H3: temperaments vs. plain Gemini
 
-| rater | joke: rolesshort − gemini | overall: rolesshort − gemini |
-|---|---:|---:|
-| claude | 0.75 | 0.58 |
-| claude-A | 1.17 | 1.00 |
-| claude-B | 0.33 | 0.17 |
-| gpt | 0.83 | -0.17 |
+Unseen only drops the items the reader marked as seen before (the judges have none).
+
+| rater | joke: rolesshort − gemini | overall: rolesshort − gemini | joke, unseen only | overall, unseen only |
+|---|---:|---:|---:|---:|
+| claude | 0.75 | 0.58 | 0.75 | 0.58 |
+| claude-A | 1.17 | 1.00 | 1.17 | 1.00 |
+| claude-B | 0.33 | 0.17 | 0.33 | 0.17 |
+| gpt | 0.83 | -0.17 | 0.83 | -0.17 |
 
 ## H4: the phonebook thread
 
