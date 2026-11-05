@@ -167,3 +167,11 @@ then open http://localhost:8000/calibration/rate.html?set=r9. **Export** names t
 like: each thread counts its latest rating. `build.py` reads each file from the first `--data` folder
 that has it and builds every set whose files it finds, naming any it leaves out (`--set r9` makes a
 set required); `CALIBRATION_DATA` takes the same folders, joined like `PATH`, for the tests.
+
+## A faster taste probe (added 2026-11-05)
+
+Added before the reader rated either set; nothing above changed. [`probe/PROBE.md`](probe/PROBE.md)
+asks 14 side-by-side questions instead of 48 ratings, each pair changing one thing (model, board
+label, temperaments, a small-model poster, sampler chaos, and three Japanese choices), to choose what
+to build next. It uses none of the threads in either set above, so answering it doesn't spoil them;
+it is a direction-finder, not a substitute for this measurement.

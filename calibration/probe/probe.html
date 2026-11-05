@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taste probe</title>
+<style>
+:root {
+  --bg: #f4f5f8; --panel: #ffffff; --ink: #1b1d2a; --muted: #62667a; --line: #d9dce6;
+  --name: #117743; --accent: #3651d4; --star: #c98a00; --gt: #5f7f1a; --tag: #eef0f7;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #14161c; --panel: #1d2029; --ink: #e2e5ec; --muted: #8e93a6; --line: #313545;
+          --name: #5fd39a; --accent: #8fa2ff; --star: #ffc94a; --gt: #a6c95a; --tag: #272b38; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink);
+       font: 15px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", "Hiragino Sans", "Yu Gothic UI", sans-serif; }
+header { padding: 14px 16px 6px; }
+header h1 { margin: 0 0 4px; font-size: 20px; }
+header p { margin: 0 0 6px; color: var(--muted); max-width: 900px; }
+nav { display: flex; gap: 6px; flex-wrap: wrap; padding: 6px 16px 12px; }
+nav button { font: inherit; min-width: 36px; border: 1px solid var(--line); background: var(--panel);
+             color: var(--ink); border-radius: 6px; padding: 3px 8px; cursor: pointer; }
+nav button.on { outline: 2px solid var(--accent); }
+nav button.done { color: var(--name); font-weight: 600; }
+main { padding: 0 16px 40px; max-width: 1280px; }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 760px) { .pair { grid-template-columns: 1fr; } }
+.thread { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; min-width: 0; }
+.thread.picked { outline: 2px solid var(--accent); }
+.thread h2 { margin: 0 0 6px; font-size: 16px; }
+.post { padding: 5px 0; border-top: 1px solid var(--line); cursor: pointer; }
+.post:first-of-type { border-top: 0; }
+.post .h { font-size: 12px; color: var(--muted); }
+.post .who { color: var(--name); font-weight: 600; }
+.post .txt { white-space: pre-wrap; overflow-wrap: anywhere; }
+.post .txt .gt { color: var(--gt); }
+.post.star { box-shadow: inset 3px 0 0 var(--star); padding-left: 8px; }
+.post.star .h::after { content: " ★"; color: var(--star); }
+.more { font: inherit; margin-top: 6px; width: 100%; padding: 6px; border: 1px dashed var(--line);
+        border-radius: 6px; background: transparent; color: var(--muted); cursor: pointer; }
+.tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line); }
+.tags button { font: inherit; font-size: 13px; padding: 2px 8px; border-radius: 12px; border: 1px solid var(--line);
+               background: var(--tag); color: var(--ink); cursor: pointer; }
+.tags button.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.answer { position: sticky; bottom: 0; background: var(--bg); border-top: 1px solid var(--line);
+          padding: 10px 16px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.answer button { font: inherit; padding: 8px 14px; border-radius: 6px; border: 1px solid var(--accent);
+                 background: transparent; color: var(--accent); cursor: pointer; }
+.answer button.on, .answer button.solid { background: var(--accent); color: #fff; }
+.answer .sp { flex: 1; }
+.answer label { font-size: 14px; display: flex; gap: 6px; align-items: center; }
+.answer input[type=text] { font: inherit; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px;
+                           background: var(--panel); color: var(--ink); width: min(320px, 100%); }
+.hint { color: var(--muted); font-size: 13px; }
+.err { color: #c0392b; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Taste probe: which one would you rather have on the board?</h1>
+  <p>14 pairs. Both threads in a pair start from the same opening post and differ in one thing, so
+  your pick settles one design decision. Read the first 12 posts (more if you want), then pick.
+  <b>Click a post</b> to star a line you liked. Tags are optional. Gut calls are the point: don't deliberate.</p>
+  <p class="hint">Keys: <b>1</b> left, <b>2</b> right, <b>3</b> both good, <b>4</b> neither, <b>→</b>/<b>←</b> next/previous.
+  Answers save in this browser. Press <b>Export</b> at the end (or any time).</p>
+</header>
+<nav id="nav"></nav>
+<main id="main"><p class="hint">Loading…</p></main>
+<div class="answer" id="answer" hidden>
+  <button data-pick="A">1 · left</button>
+  <button data-pick="B">2 · right</button>
+  <button data-pick="both">3 · both good</button>
+  <button data-pick="neither">4 · neither</button>
+  <label><input type="checkbox" id="seen"> seen one before</label>
+  <input type="text" id="note" placeholder="why, in a few words (optional)">
+  <span class="sp"></span>
+  <span class="hint" id="count"></span>
+  <button id="prev">←</button>
+  <button id="next" class="solid">next →</button>
+  <button id="export">Export</button>
+</div>
+<script>
+"use strict";
+const STORE = "probe-answers-v1";
+const TAGS = {
+  en: ["funny", "deadpan / sincerely wrong", "creepy (good)", "builds lore", "too random", "too polished / AI-ish", "too wordy", "too creepy"],
+  ja: ["funny", "natural / real 5ch", "easy to follow", "good for learning", "creepy (good)", "too much slang", "too polished / textbook", "too random"],
+};
+let pairs = [], at = 0, answers = {};
+try { answers = JSON.parse(localStorage.getItem(STORE) || "{}"); } catch (e) { answers = {}; }
+const save = () => { try { localStorage.setItem(STORE, JSON.stringify(answers)); } catch (e) {} };
+const ans = id => (answers[id] = answers[id] || { pick: null, tags: { A: [], B: [] }, stars: { A: [], B: [] }, seen: false, note: "", opened: { A: false, B: false } });
+const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const greentext = s => esc(s).split("\n").map(l => /^&gt;/.test(l) ? '<span class="gt">' + l + "</span>" : l).join("\n");
+
+function nav() {
+  const el = document.getElementById("nav");
+  el.innerHTML = "";
+  pairs.forEach((p, i) => {
+    const b = document.createElement("button");
+    b.textContent = i + 1;
+    if (i === at) b.className = "on";
+    if (answers[p.id] && answers[p.id].pick) b.classList.add("done");
+    b.onclick = () => { at = i; show(); };
+    el.appendChild(b);
+  });
+  const done = pairs.filter(p => answers[p.id] && answers[p.id].pick).length;
+  document.getElementById("count").textContent = done + " of " + pairs.length + " answered";
+}
+
+function column(p, side, a) {
+  const posts = p[side];
+  const open = a.opened[side];
+  const shown = open ? posts : posts.slice(0, p.show);
+  const div = document.createElement("div");
+  div.className = "thread" + (a.pick === side ? " picked" : "");
+  div.innerHTML = "<h2>" + (side === "A" ? "Left" : "Right") + "</h2>";
+  shown.forEach(q => {
+    const d = document.createElement("div");
+    d.className = "post" + (a.stars[side].includes(q.n) ? " star" : "");
+    d.innerHTML = '<div class="h">' + q.n + ' · <span class="who">' + esc(q.who) + "</span>" + (q.op ? " (OP)" : "") +
+                  '</div><div class="txt">' + greentext(q.text) + "</div>";
+    d.onclick = () => {
+      const s = a.stars[side], k = s.indexOf(q.n);
+      k < 0 ? s.push(q.n) : s.splice(k, 1);
+      save(); show();
+    };
+    div.appendChild(d);
+  });
+  if (!open && posts.length > p.show) {
+    const m = document.createElement("button");
+    m.className = "more";
+    m.textContent = "show the rest (" + (posts.length - p.show) + " more posts)";
+    m.onclick = () => { a.opened[side] = true; save(); show(); };
+    div.appendChild(m);
+  }
+  const tags = document.createElement("div");
+  tags.className = "tags";
+  TAGS[p.lang].forEach(t => {
+    const b = document.createElement("button");
+    b.textContent = t;
+    if (a.tags[side].includes(t)) b.className = "on";
+    b.onclick = () => {
+      const s = a.tags[side], k = s.indexOf(t);
+      k < 0 ? s.push(t) : s.splice(k, 1);
+      save(); show();
+    };
+    tags.appendChild(b);
+  });
+  div.appendChild(tags);
+  return div;
+}
+
+function show() {
+  const p = pairs[at], a = ans(p.id);
+  const main = document.getElementById("main");
+  main.innerHTML = '<p class="hint">Pair ' + (at + 1) + " of " + pairs.length +
+                   (p.lang === "ja" ? " · Japanese board: imagine every word can be tapped for its reading and meaning." : "") + "</p>";
+  const grid = document.createElement("div");
+  grid.className = "pair";
+  grid.appendChild(column(p, "A", a));
+  grid.appendChild(column(p, "B", a));
+  main.appendChild(grid);
+  document.querySelectorAll("[data-pick]").forEach(b => b.classList.toggle("on", a.pick === b.dataset.pick));
+  document.getElementById("seen").checked = a.seen;
+  document.getElementById("note").value = a.note;
+  nav();
+}
+
+function pick(v) {
+  const a = ans(pairs[at].id);
+  a.pick = v; a.at = new Date().toISOString();
+  save(); show();
+}
+
+function exportAll() {
+  const out = { exported: new Date().toISOString(), probe: "calibration/probe", answers };
+  const blob = new Blob([JSON.stringify(out, null, 1)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "probe-" + new Date().toISOString().slice(0, 10) + ".json";
+  document.body.appendChild(link); link.click(); link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+document.querySelectorAll("[data-pick]").forEach(b => b.onclick = () => pick(b.dataset.pick));
+document.getElementById("seen").onchange = e => { ans(pairs[at].id).seen = e.target.checked; save(); };
+document.getElementById("note").oninput = e => { ans(pairs[at].id).note = e.target.value; save(); };
+document.getElementById("prev").onclick = () => { if (at > 0) { at--; show(); scrollTo(0, 0); } };
+document.getElementById("next").onclick = () => { if (at < pairs.length - 1) { at++; show(); scrollTo(0, 0); } };
+document.getElementById("export").onclick = exportAll;
+document.addEventListener("keydown", e => {
+  if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || !pairs.length) return;
+  const k = { "1": "A", "2": "B", "3": "both", "4": "neither" }[e.key];
+  if (k) pick(k);
+  else if (e.key === "ArrowRight") document.getElementById("next").click();
+  else if (e.key === "ArrowLeft") document.getElementById("prev").click();
+});
+
+fetch("private/items-probe.json").then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(d => {
+  pairs = d.pairs;
+  const first = pairs.findIndex(p => !(answers[p.id] && answers[p.id].pick));
+  at = first < 0 ? 0 : first;
+  document.getElementById("answer").hidden = false;
+  show();
+}).catch(e => {
+  document.getElementById("main").innerHTML = '<p class="err">Couldn\'t load private/items-probe.json (' + esc(String(e)) +
+    "). Build it with <code>python calibration/probe/build_probe.py</code> and serve the repo root.</p>";
+});
+</script>
+</body>
+</html>

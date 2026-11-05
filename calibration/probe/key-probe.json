@@ -1,0 +1,254 @@
+{
+ "p01": {
+  "A": {
+   "file": "calibration/probe/private/bakeoff-gemini9neutral.json",
+   "posts": 24,
+   "sha256": "642d8ff2ab745686ab699146e159f11678ceed854c018781fc9ad05882682cdd",
+   "source": "gemini-neutral",
+   "thread": 7
+  },
+  "B": {
+   "file": "spike/remote/bakeoff-cast.json",
+   "posts": 24,
+   "sha256": "5bc55a13d9127bf9c92fe21275c2ed689b67dc5529a162872172c2605025dcb2",
+   "source": "smallcast",
+   "thread": 7
+  },
+  "decision": "engine",
+  "lang": "en"
+ },
+ "p02": {
+  "A": {
+   "file": "spike/remote/jp-qwen235-5ch.json",
+   "posts": 24,
+   "sha256": "c6fedf10d052e50f6787bccd57236829d537b130b86863512e91dd32a3ce61d4",
+   "source": "jp-qwen",
+   "thread": 0
+  },
+  "B": {
+   "file": "spike/remote/jp-gemini-5ch.json",
+   "posts": 24,
+   "sha256": "040c06cfac169ffbe4b777a5719520512705a7dd5d9d5af6869924ac17a58169",
+   "source": "jp-gemini",
+   "thread": 0
+  },
+  "decision": "jp-engine",
+  "lang": "ja"
+ },
+ "p03": {
+  "A": {
+   "file": "calibration/probe/private/bakeoff-gemini9neutral.json",
+   "posts": 24,
+   "sha256": "d86cf9a010fcee50fc98f9189b101b38e60bd5510da450254325d5bf1812d385",
+   "source": "gemini-neutral",
+   "thread": 6
+  },
+  "B": {
+   "file": "spike/remote/bakeoff-gemini.json",
+   "posts": 24,
+   "sha256": "b40dce035e4d3032612b9c3e888a53fe0335ef2b12703807e48f4bd95a0b84ea",
+   "source": "gemini-x",
+   "thread": 6
+  },
+  "decision": "register",
+  "lang": "en"
+ },
+ "p04": {
+  "A": {
+   "file": "spike/remote/bakeoff-cast.json",
+   "posts": 24,
+   "sha256": "a953401002a16936b720bb413d9fcb06f662cd70f8deb36b6a0456a3363cfb87",
+   "source": "smallcast",
+   "thread": 3
+  },
+  "B": {
+   "file": "calibration/probe/private/bakeoff-gemini9neutral.json",
+   "posts": 24,
+   "sha256": "7843ce6b13b6135484a0baf6a06645532e1523c6de7676a86c154c383aff21ad",
+   "source": "gemini-neutral",
+   "thread": 3
+  },
+  "decision": "engine",
+  "lang": "en"
+ },
+ "p05": {
+  "A": {
+   "file": "spike/remote/bakeoff-rolesshort9.json",
+   "posts": 24,
+   "sha256": "1702400e8550d18cbed2eb4ab7c01c47c66efaf88f40e72f0ad482f0e8605718",
+   "source": "roles-x",
+   "thread": 6
+  },
+  "B": {
+   "file": "spike/remote/bakeoff-rolesshort9naif.json",
+   "posts": 24,
+   "sha256": "efb5bfa0a9dacafb9086a65db3c6b803386f08de371c8d70116ca552b5344832",
+   "source": "roles-x-naif",
+   "thread": 6
+  },
+  "decision": "naif",
+  "lang": "en"
+ },
+ "p06": {
+  "A": {
+   "file": "spike/remote/jp-gemini-5ch.json",
+   "posts": 24,
+   "sha256": "c273a69be12f2731d04ee87885be3e5f9146adabd6ab7cb905a4a7db6ab0c002",
+   "source": "jp-gemini",
+   "thread": 3
+  },
+  "B": {
+   "file": "spike/remote/jp-gpt54-5ch.json",
+   "posts": 24,
+   "sha256": "655fa32bb2077be607facc322d505a8781b40a78ef9dbaa7633fa656742cf0f1",
+   "source": "jp-gpt",
+   "thread": 3
+  },
+  "decision": "jp-tidy",
+  "lang": "ja"
+ },
+ "p07": {
+  "A": {
+   "file": "threads.final.json",
+   "posts": 32,
+   "sha256": "4bd908984374c19e9ef082179b577f84156ff43e9d2d661144d7fc27f87910d8",
+   "source": "small-t05",
+   "thread": 20
+  },
+  "B": {
+   "file": "threads.final.json",
+   "posts": 32,
+   "sha256": "510ab82220b171a941ce3384e42da85b555cbbb8276e96dad9af6b5a206c5d2e",
+   "source": "small-t15-nodry",
+   "thread": 66
+  },
+  "decision": "chaos",
+  "lang": "en"
+ },
+ "p08": {
+  "A": {
+   "file": "calibration/probe/private/bakeoff-gemini9neutral.json",
+   "posts": 24,
+   "sha256": "df536d24045d522d879d31a74789ec4518dba6e04e33e769e725219691a47588",
+   "source": "gemini-neutral",
+   "thread": 2
+  },
+  "B": {
+   "file": "spike/remote/bakeoff-rolesshort9neutral.json",
+   "posts": 24,
+   "sha256": "f8eee139e8081524cd720260552554a4509523c21a2958946ee4daf0b6bdc67f",
+   "source": "roles-neutral",
+   "thread": 2
+  },
+  "decision": "roles",
+  "lang": "en"
+ },
+ "p09": {
+  "A": {
+   "file": "spike/remote/bakeoff-rolesshort9.json",
+   "posts": 24,
+   "sha256": "85cae683c764cd351adc7bd47d05ec6fa79d33fb2ebc351bae5c1277f5442560",
+   "source": "roles-x",
+   "thread": 1
+  },
+  "B": {
+   "file": "spike/remote/bakeoff-rolesshort9neutral.json",
+   "posts": 24,
+   "sha256": "c4648d744e05b53e9c27d8a48e1994877c593ebb7af5d2ef44f77ee5d2a51b77",
+   "source": "roles-neutral",
+   "thread": 1
+  },
+  "decision": "register",
+  "lang": "en"
+ },
+ "p10": {
+  "A": {
+   "file": "spike/remote/jp-gemini-5ch.json",
+   "posts": 24,
+   "sha256": "46f3ced4a560f88644e8320a4c161d8321761a419ff43328dd356319e32c3486",
+   "source": "jp-gemini",
+   "thread": 1
+  },
+  "B": {
+   "file": "spike/remote/jp-qwen235-5ch.json",
+   "posts": 24,
+   "sha256": "3e207c674f79643806f89ccb0ab586730eedcdd02cdd33f083a1ad7abb9101f6",
+   "source": "jp-qwen",
+   "thread": 1
+  },
+  "decision": "jp-engine",
+  "lang": "ja"
+ },
+ "p11": {
+  "A": {
+   "file": "calibration/probe/private/bakeoff-gemini9neutral.json",
+   "posts": 24,
+   "sha256": "48cfb52d8dd59a758935d5ea8c760e49e7f1d88dd380894accbfdf8c92a37b42",
+   "source": "gemini-neutral",
+   "thread": 4
+  },
+  "B": {
+   "file": "spike/remote/bakeoff-cast.json",
+   "posts": 24,
+   "sha256": "6b906677031c232153c43f13e91b97375576e855fc7a84cc02a23232ac7deb08",
+   "source": "smallcast",
+   "thread": 4
+  },
+  "decision": "engine",
+  "lang": "en"
+ },
+ "p12": {
+  "A": {
+   "file": "spike/remote/bakeoff-gemini.json",
+   "posts": 24,
+   "sha256": "b242c74884666163766472c6118c866cdd6948e765ea0b93b5a046322575e189",
+   "source": "gemini-x",
+   "thread": 7
+  },
+  "B": {
+   "file": "spike/remote/bakeoff-qwen235.json",
+   "posts": 24,
+   "sha256": "3e81740ef3d76a95d18d074a865e7bb50760d026979d450682d72da6b5b6e861",
+   "source": "qwen-raw",
+   "thread": 7
+  },
+  "decision": "qwen",
+  "lang": "en"
+ },
+ "p13": {
+  "A": {
+   "file": "threads.final.json",
+   "posts": 32,
+   "sha256": "c335ea658d73ed7393bd9bf06dd6752092bb9453dc3cb30deae5c9ef894cb11f",
+   "source": "small-t15-nodry",
+   "thread": 51
+  },
+  "B": {
+   "file": "threads.final.json",
+   "posts": 32,
+   "sha256": "c9550df13677e7a49ea52ff2213803bb222ec69437fb0600cdbfae1441dbbf98",
+   "source": "small-t05",
+   "thread": 5
+  },
+  "decision": "chaos",
+  "lang": "en"
+ },
+ "p14": {
+  "A": {
+   "file": "spike/remote/jp-gemini-5ch.json",
+   "posts": 24,
+   "sha256": "7a74baa037fc5c79fd76896a8f740d0ab5cd521bd205bc4a0dc86a47eea839f3",
+   "source": "jp-gemini",
+   "thread": 4
+  },
+  "B": {
+   "file": "spike/remote/jp-gemini-named.json",
+   "posts": 24,
+   "sha256": "fd730bf0e5819e922a3e3d45c97b23c17aefb1ff6642e583417fe9f70f68304e",
+   "source": "jp-gemini-named",
+   "thread": 4
+  },
+  "decision": "jp-format",
+  "lang": "ja"
+ }
+}
