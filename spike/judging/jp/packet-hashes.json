@@ -1,0 +1,164 @@
+{
+ "5ch-opener-1": {
+  "sha256": "48e5f034d16d950f499974358157f100024012d247c42bd87d2a6c3a07bac311",
+  "key": {
+   "A": "swallow70",
+   "B": "gpt54",
+   "C": "sonnet",
+   "D": "swallow70dry",
+   "E": "gemini",
+   "F": "kimi",
+   "G": "deepseek",
+   "H": "qwen235",
+   "I": "g31"
+  }
+ },
+ "5ch-opener-2": {
+  "sha256": "391ffd9581776fde614cbf70d86966ba9fc5b464e39654e2fef677918b84b9d3",
+  "key": {
+   "A": "qwen235",
+   "B": "deepseek",
+   "C": "gpt54",
+   "D": "swallow70dry",
+   "E": "sonnet",
+   "F": "g31",
+   "G": "kimi",
+   "H": "gemini",
+   "I": "swallow70"
+  }
+ },
+ "5ch-opener-3": {
+  "sha256": "9fde3ab37d84b426732f871f4cd834d1c6893c0a222af09f6047b364055c43f8",
+  "key": {
+   "A": "sonnet",
+   "B": "deepseek",
+   "C": "kimi",
+   "D": "gemini",
+   "E": "g31",
+   "F": "qwen235",
+   "G": "gpt54",
+   "H": "swallow70dry",
+   "I": "swallow70"
+  }
+ },
+ "5ch-opener-4": {
+  "sha256": "cc07a6ac860dbbbf3e58a422bae3711fd6d2b4e79ff92a36c3d941b6be08c1f0",
+  "key": {
+   "A": "gpt54",
+   "B": "sonnet",
+   "C": "gemini",
+   "D": "deepseek",
+   "E": "swallow70dry",
+   "F": "swallow70",
+   "G": "qwen235",
+   "H": "kimi",
+   "I": "g31"
+  }
+ },
+ "5ch-opener-5": {
+  "sha256": "7fd4bb21df03f5d7e8bdad86ff1faf289b04d067624b1c3b7ebbf6372c14e233",
+  "key": {
+   "A": "g31",
+   "B": "deepseek",
+   "C": "gemini",
+   "D": "swallow70dry",
+   "E": "swallow70",
+   "F": "qwen235",
+   "G": "gpt54",
+   "H": "kimi",
+   "I": "sonnet"
+  }
+ },
+ "5ch-opener-6": {
+  "sha256": "697fa3fd1f8fe816a29924de3488e2ef2a00f208aa477410219dab82ac593bd9",
+  "key": {
+   "A": "sonnet",
+   "B": "swallow70",
+   "C": "deepseek",
+   "D": "swallow70dry",
+   "E": "qwen235",
+   "F": "kimi",
+   "G": "gpt54",
+   "H": "gemini",
+   "I": "g31"
+  }
+ },
+ "named-opener-1": {
+  "sha256": "59f49157945b5a1eb68701900d24543b8eccbcb2501a8291d8a99a097a0b13ea",
+  "key": {
+   "A": "gpt54",
+   "B": "swallow70dry",
+   "C": "gemini",
+   "D": "swallow70",
+   "E": "qwen235",
+   "F": "g31",
+   "G": "kimi",
+   "H": "deepseek"
+  }
+ },
+ "named-opener-2": {
+  "sha256": "9e18df292a075c52ce4963915ad0df42d5f1f4578525a5a95520c94ff0313dab",
+  "key": {
+   "A": "swallow70",
+   "B": "gpt54",
+   "C": "swallow70dry",
+   "D": "gemini",
+   "E": "qwen235",
+   "F": "deepseek",
+   "G": "kimi",
+   "H": "g31"
+  }
+ },
+ "named-opener-3": {
+  "sha256": "7211749df88919ed0d4679089779fc8dbb79652a639d445384263edf03e4519a",
+  "key": {
+   "A": "qwen235",
+   "B": "kimi",
+   "C": "gpt54",
+   "D": "swallow70dry",
+   "E": "g31",
+   "F": "deepseek",
+   "G": "swallow70",
+   "H": "gemini"
+  }
+ },
+ "named-opener-4": {
+  "sha256": "e5bca4d957aba9c64a3c247a99957841ce285fb8e815afc4eeff9f7d93b9875e",
+  "key": {
+   "A": "swallow70dry",
+   "B": "gpt54",
+   "C": "swallow70",
+   "D": "kimi",
+   "E": "qwen235",
+   "F": "g31",
+   "G": "gemini",
+   "H": "deepseek"
+  }
+ },
+ "named-opener-5": {
+  "sha256": "502bc9f5d704a1343adf38cce33a0cb8c23a5ab4f0b24dd688d40ab7331dc3b3",
+  "key": {
+   "A": "gpt54",
+   "B": "deepseek",
+   "C": "kimi",
+   "D": "swallow70dry",
+   "E": "qwen235",
+   "F": "swallow70",
+   "G": "g31",
+   "H": "gemini"
+  }
+ },
+ "named-opener-6": {
+  "sha256": "ed5189f46d4ee39378c167dc63c465702cd6d50763e609959ae40702179b64ef",
+  "key": {
+   "A": "qwen235",
+   "B": "g31",
+   "C": "swallow70",
+   "D": "deepseek",
+   "E": "swallow70dry",
+   "F": "gemini",
+   "G": "kimi",
+   "H": "gpt54"
+  }
+ }
+}

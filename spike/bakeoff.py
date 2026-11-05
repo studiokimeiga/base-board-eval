@@ -45,8 +45,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--arm", required=True, choices=sorted(ARMS))
     ap.add_argument("--models", default=os.path.join(os.path.dirname(SPIKE), "models"))
-    ap.add_argument("--out", default=SPIKE)
+    ap.add_argument("--out", default=os.path.join(SPIKE, "remote"))   # private, gitignored
     a = ap.parse_args()
+    os.makedirs(a.out, exist_ok=True)
 
     G.POSTS_PER_THREAD = POSTS
     G.CHECK_AT = 10**9                      # no early stopping: every arm writes every thread

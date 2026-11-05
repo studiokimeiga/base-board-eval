@@ -1,0 +1,142 @@
+{
+ "c01": {
+  "believable": 2,
+  "interest": 3,
+  "joke": 3,
+  "deadpan": 1,
+  "overall": 3,
+  "repost": false,
+  "best_lines": [
+   "#7: update: left the haunted tea note. someone drank the tea and left a new note: “if haunted, explain why chamomile?” now we’re in a standoff.",
+   "#14: hr just scheduled a meeting titled “Mug Protocol & Cross-Departmental Harmonization.” i think i’ve won.",
+   "#23: paid. he sprinkled it with holy water (probably windex) and said: “let it dwell in peace... or in cupboard 3b, same thing.” the aura feels stronger."
+  ],
+  "main_failure": "frictionless yes-and riffing in one voice"
+ },
+ "c17": {
+  "believable": 2,
+  "interest": 4,
+  "joke": 3,
+  "deadpan": 2,
+  "overall": 4,
+  "repost": true,
+  "best_lines": [
+   "#3: Neither. Monday was Arthur, Wednesday was Arthur, and today was Arthur.",
+   "#20: You didn't say the apron wasn't there.",
+   "#21: Your shift started fourteen minutes ago, Arthur. Put it on."
+  ],
+  "main_failure": "every poster speaks as the same ominous oracle"
+ },
+ "c24": {
+  "believable": 1,
+  "interest": 2,
+  "joke": 1,
+  "deadpan": 2,
+  "overall": 1,
+  "repost": false,
+  "best_lines": [
+   "#7: i wish there were no time and no place. i wish there were just a place.",
+   "#15: i think there is one place that's just one place and it's just one of the places.",
+   "#17: yeah. I've never felt more happy, or more alive, than in the past."
+  ],
+  "main_failure": "degenerate repetition loops"
+ },
+ "c10": {
+  "believable": 2,
+  "interest": 3,
+  "joke": 2,
+  "deadpan": 1,
+  "overall": 3,
+  "repost": false,
+  "best_lines": [
+   "#3: forwarded from “hi im me” at aol dot com\nto “hi im me” at aol dot com",
+   "#5: is the door still red",
+   "#7: i opened it because what the hell\nand it was just\na red door"
+  ],
+  "main_failure": "one voice, stock red-door tropes, overlong"
+ },
+ "c18": {
+  "believable": 1,
+  "interest": 1,
+  "joke": 1,
+  "deadpan": 2,
+  "overall": 1,
+  "repost": false,
+  "best_lines": [
+   "#3: is that like what people do in Japan when they say your name?",
+   "#4: my name is dmitri",
+   "#11: you said it like she just said it and you are saying it like you said it"
+  ],
+  "main_failure": "incoherent; replies don't track"
+ },
+ "c28": {
+  "believable": 1,
+  "interest": 2,
+  "joke": 1,
+  "deadpan": 3,
+  "overall": 2,
+  "repost": false,
+  "best_lines": [
+   "#14: ok, i will just do my dishes and let him eat them.",
+   "#17: He's not your dishes.",
+   "#24: You are their dishes to clean. You are not their food to eat."
+  ],
+  "main_failure": "circular nonsense and truncated posts"
+ },
+ "c26": {
+  "believable": 3,
+  "interest": 4,
+  "joke": 3,
+  "deadpan": 2,
+  "overall": 4,
+  "repost": true,
+  "best_lines": [
+   "#6: It literally just says \"Group name changed to: 4 remaining\"",
+   "#8: It's four in the morning. Toby is asleep.",
+   "#16: marcus if you’re gonna larpmake sure you get the system font right on the next one, the android whatsapp update last week changed the kerning and i will catch you"
+  ],
+  "main_failure": "too tidy; every post advances the plot"
+ },
+ "c22": {
+  "believable": 1,
+  "interest": 1,
+  "joke": 1,
+  "deadpan": 2,
+  "overall": 1,
+  "repost": false,
+  "best_lines": [
+   "#3: (6) a track machine, like an ice plow",
+   "#13: l car is for when there aren't any l car riders on a train so we get a bunch of regular people on it",
+   "#29: I try and walk down the line but she is stubborn and I'm like 72kg"
+  ],
+  "main_failure": "drifts into incoherent l-car rambling"
+ },
+ "c14": {
+  "believable": 2,
+  "interest": 4,
+  "joke": 2,
+  "deadpan": 4,
+  "overall": 4,
+  "repost": true,
+  "best_lines": [
+   "#20: what you are hearing is almost certainly just high-frequency coil whine from your charger. You probably just need a new power adapter, hakim.",
+   "#21: dmitri how do you know my name i never posted it anywhere on here",
+   "#24: At least that means he doesn't have a key, so he's still being polite enough to try the knob first, hakim!"
+  ],
+  "main_failure": "posters are neat comic archetypes"
+ },
+ "c13": {
+  "believable": 1,
+  "interest": 2,
+  "joke": 2,
+  "deadpan": 3,
+  "overall": 2,
+  "repost": false,
+  "best_lines": [
+   "#11: omar, you're not supposed to talk to customers",
+   "#19: turns out 97.6% of the time I am in the right office. 2.4% of the time I'm in the wrong office",
+   "#31: turns out 34.5% of the time it's the food in the fridge. 25.4% of the food is in the cabinet. 3.7% of the food I find on the floor"
+  ],
+  "main_failure": "non sequiturs with no thread logic"
+ }
+}

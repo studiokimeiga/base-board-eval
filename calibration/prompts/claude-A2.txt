@@ -1,0 +1,26 @@
+You are a blind judge for an experiment on AI-generated imageboard threads. Each file below holds one thread. Open ONLY these files, in this order, and nothing else in that folder or its parents:
+
+- C:\Users\haki\code\base-board-eval-pr3\calibration\packets\c25.txt
+- C:\Users\haki\code\base-board-eval-pr3\calibration\packets\c27.txt
+- C:\Users\haki\code\base-board-eval-pr3\calibration\packets\c14.txt
+- C:\Users\haki\code\base-board-eval-pr3\calibration\packets\c04.txt
+- C:\Users\haki\code\base-board-eval-pr3\calibration\packets\c30.txt
+- C:\Users\haki\code\base-board-eval-pr3\calibration\packets\c16.txt
+- C:\Users\haki\code\base-board-eval-pr3\calibration\packets\c20.txt
+- C:\Users\haki\code\base-board-eval-pr3\calibration\packets\c22.txt
+- C:\Users\haki\code\base-board-eval-pr3\calibration\packets\c12.txt
+- C:\Users\haki\code\base-board-eval-pr3\calibration\packets\c28.txt
+
+Rate each thread on its own, from 1 to 5. Some threads were written by small base models and some by large chat models; nothing says which. Keep 5 rare. Rate each thread on its own, as if it were the only one you had read; don't rank them against each other.
+
+Scales:
+- believable: Could real people have written this thread? (1 = obviously machine-written, 5 = I'd believe it was real people)
+- interest: Would you keep reading, or want to reply? (1 = would close it, 5 = would screenshot it)
+- joke: Someone is plainly trying to be funny, and it lands. (1 = none, or it falls flat, 5 = several real laughs)
+- deadpan: Funny because posters are sincerely, confidently wrong or oblivious, without signalling a joke. (1 = none, 5 = several real laughs)
+- overall: How much would you want this thread on the board? (1 = not at all, 5 = a highlight)
+- repost: true or false. Would you repost or retell this thread to someone?
+
+Then best_lines: up to 3 of the thread's best lines, quoted exactly, with the post number like "#7: ..."; and main_failure: one short phrase.
+
+Reply with ONLY a JSON object keyed by the file name without .txt, in the order above (no prose): {"c25": {"believable":n,"interest":n,"joke":n,"deadpan":n,"overall":n,"repost":true,"best_lines":["#7: ..."],"main_failure":"..."}, ...}

@@ -76,12 +76,16 @@ th, td { padding: 6px 12px; border-bottom: 1px solid var(--line); text-align: le
 </main>
 <script>
 // ?round=2 rates the OpenRouter arms; each round keeps its own ratings
-const ROUND = new URLSearchParams(location.search).get("round") === "2" ? 2 : 1;
-let ARMS = ROUND === 2 ? ["cydonia24", "euryale70", "hermes405", "qwen235"] : ["cast", "g31", "l70", "echo"];
-const STORE = ROUND === 2 ? "bakeoff-r2" : "bakeoff";
+// ?round=8 rates round 8 (plain Gemini vs. long and short temperaments), where the AI judges split
+const ROUND = { "2": 2, "8": 8 }[new URLSearchParams(location.search).get("round")] || 1;
+let ARMS = { 1: ["cast", "g31", "l70", "echo"], 2: ["cydonia24", "euryale70", "hermes405", "qwen235"],
+             8: ["gemini", "roles", "rolesshort"] }[ROUND];
+const STORE = { 1: "bakeoff", 2: "bakeoff-r2", 8: "bakeoff-r8" }[ROUND];
 const NAMES = { cast: "current cast (gemma-E4B / qwen-4B / olmo-7B)", g31: "gemma-4-31B base", l70: "Llama-3.1-70B base", echo: "Echo (Fulcrum, chat model, persona \"4chan anon\")",
   cydonia24: "Cydonia 24B (creative fine-tune)", euryale70: "Euryale 70B (roleplay fine-tune)",
-  hermes405: "Hermes 3 405B (light-tuned Llama 405B)", qwen235: "Qwen3-235B Instruct (control)" };
+  hermes405: "Hermes 3 405B (light-tuned Llama 405B)", qwen235: "Qwen3-235B Instruct (control)",
+  gemini: "Gemini 3.8 Flash (plain)", roles: "Gemini, posters given temperaments (long posts)",
+  rolesshort: "Gemini, temperaments + per-role post length" };
 let data = {}, openers = [], cur = 0, S = { rate: {}, pick: {}, star: {} };
 const $ = id => document.getElementById(id);
 const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -89,11 +93,21 @@ const fmt = t => esc(t).split("\n").map(l => l.startsWith("&gt;") ? `<span class
 const save = () => { try { localStorage.setItem(STORE, JSON.stringify(S)); } catch (e) {} };
 try { S = Object.assign(S, JSON.parse(localStorage.getItem(STORE) || "{}")); } catch (e) {}
 
-// fixed shuffle per opener so the order survives reloads but carries no information
+// fixed shuffle per opener so the order survives reloads but carries no information.
+// mulberry32 keeps every step in 32-bit integers (Math.imul); the earlier LCG multiplied past
+// 2^53, lost the low bits it shuffled with, and put the same model in the same column every time.
+function mulberry32(a) {
+  return () => {
+    a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
 function order(i) {
-  let x = (i + 1) * 2654435761 % 4294967296;
+  const rand = mulberry32(Math.imul(i + 1, 0x9E3779B1) ^ ROUND);
   const a = ARMS.slice();
-  for (let k = a.length - 1; k > 0; k--) { x = (x * 1103515245 + 12345) % 2147483648; const j = x % (k + 1); [a[k], a[j]] = [a[j], a[k]]; }
+  for (let k = a.length - 1; k > 0; k--) { const j = Math.floor(rand() * (k + 1)); [a[k], a[j]] = [a[j], a[k]]; }
   return a;
 }
 const doneOpener = i => order(i).every(arm => S.rate[i + ":" + arm]) && S.pick[i];

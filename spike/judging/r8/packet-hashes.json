@@ -1,0 +1,66 @@
+{
+ "opener-1": {
+  "sha256": "c1fde11496e35aac1cfa2e12dd1b0dd7706fde1675d8ea7f30a81feb2b81519e",
+  "key": {
+   "A": "gemini",
+   "B": "roles",
+   "C": "rolesshort"
+  }
+ },
+ "opener-2": {
+  "sha256": "d239d37fb3ef15af60228b86979a5ebce70da9f9f7e6fc41079f4cd8f110e768",
+  "key": {
+   "A": "gemini",
+   "B": "roles",
+   "C": "rolesshort"
+  }
+ },
+ "opener-3": {
+  "sha256": "7cbaea379986e3d7691e3775233c555425b6f2e8e20631631c5a0dcc07c5e61b",
+  "key": {
+   "A": "gemini",
+   "B": "rolesshort",
+   "C": "roles"
+  }
+ },
+ "opener-4": {
+  "sha256": "c3e7b5e57f0686a6924bc7d4d2deeece98ce74e7a1cb3a4a68a22de691ef92a8",
+  "key": {
+   "A": "rolesshort",
+   "B": "gemini",
+   "C": "roles"
+  }
+ },
+ "opener-5": {
+  "sha256": "90c7260e3dc9e49ab03507287aba51d9ce2d4160893c25a59f372c6bc66e30df",
+  "key": {
+   "A": "roles",
+   "B": "gemini",
+   "C": "rolesshort"
+  }
+ },
+ "opener-6": {
+  "sha256": "31764c0d7a1920d37478b9b224aeed5a345d77b7a0d6318427f94a61c7006d8e",
+  "key": {
+   "A": "gemini",
+   "B": "rolesshort",
+   "C": "roles"
+  }
+ },
+ "opener-7": {
+  "sha256": "be2b5dc0bb942eaa78e7c18a9e9397f7493071225cf15c712265d8b9601b4e28",
+  "key": {
+   "A": "gemini",
+   "B": "rolesshort",
+   "C": "roles"
+  }
+ },
+ "opener-8": {
+  "sha256": "1bf7da08198ea6b90f0d9bd57b12b36074ab531eac05eb06894be0f9c83c55c5",
+  "key": {
+   "A": "roles",
+   "B": "rolesshort",
+   "C": "gemini"
+  }
+ }
+}

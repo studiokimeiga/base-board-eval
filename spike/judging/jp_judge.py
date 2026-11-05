@@ -6,6 +6,7 @@
   report   unblind jp/scores-claude-*.json and jp/scores-gpt.json, average per model and format
 """
 import glob, json, os, random, sys, urllib.request, collections
+import packet_record as PR          # binds scores-*.json to the packets they were made against
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SPIKE = os.path.dirname(HERE)
@@ -47,7 +48,7 @@ def load(arm, fmt):
 
 def packets():
     os.makedirs(JP, exist_ok=True)
-    rng, key = random.Random(8848), {}
+    rng, key, texts = random.Random(8848), {}, {}
     for fmt in FORMATS:
         data = {a: load(a, fmt) for a in ARMS}
         data = {a: d for a, d in data.items() if d}
@@ -67,12 +68,16 @@ def packets():
                     out.append("%d %s%s: %s" % (p["n"], who, " (OP)" if p["who"] == t["op"] else "",
                                                 p["text"] or "(empty)"))
                 out.append("")
-            open(os.path.join(JP, name + ".txt"), "w", encoding="utf-8").write("\n".join(out))
+            texts[name] = "\n".join(out)
+    # refuses, writing nothing, if a packet some judge already scored would change
+    PR.write(JP, texts, key)
     json.dump(key, open(os.path.join(JP, "key.json"), "w"), indent=1)
     print("packets:", {k: len(v) for k, v in key.items()})
 
 
 def gpt():
+    PR.check(JP, json.load(open(os.path.join(JP, "key.json"))).get)
+    record = PR.load(JP)
     env = dict(l.strip().split("=", 1) for l in open(os.path.join(ROOT, ".env"))
                if "=" in l and not l.lstrip().startswith("#"))
     sys.path.insert(0, SPIKE)
@@ -83,6 +88,8 @@ def gpt():
         name = os.path.basename(f)[:-4]
         if name in scores:
             continue
+        if not PR.packet_matches(JP, name, record):
+            raise SystemExit("%s isn't the packet recorded in %s; rerun `packets`" % (name, PR.RECORD))
         if budget_left() < 30000:
             print("stopping: free daily budget nearly used"); break
         prompt = ("You are a blind judge, fluent in Japanese and Japanese internet culture. Below is one "
@@ -107,6 +114,7 @@ def gpt():
 
 def report():
     key = json.load(open(os.path.join(JP, "key.json")))
+    PR.check(JP, key.get)
     judges = {"claude": {}, "gpt": {}}
     for f in glob.glob(os.path.join(JP, "scores-claude-*.json")):
         judges["claude"].update(json.load(open(f, encoding="utf-8")))
