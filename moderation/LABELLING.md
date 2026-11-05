@@ -36,14 +36,16 @@ Rules of thumb:
 - `ai1`: an AI pre-label. Four Claude Opus 5.5 agents, each in a fresh context with only this
   guide and two or three batches of about 160 posts, never a classifier's verdict. Every item has
   one. Quarantined threads were shown whole; other posts with up to two earlier posts and the
-  thread's first post as context.
+  thread's first post as context. The 97 items the 2026-11-05 context fix split off were labelled
+  later the same way by a fifth fresh agent, each shown alone with the posts before it.
 - `ai2`: a second, blind AI pre-label of the posts that decide the metrics: every `ai1` positive or
   unsure post, every post a classifier disagrees with `ai1` on, and a seeded tenth of the rest
   (530 posts). Three more fresh Opus 5.5 agents, shown the posts with their context and neither
   `ai1`'s labels nor any verdict: two took the 461 chosen after the keyword gate and OpenAI ran,
   the third the 69 that Llama Guard and the context-aware OpenAI run added later. They were told
   to read this guide only up to this section, so as not to learn how posts were chosen; one
-  reported that its read returned the whole file, and that it didn't use this part.
+  reported that its read returned the whole file, and that it didn't use this part. Of the 97
+  split-off items, the same rule picked 16 (546 in all), relabelled by a fourth such agent.
 - `owner`: the repo owner's confirmed label. It overrides both.
 
 `METRICS.md` uses `owner` where it exists and `ai1` elsewhere, and says how many of each it used.
