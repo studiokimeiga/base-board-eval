@@ -124,10 +124,53 @@ class Build(unittest.TestCase):
                 "board op": "plain/board"}
         self.assertEqual({t: m["stratum"] for t, m in by.items()}, want)
 
-    def test_duplicates_collapse_into_the_first_source(self):
+    def test_duplicates_count_under_the_first_source(self):
+        manifest, private, _, _ = self.built({"risk": 99, "plain": 99})
+        rows = [(m, p) for m, p in zip(manifest, private) if p["text"] == "same line"]
+        # once after two quarantined posts, once opening an orig thread: two contexts, two items,
+        # both counted under the text's first source
+        self.assertEqual(sorted((m["stratum"], m["family"], m["copies"], tuple(p["context"]))
+                                for m, p in rows),
+                         [("quarantine", "quarantine", 1, ()),
+                          ("quarantine", "quarantine", 1, ("op text", "i will kill you"))])
+
+    def test_duplicates_with_the_same_context_collapse(self):
+        write(self.root, "threads.y.json", {"threads": [
+            {"posts": [{"text": "same opener"}, {"text": "same reply"}]},
+            {"posts": [{"text": "same opener"}, {"text": "same reply"}]}]})
         _, _, _, by = self.built({"risk": 99, "plain": 99})
-        self.assertEqual((by["same line"]["family"], by["same line"]["copies"]), ("quarantine", 2))
-        self.assertEqual(by["nice weather"]["copies"], 2)
+        self.assertEqual((by["same opener"]["copies"], by["same reply"]["copies"]), (2, 2))
+
+    def test_a_reply_is_kept_once_per_context(self):
+        # "do it" after a stove question is benign; after a self-harm question it is not
+        write(self.root, "threads.y.json", {"threads": [
+            {"posts": [{"text": "should i turn off the stove?"}, {"text": "do it"}]},
+            {"posts": [{"text": "should i kill myself?"}, {"text": "do it"}]},
+            {"posts": [{"text": "should i turn off the stove?"}, {"text": "do it"}]}]})
+        manifest, private, strata, _ = self.built({"risk": 99, "plain": 99})
+        got = sorted((p["context"][0], m["copies"]) for m, p in zip(manifest, private)
+                     if p["text"] == "do it")
+        self.assertEqual(got, [("should i kill myself?", 1), ("should i turn off the stove?", 2)])
+        ids = [m["id"] for m, p in zip(manifest, private) if p["text"] == "do it"]
+        self.assertEqual(len(set(ids)), 2)
+        # the sample is still drawn over distinct texts: "do it" is one unit of its stratum
+        s = next(m["stratum"] for m, p in zip(manifest, private) if p["text"] == "do it")
+        self.assertEqual(strata["strata"][s]["population"],
+                         len({m["sha256"] for m in manifest if m["stratum"] == s}))
+
+    def test_a_sampled_text_brings_every_context_with_its_weight(self):
+        write(self.root, "threads.y.json", {"threads": [
+            {"posts": [{"text": "a"}, {"text": "do it"}]},
+            {"posts": [{"text": "b"}, {"text": "do it"}]}] + [
+            {"posts": [{"text": "filler %d" % k}]} for k in range(8)]})
+        for seed in range(6):
+            manifest, private, strata, _ = self.built({"risk": 99, "plain": 3 + seed})
+            rows = [m for m, p in zip(manifest, private) if p["text"] == "do it"]
+            info = strata["strata"]["plain/orig"]
+            self.assertIn(len(rows), (0, 2))
+            self.assertTrue(all(m["weight"] == info["weight"] for m in rows))
+            self.assertEqual(info["sampled"],
+                             len({m["sha256"] for m in manifest if m["stratum"] == "plain/orig"}))
 
     def test_manifest_carries_no_text_and_private_rows_do(self):
         manifest, private, _, _ = self.built({"risk": 99, "plain": 99})
@@ -146,8 +189,8 @@ class Build(unittest.TestCase):
         self.assertEqual(strata["strata"]["plain/orig"]["population"], 2)
         self.assertEqual(strata["strata"]["plain/orig"]["sampled"], 1)
         orig_plain = [m for m in manifest if m["stratum"] == "plain/orig"]
-        self.assertEqual(len(orig_plain), 1)
-        self.assertEqual(orig_plain[0]["weight"], 2.0)
+        self.assertEqual(len({m["sha256"] for m in orig_plain}), 1)
+        self.assertTrue(all(m["weight"] == 2.0 for m in orig_plain))
         self.assertEqual(by["i will kill you"]["weight"], 1.0)
 
     def test_sample_ignores_input_order(self):
@@ -275,6 +318,12 @@ class Stats(unittest.TestCase):
         (_, _, (fr, fci), _), = M.population(rows, ["g"], reps=200, fixed=M.fixed_strata(strata))
         self.assertEqual(fr, 500.0)
         self.assertLess(fci[0], fci[1])
+
+    def test_bootstrap_resamples_a_text_with_all_its_contexts(self):
+        rows = [dict(m={"stratum": "plain/orig", "sha256": h}, truth=[], w=1.0, v={})
+                for h in ["a", "b", "a", "c"]]
+        units = M.bootstrap_units(rows)
+        self.assertEqual([[len(u) for u in us] for _, us in units], [[2, 1, 1]])
 
     def test_fixed_strata(self):
         strata = {"quarantine": {"population": 3, "sampled": 3}, "risk/jp": {"population": 61, "sampled": 61},

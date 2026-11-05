@@ -369,38 +369,54 @@ def sample(cands, n, stratum):
 
 
 def build(root, sizes=None):
-    """(manifest rows, private rows with text, strata info). Writes nothing."""
+    """(manifest rows, private rows with text, strata info). Writes nothing.
+
+    A distinct text is the sampling unit: it counts once in its stratum's population, under the
+    first source it appears in, and is sampled or not as a whole. An item is a text in one
+    context: copies of a text count together only when the posts before them (what a labeller
+    and the context-aware classifier see) are the same, so a "do it" after a stove question and
+    one after a self-harm question are two items, labelled and scored apart. A sampled text
+    brings every one of its items, each with the stratum's weight."""
     sizes = SAMPLE if sizes is None else sizes
     skipped = {k: collections.Counter() for k in ("withheld_kept", "withheld_lost", "empty")}
-    items = {}
+    texts = {}                                    # sha256 -> {context key: item}, first seen first
     for x in posts(root, skipped):
         h = sha(x["text"])
-        if h in items:
-            items[h]["copies"] += 1
+        groups = texts.setdefault(h, {})
+        k = json.dumps(x["context"], ensure_ascii=False)
+        if k in groups:
+            groups[k]["copies"] += 1
         else:
             x.update(sha256=h, copies=1)
-            items[h] = x
-    strata = collections.defaultdict(list)
-    for x in items.values():
-        x["lang"] = lang_of(x["text"], x.pop("lang_family", x["family"]))
-        x["lexicon"] = lexicon_groups(x["text"], x["lang"])
+            groups[k] = x
+    strata, members = collections.defaultdict(list), {}
+    for h, groups in texts.items():
+        items = list(groups.values())
+        x = items[0]
+        lang = lang_of(x["text"], x.get("lang_family", x["family"]))
+        lexicon = lexicon_groups(x["text"], lang)
         if x["family"] in CENSUS:
-            x["stratum"] = x["family"]
+            stratum = x["family"]
         elif keyword(x["text"])[0]:
-            x["stratum"] = "gate-hit"
+            stratum = "gate-hit"
         else:
-            x["stratum"] = ("risk/" if x["lexicon"] else "plain/") + x["family"]
-        strata[x["stratum"]].append(x)
+            stratum = ("risk/" if lexicon else "plain/") + x["family"]
+        for y in items:
+            y.pop("lang_family", None)
+            y.update(family=x["family"], lang=lang, lexicon=lexicon, stratum=stratum)
+        strata[stratum].append(x)
+        members[h] = items
     chosen, info = [], {}
     for s in sorted(strata):
         pop = strata[s]
         pick = pop if s in CENSUS else sample(pop, sizes.get(s, sizes.get(s.split("/")[0], 0)), s)
         w = round(len(pop) / len(pick), 6) if pick else 0.0
         for x in pick:
-            x["weight"] = w
-        info[s] = {"population": len(pop), "posts": sum(x["copies"] for x in pop),
+            for y in members[x["sha256"]]:
+                y["weight"] = w
+                chosen.append(y)
+        info[s] = {"population": len(pop), "posts": sum(y["copies"] for x in pop for y in members[x["sha256"]]),
                    "sampled": len(pick), "weight": w}
-        chosen += pick
     for x in chosen:
         x["id"] = sha("%s#%d.%d" % (x["src"], x["t"], x["p"]))[:12]
         x["chars"] = len(x["text"])
@@ -1108,21 +1124,30 @@ def fixed_strata(info):
     return set(CENSUS) | {s for s, v in info.items() if v["sampled"] >= v["population"]}
 
 
+def bootstrap_units(rows):
+    """[(stratum, [unit, ...])]: the rows of each stratum grouped by text, the unit the sample
+    was drawn in (build), so a resample takes a text with all of its contexts."""
+    by = collections.defaultdict(dict)
+    for r in rows:
+        by[r["m"]["stratum"]].setdefault(r["m"]["sha256"], []).append(r)
+    return [(s, list(us.values())) for s, us in sorted(by.items())]
+
+
 def population(rows, names, reps=BOOT_REPS, fixed=CENSUS):
     """Weighted recall, precision and false-flag rate per name, with a stratified bootstrap 95%
     interval: sampled strata are resampled, strata in `fixed` (see fixed_strata) are not."""
-    by = collections.defaultdict(list)
-    for r in rows:
-        by[r["m"]["stratum"]].append((bool(r["truth"]), r["w"], tuple(r["v"][n][0] for n in names)))
+    by = {s: [[(bool(r["truth"]), r["w"], tuple(r["v"][n][0] for n in names)) for r in u]
+              for u in us] for s, us in bootstrap_units(rows)}
 
     def stats(groups):
         acc = [[0.0, 0.0, 0.0, 0.0] for _ in names]           # tp, fp, fn, tn per name
         total = 0.0
         for g in groups:
-            for truth, w, preds in g:
-                total += w
-                for a, p in zip(acc, preds):
-                    a[(0 if p else 2) if truth else (1 if p else 3)] += w
+            for unit in g:
+                for truth, w, preds in unit:
+                    total += w
+                    for a, p in zip(acc, preds):
+                        a[(0 if p else 2) if truth else (1 if p else 3)] += w
         return [(a[0] / (a[0] + a[2]) if a[0] + a[2] else None,
                  a[0] / (a[0] + a[1]) if a[0] + a[1] else None,
                  1000 * a[1] / (a[1] + a[3]) if a[1] + a[3] else None,
@@ -1161,6 +1186,8 @@ def report_text():
                              gate=bool(kw and kw["flag"]), v={n: V[n].get(m["id"]) for n in V}))
     src_n = collections.Counter(r["src"] for r in rows)
     unsure = sum(1 for r in rows if (labels[r["m"]["id"]].get(r["src"]) or {}).get("unsure"))
+    labelled = {r["m"]["id"] for r in rows}
+    unlabelled = collections.Counter(m["stratum"] for m in manifest if m["id"] not in labelled)
     L = ["# Moderation eval: metrics", "",
          "Generated by `python moderation/modeval.py report` from the committed `manifest.jsonl`, "
          "`strata.json`, `labels.jsonl` and `results/*.jsonl`; `report --check` fails when this file "
@@ -1170,18 +1197,26 @@ def report_text():
          "%d marked unsure. %s" % (
              len(rows), len(manifest), src_n["ai1"], src_n["owner"], unsure,
              "Every number below rests on AI pre-labels until the owner confirms them."
-             if src_n["ai1"] else "All labels are owner-confirmed."), "",
-         "Cells read `k/n · share (95% Wilson interval)`. Positives are posts labelled with any "
-         "category; a classifier catches a post when it flags it at all.", ""]
+             if src_n["ai1"] else "All labels are owner-confirmed."), ""]
+    if unlabelled:
+        L += ["**Unlabelled:** %d items (%s) have no label yet. Every number below leaves them "
+              "out, so the population estimates miss the posts they stand for." % (
+                  sum(unlabelled.values()),
+                  ", ".join("%s %d" % kv for kv in sorted(unlabelled.items()))), ""]
+    L += ["Cells read `k/n · share (95% Wilson interval)`. Positives are posts labelled with any "
+          "category; a classifier catches a post when it flags it at all.", ""]
 
     # -- the eval set
     L += ["## The eval set", ""]
     body = []
+    n_items = collections.Counter(m["stratum"] for m in manifest)
     for s, info in sorted(strata["strata"].items(), key=lambda x: (x[0] not in CENSUS, x[0])):
         kind, _, fam = s.partition("/")
         what = STRATUM_NOTES[kind] + ("" if not fam else " (%s)" % FAMILY_NOTES.get(fam, fam))
         rs = [r for r in rows if r["m"]["stratum"] == s]
-        body.append([s, what, info["population"], info["posts"], info["sampled"],
+        in_set = info["sampled"] if n_items[s] == info["sampled"] else "%d (%d items)" % (
+            info["sampled"], n_items[s])
+        body.append([s, what, info["population"], info["posts"], in_set,
                      "%g" % info["weight"], kn(sum(1 for r in rs if r["truth"]), len(rs))])
     L += table(["stratum", "what", "unique texts", "posts", "in the set", "weight", "labelled harmful"], body)
     sk = strata["skipped"]
@@ -1190,7 +1225,9 @@ def report_text():
         return ", ".join("%s %d" % kv for kv in sorted(d.items())) or "none"
 
     L += ["Duplicated texts count once, under the first source in the order above; `posts` counts "
-          "every copy. Not in the population: posts the gate withheld whose text was never kept "
+          "every copy. A text posted after different earlier posts is one item per context, "
+          "labelled and scored apart; `in the set` counts texts, and items where they differ. "
+          "Not in the population: posts the gate withheld whose text was never kept "
           "(%s) and empty posts (%s). Withheld markers whose text survives in `quarantine/` or a "
           "quarantine log (%s) are in it through those sources." % (
               counts(sk["withheld_lost"]), counts(sk["empty"]), counts(sk["withheld_kept"])), ""]
