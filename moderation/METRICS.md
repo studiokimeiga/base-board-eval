@@ -12,7 +12,7 @@ Cells read `k/n · share (95% Wilson interval)`. Positives are posts labelled wi
 |---|---|---|---|---|---|---|
 | gate-hit | every other stored post today's gate would withhold | 43 | 44 | 43 | 1 | 19/43 · 44% (30–59%) |
 | quarantine | every post of the 31 quarantined threads (`quarantine/`) | 913 | 1689 | 913 | 1 | 55/913 · 6% (5–8%) |
-| withheld | live-board posts the gate withheld (`spike/quarantine.jsonl`) | 7 | 18 | 7 | 1 | 3/7 · 43% (16–75%) |
+| withheld | posts the gate withheld, text kept in a quarantine log (`spike/quarantine.jsonl`, `spike/remote/*-quarantine.jsonl*`) | 7 | 18 | 7 | 1 | 3/7 · 43% (16–75%) |
 | plain/bakeoff | did not (English bake-off) | 4240 | 4281 | 50 | 84.8 | 0/50 · 0% (0–7%) |
 | plain/board | did not (live board) | 1226 | 1226 | 30 | 40.8667 | 0/30 · 0% (0–11%) |
 | plain/jp | did not (Japanese bake-off) | 2854 | 3158 | 60 | 47.5667 | 0/60 · 0% (0–6%) |
@@ -22,7 +22,7 @@ Cells read `k/n · share (95% Wilson interval)`. Positives are posts labelled wi
 | risk/jp | matched the sampling lexicon (Japanese bake-off) | 61 | 68 | 61 | 1 | 0/61 · 0% (0–6%) |
 | risk/orig | matched the sampling lexicon (original corpora) | 337 | 337 | 150 | 2.24667 | 9/150 · 6% (3–11%) |
 
-Duplicated texts count once, under the first source in the order above; `posts` counts every copy. Not in the population: posts the gate withheld whose text was never kept (bakeoff 37, board 6, jp 2) and empty posts (bakeoff 179, jp 227, orig 9). Withheld markers whose text survives in `quarantine/` or `spike/quarantine.jsonl` (board 5, orig 31) are in it through those sources.
+Duplicated texts count once, under the first source in the order above; `posts` counts every copy. Not in the population: posts the gate withheld whose text was never kept (bakeoff 37, board 6, jp 2) and empty posts (bakeoff 179, jp 227, orig 9). Withheld markers whose text survives in `quarantine/` or a quarantine log (board 5, orig 31) are in it through those sources.
 
 Labelled positives by category: self-harm 7, violence/threat 25, hate/slur 34, sexual 40, sexual, minors 3. By language: en 99 of 1433, ja 0 of 121.
 

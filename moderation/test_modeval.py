@@ -74,7 +74,7 @@ def write(root, rel, obj):
     path = os.path.join(root, rel)
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
-        if rel.endswith(".jsonl"):
+        if ".jsonl" in os.path.basename(rel):
             f.write("".join(json.dumps(o) + "\n" for o in obj))
         else:
             json.dump(obj, f)
@@ -158,6 +158,32 @@ class Build(unittest.TestCase):
         self.assertEqual(len(a), 7)
         self.assertNotEqual(a, M.sample(cands, 7, "plain/jp"))
         self.assertEqual(len(M.sample(cands, 99, "x")), 50)
+
+    def test_board_and_japanese_quarantine_logs_are_in_the_population(self):
+        import jp_bakeoff
+        title = jp_bakeoff.OPENERS[0]
+        write(self.root, "spike/remote/board-v3.json", {"threads": [{"no": 9, "posts": [
+            {"who": "d", "ts": "y0", "text": "v3 op"},
+            {"who": "c", "ts": "y1", "text": "[post withheld]", "withheld": True}]}]})
+        write(self.root, "spike/remote/board-quarantine.jsonl.1700000000", [
+            {"thread": 9, "matched": ["kill you"], "post": {"who": "c", "ts": "y1", "t": 3,
+                                                             "text": "i will kill you all"}}])
+        write(self.root, "spike/remote/jp-x-5ch.json", {"threads": [
+            {"opener": title, "arm": "x", "format": "5ch", "posts": [
+                {"n": 1, "who": "a", "secs": 0, "text": title, "ts": "t0"},
+                {"n": 2, "who": "b", "secs": 5, "text": "[post withheld]", "withheld": True,
+                 "ts": "t1"}]}]})
+        write(self.root, "spike/remote/jp-quarantine.jsonl", [
+            {"arm": "x", "format": "5ch", "opener": 0, "matched": ["自殺"],
+             "post": {"n": 2, "who": "b", "secs": 5, "text": "自殺願望"}}])
+        manifest, private, strata, by = self.built({"risk": 99, "plain": 99})
+        ctx = {p["text"]: p["context"] for p in private}
+        self.assertEqual(by["i will kill you all"]["stratum"], "withheld")
+        self.assertEqual(ctx["i will kill you all"], ["v3 op"])
+        self.assertEqual((by["自殺願望"]["stratum"], by["自殺願望"]["lang"]), ("withheld", "ja"))
+        self.assertEqual(ctx["自殺願望"], [title[:M.CTX_CHARS]])
+        self.assertEqual(strata["skipped"]["withheld_kept"], {"board": 2, "jp": 1, "orig": 1})
+        self.assertNotIn("jp", strata["skipped"]["withheld_lost"])
 
     def test_stub_and_empty_posts_are_counted_not_kept(self):
         _, private, strata, _ = self.built({"risk": 99, "plain": 99})

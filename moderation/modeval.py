@@ -26,7 +26,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 sys.path[:0] = [REPO, os.path.join(REPO, "spike")]
 from live_board import GATE              # noqa: E402  generate.HARM + SEXUAL, the English gate
-from jp_bakeoff import JP_GATE           # noqa: E402
+from jp_bakeoff import JP_GATE, OPENERS as JP_OPENERS   # noqa: E402
 import pubgate                           # noqa: E402  the publication gate this eval chose
 
 MANIFEST = os.path.join(HERE, "manifest.jsonl")
@@ -92,8 +92,13 @@ CLASSIFIERS = ["keyword", "openai", "openai-ctx", "llamaguard"]
 
 # Where posts come from, in precedence order: a text stored in several places counts once, under
 # the first. Quarantine sources are taken whole; the rest are sampled (see SAMPLE).
+# The withheld family is every quarantine log, which keeps a held post's text: the first live
+# board's, the Modal board's (copied back by `modal_board.py fetch`, with the logs `reset` set
+# aside) and the Japanese runs'.
+QUARANTINE_LOGS = ["spike/quarantine.jsonl", "spike/remote/board-quarantine.jsonl*",
+                   "spike/remote/jp-quarantine.jsonl*"]
 FAMILIES = [("quarantine", ["quarantine/*.json"]),
-            ("withheld", ["spike/quarantine.jsonl"]),
+            ("withheld", QUARANTINE_LOGS),
             ("orig", ["threads*.json"]),
             ("bakeoff", ["spike/remote/bakeoff-*.json"]),
             ("board", ["spike/board-v1-catalog.json", "spike/remote/board-*.json"]),
@@ -273,14 +278,43 @@ def board_threads(root):
     return out
 
 
-def withheld_context(boards, row):
-    """The board thread a withheld post was cut from, found by thread number, time and poster."""
+def jp_title(row):
+    """The opener of the Japanese thread a log row came from (the log stores its index)."""
+    i = row.get("opener")
+    return JP_OPENERS[i] if isinstance(i, int) and 0 <= i < len(JP_OPENERS) else None
+
+
+def log_key(row):
+    """Where a logged post sat: a board thread number, time and poster, or for the Japanese runs
+    the arm, format, opener and post number. marker_key gives the same for a withheld marker."""
     post = row.get("post") or {}
-    for th in boards.get(row.get("thread"), []):
+    if "arm" in row:
+        return ("jp", row.get("arm"), row.get("format"), jp_title(row), post.get("n"))
+    return ("board", row.get("thread"), post.get("ts"), post.get("who"))
+
+
+def marker_key(family, d, th, x):
+    if family == "jp":
+        return ("jp", th.get("arm") or d.get("arm"), th.get("format") or d.get("format"),
+                th.get("opener"), x.get("n"))
+    return ("board", th.get("no"), x.get("ts"), x.get("who"))
+
+
+def withheld_context(boards, row, path):
+    """The thread a withheld post was cut from: for a board, found by thread number, time and
+    poster; for a Japanese run, in the arm's output next to the log, by opener and post number."""
+    post = row.get("post") or {}
+    if "arm" in row:
+        out = os.path.join(os.path.dirname(path), "jp-%s-%s.json" % (row.get("arm"), row.get("format")))
+        threads = [th for th in threads_of(read_json(out)) if th.get("opener") == jp_title(row)]             if os.path.exists(out) else []
+        match = lambda x: x.get("n") == post.get("n")          # noqa: E731
+    else:
+        threads = boards.get(row.get("thread"), [])
+        match = lambda x: (x.get("ts"), x.get("who")) == (post.get("ts"), post.get("who"))  # noqa: E731
+    for th in threads:
         ps = th.get("posts") or []
         for j, x in enumerate(ps):
-            if (x.get("ts"), x.get("who")) == (post.get("ts"), post.get("who")) and \
-                    (x.get("withheld") or is_stub(x.get("text") or "")):
+            if match(x) and (x.get("withheld") or is_stub(x.get("text") or "")):
                 return context_of(ps, j)
     return []
 
@@ -288,10 +322,10 @@ def withheld_context(boards, row):
 def posts(root, skipped):
     """Every stored post with text, as dicts; withheld markers and empty posts are only counted.
     A marker counts as kept when its text survives elsewhere in the population: the thread was
-    quarantined (quarantine/ has it) or the board logged the post (spike/quarantine.jsonl)."""
+    quarantined (quarantine/ has it) or a quarantine log has the post (QUARANTINE_LOGS)."""
     boards = None
-    logged = {(r.get("thread"), (r.get("post") or {}).get("ts"), (r.get("post") or {}).get("who"))
-              for r in read_jsonl(os.path.join(root, "spike", "quarantine.jsonl"))}
+    logs = [p for pat in QUARANTINE_LOGS for p in sorted(glob.glob(os.path.join(root, pat)))]
+    logged = {log_key(r) for p in logs for r in read_jsonl(p)}
     for family, pats in FAMILIES:
         for pat in pats:
             for path in sorted(glob.glob(os.path.join(root, pat))):
@@ -303,8 +337,11 @@ def posts(root, skipped):
                         if not text.strip():
                             skipped["empty"][family] += 1
                             continue
-                        yield dict(family=family, src=src, t=i, p=0, text=text,
-                                   context=withheld_context(boards, row))
+                        x = dict(family=family, src=src, t=i, p=0, text=text,
+                                 context=withheld_context(boards, row, path))
+                        if "arm" in row:
+                            x["lang_family"] = "jp"     # kanji-only Japanese is still Japanese
+                        yield x
                     continue
                 d = read_json(path)
                 threads = [d["thread"]] if family == "quarantine" else threads_of(d)
@@ -313,7 +350,7 @@ def posts(root, skipped):
                     for p, x in enumerate(ps):
                         text = x.get("text") or ""
                         if x.get("withheld") or is_stub(text):
-                            kept = th.get("quarantined") or (th.get("no"), x.get("ts"), x.get("who")) in logged
+                            kept = th.get("quarantined") or marker_key(family, d, th, x) in logged
                             skipped["withheld_kept" if kept else "withheld_lost"][family] += 1
                         elif not text.strip():
                             skipped["empty"][family] += 1
@@ -345,7 +382,7 @@ def build(root, sizes=None):
             items[h] = x
     strata = collections.defaultdict(list)
     for x in items.values():
-        x["lang"] = lang_of(x["text"], x["family"])
+        x["lang"] = lang_of(x["text"], x.pop("lang_family", x["family"]))
         x["lexicon"] = lexicon_groups(x["text"], x["lang"])
         if x["family"] in CENSUS:
             x["stratum"] = x["family"]
@@ -1018,7 +1055,8 @@ NAMES = collections.OrderedDict([
     ("proposal+ctx", "proposal OR openai-ctx"),
 ])
 STRATUM_NOTES = {"quarantine": "every post of the 31 quarantined threads (`quarantine/`)",
-                 "withheld": "live-board posts the gate withheld (`spike/quarantine.jsonl`)",
+                 "withheld": "posts the gate withheld, text kept in a quarantine log "
+                             "(`spike/quarantine.jsonl`, `spike/remote/*-quarantine.jsonl*`)",
                  "gate-hit": "every other stored post today's gate would withhold",
                  "risk": "matched the sampling lexicon", "plain": "did not"}
 FAMILY_NOTES = {"orig": "original corpora", "bakeoff": "English bake-off", "board": "live board",
@@ -1146,8 +1184,8 @@ def report_text():
 
     L += ["Duplicated texts count once, under the first source in the order above; `posts` counts "
           "every copy. Not in the population: posts the gate withheld whose text was never kept "
-          "(%s) and empty posts (%s). Withheld markers whose text survives in `quarantine/` or "
-          "`spike/quarantine.jsonl` (%s) are in it through those sources." % (
+          "(%s) and empty posts (%s). Withheld markers whose text survives in `quarantine/` or a "
+          "quarantine log (%s) are in it through those sources." % (
               counts(sk["withheld_lost"]), counts(sk["empty"]), counts(sk["withheld_kept"])), ""]
     cats = collections.Counter(c for r in rows for c in r["truth"])
     by_lang = collections.Counter((r["m"]["lang"], bool(r["truth"])) for r in rows)
