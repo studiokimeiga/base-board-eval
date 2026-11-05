@@ -46,6 +46,8 @@ Chance at the same length: lore-arm targets carry another lineage's lore words i
 
 ## H3: the blind judge (Claude)
 
+Judging scope: every target.
+
 Borrows from the source (a sham-arm yes is wrong by construction): lore 19/48 (40%, 27–54), sham 0/48 (0%, 0–7); McNemar 19 vs 0, p = 0.0000, over 48 targets judged in both arms.
 
 Kinds of borrowing in lore-arm items judged to borrow: reference 8, mixup 15, reuse 121, coincidence 18. Agreement with H1's outcome: κ = 0.40.

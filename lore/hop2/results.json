@@ -2,6 +2,7 @@
  "ref_share": 0.05,
  "summary": {
   "design": "full",
+  "judging_scope": "all",
   "h1": {
    "pairs": 48,
    "lore": 11,
@@ -99,7 +100,7 @@
     "gustav"
    ],
    "transfer": true,
-   "uptake": 7,
+   "uptake": 4,
    "items": [
     {
      "item": "canal",
@@ -270,7 +271,7 @@
    },
    "names": [],
    "transfer": true,
-   "uptake": 3,
+   "uptake": 2,
    "items": [
     {
      "item": "laminated",
@@ -383,7 +384,7 @@
     "gustav"
    ],
    "transfer": true,
-   "uptake": 6,
+   "uptake": 3,
    "items": [
     {
      "item": "bridge",
@@ -460,9 +461,9 @@
    "prior": "t28",
    "source": "s19",
    "top": false,
-   "percentile": 0.8214285714285714,
+   "percentile": 0.7142857142857143,
    "candidates": 15,
-   "real": 10,
+   "real": 8,
    "robust_top": false,
    "lore": true,
    "cross": {
@@ -495,7 +496,7 @@
     {
      "item": "hedge + trimmer",
      "kind": "pair",
-     "uses": 4,
+     "uses": 2,
      "authors": 2
     }
    ],
@@ -685,7 +686,7 @@
    "top": true,
    "percentile": 1.0,
    "candidates": 17,
-   "real": 78,
+   "real": 77,
    "robust_top": true,
    "lore": true,
    "cross": {
@@ -695,7 +696,7 @@
    },
    "names": [],
    "transfer": true,
-   "uptake": 7,
+   "uptake": 5,
    "items": [
     {
      "item": "laminated",
@@ -824,12 +825,6 @@
      "authors": 1
     },
     {
-     "item": "caution + laminated",
-     "kind": "pair",
-     "uses": 2,
-     "authors": 1
-    },
-    {
      "item": "caution + yellow",
      "kind": "pair",
      "uses": 2,
@@ -846,6 +841,12 @@
      "kind": "pair",
      "uses": 2,
      "authors": 2
+    },
+    {
+     "item": "caution + laminated",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
     },
     {
      "item": "compliant + osha",
@@ -1033,7 +1034,7 @@
    },
    "names": [],
    "transfer": true,
-   "uptake": 6,
+   "uptake": 3,
    "items": [
     {
      "item": "laminated",
@@ -1135,7 +1136,7 @@
    },
    "names": [],
    "transfer": true,
-   "uptake": 5,
+   "uptake": 2,
    "items": [
     {
      "item": "hazard",
@@ -1278,7 +1279,7 @@
    "top": false,
    "percentile": 0.9375,
    "candidates": 17,
-   "real": 13,
+   "real": 12,
    "robust_top": false,
    "lore": true,
    "cross": {
@@ -1287,7 +1288,7 @@
    },
    "names": [],
    "transfer": true,
-   "uptake": 6,
+   "uptake": 4,
    "items": [
     {
      "item": "siege",
@@ -1316,7 +1317,7 @@
     {
      "item": "chamomile + lavender",
      "kind": "pair",
-     "uses": 2,
+     "uses": 1,
      "authors": 1
     }
    ],
@@ -1402,7 +1403,7 @@
    "prior": "t28",
    "source": "s19",
    "top": false,
-   "percentile": 0.7272727272727273,
+   "percentile": 0.7727272727272727,
    "candidates": 12,
    "real": 3,
    "robust_top": false,
@@ -1466,7 +1467,7 @@
    },
    "names": [],
    "transfer": true,
-   "uptake": 4,
+   "uptake": 2,
    "items": [
     {
      "item": "policy",
@@ -1577,7 +1578,7 @@
    },
    "names": [],
    "transfer": true,
-   "uptake": 7,
+   "uptake": 5,
    "items": [
     {
      "item": "foot",
@@ -1959,7 +1960,7 @@
    },
    "names": [],
    "transfer": true,
-   "uptake": 2,
+   "uptake": 1,
    "items": [
     {
      "item": "offer",
@@ -2076,7 +2077,7 @@
     "calvin"
    ],
    "transfer": true,
-   "uptake": 4,
+   "uptake": 2,
    "items": [
     {
      "item": "zip",
@@ -2135,7 +2136,7 @@
    },
    "names": [],
    "transfer": true,
-   "uptake": 6,
+   "uptake": 4,
    "items": [
     {
      "item": "lavender",
@@ -2358,7 +2359,7 @@
    },
    "names": [],
    "transfer": true,
-   "uptake": 6,
+   "uptake": 3,
    "items": [
     {
      "item": "low",
@@ -2466,7 +2467,7 @@
    },
    "names": [],
    "transfer": true,
-   "uptake": 4,
+   "uptake": 2,
    "items": [
     {
      "item": "bread",
@@ -2602,7 +2603,7 @@
    },
    "names": [],
    "transfer": true,
-   "uptake": 5,
+   "uptake": 4,
    "items": [
     {
      "item": "print",
@@ -2697,7 +2698,7 @@
    },
    "names": [],
    "transfer": true,
-   "uptake": 6,
+   "uptake": 4,
    "items": [
     {
      "item": "mom",
@@ -2842,7 +2843,7 @@
    "top": true,
    "percentile": 1.0,
    "candidates": 17,
-   "real": 160,
+   "real": 157,
    "robust_top": true,
    "lore": true,
    "cross": {
@@ -2852,7 +2853,7 @@
    },
    "names": [],
    "transfer": true,
-   "uptake": 7,
+   "uptake": 6,
    "items": [
     {
      "item": "laminated",
@@ -3065,18 +3066,6 @@
      "authors": 2
     },
     {
-     "item": "low + volume",
-     "kind": "pair",
-     "uses": 3,
-     "authors": 2
-    },
-    {
-     "item": "broken + press",
-     "kind": "pair",
-     "uses": 2,
-     "authors": 1
-    },
-    {
      "item": "depot + laminated",
      "kind": "pair",
      "uses": 2,
@@ -3089,13 +3078,13 @@
      "authors": 2
     },
     {
-     "item": "hazard + pound",
+     "item": "hazard + yellow",
      "kind": "pair",
      "uses": 2,
-     "authors": 1
+     "authors": 2
     },
     {
-     "item": "hazard + yellow",
+     "item": "low + volume",
      "kind": "pair",
      "uses": 2,
      "authors": 2
@@ -3114,6 +3103,12 @@
     },
     {
      "item": "broken + pound",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "broken + press",
      "kind": "pair",
      "uses": 1,
      "authors": 1
@@ -3162,6 +3157,12 @@
     },
     {
      "item": "hazard + low + silence + volume",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "hazard + pound",
      "kind": "pair",
      "uses": 1,
      "authors": 1
@@ -3258,7 +3259,7 @@
    },
    "names": [],
    "transfer": true,
-   "uptake": 3,
+   "uptake": 2,
    "items": [
     {
      "item": "broken",
@@ -3324,7 +3325,7 @@
     "gustav"
    ],
    "transfer": true,
-   "uptake": 6,
+   "uptake": 2,
    "items": [
     {
      "item": "toll",
@@ -3413,7 +3414,7 @@
    },
    "names": [],
    "transfer": true,
-   "uptake": 3,
+   "uptake": 2,
    "items": [
     {
      "item": "rosemary",
@@ -3472,7 +3473,7 @@
    },
    "names": [],
    "transfer": true,
-   "uptake": 6,
+   "uptake": 3,
    "items": [
     {
      "item": "grab",
@@ -3578,7 +3579,7 @@
    },
    "names": [],
    "transfer": true,
-   "uptake": 4,
+   "uptake": 3,
    "items": [
     {
      "item": "shovel",
@@ -3638,7 +3639,7 @@
     "gustav"
    ],
    "transfer": true,
-   "uptake": 6,
+   "uptake": 2,
    "items": [
     {
      "item": "brioche",
@@ -3709,7 +3710,7 @@
    },
    "names": [],
    "transfer": true,
-   "uptake": 6,
+   "uptake": 3,
    "items": [
     {
      "item": "fake",
