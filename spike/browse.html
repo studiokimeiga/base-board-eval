@@ -197,12 +197,15 @@ document.addEventListener("change", e => {
   render();
 });
 
+// a set switched away from before its files arrive must not overwrite the one now shown
+let loading = 0;
 function load() {
-  const S = SETS[set];
+  const S = SETS[set], id = ++loading;
   data = {}; scores = {}; openers = []; render();
   Promise.allSettled([fetch(S.scores + "?" + Date.now()).then(r => r.json()),
                       ...S.arms.map(([a]) => fetch(S.file(a) + "?" + Date.now()).then(r => { if (!r.ok) throw r.status; return r.json(); }))])
     .then(([s, ...rs]) => {
+      if (id !== loading) return;
       if (s.status === "fulfilled") scores = s.value;
       S.arms.forEach(([a], i) => { if (rs[i].status === "fulfilled") data[a] = rs[i].value; });
       openers = [...new Set(S.arms.filter(([a]) => data[a]).flatMap(([a]) => data[a].threads.map(t => t.opener)))];
