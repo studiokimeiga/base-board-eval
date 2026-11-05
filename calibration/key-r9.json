@@ -1,0 +1,146 @@
+{
+ "c31": {
+  "chars": 2192,
+  "file": "spike/remote/bakeoff-gemini9neutral.json",
+  "posts": 24,
+  "sha256": "16a043bd7f1fd340c310e724abb6b119eed28255851ea96e492e6b7e67b1f3d1",
+  "source": "gemini9neutral",
+  "thread": 0
+ },
+ "c32": {
+  "chars": 3225,
+  "file": "spike/remote/bakeoff-gemini9neutral.json",
+  "posts": 24,
+  "sha256": "0bfb2dd97c9fe52cfad8b56419eb1d5cee0596a79651adfb94e354fb5803e4d0",
+  "source": "gemini9neutral",
+  "thread": 4
+ },
+ "c33": {
+  "chars": 2103,
+  "file": "spike/remote/bakeoff-gemini9.json",
+  "posts": 24,
+  "sha256": "e0c842fa29e85e5c7a3f3632576ed00a92272f208a15d12ab2022dd1f51e55c4",
+  "source": "gemini9",
+  "thread": 4
+ },
+ "c34": {
+  "chars": 2672,
+  "file": "spike/remote/bakeoff-rolesshort9.json",
+  "posts": 24,
+  "sha256": "03d23620cd4c611f6294f2f03677196b862eb53af6857c8a7f68ef1014aa64d9",
+  "source": "rolesshort9",
+  "thread": 7
+ },
+ "c35": {
+  "chars": 1504,
+  "file": "spike/remote/bakeoff-gemini9.json",
+  "posts": 24,
+  "sha256": "afeef01d9ad8b5bcb6e019fed47ab16c690602a555a0db5d033599192a140902",
+  "source": "gemini9",
+  "thread": 1
+ },
+ "c36": {
+  "chars": 1999,
+  "file": "spike/remote/bakeoff-rolesshort9.json",
+  "posts": 24,
+  "sha256": "4d6d781e462cf8a31a1bb18736542559e98557a5cbfb4a36a8b72fb85c47d7d1",
+  "source": "rolesshort9",
+  "thread": 2
+ },
+ "c37": {
+  "chars": 1650,
+  "file": "spike/remote/bakeoff-gemini9.json",
+  "posts": 24,
+  "sha256": "23e80c41f2c847dd2c0b157bdc3405de56315e89bbc8b0392b4f61fc238dc8af",
+  "source": "gemini9",
+  "thread": 2
+ },
+ "c38": {
+  "chars": 3792,
+  "file": "spike/remote/bakeoff-gemini9.json",
+  "posts": 24,
+  "sha256": "cb10a6e9c47f807b1fb5aead454908de52373ece2ca120e92352b6db763de091",
+  "source": "gemini9",
+  "thread": 6
+ },
+ "c39": {
+  "chars": 4595,
+  "file": "spike/remote/bakeoff-rolesshort9.json",
+  "posts": 24,
+  "sha256": "dee827b3677f0b2f5a05010bebf0ffbdad57122d5f11cf4d73b940e847659dc1",
+  "source": "rolesshort9",
+  "thread": 4
+ },
+ "c40": {
+  "chars": 3477,
+  "file": "spike/remote/bakeoff-rolesshort9.json",
+  "posts": 24,
+  "sha256": "b8ac0cc105753125847b48a99a0f9f8dc6605e6438b463356081cb4fca107809",
+  "source": "rolesshort9",
+  "thread": 3
+ },
+ "c41": {
+  "chars": 3795,
+  "file": "spike/remote/bakeoff-rolesshort9.json",
+  "posts": 24,
+  "sha256": "ddb4b4b32e374f3f7135217965399fabc206db01d284ba273e68ae1801586605",
+  "source": "rolesshort9",
+  "thread": 0
+ },
+ "c42": {
+  "chars": 1841,
+  "file": "spike/remote/bakeoff-rolesshort9.json",
+  "posts": 24,
+  "sha256": "318a39bd24f827f1df7db3474851257bbc1fc3c4a50c65530d9d6b3705a20348",
+  "source": "rolesshort9",
+  "thread": 5
+ },
+ "c43": {
+  "chars": 613,
+  "file": "spike/remote/bakeoff-gemini9neutral.json",
+  "posts": 24,
+  "sha256": "78dfeb5e8e709823b0916279cc9c5e29d2b90fc890e8557f0b6c68e4f2c1dc08",
+  "source": "gemini9neutral",
+  "thread": 3
+ },
+ "c44": {
+  "chars": 2574,
+  "file": "spike/remote/bakeoff-gemini9neutral.json",
+  "posts": 24,
+  "sha256": "0776995834d795e2e246ae3d148aa44e2114d962ecccc148e452c102b615007a",
+  "source": "gemini9neutral",
+  "thread": 2
+ },
+ "c45": {
+  "chars": 2012,
+  "file": "spike/remote/bakeoff-gemini9neutral.json",
+  "posts": 24,
+  "sha256": "89e687aaee38ac40cfa63008455f4d0fbb3ed54ed390943e5579d5f16ddd76a5",
+  "source": "gemini9neutral",
+  "thread": 5
+ },
+ "c46": {
+  "chars": 4327,
+  "file": "spike/remote/bakeoff-gemini9.json",
+  "posts": 24,
+  "sha256": "ab815bfff10cb33be26e0388db84a2cfaad1ff9c36206555cf612e1e0656edf1",
+  "source": "gemini9",
+  "thread": 0
+ },
+ "c47": {
+  "chars": 1894,
+  "file": "spike/remote/bakeoff-gemini9.json",
+  "posts": 24,
+  "sha256": "6d3f3b62f3b672bfb077084b57249c3986a38e4a215b3f0090668d082af61ff9",
+  "source": "gemini9",
+  "thread": 3
+ },
+ "c48": {
+  "chars": 4087,
+  "file": "spike/remote/bakeoff-gemini9neutral.json",
+  "posts": 24,
+  "sha256": "ab96c82c291129979ac0dc85002d14c83c1fae26730139249d68c88602e32ff0",
+  "source": "gemini9neutral",
+  "thread": 7
+ }
+}

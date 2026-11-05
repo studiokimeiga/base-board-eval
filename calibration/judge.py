@@ -5,19 +5,24 @@
   claude-prompt PASS N    print the exact prompt for Claude pass PASS (A or B), batch N of 3
   gpt [--paid]            score every item with gpt-5.4, one call per item; scores-gpt.json
 
-Claude judges run as subagents (as in the bake-off): each reads 10 packets, rates every
-thread on its own, and its JSON reply is saved as scores-claude-<PASS><N>.json. Two passes
-split and order the items differently, so their agreement shows how stable the judge is.
-gpt-5.4 uses the free daily OpenAI allowance tracked in spike/openai_budget.json and stops
-before it runs out; --paid sends the same request through OpenRouter instead.
+Add --set r9 to any of them for the round 9 set: items-r9.json, packets-r9/, scores-r9-gpt.json,
+and its Claude replies saved as scores-r9-claude-<PASS><N>.json.
+
+Claude judges run as subagents (as in the bake-off): each reads a third of the packets (10 of
+the calibration set's, 6 of the round 9 set's), rates every thread on its own, and its JSON reply
+is saved as scores-claude-<PASS><N>.json. Two passes split and order the items differently, so
+their agreement shows how stable the judge is. gpt-5.4 uses the free daily OpenAI allowance
+tracked in spike/openai_budget.json and stops before it runs out; --paid sends the same request
+through OpenRouter instead.
 """
 import json, os, random, sys, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
-PACKETS = os.path.join(HERE, "packets")
 SEEDS = {"A": 101, "B": 202}
 BATCHES = 3
+# Every thread in the round 9 set is Gemini's, so its judges aren't told this
+MIXED = " Some threads were written by small base models and some by large chat models; nothing says which."
 
 
 def read_json(path):
@@ -25,8 +30,15 @@ def read_json(path):
         return json.load(f)
 
 
-def items():
-    return read_json(os.path.join(HERE, "items.json"))["items"]
+def paths(s=""):
+    """A set's items, packet folder and gpt-5.4 scores: the calibration set's, or with -<s> added."""
+    x = "-" + s if s else ""
+    return (os.path.join(HERE, "items%s.json" % x), os.path.join(HERE, "packets" + x),
+            os.path.join(HERE, "scores%s-gpt.json" % x))
+
+
+def items(s=""):
+    return read_json(paths(s)[0])["items"]
 
 
 def thread_text(item):
@@ -34,19 +46,19 @@ def thread_text(item):
                      for p in item["posts"])
 
 
-def scales_text():
+def scales_text(s=""):
     r = read_json(os.path.join(HERE, "rubric.json"))
-    lines = ["- %s: %s (1 = %s, 5 = %s)" % (s["id"], s["ask"], s["low"], s["high"]) for s in r["scales"]]
+    lines = ["- %s: %s (1 = %s, 5 = %s)" % (c["id"], c["ask"], c["low"], c["high"]) for c in r["scales"]]
     lines.append("- repost: true or false. %s" % r["repost"])
-    return r["intro"], "\n".join(lines)
+    return r["intro"].replace(MIXED, "") if s == "r9" else r["intro"], "\n".join(lines)
 
 
 SHAPE = ('{"believable":n,"interest":n,"joke":n,"deadpan":n,"overall":n,"repost":true,'
          '"best_lines":["#7: ..."],"main_failure":"..."}')
 
 
-def gpt_prompt(item):
-    intro, scales = scales_text()
+def gpt_prompt(item, s=""):
+    intro, scales = scales_text(s)
     return ("You are rating one thread from an experiment on AI-generated imageboard threads. "
             + intro + "\n\nScales:\n" + scales +
             '\n\nThen best_lines: up to 3 of the thread\'s best lines, quoted exactly, with the post '
@@ -54,16 +66,16 @@ def gpt_prompt(item):
             "object: " + SHAPE + "\n\nTHREAD\n" + thread_text(item))
 
 
-def batches(pass_name):
-    ids = sorted(i["id"] for i in items())
+def batches(pass_name, s=""):
+    ids = sorted(i["id"] for i in items(s))
     random.Random(SEEDS[pass_name]).shuffle(ids)
     return [ids[k::BATCHES] for k in range(BATCHES)]
 
 
-def claude_prompt(pass_name, n):
-    intro, scales = scales_text()
-    ids = batches(pass_name)[n - 1]
-    files = "\n".join("- " + os.path.join(PACKETS, i + ".txt") for i in ids)
+def claude_prompt(pass_name, n, s=""):
+    intro, scales = scales_text(s)
+    ids = batches(pass_name, s)[n - 1]
+    files = "\n".join("- " + os.path.join(paths(s)[1], i + ".txt") for i in ids)
     return ("You are a blind judge for an experiment on AI-generated imageboard threads. Each file "
             "below holds one thread. Open ONLY these files, in this order, and nothing else in that "
             "folder or its parents:\n\n" + files + "\n\n" + intro + " Rate each thread on its own, "
@@ -74,28 +86,29 @@ def claude_prompt(pass_name, n):
             % (ids[0], SHAPE))
 
 
-def packets():
-    os.makedirs(PACKETS, exist_ok=True)
-    for item in items():
-        with open(os.path.join(PACKETS, item["id"] + ".txt"), "w", encoding="utf-8", newline="\n") as f:
+def packets(s=""):
+    folder = paths(s)[1]
+    os.makedirs(folder, exist_ok=True)
+    for item in items(s):
+        with open(os.path.join(folder, item["id"] + ".txt"), "w", encoding="utf-8", newline="\n") as f:
             f.write(thread_text(item) + "\n")
-    print("wrote", len(items()), "packets to", PACKETS)
+    print("wrote", len(items(s)), "packets to", folder)
 
 
-def gpt():
+def gpt(s=""):
     sys.path.insert(0, ROOT)
     sys.path.insert(0, os.path.join(ROOT, "spike"))
     from round3 import ENV, budget_add, budget_left
     paid = "--paid" in sys.argv
-    out = os.path.join(HERE, "scores-gpt.json")
+    out = paths(s)[2]
     scores = read_json(out) if os.path.exists(out) else {}
-    for item in items():
+    for item in items(s):
         if item["id"] in scores:
             continue
         if not paid and budget_left() < 15000:
             print("stopping: free daily allowance nearly used (rerun tomorrow, or with --paid)")
             break
-        msg = [{"role": "user", "content": gpt_prompt(item)}]
+        msg = [{"role": "user", "content": gpt_prompt(item, s)}]
         if paid:
             url, key = "https://openrouter.ai/api/v1/chat/completions", ENV["OPENROUTER_API_KEY"]
             body = {"model": "openai/gpt-5.4", "reasoning": {"effort": "low"}, "messages": msg}
@@ -117,12 +130,17 @@ def gpt():
 
 
 if __name__ == "__main__":
-    cmd = sys.argv[1] if len(sys.argv) > 1 else ""
+    args, s = sys.argv[1:], ""
+    if "--set" in args:
+        k = args.index("--set")
+        s = {"calibration": "", "r9": "r9"}.get(args[k + 1] if k + 1 < len(args) else "", "?")
+        del args[k:k + 2]
+    cmd = args[0] if args and s != "?" else ""
     if cmd == "packets":
-        packets()
+        packets(s)
     elif cmd == "claude-prompt":
-        print(claude_prompt(sys.argv[2], int(sys.argv[3])))
+        print(claude_prompt(args[1], int(args[2]), s))
     elif cmd == "gpt":
-        gpt()
+        gpt(s)
     else:
         print(__doc__)

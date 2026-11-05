@@ -1,16 +1,20 @@
 #!/usr/bin/env python3
-"""Build the blind calibration set: 30 threads from five sources, in a random order.
+"""Build the blind calibration set: 30 threads from five sources, in a random order; and the
+round 9 set, 18 threads from three round 9 arms, rated on its own.
 
-  python calibration/build.py [--data DIR]
+  python calibration/build.py [--data DIR]... [--set calibration|r9]...
 
-DIR holds the private inputs (default: the repo root): the original corpora (threads*.json,
-from the gated dataset) and spike/remote/ (the bake-off threads). Writes
+DIR holds private inputs (default: the repo root): the original corpora (threads*.json, from the
+gated dataset) and spike/remote/ (the bake-off threads). Give --data more than once when they are
+in different folders; each file is read from the first DIR that has it. Writes, for every set
+whose files are found (or each set named with --set, which must build)
 
-  calibration/items.json   the threads as the rater and the judges see them (private, gitignored)
-  calibration/key.json     item id -> source, file and thread, plus a hash of the rendered thread
+  calibration/items.json, items-r9.json   the threads as the rater and the judges see them (private, gitignored)
+  calibration/key.json, key-r9.json       item id -> source, file and thread, plus a hash of the rendered thread
 
-The selection is fixed by SEED and the rules below, and was committed before any item was
-rated or judged. Running it again on the same files gives the same set, byte for byte.
+The selection is fixed by the seeds and the rules below. The calibration set was committed before
+any of its items was rated or judged, the round 9 set before the reader rated any of it. Running it
+again on the same files gives the same sets, byte for byte.
 """
 import argparse, hashlib, json, os, random, re, sys
 
@@ -32,6 +36,14 @@ SMALL_POOL = "threads.final.json"
 # gpt-5.4 picker; rolesshort is Gemini with per-poster temperaments and post length (round 8).
 HOSTED = [("gemini", "bakeoff-gemini.json"), ("rolesshort", "bakeoff-rolesshort.json"),
           ("qwenpick", "bakeoff-pick.json")]
+# The round 9 set (README.md, "The round 9 set"): plain Gemini under the neutral header, its /x/
+# twin, and short temperaments under /x/. Its arms are compared with each other, so they take
+# matched openers rather than the rotation; its ids follow the calibration set's, so a reader's
+# exports for the two sets never share an id.
+ROUND9 = [("gemini9neutral", "bakeoff-gemini9neutral.json"), ("gemini9", "bakeoff-gemini9.json"),
+          ("rolesshort9", "bakeoff-rolesshort9.json")]
+R9_SEED = 2026110209
+R9_FIRST = 31
 # Stricter than the board's gate: a person reads these, so anything near these topics is
 # left out, matched as words rather than substrings.
 EXCLUDE = re.compile(r"\b(rap(e|ed|ing|ist)|molest\w*|pedo\w*|paedo\w*|incest|suicid\w*|"
@@ -39,6 +51,18 @@ EXCLUDE = re.compile(r"\b(rap(e|ed|ing|ist)|molest\w*|pedo\w*|paedo\w*|incest|su
                      r"spics?|chinks?|trann\w*|dykes?|coons?|wetback\w*|towelhead\w*|cunt\w*|"
                      r"cock\w*|tits|porn\w*|sex\w*|naked|nude|horny|orgasm\w*|slut\w*|whore\w*|"
                      r"penis|vagina|dick)\b", re.I)
+
+
+class Missing(SystemExit):
+    """A private input that none of the data folders has."""
+
+
+def find(data, name):
+    """name, a path inside a data folder, in the first of the data folders that has it."""
+    for d in data:
+        if os.path.exists(os.path.join(d, name)):
+            return os.path.join(d, name)
+    raise Missing("%s is in none of: %s (pass the folder that has it with --data)" % (name, ", ".join(data)))
 
 
 def load_threads(path):
@@ -73,14 +97,55 @@ def digest(posts):
     return hashlib.sha256(json.dumps(posts, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
 
 
+def hosted(arms, data, notes, matched=False):
+    """Each bake-off arm takes 6 of the 8 openers, rotated so every opener appears two or three
+    times across the three arms; or, matched, every arm after the first tries the first arm's
+    openers before its own next ones, so the arms can be compared opener by opener. Either way a
+    thread that fails the screen gives way to the arm's next unused opener."""
+    chosen, first = [], None
+    for k, (source, fname) in enumerate(arms):
+        threads = load_threads(find(data, os.path.join("spike", "remote", fname)))
+        if matched and first:
+            order = first + [i for i in range(len(threads)) if i not in first]
+        else:
+            order = [(2 * k + j) % len(threads) for j in range(len(threads))]
+        got = []
+        for i in order:
+            why = screen(threads[i])
+            if why:
+                notes.append("%s: skipped %s[%d] (%s)" % (source, fname, i, why))
+                continue
+            chosen.append((source, "spike/remote/" + fname, i, threads[i]))
+            got.append(i)
+            if len(got) == PER_SOURCE:
+                break
+        if len(got) < PER_SOURCE:
+            raise SystemExit("%s: only %d threads pass the screen" % (source, len(got)))
+        first = first or got
+    return chosen
+
+
+def label(chosen, first=1):
+    """Ids c<first>, c<first + 1>, ... in the order of chosen, and the public key."""
+    items, key = [], {}
+    for n, (source, fname, i, t) in enumerate(chosen):
+        iid = "c%02d" % (first + n)
+        posts = render(t)
+        items.append({"id": iid, "posts": posts})
+        key[iid] = {"source": source, "file": fname, "thread": i, "posts": len(posts),
+                    "chars": sum(len(p["text"]) for p in posts), "sha256": digest(posts)}
+    return items, key
+
+
 def build(data):
+    data = [data] if isinstance(data, str) else data
     rng = random.Random(SEED)
     chosen, notes = [], []
     corpora = {}
 
     def corpus(name):
         if name not in corpora:
-            corpora[name] = load_threads(os.path.join(data, name))
+            corpora[name] = load_threads(find(data, name))
         return corpora[name]
 
     for name, i in BEST_OF:
@@ -101,51 +166,63 @@ def build(data):
         if sum(c[0] == "smallrand" for c in chosen) == PER_SOURCE:
             break
 
-    # Each bake-off arm takes 6 of the 8 openers, rotated so every opener appears two or three
-    # times across the three arms; a thread that fails the screen gives way to the arm's next
-    # unused opener.
-    for k, (source, fname) in enumerate(HOSTED):
-        threads = load_threads(os.path.join(data, "spike", "remote", fname))
-        order = [(2 * k + j) % len(threads) for j in range(len(threads))]
-        got = 0
-        for i in order:
-            why = screen(threads[i])
-            if why:
-                notes.append("%s: skipped %s[%d] (%s)" % (source, fname, i, why))
-                continue
-            chosen.append((source, "spike/remote/" + fname, i, threads[i]))
-            got += 1
-            if got == PER_SOURCE:
-                break
-        if got < PER_SOURCE:
-            raise SystemExit("%s: only %d threads pass the screen" % (source, got))
-
+    chosen += hosted(HOSTED, data, notes)
     rng.shuffle(chosen)
-    items, key = [], {}
-    for n, (source, fname, i, t) in enumerate(chosen):
-        iid = "c%02d" % (n + 1)
-        posts = render(t)
-        items.append({"id": iid, "posts": posts})
-        key[iid] = {"source": source, "file": fname, "thread": i, "posts": len(posts),
-                    "chars": sum(len(p["text"]) for p in posts), "sha256": digest(posts)}
+    items, key = label(chosen)
     return items, key, notes
+
+
+def build_r9(data):
+    """The round 9 set: six threads from each ROUND9 arm on matched openers, ids from c31."""
+    data = [data] if isinstance(data, str) else data
+    notes = []
+    chosen = hosted(ROUND9, data, notes, matched=True)
+    random.Random(R9_SEED).shuffle(chosen)
+    items, key = label(chosen, R9_FIRST)
+    return items, key, notes
+
+
+# set -> (file suffix, builder, seed)
+SETS = {"calibration": ("", build, SEED), "r9": ("-r9", build_r9, R9_SEED)}
+
+
+def build_sets(data, wanted=None):
+    """{set: (items, key, notes)} for the sets in wanted, each of which must build, or by default for
+    every set whose files are found, with {set: why} for those left out."""
+    built, skipped = {}, {}
+    for name in wanted or list(SETS):
+        try:
+            built[name] = SETS[name][1](data)
+        except Missing as e:
+            if wanted:
+                raise
+            skipped[name] = str(e)
+    if not built:
+        raise SystemExit("nothing built: " + "; ".join(skipped.values()))
+    return built, skipped
 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--data", default=ROOT)
+    ap.add_argument("--data", action="append", help="a folder with private inputs; repeatable")
+    ap.add_argument("--set", action="append", choices=sorted(SETS),
+                    help="build this set, which must succeed; repeatable (default: every set whose files are found)")
     a = ap.parse_args()
-    items, key, notes = build(a.data)
-    with open(os.path.join(HERE, "items.json"), "w", encoding="utf-8", newline="\n") as f:
-        json.dump({"seed": SEED, "items": items}, f, ensure_ascii=False, indent=1)
-    with open(os.path.join(HERE, "key.json"), "w", encoding="utf-8", newline="\n") as f:
-        json.dump(key, f, indent=1, sort_keys=True)
-    for line in notes:
-        print(line)
-    counts = {}
-    for v in key.values():
-        counts[v["source"]] = counts.get(v["source"], 0) + 1
-    print("built %d items:" % len(items), counts)
+    built, skipped = build_sets(a.data or [ROOT], a.set)
+    for name, (items, key, notes) in built.items():
+        sfx, _, seed = SETS[name]
+        with open(os.path.join(HERE, "items%s.json" % sfx), "w", encoding="utf-8", newline="\n") as f:
+            json.dump({"seed": seed, "items": items}, f, ensure_ascii=False, indent=1)
+        with open(os.path.join(HERE, "key%s.json" % sfx), "w", encoding="utf-8", newline="\n") as f:
+            json.dump(key, f, indent=1, sort_keys=True)
+        for line in notes:
+            print(line)
+        counts = {}
+        for v in key.values():
+            counts[v["source"]] = counts.get(v["source"], 0) + 1
+        print("%s: built %d items:" % (name, len(items)), counts)
+    for name, why in skipped.items():
+        print("%s: not built, %s" % (name, why))
 
 
 if __name__ == "__main__":
