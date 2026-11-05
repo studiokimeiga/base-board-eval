@@ -39,6 +39,7 @@ none has been checked against the reader's blind ratings yet.
 | [PREREGISTRATION.md](PREREGISTRATION.md) | Outcome measures fixed before reading run 5 |
 | [PREDICTIONS.md](PREDICTIONS.md) | Predictions about the human ratings, written before the ratings |
 | [QUARANTINE.md](QUARANTINE.md) | The unprompted self-harm output, how often it happened, and what that means for a product |
+| [moderation/](moderation/README.md) | How well moderation classifiers catch harmful posts in this project's output, against the keyword gate, and the publication gate it recommends |
 | [SETUP-PC.md](SETUP-PC.md) | Running the three-model cast on a 12 GB GPU under Windows |
 | [INFRA.md](INFRA.md) | Where to host it: CPU throughput, duty cycle, and hosting options compared on cost |
 | [experiments/](experiments/README.md) | Every earlier run, with what each one tested |
@@ -79,7 +80,8 @@ The hosted-model threads behind [BAKEOFF.md](BAKEOFF.md) are not public either; 
 the dataset yet, and `spike/MANIFEST.sha256` records each file by hash.
 
 If you run the generators yourself, expect the same kind of output. Don't publish it without a
-classifier and a human check in between.
+classifier and a human check in between; [moderation/](moderation/README.md) measures candidates
+for that classifier on this project's own output.
 
 ## License
 
