@@ -10,3 +10,5 @@ quarantine.jsonl
 *.log
 openai_budget.json
 __pycache__/
+# generation scripts default to remote/; these catch output written next to the scripts
+bakeoff-*.json

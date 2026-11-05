@@ -91,5 +91,29 @@ class Round3Budget(TempDir):
             self.assertEqual(errors, [])
             self.assertEqual(R3.budget_left(), R3.DAILY_CAP - 900)
 
+
+class BakeoffOutput(TempDir):
+    def run_cast(self):
+        with keep_generate_globals(), \
+                mock.patch.object(B, "SPIKE", self.tmp), \
+                mock.patch.object(sys, "argv", ["bakeoff.py", "--arm", "cast", "--models", self.tmp]), \
+                mock.patch.object(B, "start_server", side_effect=lambda *a, **k: mock.MagicMock()), \
+                mock.patch.object(G, "wait_ready", return_value=True), \
+                mock.patch.object(G, "gen_thread", side_effect=fake_thread), \
+                mock.patch("builtins.print"):
+            B.main()
+
+    def test_default_output_is_the_private_remote_dir(self):
+        self.run_cast()
+        self.assertFalse(os.path.exists(os.path.join(self.tmp, "bakeoff-cast.json")))
+        with open(os.path.join(self.tmp, "remote", "bakeoff-cast.json"), encoding="utf-8") as f:
+            self.assertEqual(len(json.load(f)["threads"]), len(B.OPENER_PICKS))
+
+    def test_default_output_is_gitignored(self):
+        ignored = git_ignored(os.path.join(SPIKE, "remote", "bakeoff-cast.json"))
+        if ignored is None:
+            self.skipTest("git not available")
+        self.assertTrue(ignored)
+
 if __name__ == "__main__":
     unittest.main()
