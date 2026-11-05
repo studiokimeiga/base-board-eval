@@ -123,11 +123,20 @@ class Board:
                            else "%s %s\n%s" % (p["who"], p["ts"], p["text"]) for p in parts)
 
     def pick_prior(self, exclude=()):
-        """An earlier thread worth remembering: has a conversation, didn't die."""
+        """An earlier thread worth remembering: has a conversation, didn't die, and leaves
+        enough regulars to cast a new thread without any of its authors."""
         ok = [t for t in self.threads if t["status"] != "died" and t["no"] not in exclude
               and sum(1 for p in t["posts"][1:] if p["text"] and not p.get("withheld"))
-              >= PRIOR_MIN_REPLIES]
+              >= PRIOR_MIN_REPLIES and self.castable(self.prior_block(t)[1])]
         return self.rng.choice(ok) if ok else None
+
+    def castable(self, avoid):
+        """Whether cast() can fill every slot without anyone in avoid. With --voices qwen,
+        all seven slots draw on the ten qwen regulars, so a prior with four or more of them
+        among its authors can't be used."""
+        need = {v: self.cast_voices.count(v) for v in set(self.cast_voices)}
+        return all(sum(1 for h, hv in self.regulars.items() if hv == v and h not in avoid) >= n
+                   for v, n in need.items())
 
     @staticmethod
     def prior_block(t):

@@ -135,5 +135,52 @@ class LiveBoardSnapshot(unittest.TestCase):
             LB.Board(["gemma", "qwen", "olmo"], random.Random(1)).save("test")
         self.assertTrue(os.path.exists(state))
 
+
+class LiveBoardRestrictedVoices(TempDir):
+    """--voices qwen: every cast slot comes from the 10 qwen regulars."""
+
+    def board_with_prior(self, seed, distinct_authors):
+        with mock.patch.object(LB, "STATE", os.path.join(self.tmp, "board.json")):
+            b = LB.Board(["qwen"], random.Random(seed))
+        qwen = [h for h, v in b.regulars.items() if v == "qwen"]
+        posts = [{"who": qwen[k % distinct_authors], "ts": "x", "t": 0, "text": "post %d" % k,
+                  "voice": "qwen", "stop": "-"} for k in range(LB.PRIOR_MIN_REPLIES + 2)]
+        b.threads.append({"no": 4471, "op": qwen[0], "pool": qwen[:7], "prior": None,
+                          "prior_text": "", "prior_who": [], "origin": "opener", "created": 0,
+                          "bumped": 0, "status": "archived", "posts": posts})
+        b.next_no = 4472
+        return b
+
+    def new_threads(self, b, n=6):
+        made = []
+        with mock.patch.object(LB, "QUARANTINE", os.path.join(self.tmp, "q.jsonl")), \
+                mock.patch.object(G, "complete",
+                                  return_value=("someone keeps moving my chair a few inches every night", "eos")):
+            for _ in range(n):
+                t, _err = b.new_thread()
+                if t:
+                    made.append(t)
+        return made
+
+    def test_prior_that_leaves_too_few_regulars_does_not_crash(self):
+        made = []
+        for seed in range(30):
+            made += self.new_threads(self.board_with_prior(seed, distinct_authors=5))
+        self.assertTrue(made)
+        for t in made:
+            self.assertEqual(len(t["pool"]), LB.POOL_SIZE)
+            self.assertFalse(set(t["pool"]) & set(t["prior_who"]))
+
+    def test_prior_that_leaves_enough_regulars_is_still_used(self):
+        made = []
+        for seed in range(30):
+            made += self.new_threads(self.board_with_prior(seed, distinct_authors=3))
+        with_prior = [t for t in made if t["prior"] is not None]
+        self.assertTrue(with_prior)
+        for t in with_prior:
+            self.assertEqual(len(t["pool"]), LB.POOL_SIZE)
+            self.assertFalse(set(t["pool"]) & set(t["prior_who"]))
+
+
 if __name__ == "__main__":
     unittest.main()
