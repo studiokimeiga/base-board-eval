@@ -115,5 +115,25 @@ class BakeoffOutput(TempDir):
             self.skipTest("git not available")
         self.assertTrue(ignored)
 
+
+class LiveBoardSnapshot(unittest.TestCase):
+    def test_default_snapshot_is_private(self):
+        if "BOARD_DATA_DIR" in os.environ:
+            self.skipTest("BOARD_DATA_DIR is set")
+        self.assertEqual(os.path.normcase(LB.DATA), os.path.normcase(os.path.join(SPIKE, "remote")))
+        for path in (LB.STATE, os.path.join(SPIKE, "board.json")):
+            ignored = git_ignored(path)
+            if ignored is None:
+                self.skipTest("git not available")
+            self.assertTrue(ignored, path)
+
+    def test_save_creates_the_data_dir(self):
+        tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, tmp, True)
+        state = os.path.join(tmp, "remote", "board.json")
+        with mock.patch.object(LB, "STATE", state):
+            LB.Board(["gemma", "qwen", "olmo"], random.Random(1)).save("test")
+        self.assertTrue(os.path.exists(state))
+
 if __name__ == "__main__":
     unittest.main()

@@ -39,7 +39,7 @@ import generate as G                      # final config: sampler, gate, harm li
 from openers import ALL as OPENERS
 
 # Overridable so the same script runs on Modal (see modal_board.py)
-DATA = os.environ.get("BOARD_DATA_DIR", SPIKE)
+DATA = os.environ.get("BOARD_DATA_DIR", os.path.join(SPIKE, "remote"))   # private, gitignored
 MODELS = os.environ.get("BOARD_MODELS_DIR", os.path.join(ROOT, "models"))
 STATE = os.path.join(DATA, "board.json")
 QUARANTINE = os.path.join(DATA, "quarantine.jsonl")
@@ -101,6 +101,7 @@ class Board:
         return sorted(t, key=lambda x: -x["bumped"])
 
     def save(self, status=""):
+        os.makedirs(os.path.dirname(STATE), exist_ok=True)
         tmp = STATE + ".tmp"
         with open(tmp, "w", encoding="utf-8") as f:
             json.dump({"board": BOARD, "next_no": self.next_no, "regulars": self.regulars,
