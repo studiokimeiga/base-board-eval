@@ -216,9 +216,17 @@ def prior_spend(root):
 class Budget:
     def __init__(self, cap, spent=0.0):
         self.cap, self.spent, self.calls, self.lock = cap, spent, 0, threading.Lock()
+        self.halted = False
+
+    def halt(self):
+        """Stop every thread at its next call: a failure elsewhere in the run, or an interrupt."""
+        with self.lock:
+            self.halted = True
 
     def check(self):
         with self.lock:
+            if self.halted:
+                raise OverBudget("halted after spending $%.4f" % self.spent)
             if self.spent >= self.cap:
                 raise OverBudget("spent $%.4f of the $%.2f cap" % (self.spent, self.cap))
 
@@ -228,12 +236,14 @@ class Budget:
             self.calls += 1
 
 
-def run_thread(spec, board, complete, source=None, arm="none", budget=None):
-    """Append-only: one call per post, nothing regenerated. `source` is the target's source thread
-    (both arms, for the stop list); only arm "memory" puts it on the page. A post that hits the gate
-    is withheld before the next page is built and goes to the returned quarantine list."""
-    shown = source if arm == "memory" else None
-    stop_list = stops(board, spec["cast"], source["cast"] if source else [])
+def generate(spec, board, complete, above=None, above_cast=(), arm="none", budget=None):
+    """One thread's posts, append-only: one call per post, nothing regenerated. `above` is the thread
+    the page shows above this one, or None. The stop list covers this thread's cast and `above_cast`
+    whether or not `above` is shown, so both arms of a pair stop alike. A post that hits the gate is
+    withheld before the next page is built and goes to the returned quarantine list.
+
+    Returns (posts, stop list, quarantine, spend). Both hops use it: run_thread here, hop2.py."""
+    stop_list = stops(board, spec["cast"], above_cast)
     t0 = spec["start"]
     posts = [{"n": 1, "who": spec["authors"][0], "ts": stamp(t0), "t": t0,
               "text": OPENERS[spec["opener"]], "stop": "-"}]
@@ -243,7 +253,7 @@ def run_thread(spec, board, complete, source=None, arm="none", budget=None):
         seed = call_seed(board, spec["id"], n)
         if budget:
             budget.check()
-        r = complete(ask(page(board, spec["no"], posts, shown), author), seed)
+        r = complete(ask(page(board, spec["no"], posts, above), author), seed)
         if budget:
             budget.add(r["cost"])
         spent += r["cost"]
@@ -258,6 +268,15 @@ def run_thread(spec, board, complete, source=None, arm="none", budget=None):
                                "post": dict(p)})
             p.update(text="[post withheld]", withheld=True, matched=len(hits))
         posts.append(p)
+    return posts, stop_list, quarantine, spent
+
+
+def run_thread(spec, board, complete, source=None, arm="none", budget=None):
+    """`source` is the target's source thread (both arms, for the stop list); only arm "memory" puts
+    it on the page."""
+    posts, stop_list, quarantine, spent = generate(
+        spec, board, complete, above=source if arm == "memory" else None,
+        above_cast=source["cast"] if source else [], arm=arm, budget=budget)
     return {"id": spec["id"], "role": spec["role"], "arm": arm if spec["role"] == "target" else None,
             "board": board, "no": spec["no"], "opener": spec["opener"], "pattern": spec["pattern"],
             "cast": spec["cast"], "source": spec.get("source"),
@@ -309,15 +328,30 @@ def path_of(root, board_key, spec, arm):
 
 
 def _save(path, thread, qlog):
+    """Unix newlines on every platform, so a file hashes the same wherever it was written."""
     os.makedirs(os.path.dirname(path), exist_ok=True)
     q = thread.pop("quarantine")
     if q:
-        with open(qlog, "a", encoding="utf-8") as f:
+        with open(qlog, "a", encoding="utf-8", newline="\n") as f:
             for x in q:
                 f.write(json.dumps(x, ensure_ascii=False) + "\n")
-    with open(path + ".tmp", "w", encoding="utf-8") as f:
+    with open(path + ".tmp", "w", encoding="utf-8", newline="\n") as f:
         json.dump(thread, f, ensure_ascii=False, indent=1)
     os.replace(path + ".tmp", path)
+
+
+def manifest(private, base, out):
+    """SHA-256 of every file under `private`, by path relative to `base`, into `out`; returns the count."""
+    lines = []
+    for dirpath, _, files in os.walk(private):
+        for name in sorted(files):
+            full = os.path.join(dirpath, name)
+            with open(full, "rb") as f:
+                lines.append("%s *%s" % (hashlib.sha256(f.read()).hexdigest(),
+                                         os.path.relpath(full, base).replace(os.sep, "/")))
+    with open(out, "w", encoding="utf-8", newline="\n") as f:
+        f.write("\n".join(sorted(lines, key=lambda l: l.split("*", 1)[1])) + "\n")
+    return len(lines)
 
 
 def run(sched, design, complete, budget, root, workers=12, log=print):
@@ -423,16 +457,8 @@ def main():
             print("spent $%.4f over %d calls (total $%.4f of the $%.2f cap)"
                   % (budget.spent - before, budget.calls, budget.spent, a.cap))
     elif a.cmd == "manifest":
-        lines = []
-        for dirpath, _, files in os.walk(PRIVATE):
-            for name in sorted(files):
-                full = os.path.join(dirpath, name)
-                with open(full, "rb") as f:
-                    lines.append("%s *%s" % (hashlib.sha256(f.read()).hexdigest(),
-                                             os.path.relpath(full, HERE).replace(os.sep, "/")))
-        with open(os.path.join(HERE, "MANIFEST.sha256"), "w", encoding="utf-8") as f:
-            f.write("\n".join(sorted(lines, key=lambda l: l.split("*", 1)[1])) + "\n")
-        print("hashed %d private files into lore/MANIFEST.sha256" % len(lines))
+        n = manifest(PRIVATE, HERE, os.path.join(HERE, "MANIFEST.sha256"))
+        print("hashed %d private files into lore/MANIFEST.sha256" % n)
 
 
 if __name__ == "__main__":

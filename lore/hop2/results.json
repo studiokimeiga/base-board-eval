@@ -1,0 +1,3791 @@
+{
+ "ref_share": 0.05,
+ "summary": {
+  "design": "full",
+  "judging_scope": "all",
+  "h1": {
+   "pairs": 48,
+   "lore": 11,
+   "sham": 2,
+   "lore_only": 9,
+   "sham_only": 0,
+   "p": 0.00390625,
+   "diff": 0.1875,
+   "ci": [
+    0.041666666666666664,
+    0.375
+   ]
+  },
+  "h1_confirmed": {
+   "pairs": 36,
+   "lore": 4,
+   "sham": 0,
+   "lore_only": 4,
+   "sham_only": 0,
+   "p": 0.125,
+   "diff": 0.1111111111111111,
+   "ci": [
+    0.0,
+    0.2777777777777778
+   ]
+  },
+  "h1_robust": {
+   "pairs": 48,
+   "lore": 12,
+   "sham": 2,
+   "lore_only": 10,
+   "sham_only": 0,
+   "p": 0.001953125,
+   "diff": 0.20833333333333334,
+   "ci": [
+    0.041666666666666664,
+    0.375
+   ]
+  },
+  "h2": {
+   "pairs": 48,
+   "lore": 9,
+   "sham": 0,
+   "lore_only": 9,
+   "sham_only": 0,
+   "p": 0.00390625,
+   "diff": 0.1875,
+   "ci": [
+    0.10416666666666667,
+    0.2708333333333333
+   ],
+   "cross_hits": 7,
+   "cross_n": 134
+  },
+  "h3": {
+   "pairs": 48,
+   "lore": 19,
+   "sham": 0,
+   "lore_only": 19,
+   "sham_only": 0,
+   "p": 3.814697265625e-06
+  },
+  "h4": {
+   "lore": 17,
+   "sham": 0
+  },
+  "names": {
+   "lore": 7,
+   "sham": 0
+  },
+  "content": {
+   "lore": 6,
+   "sham": 0
+  },
+  "l4": "met: the source's material survives two hops above the sham rate, and a named invention is among it"
+ },
+ "targets": [
+  {
+   "target": "u00",
+   "arm": "lore",
+   "prior": "t44",
+   "source": "s07",
+   "top": true,
+   "percentile": 1.0,
+   "candidates": 14,
+   "real": 46,
+   "robust_top": true,
+   "lore": true,
+   "cross": {
+    "s05": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [
+    "gustav"
+   ],
+   "transfer": true,
+   "uptake": 4,
+   "items": [
+    {
+     "item": "canal",
+     "kind": "word",
+     "uses": 5,
+     "authors": 4
+    },
+    {
+     "item": "toll",
+     "kind": "word",
+     "uses": 3,
+     "authors": 3
+    },
+    {
+     "item": "belt",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "flock",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "molting",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "seeded",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "sensory",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "belt loop",
+     "kind": "phrase",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "sensory ground",
+     "kind": "phrase",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "duck already",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "toll bridge",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "bridge + toll",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "seeded + sourdough",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    }
+   ],
+   "len": 163.04347826086956,
+   "above_len": 140.65217391304347
+  },
+  {
+   "target": "u00",
+   "arm": "sham",
+   "prior": "t44",
+   "source": "s07",
+   "top": false,
+   "percentile": 0.4230769230769231,
+   "candidates": 14,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 199.33333333333334,
+   "above_len": 106
+  },
+  {
+   "target": "u01",
+   "arm": "lore",
+   "prior": "t20",
+   "source": "s05",
+   "top": false,
+   "percentile": 0.15384615384615385,
+   "candidates": 14,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s07": false,
+    "s09": false,
+    "s19": true
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 346.8181818181818,
+   "above_len": 175.17391304347825
+  },
+  {
+   "target": "u01",
+   "arm": "sham",
+   "prior": "t20",
+   "source": "s05",
+   "top": false,
+   "percentile": 0.38461538461538464,
+   "candidates": 14,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s07": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 139.6086956521739,
+   "above_len": 94.47826086956522
+  },
+  {
+   "target": "u02",
+   "arm": "lore",
+   "prior": "t29",
+   "source": "s09",
+   "top": false,
+   "percentile": 0.7307692307692307,
+   "candidates": 14,
+   "real": 6,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 2,
+   "items": [
+    {
+     "item": "laminated",
+     "kind": "word",
+     "uses": 3,
+     "authors": 2
+    },
+    {
+     "item": "wheel",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "laminated + membership",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    }
+   ],
+   "len": 301.82608695652175,
+   "above_len": 363.8695652173913
+  },
+  {
+   "target": "u02",
+   "arm": "sham",
+   "prior": "t29",
+   "source": "s09",
+   "top": false,
+   "percentile": 0.4230769230769231,
+   "candidates": 14,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 85.8695652173913,
+   "above_len": 89.4090909090909
+  },
+  {
+   "target": "u03",
+   "arm": "lore",
+   "prior": "t17",
+   "source": "s19",
+   "top": false,
+   "percentile": 0.39285714285714285,
+   "candidates": 15,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s09": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 79.8695652173913,
+   "above_len": 73.6086956521739
+  },
+  {
+   "target": "u03",
+   "arm": "sham",
+   "prior": "t17",
+   "source": "s19",
+   "top": false,
+   "percentile": 0.35714285714285715,
+   "candidates": 15,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s09": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 49.52173913043478,
+   "above_len": 46.08695652173913
+  },
+  {
+   "target": "u04",
+   "arm": "lore",
+   "prior": "t44",
+   "source": "s07",
+   "top": false,
+   "percentile": 0.9230769230769231,
+   "candidates": 14,
+   "real": 46,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [
+    "gustav"
+   ],
+   "transfer": true,
+   "uptake": 3,
+   "items": [
+    {
+     "item": "bridge",
+     "kind": "word",
+     "uses": 4,
+     "authors": 3
+    },
+    {
+     "item": "canal",
+     "kind": "word",
+     "uses": 3,
+     "authors": 3
+    },
+    {
+     "item": "sourdough",
+     "kind": "word",
+     "uses": 3,
+     "authors": 2
+    },
+    {
+     "item": "reed",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "toll",
+     "kind": "word",
+     "uses": 2,
+     "authors": 1
+    },
+    {
+     "item": "toll bridge",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "bridge + toll",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    }
+   ],
+   "len": 178.65217391304347,
+   "above_len": 140.65217391304347
+  },
+  {
+   "target": "u04",
+   "arm": "sham",
+   "prior": "t44",
+   "source": "s07",
+   "top": false,
+   "percentile": 0.38461538461538464,
+   "candidates": 14,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 151.5,
+   "above_len": 106
+  },
+  {
+   "target": "u05",
+   "arm": "lore",
+   "prior": "t28",
+   "source": "s19",
+   "top": false,
+   "percentile": 0.7142857142857143,
+   "candidates": 15,
+   "real": 8,
+   "robust_top": false,
+   "lore": true,
+   "cross": {
+    "s05": false,
+    "s07": true,
+    "s09": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 2,
+   "items": [
+    {
+     "item": "hedge",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "trimmer",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "hedge trimmer",
+     "kind": "phrase",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "hedge + trimmer",
+     "kind": "pair",
+     "uses": 2,
+     "authors": 2
+    }
+   ],
+   "len": 255.43478260869566,
+   "above_len": 99.91304347826087
+  },
+  {
+   "target": "u05",
+   "arm": "sham",
+   "prior": "t28",
+   "source": "s19",
+   "top": false,
+   "percentile": 0.4642857142857143,
+   "candidates": 15,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s09": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 33.90909090909091,
+   "above_len": 22.91304347826087
+  },
+  {
+   "target": "u06",
+   "arm": "lore",
+   "prior": "t17",
+   "source": "s19",
+   "top": false,
+   "percentile": 0.46153846153846156,
+   "candidates": 14,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s07": false,
+    "s09": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 96.04347826086956,
+   "above_len": 73.6086956521739
+  },
+  {
+   "target": "u06",
+   "arm": "sham",
+   "prior": "t17",
+   "source": "s19",
+   "top": false,
+   "percentile": 0.9230769230769231,
+   "candidates": 14,
+   "real": 2,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s07": false,
+    "s09": true
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 2,
+   "items": [
+    {
+     "item": "offer",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    }
+   ],
+   "len": 67,
+   "above_len": 46.08695652173913
+  },
+  {
+   "target": "u07",
+   "arm": "lore",
+   "prior": "t17",
+   "source": "s19",
+   "top": false,
+   "percentile": 0.32142857142857145,
+   "candidates": 15,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s09": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 105.21739130434783,
+   "above_len": 73.6086956521739
+  },
+  {
+   "target": "u07",
+   "arm": "sham",
+   "prior": "t17",
+   "source": "s19",
+   "top": false,
+   "percentile": 0.42857142857142855,
+   "candidates": 15,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s09": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 57.130434782608695,
+   "above_len": 46.08695652173913
+  },
+  {
+   "target": "u08",
+   "arm": "lore",
+   "prior": "t21",
+   "source": "s05",
+   "top": false,
+   "percentile": 0.7692307692307693,
+   "candidates": 14,
+   "real": 7,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s07": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [
+    "calvin"
+   ],
+   "transfer": true,
+   "uptake": 1,
+   "items": [
+    {
+     "item": "creature",
+     "kind": "word",
+     "uses": 2,
+     "authors": 1
+    }
+   ],
+   "len": 255.30434782608697,
+   "above_len": 150.2173913043478
+  },
+  {
+   "target": "u08",
+   "arm": "sham",
+   "prior": "t21",
+   "source": "s05",
+   "top": false,
+   "percentile": 0.5,
+   "candidates": 14,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s07": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 72.95652173913044,
+   "above_len": 50.95652173913044
+  },
+  {
+   "target": "u09",
+   "arm": "lore",
+   "prior": "t29",
+   "source": "s09",
+   "top": true,
+   "percentile": 1.0,
+   "candidates": 17,
+   "real": 77,
+   "robust_top": true,
+   "lore": true,
+   "cross": {
+    "s05": false,
+    "s07": true,
+    "s19": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 5,
+   "items": [
+    {
+     "item": "laminated",
+     "kind": "word",
+     "uses": 11,
+     "authors": 5
+    },
+    {
+     "item": "yellow",
+     "kind": "word",
+     "uses": 8,
+     "authors": 5
+    },
+    {
+     "item": "hazard",
+     "kind": "word",
+     "uses": 5,
+     "authors": 3
+    },
+    {
+     "item": "offer",
+     "kind": "word",
+     "uses": 5,
+     "authors": 3
+    },
+    {
+     "item": "caution",
+     "kind": "word",
+     "uses": 3,
+     "authors": 3
+    },
+    {
+     "item": "wedding",
+     "kind": "word",
+     "uses": 3,
+     "authors": 3
+    },
+    {
+     "item": "compliant",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "laminator",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "osha",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "whispered",
+     "kind": "word",
+     "uses": 2,
+     "authors": 1
+    },
+    {
+     "item": "offer to spot",
+     "kind": "phrase",
+     "uses": 5,
+     "authors": 3
+    },
+    {
+     "item": "hazard tape",
+     "kind": "phrase",
+     "uses": 4,
+     "authors": 2
+    },
+    {
+     "item": "caution tape",
+     "kind": "phrase",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "man pull",
+     "kind": "phrase",
+     "uses": 2,
+     "authors": 1
+    },
+    {
+     "item": "yellow caution",
+     "kind": "phrase",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "dead silence",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "immediately offer",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "osha compliant",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "roll of yellow",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "total silence",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "yellow caution tape",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "caution + yellow",
+     "kind": "pair",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "laminated + yellow",
+     "kind": "pair",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "offer + wedding",
+     "kind": "pair",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "caution + laminated",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "compliant + osha",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "depot + laminated",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "hazard + laminated",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "hazard + laminated + yellow",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "hazard + wedding",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "hazard + yellow",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    }
+   ],
+   "len": 523.304347826087,
+   "above_len": 363.8695652173913
+  },
+  {
+   "target": "u09",
+   "arm": "sham",
+   "prior": "t29",
+   "source": "s09",
+   "top": false,
+   "percentile": 0.46875,
+   "candidates": 17,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 120.6086956521739,
+   "above_len": 89.4090909090909
+  },
+  {
+   "target": "u10",
+   "arm": "lore",
+   "prior": "t21",
+   "source": "s05",
+   "top": false,
+   "percentile": 0.5833333333333334,
+   "candidates": 13,
+   "real": 7,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s07": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 3,
+   "items": [
+    {
+     "item": "mother",
+     "kind": "word",
+     "uses": 6,
+     "authors": 3
+    },
+    {
+     "item": "hole + mother",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    }
+   ],
+   "len": 474.95652173913044,
+   "above_len": 150.2173913043478
+  },
+  {
+   "target": "u10",
+   "arm": "sham",
+   "prior": "t21",
+   "source": "s05",
+   "top": false,
+   "percentile": 0.5,
+   "candidates": 13,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s07": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 69.04347826086956,
+   "above_len": 50.95652173913044
+  },
+  {
+   "target": "u11",
+   "arm": "lore",
+   "prior": "t16",
+   "source": "s07",
+   "top": false,
+   "percentile": 0.5,
+   "candidates": 15,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 89.6086956521739,
+   "above_len": 77.5909090909091
+  },
+  {
+   "target": "u11",
+   "arm": "sham",
+   "prior": "t16",
+   "source": "s07",
+   "top": false,
+   "percentile": 0.5,
+   "candidates": 15,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 80.8695652173913,
+   "above_len": 75.30434782608695
+  },
+  {
+   "target": "u12",
+   "arm": "lore",
+   "prior": "t29",
+   "source": "s09",
+   "top": true,
+   "percentile": 1.0,
+   "candidates": 12,
+   "real": 25,
+   "robust_top": true,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 3,
+   "items": [
+    {
+     "item": "laminated",
+     "kind": "word",
+     "uses": 4,
+     "authors": 2
+    },
+    {
+     "item": "press",
+     "kind": "word",
+     "uses": 4,
+     "authors": 3
+    },
+    {
+     "item": "silence",
+     "kind": "word",
+     "uses": 3,
+     "authors": 3
+    },
+    {
+     "item": "osha",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "print",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "steering",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "whispered",
+     "kind": "word",
+     "uses": 2,
+     "authors": 1
+    },
+    {
+     "item": "laminated sign",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "osha compliant",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "broken + sat",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "compliant + osha",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "press + silence",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "silence + steering",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    }
+   ],
+   "len": 612.6086956521739,
+   "above_len": 363.8695652173913
+  },
+  {
+   "target": "u12",
+   "arm": "sham",
+   "prior": "t29",
+   "source": "s09",
+   "top": true,
+   "percentile": 1.0,
+   "candidates": 12,
+   "real": 8,
+   "robust_top": true,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 2,
+   "items": [
+    {
+     "item": "hazard",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "load",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "rescue",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "hazard tape",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "legally obligated",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    }
+   ],
+   "len": 129.6086956521739,
+   "above_len": 89.4090909090909
+  },
+  {
+   "target": "u13",
+   "arm": "lore",
+   "prior": "t21",
+   "source": "s05",
+   "top": false,
+   "percentile": 0.5714285714285714,
+   "candidates": 8,
+   "real": 2,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s07": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 2,
+   "items": [
+    {
+     "item": "cubicle",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    }
+   ],
+   "len": 419.3636363636364,
+   "above_len": 150.2173913043478
+  },
+  {
+   "target": "u13",
+   "arm": "sham",
+   "prior": "t21",
+   "source": "s05",
+   "top": false,
+   "percentile": 0.42857142857142855,
+   "candidates": 8,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s07": false,
+    "s09": true,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 112.47826086956522,
+   "above_len": 50.95652173913044
+  },
+  {
+   "target": "u14",
+   "arm": "lore",
+   "prior": "t20",
+   "source": "s05",
+   "top": false,
+   "percentile": 0.17857142857142858,
+   "candidates": 15,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s07": false,
+    "s09": true,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 325.27272727272725,
+   "above_len": 175.17391304347825
+  },
+  {
+   "target": "u14",
+   "arm": "sham",
+   "prior": "t20",
+   "source": "s05",
+   "top": false,
+   "percentile": 0.5,
+   "candidates": 15,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s07": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 130.82608695652175,
+   "above_len": 94.47826086956522
+  },
+  {
+   "target": "u15",
+   "arm": "lore",
+   "prior": "t20",
+   "source": "s05",
+   "top": false,
+   "percentile": 0.9375,
+   "candidates": 17,
+   "real": 12,
+   "robust_top": false,
+   "lore": true,
+   "cross": {
+    "s07": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 4,
+   "items": [
+    {
+     "item": "siege",
+     "kind": "word",
+     "uses": 4,
+     "authors": 4
+    },
+    {
+     "item": "chamomile",
+     "kind": "word",
+     "uses": 3,
+     "authors": 3
+    },
+    {
+     "item": "lavender",
+     "kind": "word",
+     "uses": 3,
+     "authors": 2
+    },
+    {
+     "item": "lavender soap",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "chamomile + lavender",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    }
+   ],
+   "len": 552.5652173913044,
+   "above_len": 175.17391304347825
+  },
+  {
+   "target": "u15",
+   "arm": "sham",
+   "prior": "t20",
+   "source": "s05",
+   "top": false,
+   "percentile": 0.25,
+   "candidates": 17,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s07": true,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 153.52173913043478,
+   "above_len": 94.47826086956522
+  },
+  {
+   "target": "u16",
+   "arm": "lore",
+   "prior": "t28",
+   "source": "s19",
+   "top": false,
+   "percentile": 0.9375,
+   "candidates": 17,
+   "real": 3,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s09": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 2,
+   "items": [
+    {
+     "item": "declare",
+     "kind": "word",
+     "uses": 3,
+     "authors": 2
+    }
+   ],
+   "len": 226.30434782608697,
+   "above_len": 99.91304347826087
+  },
+  {
+   "target": "u16",
+   "arm": "sham",
+   "prior": "t28",
+   "source": "s19",
+   "top": false,
+   "percentile": 0.4375,
+   "candidates": 17,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s09": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 26.17391304347826,
+   "above_len": 22.91304347826087
+  },
+  {
+   "target": "u17",
+   "arm": "lore",
+   "prior": "t28",
+   "source": "s19",
+   "top": false,
+   "percentile": 0.7727272727272727,
+   "candidates": 12,
+   "real": 3,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s09": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 2,
+   "items": [
+    {
+     "item": "declare",
+     "kind": "word",
+     "uses": 3,
+     "authors": 2
+    }
+   ],
+   "len": 292.69565217391306,
+   "above_len": 99.91304347826087
+  },
+  {
+   "target": "u17",
+   "arm": "sham",
+   "prior": "t28",
+   "source": "s19",
+   "top": false,
+   "percentile": 0.5,
+   "candidates": 12,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s09": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 31.863636363636363,
+   "above_len": 22.91304347826087
+  },
+  {
+   "target": "u18",
+   "arm": "lore",
+   "prior": "t28",
+   "source": "s19",
+   "top": false,
+   "percentile": 0.8461538461538461,
+   "candidates": 14,
+   "real": 4,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s07": false,
+    "s09": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 2,
+   "items": [
+    {
+     "item": "policy",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "territory",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    }
+   ],
+   "len": 189.17391304347825,
+   "above_len": 99.91304347826087
+  },
+  {
+   "target": "u18",
+   "arm": "sham",
+   "prior": "t28",
+   "source": "s19",
+   "top": false,
+   "percentile": 0.5,
+   "candidates": 14,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s07": false,
+    "s09": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 28.043478260869566,
+   "above_len": 22.91304347826087
+  },
+  {
+   "target": "u19",
+   "arm": "lore",
+   "prior": "t21",
+   "source": "s05",
+   "top": false,
+   "percentile": 0.5,
+   "candidates": 17,
+   "real": 2,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s07": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 2,
+   "items": [
+    {
+     "item": "creature",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    }
+   ],
+   "len": 343.8695652173913,
+   "above_len": 150.2173913043478
+  },
+  {
+   "target": "u19",
+   "arm": "sham",
+   "prior": "t21",
+   "source": "s05",
+   "top": false,
+   "percentile": 0.40625,
+   "candidates": 17,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s07": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 120.3913043478261,
+   "above_len": 50.95652173913044
+  },
+  {
+   "target": "u20",
+   "arm": "lore",
+   "prior": "t07",
+   "source": "s09",
+   "top": true,
+   "percentile": 1.0,
+   "candidates": 12,
+   "real": 17,
+   "robust_top": true,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 5,
+   "items": [
+    {
+     "item": "foot",
+     "kind": "word",
+     "uses": 7,
+     "authors": 5
+    },
+    {
+     "item": "dress",
+     "kind": "word",
+     "uses": 3,
+     "authors": 3
+    },
+    {
+     "item": "broken",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "print",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "dead silence",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "refuse to elaborate",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "elaborate + refuse",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    }
+   ],
+   "len": 569.6521739130435,
+   "above_len": 325.9130434782609
+  },
+  {
+   "target": "u20",
+   "arm": "sham",
+   "prior": "t07",
+   "source": "s09",
+   "top": true,
+   "percentile": 1.0,
+   "candidates": 12,
+   "real": 2,
+   "robust_top": true,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 1,
+   "items": [
+    {
+     "item": "yellow",
+     "kind": "word",
+     "uses": 2,
+     "authors": 1
+    }
+   ],
+   "len": 72.82608695652173,
+   "above_len": 58.30434782608695
+  },
+  {
+   "target": "u21",
+   "arm": "lore",
+   "prior": "t44",
+   "source": "s07",
+   "top": false,
+   "percentile": 0.2692307692307692,
+   "candidates": 14,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s09": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 186.6086956521739,
+   "above_len": 140.65217391304347
+  },
+  {
+   "target": "u21",
+   "arm": "sham",
+   "prior": "t44",
+   "source": "s07",
+   "top": false,
+   "percentile": 0.4230769230769231,
+   "candidates": 14,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s09": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 87.04347826086956,
+   "above_len": 106
+  },
+  {
+   "target": "u22",
+   "arm": "lore",
+   "prior": "t21",
+   "source": "s05",
+   "top": false,
+   "percentile": 0.8846153846153846,
+   "candidates": 14,
+   "real": 3,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s07": false,
+    "s09": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 2,
+   "items": [
+    {
+     "item": "tea",
+     "kind": "word",
+     "uses": 3,
+     "authors": 2
+    }
+   ],
+   "len": 428,
+   "above_len": 150.2173913043478
+  },
+  {
+   "target": "u22",
+   "arm": "sham",
+   "prior": "t21",
+   "source": "s05",
+   "top": false,
+   "percentile": 0.38461538461538464,
+   "candidates": 14,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s07": false,
+    "s09": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 84,
+   "above_len": 50.95652173913044
+  },
+  {
+   "target": "u23",
+   "arm": "lore",
+   "prior": "t28",
+   "source": "s19",
+   "top": false,
+   "percentile": 0.2692307692307692,
+   "candidates": 14,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s09": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 193.6818181818182,
+   "above_len": 99.91304347826087
+  },
+  {
+   "target": "u23",
+   "arm": "sham",
+   "prior": "t28",
+   "source": "s19",
+   "top": false,
+   "percentile": 0.5,
+   "candidates": 14,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s09": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 29.782608695652176,
+   "above_len": 22.91304347826087
+  },
+  {
+   "target": "u24",
+   "arm": "lore",
+   "prior": "t16",
+   "source": "s07",
+   "top": false,
+   "percentile": 0.9545454545454546,
+   "candidates": 12,
+   "real": 15,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [
+    "gustav"
+   ],
+   "transfer": true,
+   "uptake": 0,
+   "items": [],
+   "len": 117.68181818181819,
+   "above_len": 77.5909090909091
+  },
+  {
+   "target": "u24",
+   "arm": "sham",
+   "prior": "t16",
+   "source": "s07",
+   "top": false,
+   "percentile": 0.5,
+   "candidates": 12,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 47.43478260869565,
+   "above_len": 75.30434782608695
+  },
+  {
+   "target": "u25",
+   "arm": "lore",
+   "prior": "t17",
+   "source": "s19",
+   "top": false,
+   "percentile": 0.96875,
+   "candidates": 17,
+   "real": 2,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s09": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 2,
+   "items": [
+    {
+     "item": "soil",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    }
+   ],
+   "len": 90.56521739130434,
+   "above_len": 73.6086956521739
+  },
+  {
+   "target": "u25",
+   "arm": "sham",
+   "prior": "t17",
+   "source": "s19",
+   "top": false,
+   "percentile": 0.5,
+   "candidates": 17,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s09": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 51.30434782608695,
+   "above_len": 46.08695652173913
+  },
+  {
+   "target": "u26",
+   "arm": "lore",
+   "prior": "t16",
+   "source": "s07",
+   "top": false,
+   "percentile": 0.39285714285714285,
+   "candidates": 15,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 82.08695652173913,
+   "above_len": 77.5909090909091
+  },
+  {
+   "target": "u26",
+   "arm": "sham",
+   "prior": "t16",
+   "source": "s07",
+   "top": false,
+   "percentile": 0.5,
+   "candidates": 15,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 50.17391304347826,
+   "above_len": 75.30434782608695
+  },
+  {
+   "target": "u27",
+   "arm": "lore",
+   "prior": "t07",
+   "source": "s09",
+   "top": false,
+   "percentile": 0.7307692307692307,
+   "candidates": 14,
+   "real": 6,
+   "robust_top": false,
+   "lore": true,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 1,
+   "items": [
+    {
+     "item": "offer",
+     "kind": "word",
+     "uses": 2,
+     "authors": 1
+    },
+    {
+     "item": "right back",
+     "kind": "phrase",
+     "uses": 2,
+     "authors": 1
+    },
+    {
+     "item": "fresh roll",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "low + maintenance",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    }
+   ],
+   "len": 480.3181818181818,
+   "above_len": 325.9130434782609
+  },
+  {
+   "target": "u27",
+   "arm": "sham",
+   "prior": "t07",
+   "source": "s09",
+   "top": false,
+   "percentile": 0.5,
+   "candidates": 14,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 58.52173913043478,
+   "above_len": 58.30434782608695
+  },
+  {
+   "target": "u28",
+   "arm": "lore",
+   "prior": "t17",
+   "source": "s19",
+   "top": false,
+   "percentile": 0.375,
+   "candidates": 17,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 99.6086956521739,
+   "above_len": 73.6086956521739
+  },
+  {
+   "target": "u28",
+   "arm": "sham",
+   "prior": "t17",
+   "source": "s19",
+   "top": false,
+   "percentile": 0.4375,
+   "candidates": 17,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": true
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 64.82608695652173,
+   "above_len": 46.08695652173913
+  },
+  {
+   "target": "u29",
+   "arm": "lore",
+   "prior": "t21",
+   "source": "s05",
+   "top": false,
+   "percentile": 0.9615384615384616,
+   "candidates": 14,
+   "real": 70,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s07": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [
+    "calvin"
+   ],
+   "transfer": true,
+   "uptake": 2,
+   "items": [
+    {
+     "item": "zip",
+     "kind": "word",
+     "uses": 3,
+     "authors": 2
+    },
+    {
+     "item": "hole",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    }
+   ],
+   "len": 455.8095238095238,
+   "above_len": 150.2173913043478
+  },
+  {
+   "target": "u29",
+   "arm": "sham",
+   "prior": "t21",
+   "source": "s05",
+   "top": false,
+   "percentile": 0.4230769230769231,
+   "candidates": 14,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s07": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 84.21739130434783,
+   "above_len": 50.95652173913044
+  },
+  {
+   "target": "u30",
+   "arm": "lore",
+   "prior": "t20",
+   "source": "s05",
+   "top": false,
+   "percentile": 0.75,
+   "candidates": 15,
+   "real": 9,
+   "robust_top": false,
+   "lore": true,
+   "cross": {
+    "s07": false,
+    "s09": true,
+    "s19": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 4,
+   "items": [
+    {
+     "item": "lavender",
+     "kind": "word",
+     "uses": 4,
+     "authors": 4
+    },
+    {
+     "item": "chamomile",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "expect",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "chamomile + osha",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    }
+   ],
+   "len": 338.3181818181818,
+   "above_len": 175.17391304347825
+  },
+  {
+   "target": "u30",
+   "arm": "sham",
+   "prior": "t20",
+   "source": "s05",
+   "top": false,
+   "percentile": 0.8928571428571429,
+   "candidates": 15,
+   "real": 3,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s07": false,
+    "s09": true,
+    "s19": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 3,
+   "items": [
+    {
+     "item": "mother",
+     "kind": "word",
+     "uses": 3,
+     "authors": 3
+    }
+   ],
+   "len": 143.8695652173913,
+   "above_len": 94.47826086956522
+  },
+  {
+   "target": "u31",
+   "arm": "lore",
+   "prior": "t17",
+   "source": "s19",
+   "top": false,
+   "percentile": 0.4375,
+   "candidates": 17,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s09": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 112.26086956521739,
+   "above_len": 73.6086956521739
+  },
+  {
+   "target": "u31",
+   "arm": "sham",
+   "prior": "t17",
+   "source": "s19",
+   "top": false,
+   "percentile": 0.46875,
+   "candidates": 17,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s09": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 70.26086956521739,
+   "above_len": 46.08695652173913
+  },
+  {
+   "target": "u32",
+   "arm": "lore",
+   "prior": "t16",
+   "source": "s07",
+   "top": false,
+   "percentile": 0.375,
+   "candidates": 17,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 131.69565217391303,
+   "above_len": 77.5909090909091
+  },
+  {
+   "target": "u32",
+   "arm": "sham",
+   "prior": "t16",
+   "source": "s07",
+   "top": false,
+   "percentile": 0.40625,
+   "candidates": 17,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 102.30434782608695,
+   "above_len": 75.30434782608695
+  },
+  {
+   "target": "u33",
+   "arm": "lore",
+   "prior": "t20",
+   "source": "s05",
+   "top": false,
+   "percentile": 0.25,
+   "candidates": 17,
+   "real": 2,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s07": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 2,
+   "items": [
+    {
+     "item": "save",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    }
+   ],
+   "len": 587.3181818181819,
+   "above_len": 175.17391304347825
+  },
+  {
+   "target": "u33",
+   "arm": "sham",
+   "prior": "t20",
+   "source": "s05",
+   "top": false,
+   "percentile": 0.375,
+   "candidates": 17,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s07": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 157.7391304347826,
+   "above_len": 94.47826086956522
+  },
+  {
+   "target": "u34",
+   "arm": "lore",
+   "prior": "t29",
+   "source": "s09",
+   "top": true,
+   "percentile": 1.0,
+   "candidates": 13,
+   "real": 17,
+   "robust_top": true,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 3,
+   "items": [
+    {
+     "item": "low",
+     "kind": "word",
+     "uses": 3,
+     "authors": 3
+    },
+    {
+     "item": "laminated",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "maintenance",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "pump",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "safety",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "thermal",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "wrench",
+     "kind": "word",
+     "uses": 2,
+     "authors": 1
+    },
+    {
+     "item": "steering wheel",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "steering + wheel",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    }
+   ],
+   "len": 401.4782608695652,
+   "above_len": 363.8695652173913
+  },
+  {
+   "target": "u34",
+   "arm": "sham",
+   "prior": "t29",
+   "source": "s09",
+   "top": false,
+   "percentile": 0.9166666666666666,
+   "candidates": 13,
+   "real": 1,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 1,
+   "items": [
+    {
+     "item": "silence + volume",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    }
+   ],
+   "len": 140.4090909090909,
+   "above_len": 89.4090909090909
+  },
+  {
+   "target": "u35",
+   "arm": "lore",
+   "prior": "t44",
+   "source": "s07",
+   "top": true,
+   "percentile": 1.0,
+   "candidates": 14,
+   "real": 10,
+   "robust_top": true,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 2,
+   "items": [
+    {
+     "item": "bread",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "canal",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "sourdough",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "toll",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "load bearing",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "bread + sourdough",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    }
+   ],
+   "len": 212.23809523809524,
+   "above_len": 140.65217391304347
+  },
+  {
+   "target": "u35",
+   "arm": "sham",
+   "prior": "t44",
+   "source": "s07",
+   "top": false,
+   "percentile": 0.5,
+   "candidates": 14,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 125.31818181818181,
+   "above_len": 106
+  },
+  {
+   "target": "u36",
+   "arm": "lore",
+   "prior": "t20",
+   "source": "s05",
+   "top": false,
+   "percentile": 0.32142857142857145,
+   "candidates": 15,
+   "real": 2,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s07": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 2,
+   "items": [
+    {
+     "item": "dish",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    }
+   ],
+   "len": 451.60869565217394,
+   "above_len": 175.17391304347825
+  },
+  {
+   "target": "u36",
+   "arm": "sham",
+   "prior": "t20",
+   "source": "s05",
+   "top": false,
+   "percentile": 0.4642857142857143,
+   "candidates": 15,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s07": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 87.65217391304348,
+   "above_len": 94.47826086956522
+  },
+  {
+   "target": "u37",
+   "arm": "lore",
+   "prior": "t29",
+   "source": "s09",
+   "top": true,
+   "percentile": 1.0,
+   "candidates": 13,
+   "real": 25,
+   "robust_top": true,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 4,
+   "items": [
+    {
+     "item": "print",
+     "kind": "word",
+     "uses": 7,
+     "authors": 2
+    },
+    {
+     "item": "laminated",
+     "kind": "word",
+     "uses": 6,
+     "authors": 4
+    },
+    {
+     "item": "yellow",
+     "kind": "word",
+     "uses": 5,
+     "authors": 3
+    },
+    {
+     "item": "pound",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "laminated + yellow",
+     "kind": "pair",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "earned + pound",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "pair + safety",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "pound + silence",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    }
+   ],
+   "len": 630.1304347826087,
+   "above_len": 363.8695652173913
+  },
+  {
+   "target": "u37",
+   "arm": "sham",
+   "prior": "t29",
+   "source": "s09",
+   "top": false,
+   "percentile": 0.3333333333333333,
+   "candidates": 13,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s19": true
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 158.30434782608697,
+   "above_len": 89.4090909090909
+  },
+  {
+   "target": "u38",
+   "arm": "lore",
+   "prior": "t07",
+   "source": "s09",
+   "top": false,
+   "percentile": 0.8333333333333334,
+   "candidates": 13,
+   "real": 19,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 4,
+   "items": [
+    {
+     "item": "mom",
+     "kind": "word",
+     "uses": 7,
+     "authors": 4
+    },
+    {
+     "item": "grab",
+     "kind": "word",
+     "uses": 3,
+     "authors": 3
+    },
+    {
+     "item": "whispered",
+     "kind": "word",
+     "uses": 3,
+     "authors": 1
+    },
+    {
+     "item": "depot",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "safety",
+     "kind": "word",
+     "uses": 2,
+     "authors": 1
+    },
+    {
+     "item": "brought + mom",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "grab + hazard",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    }
+   ],
+   "len": 602.3913043478261,
+   "above_len": 325.9130434782609
+  },
+  {
+   "target": "u38",
+   "arm": "sham",
+   "prior": "t07",
+   "source": "s09",
+   "top": false,
+   "percentile": 0.9166666666666666,
+   "candidates": 13,
+   "real": 1,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 1,
+   "items": [
+    {
+     "item": "legally obligated",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    }
+   ],
+   "len": 81.65217391304348,
+   "above_len": 58.30434782608695
+  },
+  {
+   "target": "u39",
+   "arm": "lore",
+   "prior": "t16",
+   "source": "s07",
+   "top": false,
+   "percentile": 0.9166666666666666,
+   "candidates": 13,
+   "real": 3,
+   "robust_top": true,
+   "lore": true,
+   "cross": {
+    "s05": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 2,
+   "items": [
+    {
+     "item": "duck",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "paid + sourdough",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    }
+   ],
+   "len": 78.3913043478261,
+   "above_len": 77.5909090909091
+  },
+  {
+   "target": "u39",
+   "arm": "sham",
+   "prior": "t16",
+   "source": "s07",
+   "top": false,
+   "percentile": 0.5,
+   "candidates": 13,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 87.56521739130434,
+   "above_len": 75.30434782608695
+  },
+  {
+   "target": "u40",
+   "arm": "lore",
+   "prior": "t29",
+   "source": "s09",
+   "top": true,
+   "percentile": 1.0,
+   "candidates": 17,
+   "real": 157,
+   "robust_top": true,
+   "lore": true,
+   "cross": {
+    "s05": false,
+    "s07": true,
+    "s19": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 6,
+   "items": [
+    {
+     "item": "laminated",
+     "kind": "word",
+     "uses": 16,
+     "authors": 6
+    },
+    {
+     "item": "yellow",
+     "kind": "word",
+     "uses": 10,
+     "authors": 6
+    },
+    {
+     "item": "offer",
+     "kind": "word",
+     "uses": 9,
+     "authors": 5
+    },
+    {
+     "item": "hazard",
+     "kind": "word",
+     "uses": 8,
+     "authors": 6
+    },
+    {
+     "item": "wedding",
+     "kind": "word",
+     "uses": 6,
+     "authors": 4
+    },
+    {
+     "item": "low",
+     "kind": "word",
+     "uses": 5,
+     "authors": 3
+    },
+    {
+     "item": "whispered",
+     "kind": "word",
+     "uses": 5,
+     "authors": 1
+    },
+    {
+     "item": "seat",
+     "kind": "word",
+     "uses": 4,
+     "authors": 4
+    },
+    {
+     "item": "silence",
+     "kind": "word",
+     "uses": 4,
+     "authors": 3
+    },
+    {
+     "item": "volume",
+     "kind": "word",
+     "uses": 4,
+     "authors": 3
+    },
+    {
+     "item": "depot",
+     "kind": "word",
+     "uses": 3,
+     "authors": 3
+    },
+    {
+     "item": "fresh",
+     "kind": "word",
+     "uses": 3,
+     "authors": 2
+    },
+    {
+     "item": "press",
+     "kind": "word",
+     "uses": 3,
+     "authors": 2
+    },
+    {
+     "item": "safety",
+     "kind": "word",
+     "uses": 3,
+     "authors": 3
+    },
+    {
+     "item": "steering",
+     "kind": "word",
+     "uses": 3,
+     "authors": 3
+    },
+    {
+     "item": "pound",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "psychological",
+     "kind": "word",
+     "uses": 2,
+     "authors": 1
+    },
+    {
+     "item": "total",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "roll of yellow",
+     "kind": "phrase",
+     "uses": 4,
+     "authors": 3
+    },
+    {
+     "item": "high volume",
+     "kind": "phrase",
+     "uses": 3,
+     "authors": 3
+    },
+    {
+     "item": "high volume low",
+     "kind": "phrase",
+     "uses": 3,
+     "authors": 3
+    },
+    {
+     "item": "volume low",
+     "kind": "phrase",
+     "uses": 3,
+     "authors": 3
+    },
+    {
+     "item": "hazard tape",
+     "kind": "phrase",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "caution tape",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "fresh roll",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "offer to spot",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "osha compliant",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "safety goggle",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "steering wheel",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "total silence",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "yellow caution",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "yellow caution tape",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "hazard + laminated + yellow",
+     "kind": "pair",
+     "uses": 4,
+     "authors": 3
+    },
+    {
+     "item": "hazard + wedding",
+     "kind": "pair",
+     "uses": 3,
+     "authors": 3
+    },
+    {
+     "item": "laminated + press",
+     "kind": "pair",
+     "uses": 3,
+     "authors": 2
+    },
+    {
+     "item": "depot + laminated",
+     "kind": "pair",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "hazard + low",
+     "kind": "pair",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "hazard + yellow",
+     "kind": "pair",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "low + volume",
+     "kind": "pair",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "offer + press",
+     "kind": "pair",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "offer + wedding",
+     "kind": "pair",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "broken + pound",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "broken + press",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "broken + press + steering",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "caution + hazard + laminated + yellow",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "caution + laminated",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "compliant + osha",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "goggle + safety",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "hazard + laminated",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "hazard + low + silence + total + volume",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "hazard + low + silence + volume",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "hazard + pound",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "hazard + press",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "hazard + psychological",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "hazard + silence",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "hazard + volume",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "laminated + yellow",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "low + seat + volume",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "pound + press",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "press + steering + wheel",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    }
+   ],
+   "len": 801.9565217391304,
+   "above_len": 363.8695652173913
+  },
+  {
+   "target": "u40",
+   "arm": "sham",
+   "prior": "t29",
+   "source": "s09",
+   "top": false,
+   "percentile": 0.40625,
+   "candidates": 17,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 215.47826086956522,
+   "above_len": 89.4090909090909
+  },
+  {
+   "target": "u41",
+   "arm": "lore",
+   "prior": "t07",
+   "source": "s09",
+   "top": false,
+   "percentile": 0.9230769230769231,
+   "candidates": 14,
+   "real": 4,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s07": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 2,
+   "items": [
+    {
+     "item": "broken",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "sacred geometry",
+     "kind": "phrase",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "geometry + sacred",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    }
+   ],
+   "len": 751.1578947368421,
+   "above_len": 325.9130434782609
+  },
+  {
+   "target": "u41",
+   "arm": "sham",
+   "prior": "t07",
+   "source": "s09",
+   "top": false,
+   "percentile": 0.4230769230769231,
+   "candidates": 14,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s07": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 98.65217391304348,
+   "above_len": 58.30434782608695
+  },
+  {
+   "target": "u42",
+   "arm": "lore",
+   "prior": "t44",
+   "source": "s07",
+   "top": true,
+   "percentile": 1.0,
+   "candidates": 14,
+   "real": 55,
+   "robust_top": true,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [
+    "gustav"
+   ],
+   "transfer": true,
+   "uptake": 2,
+   "items": [
+    {
+     "item": "toll",
+     "kind": "word",
+     "uses": 3,
+     "authors": 2
+    },
+    {
+     "item": "anchor",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "bridge",
+     "kind": "word",
+     "uses": 2,
+     "authors": 1
+    },
+    {
+     "item": "canal",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "reed",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "toll bridge",
+     "kind": "phrase",
+     "uses": 2,
+     "authors": 1
+    },
+    {
+     "item": "bridge + toll",
+     "kind": "pair",
+     "uses": 2,
+     "authors": 1
+    }
+   ],
+   "len": 214.08695652173913,
+   "above_len": 140.65217391304347
+  },
+  {
+   "target": "u42",
+   "arm": "sham",
+   "prior": "t44",
+   "source": "s07",
+   "top": false,
+   "percentile": 0.5,
+   "candidates": 14,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 112.1304347826087,
+   "above_len": 106
+  },
+  {
+   "target": "u43",
+   "arm": "lore",
+   "prior": "t44",
+   "source": "s07",
+   "top": false,
+   "percentile": 0.9615384615384616,
+   "candidates": 14,
+   "real": 4,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 2,
+   "items": [
+    {
+     "item": "rosemary",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "sourdough",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    }
+   ],
+   "len": 196.95454545454547,
+   "above_len": 140.65217391304347
+  },
+  {
+   "target": "u43",
+   "arm": "sham",
+   "prior": "t44",
+   "source": "s07",
+   "top": false,
+   "percentile": 0.46153846153846156,
+   "candidates": 14,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 87.26086956521739,
+   "above_len": 106
+  },
+  {
+   "target": "u44",
+   "arm": "lore",
+   "prior": "t07",
+   "source": "s09",
+   "top": true,
+   "percentile": 1.0,
+   "candidates": 15,
+   "real": 22,
+   "robust_top": true,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 3,
+   "items": [
+    {
+     "item": "grab",
+     "kind": "word",
+     "uses": 3,
+     "authors": 2
+    },
+    {
+     "item": "handing",
+     "kind": "word",
+     "uses": 3,
+     "authors": 3
+    },
+    {
+     "item": "yellow",
+     "kind": "word",
+     "uses": 3,
+     "authors": 1
+    },
+    {
+     "item": "book",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "broken",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "follow",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "laminated",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "pound",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "psychological",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "broken + pound",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    }
+   ],
+   "len": 848.9,
+   "above_len": 325.9130434782609
+  },
+  {
+   "target": "u44",
+   "arm": "sham",
+   "prior": "t07",
+   "source": "s09",
+   "top": false,
+   "percentile": 0.5,
+   "candidates": 15,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 76.6086956521739,
+   "above_len": 58.30434782608695
+  },
+  {
+   "target": "u45",
+   "arm": "lore",
+   "prior": "t28",
+   "source": "s19",
+   "top": false,
+   "percentile": 0.8125,
+   "candidates": 17,
+   "real": 6,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": true
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 3,
+   "items": [
+    {
+     "item": "shovel",
+     "kind": "word",
+     "uses": 4,
+     "authors": 3
+    },
+    {
+     "item": "buried",
+     "kind": "word",
+     "uses": 2,
+     "authors": 1
+    }
+   ],
+   "len": 355,
+   "above_len": 99.91304347826087
+  },
+  {
+   "target": "u45",
+   "arm": "sham",
+   "prior": "t28",
+   "source": "s19",
+   "top": false,
+   "percentile": 0.5,
+   "candidates": 17,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 35.608695652173914,
+   "above_len": 22.91304347826087
+  },
+  {
+   "target": "u46",
+   "arm": "lore",
+   "prior": "t16",
+   "source": "s07",
+   "top": true,
+   "percentile": 1.0,
+   "candidates": 11,
+   "real": 53,
+   "robust_top": true,
+   "lore": true,
+   "cross": {
+    "s05": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [
+    "gustav"
+   ],
+   "transfer": true,
+   "uptake": 2,
+   "items": [
+    {
+     "item": "brioche",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "canal",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "duck",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "sourdough",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    }
+   ],
+   "len": 153.86363636363637,
+   "above_len": 77.5909090909091
+  },
+  {
+   "target": "u46",
+   "arm": "sham",
+   "prior": "t16",
+   "source": "s07",
+   "top": false,
+   "percentile": 0.45,
+   "candidates": 11,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s09": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 51.68181818181818,
+   "above_len": 75.30434782608695
+  },
+  {
+   "target": "u47",
+   "arm": "lore",
+   "prior": "t07",
+   "source": "s09",
+   "top": false,
+   "percentile": 0.9,
+   "candidates": 11,
+   "real": 15,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": true,
+   "uptake": 3,
+   "items": [
+    {
+     "item": "fake",
+     "kind": "word",
+     "uses": 3,
+     "authors": 3
+    },
+    {
+     "item": "app",
+     "kind": "word",
+     "uses": 2,
+     "authors": 1
+    },
+    {
+     "item": "defeated",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "handing",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "refuse",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "revoke",
+     "kind": "word",
+     "uses": 2,
+     "authors": 2
+    },
+    {
+     "item": "broken + low",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    },
+    {
+     "item": "low + refuse",
+     "kind": "pair",
+     "uses": 1,
+     "authors": 1
+    }
+   ],
+   "len": 615.1304347826087,
+   "above_len": 325.9130434782609
+  },
+  {
+   "target": "u47",
+   "arm": "sham",
+   "prior": "t07",
+   "source": "s09",
+   "top": false,
+   "percentile": 0.45,
+   "candidates": 11,
+   "real": 0,
+   "robust_top": false,
+   "lore": false,
+   "cross": {
+    "s05": false,
+    "s07": false,
+    "s19": false
+   },
+   "names": [],
+   "transfer": false,
+   "uptake": 0,
+   "items": [],
+   "len": 87.08695652173913,
+   "above_len": 58.30434782608695
+  }
+ ]
+}

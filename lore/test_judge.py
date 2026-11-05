@@ -86,5 +86,30 @@ class Splits(unittest.TestCase):
         self.assertNotEqual(h, self.IDS[:92])
 
 
+class HalfSeed(unittest.TestCase):
+    """#4's half reused items()'s seed, which made it exactly the /misc/ board."""
+
+    @staticmethod
+    def two_boards():
+        run = {}
+        for b, board in (("x", "/x/"), ("misc", "/misc/")):
+            run[(b, "s00", None)] = thread(board, 4471, "s00", [("ruth", "my mug is gone")])
+            for k in range(23):
+                for arm in ("memory", "none"):
+                    run[(b, "t%02d" % k, arm)] = thread(board, 4494 + k, "t%02d" % k, [("yusuf", "hi")], "s00", arm)
+        return run
+
+    def test_the_old_seed_reproduces_the_half_of_4_which_is_one_board(self):
+        its = J.items(self.two_boards())
+        self.assertEqual(J.half([i["item"] for i in its]), sorted(i["item"] for i in its if i["board"] == "misc"))
+
+    def test_a_half_seeded_apart_mixes_boards_and_arms(self):
+        its = J.items(self.two_boards())
+        h = set(J.half([i["item"] for i in its], seed=J.HALF_SEED))
+        self.assertEqual(len(h), 46)
+        self.assertEqual({(i["board"], i["arm"]) for i in its if i["item"] in h},
+                         {("x", "memory"), ("x", "none"), ("misc", "memory"), ("misc", "none")})
+
+
 if __name__ == "__main__":
     unittest.main()
