@@ -65,8 +65,17 @@ def _dotenv():
 
 
 def _openai_secret():
-    """The publication gate's OpenAI key (pubgate.py); without it the board refuses to start."""
-    return modal.Secret.from_dict({"OPENAI_API_KEY": _dotenv().get("OPENAI_API_KEY", "")})
+    """The publication gate's OpenAI key, resolved as the scripts resolve it themselves
+    (pubgate.openai_key: the environment first, then .env, quotes stripped); without it the board
+    refuses to start. Inside the container pubgate isn't importable from here, and the secret the
+    client attached is what counts, so an empty one stands in."""
+    if HERE not in sys.path:
+        sys.path.insert(0, HERE)
+    try:
+        import pubgate
+    except ImportError:
+        return modal.Secret.from_dict({})
+    return modal.Secret.from_dict({"OPENAI_API_KEY": pubgate.openai_key(ROOT) or ""})
 
 
 @app.function(image=dl_image, volumes={"/models": models_vol}, timeout=2 * 3600)

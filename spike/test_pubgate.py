@@ -143,5 +143,49 @@ class JapaneseBakeoff(unittest.TestCase):
             shutil.rmtree(d)
 
 
+class ModalBoard(unittest.TestCase):
+    """The key Modal hands the board and the Japanese runs resolves like the scripts' own."""
+
+    def setUp(self):
+        import sys
+        from unittest import mock
+        self.dir = tempfile.mkdtemp()
+        fake = mock.MagicMock()
+        fake.Secret.from_dict.side_effect = lambda d: d
+        self.patches = [mock.patch.dict(sys.modules, {"modal": fake}),
+                        mock.patch.dict(os.environ, {}, clear=False)]
+        for p in self.patches:
+            p.start()
+        os.environ.pop("OPENAI_API_KEY", None)
+        sys.modules.pop("modal_board", None)
+        import modal_board
+        self.MB = modal_board
+        self.MB.ROOT = self.dir
+
+    def tearDown(self):
+        import sys
+        for p in reversed(self.patches):
+            p.stop()
+        sys.modules.pop("modal_board", None)
+        shutil.rmtree(self.dir)
+
+    def env_file(self, text):
+        with open(os.path.join(self.dir, ".env"), "w", encoding="utf-8") as f:
+            f.write(text)
+
+    def test_key_from_the_environment_reaches_the_secret(self):
+        os.environ["OPENAI_API_KEY"] = "sk-env"
+        self.assertEqual(self.MB._openai_secret(), {"OPENAI_API_KEY": "sk-env"})
+
+    def test_environment_wins_over_env_file(self):
+        self.env_file("OPENAI_API_KEY=sk-file\n")
+        os.environ["OPENAI_API_KEY"] = "sk-env"
+        self.assertEqual(self.MB._openai_secret(), {"OPENAI_API_KEY": "sk-env"})
+
+    def test_quoted_env_file_value_is_unquoted(self):
+        self.env_file('OPENAI_API_KEY="sk-quoted"\n')
+        self.assertEqual(self.MB._openai_secret(), {"OPENAI_API_KEY": "sk-quoted"})
+
+
 if __name__ == "__main__":
     unittest.main()
