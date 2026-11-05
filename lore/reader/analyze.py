@@ -55,8 +55,10 @@ def summarize(rs, drop_seen=False):
     return {
         "n": len(rs),
         "prefer": {b: count([r["prefers_memory"] for r in rs if r["board"] == b]) for b in ("misc", "x")},
-        "prefer_identified": count([r["prefers_memory"] for r in rs if r["identified"]]),
-        "prefer_not_identified": count([r["prefers_memory"] for r in rs if not r["identified"]]),
+        # R1b refines R1, the /misc/ hypothesis; /x/ predicts no memory preference
+        "prefer_identified": count([r["prefers_memory"] for r in rs if r["identified"] and r["board"] == "misc"]),
+        "prefer_not_identified": count([r["prefers_memory"] for r in rs
+                                        if not r["identified"] and r["board"] == "misc"]),
         "pickup": {arm: count([r[arm]["pickup"] for r in rs]) for arm in ("memory", "none")},
         "pickup_identified": count([r["memory"]["pickup"] for r in rs if r["identified"]]),
         "repost": {arm: count([r[arm]["repost"] for r in rs]) for arm in ("memory", "none")},
@@ -112,12 +114,16 @@ def machine_calls(lore=os.path.dirname(HERE)):
 def load(here=HERE):
     with open(os.path.join(here, "key.json"), encoding="utf-8") as f:
         key = json.load(f)
-    raters = {}
+    # a second same-day download is renamed "... (1).json" and sorts first, so filename order says
+    # nothing about which export is newer: keep each reader's latest by its own timestamp
+    latest = {}
     for p in sorted(glob.glob(os.path.join(here, "ratings", "*.json"))):
         with open(p, encoding="utf-8") as f:
             d = json.load(f)
-        raters[d.get("rater") or os.path.basename(p)[:-5]] = d["ratings"]
-    return key, raters
+        name, when = d.get("rater") or os.path.basename(p)[:-5], d.get("exported") or ""
+        if name not in latest or when >= latest[name][0]:
+            latest[name] = (when, d["ratings"])
+    return key, {name: r for name, (_, r) in latest.items()}
 
 
 def frac(kn):
@@ -136,14 +142,15 @@ def report(key, raters, calls=None):
         return "\n".join(out + ["No ratings yet: put an export from `rate.html` in `lore/reader/ratings/`.", ""])
     for name, ratings in sorted(raters.items()):
         rs = rows(key, ratings)
-        for label, s in (("all triples", summarize(rs)), ("without triples marked seen before", summarize(rs, True))):
+        for label, drop in (("all triples", False), ("without triples marked seen before", True)):
+            s = summarize(rs, drop)
             pm = s["prefer"]["misc"]
             out += ["## %s: %s (%d fully rated)" % (name, label, s["n"]), "",
                     "| | |", "|---|---|",
                     "| **R1** prefers the memory follow-up, /misc/ | %s, sign test p = %.3f |"
                     % (frac(pm), sign_test(pm[0], pm[1] - pm[0])),
                     "| R2 prefers the memory follow-up, /x/ | %s |" % frac(s["prefer"]["x"]),
-                    "| R1b ... where the source was identified / not | %s / %s |"
+                    "| R1b ... /misc/ where the source was identified / not | %s / %s |"
                     % (frac(s["prefer_identified"]), frac(s["prefer_not_identified"])),
                     "| **R3** says it picks up the earlier thread: memory / no-memory | %s / %s |"
                     % (frac(s["pickup"]["memory"]), frac(s["pickup"]["none"])),
@@ -157,14 +164,16 @@ def report(key, raters, calls=None):
                     sc, "%+.2f" % (sum(d) / len(d)) if d else "–", sum(x > 0 for x in d), sum(x < 0 for x in d),
                     "%+.2f" % (sum(dm) / len(dm)) if dm else "–"))
             out.append("")
-        ag = agreement(rs, calls)
-        if ag:
-            out += ["**R5, the reader's 'picks up' against the machine calls** on the same follow-ups:", "",
-                    "| instrument | follow-ups | agree | κ |", "|---|---:|---:|---:|"]
-            for inst, v in ag.items():
-                out.append("| %s | %d | %d | %s |" % (inst, v["n"], v["agree"],
-                                                       "%.2f" % v["kappa"] if v["kappa"] is not None else "–"))
-            out.append("")
+            # R5 per population too, so the seen-free agreement is reported (README's analysis rule)
+            ag = agreement([r for r in rs if not (drop and r["seen"])], calls)
+            if ag:
+                out += ["**R5, the reader's 'picks up' against the machine calls** on the same follow-ups "
+                        "(%s):" % label, "",
+                        "| instrument | follow-ups | agree | κ |", "|---|---:|---:|---:|"]
+                for inst, v in ag.items():
+                    out.append("| %s | %d | %d | %s |" % (inst, v["n"], v["agree"],
+                                                           "%.2f" % v["kappa"] if v["kappa"] is not None else "–"))
+                out.append("")
     return "\n".join(out)
 
 

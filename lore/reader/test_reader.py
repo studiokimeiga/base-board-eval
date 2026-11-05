@@ -161,7 +161,8 @@ class Analysis(unittest.TestCase):
         s = A.summarize(A.rows(KEY, RATINGS))
         self.assertEqual(s["prefer"]["misc"], (1, 2))
         self.assertEqual(s["prefer"]["x"], (1, 1))
-        self.assertEqual(s["prefer_identified"], (2, 2))
+        # R1b refines the /misc/ hypothesis, so /x/ (r3) stays out (review of PR #8)
+        self.assertEqual(s["prefer_identified"], (1, 1))
         self.assertEqual(s["prefer_not_identified"], (0, 1))
         self.assertEqual(s["pickup"]["memory"], (3, 3))
         self.assertEqual(s["pickup"]["none"], (0, 3))
@@ -184,6 +185,35 @@ class Analysis(unittest.TestCase):
         seen = dict(RATINGS, r1={"A": side(over=5, pick=True, seen=True), "B": side(over=2), "prefer": "A"})
         s = A.summarize(A.rows(KEY, seen), drop_seen=True)
         self.assertEqual(s["prefer"]["misc"], (0, 1))
+
+    def test_r5_is_reported_with_and_without_seen_triples(self):
+        # review of PR #8: R5 was emitted once, unfiltered, under the filtered section
+        seen = dict(RATINGS, r1={"A": side(over=5, pick=True, seen=True), "B": side(over=2), "prefer": "A"})
+        calls = {"tracker": {("misc", "t00", "memory"): True, ("misc", "t00", "none"): False,
+                             ("misc", "t01", "memory"): False, ("misc", "t01", "none"): False,
+                             ("x", "t02", "memory"): True, ("x", "t02", "none"): True}}
+        text = A.report(KEY, {"me": seen}, calls)
+        parts = text.split("## me: ")[1:]
+        self.assertEqual(len(parts), 2)
+        self.assertIn("| tracker | 6 | 4 |", parts[0])         # all three triples
+        self.assertIn("| tracker | 4 | 2 |", parts[1])         # r1 dropped: r2 and r3 remain
+
+    def test_the_latest_export_wins_whatever_the_filename(self):
+        import json, os, shutil, tempfile
+        tmp = tempfile.mkdtemp()
+        try:
+            with open(os.path.join(tmp, "key.json"), "w", encoding="utf-8") as f:
+                json.dump(KEY, f)
+            os.mkdir(os.path.join(tmp, "ratings"))
+            for name, when, ratings in (("ratings-me-2026-11-02 (1).json", "2026-11-02T18:00:00Z", RATINGS),
+                                        ("ratings-me-2026-11-02.json", "2026-11-02T09:00:00Z",
+                                         {"r1": RATINGS["r1"]})):
+                with open(os.path.join(tmp, "ratings", name), "w", encoding="utf-8") as f:
+                    json.dump({"rater": "me", "exported": when, "ratings": ratings}, f)
+            _, raters = A.load(tmp)
+            self.assertEqual(sorted(raters["me"]), ["r1", "r2", "r3"])
+        finally:
+            shutil.rmtree(tmp)
 
 
 if __name__ == "__main__":
