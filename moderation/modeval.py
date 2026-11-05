@@ -1202,8 +1202,9 @@ def report_text():
                   "%d of them were benign (%s of stored hits)." % (
                       lost, round(lost * none / len(hits)), pct(none / len(hits))), ""]
 
-    # -- OpenAI thresholds
-    if "openai" in results:
+    # -- OpenAI thresholds: only once the run covers every labelled item (every variant below is
+    # scored from the same calls, so `openai-mapped` being in `main` means all of them are)
+    if "openai-mapped" in main:
         L += ["## OpenAI score thresholds", "",
               "Flag when any of our categories scores at or above the threshold; `default` uses "
               "OpenAI's own per-category flags. Thresholds chosen on this data flatter it: these "

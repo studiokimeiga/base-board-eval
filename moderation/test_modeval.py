@@ -323,6 +323,74 @@ class Classifiers(unittest.TestCase):
         self.assertAlmostEqual(b.spent, 0.04)
 
 
+class Paths:
+    """Points the module's committed-file paths at a temp dir for one test."""
+
+    def patch_paths(self):
+        self.dir = tempfile.mkdtemp()
+        names = ["MANIFEST", "STRATA", "LABELS", "RESULTS", "METRICS"]
+        self.saved = {n: getattr(M, n) for n in names}
+        M.MANIFEST = os.path.join(self.dir, "manifest.jsonl")
+        M.STRATA = os.path.join(self.dir, "strata.json")
+        M.LABELS = os.path.join(self.dir, "labels.jsonl")
+        M.RESULTS = os.path.join(self.dir, "results")
+        M.METRICS = os.path.join(self.dir, "METRICS.md")
+
+    def restore_paths(self):
+        for n, v in self.saved.items():
+            setattr(M, n, v)
+        shutil.rmtree(self.dir)
+
+
+def manifest_row(i, stratum="quarantine", weight=1.0, copies=1, lang="en"):
+    return {"id": i, "family": "quarantine", "src": "quarantine/x.json", "t": 0, "p": int(i[1:]),
+            "sha256": M.sha(i), "lang": lang, "chars": 2, "copies": copies, "lexicon": [],
+            "stratum": stratum, "weight": weight}
+
+
+class Report(Paths, unittest.TestCase):
+    def setUp(self):
+        self.patch_paths()
+
+    def tearDown(self):
+        self.restore_paths()
+
+    def committed(self, n_openai):
+        ids = ["i%d" % k for k in range(6)]
+        truth = {"i0": ["self_harm"], "i1": ["sexual"], "i2": ["none"], "i3": ["none"],
+                 "i4": ["hate_slur"], "i5": ["none"]}
+        texts = {"i0": "i want to die", "i1": "nice weather", "i2": "nice weather",
+                 "i3": "spicy food", "i4": "nice weather", "i5": "nice weather"}
+        M.write_jsonl(M.MANIFEST, [manifest_row(i) for i in ids])
+        with open(M.STRATA, "w", encoding="utf-8") as f:
+            json.dump({"strata": {"quarantine": {"population": 6, "posts": 6, "sampled": 6,
+                                                 "weight": 1.0}},
+                       "skipped": {"withheld_kept": {}, "withheld_lost": {}, "empty": {}}}, f)
+        M.write_jsonl(M.LABELS, [{"id": i, "ai1": {"labels": truth[i], "unsure": False}} for i in ids])
+        os.makedirs(M.RESULTS)
+        M.write_jsonl(M.result_path("keyword"), [
+            dict(id=i, sha256=M.sha(texts[i]), flag=bool(M.keyword(texts[i])[0]),
+                 terms=M.keyword(texts[i])[0], cats=M.keyword(texts[i])[1],
+                 inside_word=None, words=[], wb_terms=M.keyword_wb(texts[i])) for i in ids])
+        M.write_jsonl(M.result_path("openai"), [
+            dict(id=i, sha256=M.sha(texts[i]), model="omni-moderation-2024-09-26",
+                 flagged=True, categories=["self-harm"],
+                 scores=OPENAI_RESULT["category_scores"]) for i in ids[:n_openai]])
+
+    def test_incomplete_openai_run_is_left_out_not_a_crash(self):
+        self.committed(n_openai=1)
+        text = M.report_text()
+        self.assertIn("`openai` (1 of 6)", text)
+        self.assertNotIn("## OpenAI score thresholds", text)
+        self.assertIn("`keyword`", text)
+
+    def test_complete_openai_run_gets_its_threshold_tables(self):
+        self.committed(n_openai=6)
+        text = M.report_text()
+        self.assertIn("## OpenAI score thresholds", text)
+        self.assertIn("### Per category, without depicted violence", text)
+
+
 class Committed(unittest.TestCase):
     """The committed files carry ids, hashes, labels and scores, never post text."""
 
