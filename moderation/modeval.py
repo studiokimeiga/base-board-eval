@@ -399,12 +399,29 @@ def private_items(root):
     return items
 
 
+def bound_labels(rows, old_manifest, new_manifest):
+    """(label rows still bound to their text, ids dropped). Labels join on item id, and an id is
+    a position in a source file, so a post regenerated or edited in place keeps its id: a label
+    stays only while its item is in the new manifest with the hash it had when labelled."""
+    old = {m["id"]: m["sha256"] for m in old_manifest}
+    new = {m["id"]: m["sha256"] for m in new_manifest}
+    keep = {r["id"] for r in rows if r["id"] in new and old.get(r["id"]) == new[r["id"]]}
+    by_id = {r["id"]: r for r in rows}
+    return ([by_id[m["id"]] for m in new_manifest if m["id"] in keep],
+            sorted(r["id"] for r in rows if r["id"] not in keep))
+
+
 def cmd_build(args):
     manifest, private, strata = build(args.data)
     if args.check:
         ok = read_jsonl(MANIFEST) == manifest and read_json(STRATA) == strata
         print("manifest.jsonl and strata.json %s the private files" % ("match" if ok else "DON'T match"))
         sys.exit(0 if ok else 1)
+    kept, dropped = bound_labels(read_jsonl(LABELS), read_jsonl(MANIFEST), manifest)
+    if dropped:
+        write_jsonl(LABELS, kept)
+        print("dropped the labels of %d items whose text changed or is gone (git has them): %s" % (
+            len(dropped), " ".join(dropped)))
     write_jsonl(MANIFEST, manifest)
     with open(STRATA, "w", encoding="utf-8", newline="\n") as f:
         json.dump(strata, f, indent=1, sort_keys=True)

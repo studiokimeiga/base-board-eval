@@ -80,27 +80,32 @@ def write(root, rel, obj):
             json.dump(obj, f)
 
 
+def corpus(root):
+    """A small private corpus: every source family, stubs, duplicates and empty posts."""
+    write(root, "quarantine/q1.json", {"matched": ["kill you"], "thread": {"id": 1, "posts": [
+        {"text": "op text"}, {"text": "i will kill you"}, {"text": "same line"}]}})
+    write(root, "spike/quarantine.jsonl", [
+        {"thread": 7, "matched": ["want to die"], "post": {"who": "a", "ts": "x1", "t": 1,
+                                                            "text": "i want to die"}}])
+    write(root, "spike/remote/board-v2.json", {"threads": [{"no": 7, "posts": [
+        {"who": "b", "ts": "x0", "text": "board op"},
+        {"who": "a", "ts": "x1", "text": "[post withheld]", "withheld": True}]}]})
+    write(root, "threads.x.json", {"threads": [
+        {"id": 1, "posts": [{"text": "same line"}, {"text": "spicy noodles tonight"},
+                            {"text": "[3 posts withheld]"}, {"text": "found a corpse"},
+                            {"text": "nice weather"}, {"text": "nice weather"}]},
+        {"id": 2, "quarantined": True, "posts": [
+            {"text": "op two"}, {"text": "[5 posts withheld - auto-quarantined]"}]}]})
+    write(root, "spike/remote/jp-a.json", {"threads": [{"posts": [
+        {"text": "人が死んだ"}, {"text": "こんにちは"}]}]})
+    write(root, "spike/remote/bakeoff-a.json", {"threads": [{"posts": [
+        {"text": "hello there"}, {"text": "[post withheld]", "withheld": True}, {"text": ""}]}]})
+
+
 class Build(unittest.TestCase):
     def setUp(self):
         self.root = tempfile.mkdtemp()
-        write(self.root, "quarantine/q1.json", {"matched": ["kill you"], "thread": {"id": 1, "posts": [
-            {"text": "op text"}, {"text": "i will kill you"}, {"text": "same line"}]}})
-        write(self.root, "spike/quarantine.jsonl", [
-            {"thread": 7, "matched": ["want to die"], "post": {"who": "a", "ts": "x1", "t": 1,
-                                                                "text": "i want to die"}}])
-        write(self.root, "spike/remote/board-v2.json", {"threads": [{"no": 7, "posts": [
-            {"who": "b", "ts": "x0", "text": "board op"},
-            {"who": "a", "ts": "x1", "text": "[post withheld]", "withheld": True}]}]})
-        write(self.root, "threads.x.json", {"threads": [
-            {"id": 1, "posts": [{"text": "same line"}, {"text": "spicy noodles tonight"},
-                                {"text": "[3 posts withheld]"}, {"text": "found a corpse"},
-                                {"text": "nice weather"}, {"text": "nice weather"}]},
-            {"id": 2, "quarantined": True, "posts": [
-                {"text": "op two"}, {"text": "[5 posts withheld - auto-quarantined]"}]}]})
-        write(self.root, "spike/remote/jp-a.json", {"threads": [{"posts": [
-            {"text": "人が死んだ"}, {"text": "こんにちは"}]}]})
-        write(self.root, "spike/remote/bakeoff-a.json", {"threads": [{"posts": [
-            {"text": "hello there"}, {"text": "[post withheld]", "withheld": True}, {"text": ""}]}]})
+        corpus(self.root)
 
     def tearDown(self):
         shutil.rmtree(self.root)
@@ -458,6 +463,50 @@ class LlamaGuardRun(Paths, unittest.TestCase):
         self.fake()
         M.run_llamaguard(self.items, self.order, {"OPENROUTER_API_KEY": "k"}, 30, 0.0)
         self.assertEqual(self.calls, [])
+
+
+class LabelIdentity(Paths, unittest.TestCase):
+    """A label belongs to the text it was made for, not to a position in a file."""
+
+    def setUp(self):
+        self.patch_paths()
+        self.root = tempfile.mkdtemp()
+        corpus(self.root)
+
+    def tearDown(self):
+        shutil.rmtree(self.root)
+        self.restore_paths()
+
+    def rebuild(self):
+        import argparse, contextlib, io
+        with contextlib.redirect_stdout(io.StringIO()):
+            M.cmd_build(argparse.Namespace(data=self.root, check=False))
+        return M.read_jsonl(M.MANIFEST)
+
+    def test_regenerated_post_loses_its_old_labels(self):
+        before = self.rebuild()
+        M.write_jsonl(M.LABELS, [{"id": m["id"], "ai1": {"labels": ["none"], "unsure": False},
+                                  "owner": {"labels": ["none"]}} for m in before])
+        path = os.path.join(self.root, "threads.x.json")
+        with open(path, encoding="utf-8") as f:
+            d = json.load(f)
+        d["threads"][0]["posts"][3]["text"] = "i will hunt you down"   # was "found a corpse"
+        write(self.root, "threads.x.json", d)
+        after = self.rebuild()
+        old = {m["id"]: m["sha256"] for m in before}
+        changed = [m["id"] for m in after if m["id"] in old and old[m["id"]] != m["sha256"]]
+        self.assertEqual(len(changed), 1)
+        labelled = {r["id"] for r in M.read_jsonl(M.LABELS)}
+        self.assertNotIn(changed[0], labelled)
+        self.assertEqual(labelled, {m["id"] for m in after if old.get(m["id"]) == m["sha256"]})
+        self.assertEqual(M.effective({}), (None, None))
+
+    def test_unchanged_rebuild_keeps_every_label(self):
+        before = self.rebuild()
+        rows = [{"id": m["id"], "ai1": {"labels": ["none"], "unsure": False}} for m in before]
+        M.write_jsonl(M.LABELS, rows)
+        self.rebuild()
+        self.assertEqual(M.read_jsonl(M.LABELS), rows)
 
 
 class Committed(unittest.TestCase):
