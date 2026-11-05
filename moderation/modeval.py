@@ -1101,9 +1101,16 @@ def category_cell(rows, name, cat):
                                     "%d/%d" % (tp, tp + fn) if tp + fn else "–", pct(f))
 
 
-def population(rows, names, reps=BOOT_REPS):
+def fixed_strata(info):
+    """Strata whose every unique text is in the set: the census strata, and any sampled stratum
+    whose population turned out no larger than its sample size. Their outcomes are known, not
+    estimated, so the bootstrap holds them fixed."""
+    return set(CENSUS) | {s for s, v in info.items() if v["sampled"] >= v["population"]}
+
+
+def population(rows, names, reps=BOOT_REPS, fixed=CENSUS):
     """Weighted recall, precision and false-flag rate per name, with a stratified bootstrap 95%
-    interval: sampled strata are resampled, census strata are fixed."""
+    interval: sampled strata are resampled, strata in `fixed` (see fixed_strata) are not."""
     by = collections.defaultdict(list)
     for r in rows:
         by[r["m"]["stratum"]].append((bool(r["truth"]), r["w"], tuple(r["v"][n][0] for n in names)))
@@ -1123,9 +1130,9 @@ def population(rows, names, reps=BOOT_REPS):
 
     point = stats(by.values())
     rng = random.Random(SEED + "/bootstrap")
-    fixed = [g for s, g in sorted(by.items()) if s in CENSUS]
-    varying = [g for s, g in sorted(by.items()) if s not in CENSUS]
-    draws = [stats(fixed + [rng.choices(g, k=len(g)) for g in varying]) for _ in range(reps)]
+    held = [g for s, g in sorted(by.items()) if s in fixed]
+    varying = [g for s, g in sorted(by.items()) if s not in fixed]
+    draws = [stats(held + [rng.choices(g, k=len(g)) for g in varying]) for _ in range(reps)]
     out = []
     for i, _ in enumerate(names):
         cis = []
@@ -1333,17 +1340,19 @@ def report_text():
         L += ["Benign posts in the set: %d." % len(benign), ""]
 
     # -- population estimates
-    pop = population(rows, main)
+    fixed = fixed_strata(strata["strata"])
+    pop = population(rows, main, fixed=fixed)
     L += ["## Population estimates", "",
           "Weighted back to everything stored (each item stands for `weight × copies` posts), with "
-          "a stratified bootstrap 95%% interval (%d resamples of the sampled strata). The population "
-          "lacks the withheld posts above, which were mostly gate-caught, so the gate's recall here "
-          "is a lower bound." % BOOT_REPS, ""]
+          "a stratified bootstrap 95%% interval (%d resamples of the sampled strata; strata taken "
+          "whole, %s, are held fixed). The population lacks the withheld posts above, which were "
+          "mostly gate-caught, so the gate's recall here is a lower bound." % (
+              BOOT_REPS, ", ".join("`%s`" % s for s in sorted(fixed & set(strata["strata"])))), ""]
 
     def ci(v, c, f):
         return "–" if v is None else "%s (%s–%s)" % (f(v), f(c[0]), f(c[1]))
 
-    pop_sure = population(sure, main)
+    pop_sure = population(sure, main, fixed=fixed)
     body = []
     for n, s, s2 in zip(main, pop, pop_sure):
         (rc, rci), (pr, pci), (fr, fci), _ = s
@@ -1353,7 +1362,7 @@ def report_text():
     L += table(["classifier", "recall", "recall, unsure items left out", "precision",
                 "false flags per 1,000 benign posts"], body)
     sampled_pos = collections.Counter(r["m"]["stratum"] for r in rows
-                                      if r["truth"] and r["m"]["stratum"] not in CENSUS)
+                                      if r["truth"] and r["m"]["stratum"] not in fixed)
     L += ["Estimated harmful posts per 1,000 stored: %.1f (%.1f–%.1f). Positives in sampled "
           "strata: %s. Each stands for `weight` unique texts, so these figures turn on a handful of "
           "posts: trust the intervals, not the point estimates." % (

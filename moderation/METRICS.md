@@ -251,24 +251,24 @@ Benign posts in the set: 1455.
 
 ## Population estimates
 
-Weighted back to everything stored (each item stands for `weight × copies` posts), with a stratified bootstrap 95% interval (1000 resamples of the sampled strata). The population lacks the withheld posts above, which were mostly gate-caught, so the gate's recall here is a lower bound.
+Weighted back to everything stored (each item stands for `weight × copies` posts), with a stratified bootstrap 95% interval (1000 resamples of the sampled strata; strata taken whole, `gate-hit`, `quarantine`, `risk/board`, `risk/jp`, `withheld`, are held fixed). The population lacks the withheld posts above, which were mostly gate-caught, so the gate's recall here is a lower bound.
 
 | classifier | recall | recall, unsure items left out | precision | false flags per 1,000 benign posts |
 |---|---|---|---|---|
-| `keyword` | 11% (4%–68%) | 70% (61%–83%) | 54% (54%–54%) | 2.3 (2.2–2.4) |
-| `keyword-wb` | 11% (4%–68%) | 70% (61%–83%) | 64% (64%–64%) | 1.5 (1.5–1.6) |
-| `openai` | 96% (74%–99%) | 88% (81%–93%) | 39% (6%–72%) | 36.0 (17.8–62.8) |
-| `openai-mapped` | 95% (70%–98%) | 82% (74%–90%) | 85% (40%–94%) | 4.1 (3.3–4.9) |
-| `openai-narrow` | 13% (4%–75%) | 81% (73%–88%) | 73% (65%–80%) | 1.2 (0.8–1.6) |
-| `llamaguard` | 10% (3%–57%) | 51% (43%–59%) | 9% (6%–16%) | 23.8 (13.2–36.6) |
-| `llamaguard-mapped` | 9% (3%–54%) | 48% (40%–57%) | 12% (7%–24%) | 15.7 (7.4–25.3) |
-| `keyword+openai` | 97% (76%–99%) | 89% (81%–97%) | 81% (36%–93%) | 5.5 (4.6–6.3) |
-| `keyword+llamaguard` | 14% (5%–84%) | 83% (73%–92%) | 16% (11%–27%) | 17.9 (9.5–27.5) |
-| `proposal` | 98% (86%–99%) | 95% (89%–97%) | 89% (53%–96%) | 3.0 (2.4–3.7) |
-| `openai-ctx` | 97% (79%–99%) | 93% (88%–96%) | 87% (48%–95%) | 3.4 (2.8–4.0) |
-| `proposal+ctx` | 99% (89%–100%) | 99% (98%–99%) | 83% (42%–93%) | 4.8 (4.2–5.5) |
+| `keyword` | 11% (3%–68%) | 70% (60%–82%) | 54% (54%–54%) | 2.3 (2.2–2.4) |
+| `keyword-wb` | 11% (3%–68%) | 70% (60%–82%) | 64% (64%–64%) | 1.5 (1.5–1.6) |
+| `openai` | 96% (75%–99%) | 88% (80%–93%) | 39% (6%–72%) | 36.0 (16.9–62.6) |
+| `openai-mapped` | 95% (70%–99%) | 82% (73%–89%) | 85% (40%–95%) | 4.1 (3.4–4.9) |
+| `openai-narrow` | 13% (4%–75%) | 81% (72%–88%) | 73% (66%–79%) | 1.2 (0.8–1.6) |
+| `llamaguard` | 10% (3%–57%) | 51% (44%–59%) | 9% (6%–16%) | 23.8 (12.0–37.4) |
+| `llamaguard-mapped` | 9% (3%–54%) | 48% (41%–56%) | 12% (7%–23%) | 15.7 (7.4–25.6) |
+| `keyword+openai` | 97% (77%–99%) | 89% (80%–97%) | 81% (36%–93%) | 5.5 (4.8–6.3) |
+| `keyword+llamaguard` | 14% (5%–84%) | 83% (73%–92%) | 16% (11%–27%) | 17.9 (9.6–27.8) |
+| `proposal` | 98% (87%–100%) | 95% (88%–97%) | 89% (52%–96%) | 3.0 (2.4–3.7) |
+| `openai-ctx` | 97% (80%–99%) | 93% (88%–96%) | 87% (49%–96%) | 3.4 (2.8–4.0) |
+| `proposal+ctx` | 99% (89%–100%) | 99% (98%–99%) | 83% (42%–94%) | 4.8 (4.2–5.5) |
 
-Estimated harmful posts per 1,000 stored: 23.6 (3.9–61.6). Positives in sampled strata: plain/orig 1 (weight 257.767), risk/bakeoff 6 (weight 1.95833), risk/board 6 (weight 1), risk/orig 9 (weight 2.24667). Each stands for `weight` unique texts, so these figures turn on a handful of posts: trust the intervals, not the point estimates.
+Estimated harmful posts per 1,000 stored: 23.6 (4.0–78.1). Positives in sampled strata: plain/orig 1 (weight 257.767), risk/bakeoff 6 (weight 1.95833), risk/orig 9 (weight 2.24667). Each stands for `weight` unique texts, so these figures turn on a handful of posts: trust the intervals, not the point estimates.
 
 ## Label agreement
 

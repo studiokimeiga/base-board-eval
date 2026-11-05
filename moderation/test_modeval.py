@@ -262,6 +262,25 @@ class Stats(unittest.TestCase):
             ("kill you", 1, 0, 1, 0, []),
             ("nigger", 1, 1, 0, 0, [])])
 
+    def test_bootstrap_holds_fully_enumerated_strata_fixed(self):
+        # risk/board sampled whole (2 of 2): its one false hold in two benign posts is a known
+        # 500 per 1,000, not an estimate.
+        rows = [dict(m={"stratum": "risk/board", "sha256": "a"}, truth=[], w=1.0, v={"g": (True, [])}),
+                dict(m={"stratum": "risk/board", "sha256": "b"}, truth=[], w=1.0, v={"g": (False, [])})]
+        strata = {"risk/board": {"population": 2, "sampled": 2, "weight": 1.0}}
+        (_, _, (fr, fci), _), = M.population(rows, ["g"], reps=200, fixed=M.fixed_strata(strata))
+        self.assertEqual((fr, fci), (500.0, (500.0, 500.0)))
+        # sampled 2 of 4, the same posts are an estimate with an interval
+        strata["risk/board"]["population"] = 4
+        (_, _, (fr, fci), _), = M.population(rows, ["g"], reps=200, fixed=M.fixed_strata(strata))
+        self.assertEqual(fr, 500.0)
+        self.assertLess(fci[0], fci[1])
+
+    def test_fixed_strata(self):
+        strata = {"quarantine": {"population": 3, "sampled": 3}, "risk/jp": {"population": 61, "sampled": 61},
+                  "risk/orig": {"population": 337, "sampled": 150}}
+        self.assertEqual(M.fixed_strata(strata), {"quarantine", "risk/jp", "withheld", "gate-hit"})
+
     def test_weighted_confusion(self):
         rows = [dict(truth=True, pred=True, w=1.0), dict(truth=True, pred=False, w=3.0),
                 dict(truth=False, pred=True, w=2.0), dict(truth=False, pred=False, w=10.0)]
