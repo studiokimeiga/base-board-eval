@@ -17,6 +17,7 @@ anything was generated, and fixes the design, the outcomes and the analysis.
 | `analyze.py`, `test_analyze.py` → `RESULTS.md`, `results.json` | the pre-registered analysis |
 | `explore.py` → `exploratory.json` | **not pre-registered**: the length-matched identification test, register, genre by arm, the gate |
 | `REPORT.md` | what it all means: the answer, the correction, read examples, deviations, cost |
+| `reader/` | a pre-registered blind reader test: does memory make threads better? (its own README) |
 | `judging/` | the blinding key and each judge family's per-item verdicts (no quotes) |
 | `test_pipeline.py` | the whole pipeline on a fake model that plants an effect, which must be found |
 | `MANIFEST.sha256` | SHA-256 of every private file |
