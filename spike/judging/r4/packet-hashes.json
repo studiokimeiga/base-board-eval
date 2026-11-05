@@ -1,0 +1,98 @@
+{
+ "opener-1": {
+  "sha256": "f2a218e8e681e40e4d910d269392c95fb86fb27c6327d715946c358eb3ffd453",
+  "key": {
+   "A": "gemini",
+   "B": "pick",
+   "C": "hermes405",
+   "D": "hermesguard",
+   "E": "hermespick",
+   "F": "hermespen",
+   "G": "kimi"
+  }
+ },
+ "opener-2": {
+  "sha256": "9fde6136d390bf7ec4936f7116b533ea886778bf4447402f6a5ec71465e54977",
+  "key": {
+   "A": "pick",
+   "B": "hermespick",
+   "C": "hermes405",
+   "D": "hermesguard",
+   "E": "gemini",
+   "F": "kimi",
+   "G": "hermespen"
+  }
+ },
+ "opener-3": {
+  "sha256": "1f01c4126eb0f4013895e61ce3485e47ec98ab2853cbaff4af18e1980cee7229",
+  "key": {
+   "A": "gemini",
+   "B": "kimi",
+   "C": "pick",
+   "D": "hermespen",
+   "E": "hermespick",
+   "F": "hermes405",
+   "G": "hermesguard"
+  }
+ },
+ "opener-4": {
+  "sha256": "445d4f0fdc9674f35a370f5615a473a89cf52485d6fe5cb5e2ef9b9f26f80cf6",
+  "key": {
+   "A": "hermesguard",
+   "B": "kimi",
+   "C": "hermes405",
+   "D": "hermespick",
+   "E": "pick",
+   "F": "gemini",
+   "G": "hermespen"
+  }
+ },
+ "opener-5": {
+  "sha256": "154b4de741f253d4311442757dece236aa77ba26f1e430f4ce5543b7486577d2",
+  "key": {
+   "A": "hermespen",
+   "B": "pick",
+   "C": "hermespick",
+   "D": "hermes405",
+   "E": "kimi",
+   "F": "hermesguard",
+   "G": "gemini"
+  }
+ },
+ "opener-6": {
+  "sha256": "ce860235114c4c57bcc398c74252db3f572b0a375fab799d9093003f4dacda17",
+  "key": {
+   "A": "hermes405",
+   "B": "gemini",
+   "C": "pick",
+   "D": "hermesguard",
+   "E": "hermespick",
+   "F": "hermespen",
+   "G": "kimi"
+  }
+ },
+ "opener-7": {
+  "sha256": "9544bae350590385cb3aa46308e309aab04546eda60d2039121bae734600828d",
+  "key": {
+   "A": "pick",
+   "B": "gemini",
+   "C": "hermespen",
+   "D": "hermes405",
+   "E": "kimi",
+   "F": "hermesguard",
+   "G": "hermespick"
+  }
+ },
+ "opener-8": {
+  "sha256": "08369e96b0b5504652541c0ad203f9fa51200122aca353d0513c83956d26d8da",
+  "key": {
+   "A": "hermes405",
+   "B": "pick",
+   "C": "kimi",
+   "D": "hermesguard",
+   "E": "hermespick",
+   "F": "hermespen",
+   "G": "gemini"
+  }
+ }
+}

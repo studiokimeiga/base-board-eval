@@ -8,6 +8,7 @@
 The rubric text is identical for both judges.
 """
 import glob, json, os, random, re, sys, time, urllib.request, collections
+import packet_record as PR          # binds scores-*.json to the packets they were made against
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SPIKE = os.path.dirname(HERE)
@@ -81,12 +82,12 @@ def packets():
     data = {a: load(a) for a in ARMS}
     data = {a: d for a, d in data.items() if d}
     openers = [t["opener"] for t in data[ARMS[0]]["threads"]]
-    rng, key = random.Random({"r3": 31337, "r4": 4747}.get(ROUND, 5353)), {}
+    rng, key, texts = random.Random({"r3": 31337, "r4": 4747}.get(ROUND, 5353)), {}, {}
     for i, op in enumerate(openers):
         arms = [a for a in data if any(t["opener"] == op for t in data[a]["threads"])]
         rng.shuffle(arms)
         letters = "ABCDEFGH"[:len(arms)]
-        key[i + 1] = dict(zip(letters, arms))
+        key[str(i + 1)] = dict(zip(letters, arms))
         out = ["OPENER %d: %s\n" % (i + 1, op)]
         for L, a in zip(letters, arms):
             t = next(t for t in data[a]["threads"] if t["opener"] == op)
@@ -96,12 +97,20 @@ def packets():
                 out.append("%d. %s%s: %s" % (n + 1, p["who"], " (OP)" if p["who"] == op_who else "",
                                             p["text"] or "(empty)"))
             out.append("")
-        open(os.path.join(R3, "opener-%d.txt" % (i + 1)), "w", encoding="utf-8").write("\n".join(out))
+        texts["opener-%d" % (i + 1)] = "\n".join(out)
+    # refuses, writing nothing, if a packet some judge already scored would change
+    PR.write(R3, texts, {"opener-" + i: letters for i, letters in key.items()})
     json.dump(key, open(os.path.join(R3, "key.json"), "w"), indent=1)
     print("packets:", {k: len(v) for k, v in key.items()})
 
 
+def key_of(key):
+    return lambda name: key.get(name.split("-")[1])
+
+
 def gpt():
+    PR.check(R3, key_of(json.load(open(os.path.join(R3, "key.json")))))
+    record = PR.load(R3)
     env = dict(l.strip().split("=", 1) for l in open(os.path.join(ROOT, ".env"))
                if "=" in l and not l.lstrip().startswith("#"))
     sys.path.insert(0, SPIKE)
@@ -112,6 +121,8 @@ def gpt():
         name = os.path.basename(f)[:-4]
         if name in scores:
             continue
+        if not PR.packet_matches(R3, name, record):
+            raise SystemExit("%s isn't the packet recorded in %s; rerun `packets`" % (name, PR.RECORD))
         # same model either way; --paid routes through OpenRouter once the free day is used up
         paid = "--paid" in sys.argv
         if not paid and budget_left() < 25000:
@@ -145,6 +156,7 @@ def gpt():
 
 def report():
     key = json.load(open(os.path.join(R3, "key.json")))
+    PR.check(R3, key_of(key))
     judges = {"claude": {}, "gpt": {}}
     for f in glob.glob(os.path.join(R3, "scores-claude-*.json")):
         judges["claude"].update(json.load(open(f, encoding="utf-8")))
