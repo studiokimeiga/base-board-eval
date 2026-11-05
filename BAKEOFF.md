@@ -43,7 +43,7 @@ is not the same experiment as a persistent community.
 | Round 8, temperaments with post length controlled | Plain Gemini vs. long-post roles vs. short-post roles, one rubric for both judges | LEDGER round 8 (**completed**, results below) |
 | Japanese round and picker | 9 arms (8 models) in 5ch and named-handle formats; Gemini best-of-3 | LEDGER rounds JP and JP-5 |
 | Cross-thread folklore on a hosted live board | Discussed, with memory-on vs. memory-off controls | **Not tested**. The earlier local one-prior test is in [FINDINGS.md](FINDINGS.md) |
-| Blind human ratings of hosted-model output | `spike/rate.html` exists | **Not done** |
+| Blind human ratings of hosted-model output | [`calibration/`](calibration/README.md): 30 mixed threads, pre-registered; `spike/rate.html?round=8` for round 8 | **Not done**: waiting on the reader |
 
 Every English round used the same 8 openers and the same seeded scaffold: cast, author order,
 timestamps, the OP leaving and returning at posts 7 and 19, and a newcomer at post 13 all come from
@@ -352,8 +352,10 @@ the **original local gemma-4-E4B** workload with dated August 2026 assumptions.
 1. **Calibrate against the reader, blind.** Mix BEST-OF threads with Gemini, temperament and Qwen
    samples; rate believable, keep reading, deliberate humour, deadpan humour, would repost, and
    flag threads seen before. Run the same items through both AI judge families and measure agreement.
+   Built and pre-registered in [`calibration/`](calibration/README.md); both AI judge families have
+   rated it (neither separates BEST-OF threads from unselected small-model output), the reader not yet.
 2. **Get the reader's verdict on round 8** (plain vs. long roles vs. short roles), the round where
-   the two AI judge families disagree.
+   the two AI judge families disagree: `spike/rate.html?round=8`.
 3. **Narrower hybrids.** An occasional small-model post instead of fixed slots; seeding a shared
    confusion. Equalise length, openers and scaffold; report failure and safety rates, not just the
    best thread.

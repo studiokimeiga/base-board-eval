@@ -1,0 +1,242 @@
+{
+ "c01": {
+  "chars": 4113,
+  "file": "spike/remote/bakeoff-pick.json",
+  "posts": 24,
+  "sha256": "30e1b81afc37fe373a9d24c244fcc8ce3ae017990001a39a200d2b881aa86198",
+  "source": "qwenpick",
+  "thread": 0
+ },
+ "c02": {
+  "chars": 6008,
+  "file": "threads.final.json",
+  "posts": 32,
+  "sha256": "b5ca9ce4fdd3ca4bc67fa0c367713458f10615295118be3c14363774df7d32e5",
+  "source": "smallrand",
+  "thread": 46
+ },
+ "c03": {
+  "chars": 2337,
+  "file": "threads.final.json",
+  "posts": 32,
+  "sha256": "83cc4c81d4487358334bc224477f7da6415251c61dc3f30374541efafd3357e7",
+  "source": "bestof",
+  "thread": 10
+ },
+ "c04": {
+  "chars": 4770,
+  "file": "spike/remote/bakeoff-gemini.json",
+  "posts": 24,
+  "sha256": "e87ee9338f8800dc76f631b50a1436fbc5d825faeb323e29c7badd97cf546eaf",
+  "source": "gemini",
+  "thread": 3
+ },
+ "c05": {
+  "chars": 4113,
+  "file": "threads.final.json",
+  "posts": 32,
+  "sha256": "2327818bba175f0d6db071e23b7668ed52849e3d3bfaf0a8c52186b3d5bc7065",
+  "source": "smallrand",
+  "thread": 48
+ },
+ "c06": {
+  "chars": 1339,
+  "file": "spike/remote/bakeoff-pick.json",
+  "posts": 24,
+  "sha256": "1c9f985fbf29291775d46f7ded343f794788d52e2da9c7ac49e8be876bd5b862",
+  "source": "qwenpick",
+  "thread": 5
+ },
+ "c07": {
+  "chars": 3289,
+  "file": "threads.fmt.json",
+  "posts": 32,
+  "sha256": "5e08d013d78e4186a2fbb936cb56563e3d3f82096ff21d3b44a21c886131b13d",
+  "source": "bestof",
+  "thread": 1
+ },
+ "c08": {
+  "chars": 1440,
+  "file": "spike/remote/bakeoff-rolesshort.json",
+  "posts": 24,
+  "sha256": "4e11ca58899aa3d15268990dc69b5922d1b278348d0e53a837919666d68c5430",
+  "source": "rolesshort",
+  "thread": 5
+ },
+ "c09": {
+  "chars": 4035,
+  "file": "spike/remote/bakeoff-pick.json",
+  "posts": 24,
+  "sha256": "09d0b2421834ceaf7ce84db45112ac76133017f88c61777fb46db0d5f89b758f",
+  "source": "qwenpick",
+  "thread": 6
+ },
+ "c10": {
+  "chars": 6161,
+  "file": "spike/remote/bakeoff-pick.json",
+  "posts": 24,
+  "sha256": "1e3b8ae8506a143a48bb325654d17f5a7d6e335b419285ea9ee57fdcf576e428",
+  "source": "qwenpick",
+  "thread": 7
+ },
+ "c11": {
+  "chars": 2718,
+  "file": "spike/remote/bakeoff-rolesshort.json",
+  "posts": 24,
+  "sha256": "8a528966d30e2f05309daca56ef161ab272f26ec2024f40742523e0981355ae7",
+  "source": "rolesshort",
+  "thread": 2
+ },
+ "c12": {
+  "chars": 2726,
+  "file": "spike/remote/bakeoff-pick.json",
+  "posts": 24,
+  "sha256": "6af0e1986cbf4f28a234a4bc2d2d235226e1938664607b1e438dd7f9adf177db",
+  "source": "qwenpick",
+  "thread": 1
+ },
+ "c13": {
+  "chars": 1736,
+  "file": "threads.xtc.json",
+  "posts": 32,
+  "sha256": "542204fc0e2398e435b171f42b57f872a560d989514b9f72f96c6f537026ccfd",
+  "source": "bestof",
+  "thread": 3
+ },
+ "c14": {
+  "chars": 3207,
+  "file": "spike/remote/bakeoff-rolesshort.json",
+  "posts": 24,
+  "sha256": "ed64670c6c2edeea0331450fe019ea7e0ccee2f820dd3a9fc6a597ea92f22151",
+  "source": "rolesshort",
+  "thread": 3
+ },
+ "c15": {
+  "chars": 3116,
+  "file": "spike/remote/bakeoff-rolesshort.json",
+  "posts": 24,
+  "sha256": "bbc5008e2867b556bd57a8bc2865c02e4f50280ea7bbe0671a6bfbf59ac7900d",
+  "source": "rolesshort",
+  "thread": 1
+ },
+ "c16": {
+  "chars": 1368,
+  "file": "threads.json",
+  "posts": 16,
+  "sha256": "bddae0e3858c99d1564f016037c86ff38b41a13fdef12cb196f417b7cc9e8b50",
+  "source": "bestof",
+  "thread": 11
+ },
+ "c17": {
+  "chars": 1926,
+  "file": "spike/remote/bakeoff-gemini.json",
+  "posts": 24,
+  "sha256": "12aa629a4c5319f2a7f546e21e46ff5495e72275aaef4d791fae3b29a0e0870b",
+  "source": "gemini",
+  "thread": 5
+ },
+ "c18": {
+  "chars": 974,
+  "file": "threads.final.json",
+  "posts": 32,
+  "sha256": "4f70487711a9a5321cd8d6888753a499b575e38438eec9a2c633e8dfbba7364b",
+  "source": "smallrand",
+  "thread": 65
+ },
+ "c19": {
+  "chars": 8377,
+  "file": "spike/remote/bakeoff-pick.json",
+  "posts": 24,
+  "sha256": "aa630b839f26682130565eb78b2f02a49031ea66e42f84822a1e91ea3bde746d",
+  "source": "qwenpick",
+  "thread": 4
+ },
+ "c20": {
+  "chars": 2080,
+  "file": "spike/remote/bakeoff-gemini.json",
+  "posts": 24,
+  "sha256": "026b9ff57630fdf87c11f68ebdbccc75ecd183af8860d64d03b206b91e5ef5e7",
+  "source": "gemini",
+  "thread": 2
+ },
+ "c21": {
+  "chars": 3424,
+  "file": "threads.final.json",
+  "posts": 32,
+  "sha256": "95b3dce8f0124ebaae735112735a14003dbd3ba8de8115db3320198ce2983317",
+  "source": "smallrand",
+  "thread": 25
+ },
+ "c22": {
+  "chars": 5198,
+  "file": "threads.sweep.json",
+  "posts": 32,
+  "sha256": "822f81fb1f917571a538a6264220ffd3de4b80c4868db4f94dd5da132cd40555",
+  "source": "bestof",
+  "thread": 51
+ },
+ "c23": {
+  "chars": 3257,
+  "file": "spike/remote/bakeoff-gemini.json",
+  "posts": 24,
+  "sha256": "bfb93592a29d6794530fe4f3ed29e89bbb10935379a035cd257e14cfc31ea359",
+  "source": "gemini",
+  "thread": 0
+ },
+ "c24": {
+  "chars": 2099,
+  "file": "threads.final.json",
+  "posts": 32,
+  "sha256": "572b5d9e70238e8f1fd51dff9281e6edacdc25db9b9bb035c4e13916730eae89",
+  "source": "bestof",
+  "thread": 41
+ },
+ "c25": {
+  "chars": 1812,
+  "file": "spike/remote/bakeoff-gemini.json",
+  "posts": 24,
+  "sha256": "dabdf3a1ba79876c8b77676324d09287d5171d994a6d137977ab1a6b148a4621",
+  "source": "gemini",
+  "thread": 1
+ },
+ "c26": {
+  "chars": 4057,
+  "file": "spike/remote/bakeoff-gemini.json",
+  "posts": 24,
+  "sha256": "d0a5011f7fc9847b11a17be2d9f83394554df07202ef527f5a915d8a5d2a6d9a",
+  "source": "gemini",
+  "thread": 4
+ },
+ "c27": {
+  "chars": 1766,
+  "file": "threads.final.json",
+  "posts": 32,
+  "sha256": "11590c092f6f74f569e213ad7e7aa3807fc6b519d249cccf88dac6491719bb07",
+  "source": "smallrand",
+  "thread": 45
+ },
+ "c28": {
+  "chars": 4649,
+  "file": "threads.final.json",
+  "posts": 32,
+  "sha256": "1d614a31a6deb62371b50ba3233fa41c40e00d4168871be6c938ac8890bb0fc2",
+  "source": "smallrand",
+  "thread": 58
+ },
+ "c29": {
+  "chars": 2870,
+  "file": "spike/remote/bakeoff-rolesshort.json",
+  "posts": 24,
+  "sha256": "83cfa6f0e3f88603b0bfc3c90d8ce5b1544f6c24e563816b3c0bdc238a7f753c",
+  "source": "rolesshort",
+  "thread": 7
+ },
+ "c30": {
+  "chars": 3464,
+  "file": "spike/remote/bakeoff-rolesshort.json",
+  "posts": 24,
+  "sha256": "3d6c165ba9c6d97092e577645591820f82f6b3c6841fb15a47afc83931f503bc",
+  "source": "rolesshort",
+  "thread": 6
+ }
+}

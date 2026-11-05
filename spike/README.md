@@ -17,7 +17,7 @@ so the write-up can be traced back to them.
 | `echo_arm.py` | The Echo arm (`bakeoff-echo-failed.json` is its first, persona-broken run) |
 | `round3.py` | Every English arm from round 3 on: `python spike/round3.py <arm>`, arm names as in `judging/LEDGER.md` |
 | `jp_bakeoff.py` | The Japanese round, 5ch and named-handle formats |
-| `browse.html`, `rate.html` | Side-by-side thread viewer with scores, and a blind rating page for a person |
+| `browse.html`, `rate.html` | Side-by-side thread viewer with scores, and a blind rating page for a person (`rate.html?round=8` was added afterwards, for the reader's verdict on round 8) |
 | `judging/round3_judge.py`, `judging/jp_judge.py`, `judging/aggregate.py` | Packet builders, the gpt-5.4 judge, and the per-round reports used in the session |
 | `judging/prompts/` | Every Claude judge prompt, verbatim, and which rubric each judge got |
 | `judging/*/key.json`, `judging/*/scores-*.json` | The blinding keys and every judge's raw scores, best lines and failure notes |

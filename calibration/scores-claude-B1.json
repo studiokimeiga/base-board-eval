@@ -1,0 +1,142 @@
+{
+ "c23": {
+  "believable": 2,
+  "interest": 4,
+  "joke": 2,
+  "deadpan": 3,
+  "overall": 4,
+  "repost": true,
+  "best_lines": [
+   "#3: the note was stuck to the outside of my monitor with the word \"STILL?\" written on the back.",
+   "#6: rinsing isn't washing. to you it's clean enough, to whatever is in that building it's neglected.",
+   "#24: It scrubs until it hits bone."
+  ],
+  "main_failure": "several posts cut off mid-sentence"
+ },
+ "c06": {
+  "believable": 3,
+  "interest": 3,
+  "joke": 3,
+  "deadpan": 1,
+  "overall": 3,
+  "repost": false,
+  "best_lines": [
+   "#13: she’s phonetically interpreting a name she’s half-heard and now you’re living inside the error",
+   "#16: you’re already lindsay now. fight it and you’ll fracture reality",
+   "#20: you’ve been downgraded to a nickname. you are no longer a full person, only the idea of one"
+  ],
+  "main_failure": "opening replies don't follow the OP"
+ },
+ "c03": {
+  "believable": 1,
+  "interest": 1,
+  "joke": 1,
+  "deadpan": 1,
+  "overall": 1,
+  "repost": false,
+  "best_lines": [
+   "#4: does that mean we can now drink 2 yogurts a day",
+   "#12: and maybe the fact that i hate you and your flatmate will keep the two of you in line",
+   "#32: i like to have my space but not with you in it, because that means i have to get you and the space you need"
+  ],
+  "main_failure": "collapses into word salad"
+ },
+ "c09": {
+  "believable": 2,
+  "interest": 3,
+  "joke": 1,
+  "deadpan": 1,
+  "overall": 2,
+  "repost": false,
+  "best_lines": [
+   "#7: and she always ends with, “i’m still here, daniel. are you?”",
+   "#11: she said, “i knew it was you. your handwriting hasn’t changed.”",
+   "#13: you’re not just reading the letters, kenji. you’re performing one."
+  ],
+  "main_failure": "overwrought chat-model melodrama"
+ },
+ "c08": {
+  "believable": 3,
+  "interest": 4,
+  "joke": 4,
+  "deadpan": 3,
+  "overall": 4,
+  "repost": true,
+  "best_lines": [
+   "#5: Check the expiration dates on the milk they're using, he always started with dairy.",
+   "#6: rosa did you ever consider that your ex was just throwing out spoiled milk",
+   "#21: she's in the bathroom taking a shit go get your coffee coward"
+  ],
+  "main_failure": "muddled name-order logic"
+ },
+ "c11": {
+  "believable": 2,
+  "interest": 4,
+  "joke": 3,
+  "deadpan": 4,
+  "overall": 4,
+  "repost": true,
+  "best_lines": [
+   "#18: Maybe some cough drops will help with your throat feeling deep too.",
+   "#23: Maybe he's just really self-conscious about his face.",
+   "#24: tell him his fade is uneven, maybe he'll turn around and look at you"
+  ],
+  "main_failure": "posters are scripted archetypes"
+ },
+ "c15": {
+  "believable": 3,
+  "interest": 4,
+  "joke": 1,
+  "deadpan": 4,
+  "overall": 4,
+  "repost": true,
+  "best_lines": [
+   "#11: Table saws almost never run on 240v unless your dad was operating commercial three-phase equipment in a residential garage, which is a code violation anyway.",
+   "#13: but we ended up just burying it behind the shed.",
+   "#15: my grandma had an old space heater that did that right before her house got hit by ball lightning."
+  ],
+  "main_failure": "one post truncated mid-sentence"
+ },
+ "c29": {
+  "believable": 2,
+  "interest": 4,
+  "joke": 3,
+  "deadpan": 4,
+  "overall": 4,
+  "repost": true,
+  "best_lines": [
+   "#8: Even from beyond the grave he's judging your terrible DIY skills.",
+   "#16: It would be so rude to just run out when you have company over.",
+   "#18: Just be sure to offer the officers some tea too since it's so late."
+  ],
+  "main_failure": "one-note stock characters"
+ },
+ "c07": {
+  "believable": 2,
+  "interest": 1,
+  "joke": 1,
+  "deadpan": 2,
+  "overall": 1,
+  "repost": false,
+  "best_lines": [
+   "#7: oh wait i found my mug",
+   "#11: or you know what they say: \"the ghost is an idiot\" lol",
+   "#12: oh no, it's the same ghost that took my shoes"
+  ],
+  "main_failure": "drifts off-topic into book plot"
+ },
+ "c21": {
+  "believable": 1,
+  "interest": 1,
+  "joke": 1,
+  "deadpan": 1,
+  "overall": 1,
+  "repost": false,
+  "best_lines": [
+   "#2: why do you think that you have not been able to answer these questions for 5 years now",
+   "#18: I believe that some people's brains just aren't wired the way everyone else's is. That's all I have to say.",
+   "#29: the world is going to look exactly the same"
+  ],
+  "main_failure": "abandons premise for vague philosophizing"
+ }
+}

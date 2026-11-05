@@ -1,0 +1,142 @@
+{
+ "c01": {
+  "believable": 2,
+  "interest": 3,
+  "joke": 3,
+  "deadpan": 1,
+  "overall": 3,
+  "repost": false,
+  "best_lines": [
+   "#7: update: left the haunted tea note. someone drank the tea and left a new note: “if haunted, explain why chamomile?” now we’re in a standoff.",
+   "#14: hr just scheduled a meeting titled “Mug Protocol & Cross-Departmental Harmonization.” i think i’ve won.",
+   "#23: paid. he sprinkled it with holy water (probably windex) and said: “let it dwell in peace... or in cupboard 3b, same thing.” the aura feels stronger."
+  ],
+  "main_failure": "everyone yes-ands in one voice"
+ },
+ "c09": {
+  "believable": 1,
+  "interest": 3,
+  "joke": 1,
+  "deadpan": 1,
+  "overall": 2,
+  "repost": false,
+  "best_lines": [
+   "#7: and she always ends with, “i’m still here, daniel. are you?”",
+   "#11: two days later, another letter came. she said, “i knew it was you. your handwriting hasn’t changed.”",
+   "#18: bro… what’s your last name?"
+  ],
+  "main_failure": "melodramatic LLM-voiced chorus"
+ },
+ "c23": {
+  "believable": 2,
+  "interest": 4,
+  "joke": 1,
+  "deadpan": 3,
+  "overall": 3,
+  "repost": true,
+  "best_lines": [
+   "#3: I put a sticky note in it on Tuesday that just said \"MINE\" and the next day the mug was washed, sitting in the supplies closet, and the note was stuck to the outside of my monitor with the word \"STILL?\" written on the back.",
+   "#6: rinsing isn't washing. to you it's clean enough, to whatever is in that building it's neglected.",
+   "#24: it isn't going to rinse you off, javier. It scrubs until it hits bone."
+  ],
+  "main_failure": "posts cut off mid-sentence"
+ },
+ "c03": {
+  "believable": 1,
+  "interest": 1,
+  "joke": 1,
+  "deadpan": 1,
+  "overall": 1,
+  "repost": false,
+  "best_lines": [
+   "#2: so does she have an aversion to variety",
+   "#12: and maybe the fact that i hate you and your flatmate will keep the two of you in line",
+   "#32: i like to have my space but not with you in it, because that means i have to get you and the space you need"
+  ],
+  "main_failure": "incoherent drift, loses premise"
+ },
+ "c24": {
+  "believable": 1,
+  "interest": 2,
+  "joke": 1,
+  "deadpan": 2,
+  "overall": 2,
+  "repost": false,
+  "best_lines": [
+   "#6: the new name is 'I'm so happy'",
+   "#17: yeah. I've never felt more happy, or more alive, than in the past.",
+   "#31: I don't know, I'm not sure what's happening, but it doesn't feel like I want it to be happening."
+  ],
+  "main_failure": "degenerate repetition loop"
+ },
+ "c21": {
+  "believable": 1,
+  "interest": 1,
+  "joke": 1,
+  "deadpan": 1,
+  "overall": 1,
+  "repost": false,
+  "best_lines": [
+   "#2: why do you think that you have not been able to answer these questions for 5 years now",
+   "#18: I believe that some people's brains just aren't wired the way everyone else's is. That's all I have to say.",
+   "#31: yes, i do believe the world will always stay the same. it is the same as it is now, except for some changes in technology, but other than that it will be exactly the same"
+  ],
+  "main_failure": "drifts off premise into platitudes"
+ },
+ "c08": {
+  "believable": 3,
+  "interest": 4,
+  "joke": 4,
+  "deadpan": 4,
+  "overall": 4,
+  "repost": true,
+  "best_lines": [
+   "#4: she's introducing you to the guys she's sleeping with so you don't feel left out",
+   "#6: rosa did you ever consider that your ex was just throwing out spoiled milk",
+   "#18: My landlord did this with the labels on the buzzers in 2019 right before the fire. You need to check the lease to see who actually owns the building."
+  ],
+  "main_failure": "name-sequence clue doesn't add up"
+ },
+ "c17": {
+  "believable": 2,
+  "interest": 4,
+  "joke": 1,
+  "deadpan": 2,
+  "overall": 3,
+  "repost": false,
+  "best_lines": [
+   "#4: He isn't guessing. He's deciding.",
+   "#20: You didn't say the apron wasn't there.",
+   "#21: Your shift started fourteen minutes ago, Arthur. Put it on."
+  ],
+  "main_failure": "posters are omniscient narrators"
+ },
+ "c15": {
+  "believable": 3,
+  "interest": 4,
+  "joke": 1,
+  "deadpan": 4,
+  "overall": 4,
+  "repost": true,
+  "best_lines": [
+   "#11: Table saws almost never run on 240v unless your dad was operating commercial three-phase equipment in a residential garage, which is a code violation anyway. He probably just had sawdust packed into the housing.",
+   "#13: my brother said it had something to do with residual capacitance in the ceramic brick, but we ended up just burying it behind the shed.",
+   "#20: Inbound SMS spoofing from your exact own MSISDN gets automatically dropped as a routing loopback by any modern carrier's SMSC."
+  ],
+  "main_failure": "ends cut off without payoff"
+ },
+ "c07": {
+  "believable": 2,
+  "interest": 2,
+  "joke": 1,
+  "deadpan": 2,
+  "overall": 2,
+  "repost": false,
+  "best_lines": [
+   "#7: oh wait i found my mug\nit's in a different cupboard",
+   "#12: oh no, it's the same ghost that took my shoes",
+   "#16: that's not my feeling, that's the story's feeling"
+  ],
+  "main_failure": "drifts into dull plot summary"
+ }
+}

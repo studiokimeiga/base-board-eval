@@ -1,0 +1,142 @@
+{
+ "c05": {
+  "believable": 1,
+  "interest": 1,
+  "joke": 1,
+  "deadpan": 2,
+  "overall": 1,
+  "repost": false,
+  "best_lines": [
+   "#6: what is work?",
+   "#15: but the hotel didn't have a strict rule that you can't follow people into a bathroom did it",
+   "#9: isn't there an unwritten rule that you don't follow a person to their home?"
+  ],
+  "main_failure": "incoherent drift with duplicated posts"
+ },
+ "c12": {
+  "believable": 3,
+  "interest": 3,
+  "joke": 1,
+  "deadpan": 2,
+  "overall": 3,
+  "repost": false,
+  "best_lines": [
+   "#16: calvin what the fuck kind of phone lets you remotely activate physical functions in your house",
+   "#20: dont feed it",
+   "#24: what did he used to feed it"
+  ],
+  "main_failure": "leaked post headers, stock creepypasta beats"
+ },
+ "c20": {
+  "believable": 2,
+  "interest": 4,
+  "joke": 1,
+  "deadpan": 1,
+  "overall": 4,
+  "repost": true,
+  "best_lines": [
+   "#15: she swallowed it. it tasted like what i was going to say.",
+   "#16: everyone log off. the thread is a circle and i'm sitting directly behind myself.",
+   "#3: his, but they look at my mouth while he's talking."
+  ],
+  "main_failure": "single polished literary voice, not real posters"
+ },
+ "c27": {
+  "believable": 1,
+  "interest": 1,
+  "joke": 2,
+  "deadpan": 1,
+  "overall": 1,
+  "repost": false,
+  "best_lines": [
+   "#18: email me with \"unsubscribe\" in the subject, and i'll get you off my list",
+   "#25: i got a text from yusuf's number. i replied \"unsubscribe\". he should get off my spam list",
+   "#12: did you try calling 273?"
+  ],
+  "main_failure": "incoherent non sequiturs, premise abandoned"
+ },
+ "c04": {
+  "believable": 2,
+  "interest": 3,
+  "joke": 1,
+  "deadpan": 1,
+  "overall": 3,
+  "repost": false,
+  "best_lines": [
+   "#7: the first name field is blank. it's not scratched out, the plastic is just completely smooth where the letters should be.",
+   "#8: He isn't saying your name, he's clearing his throat of it.",
+   "#9: who are you replying to? the thread starts with your post"
+  ],
+  "main_failure": "overwritten monologues in one shared voice"
+ },
+ "c19": {
+  "believable": 2,
+  "interest": 3,
+  "joke": 1,
+  "deadpan": 1,
+  "overall": 2,
+  "repost": false,
+  "best_lines": [
+   "#3: she always uses em dashes—",
+   "#2: I swear the new name flickered in old English font for a split second before going back to normal Poppins",
+   "#23: the chat is how it practices speaking"
+  ],
+  "main_failure": "bloated trope pileup with continuity errors"
+ },
+ "c02": {
+  "believable": 2,
+  "interest": 2,
+  "joke": 2,
+  "deadpan": 3,
+  "overall": 2,
+  "repost": false,
+  "best_lines": [
+   "#10: it's just that it's been washed, so the name isn't there anymore",
+   "#26: If you're not going to report the mug to the authorities, you need to ask the mug to report itself to you.",
+   "#20: The person that's doing it isn't an idiot, it's you."
+  ],
+  "main_failure": "circular, incoherent advice loops"
+ },
+ "c30": {
+  "believable": 3,
+  "interest": 4,
+  "joke": 2,
+  "deadpan": 4,
+  "overall": 4,
+  "repost": true,
+  "best_lines": [
+   "#9: i did, and the ink bled into a new paragraph saying i'd do that",
+   "#14: i don't have a hallway. my place is a studio.",
+   "#23: too late, it's addressed to whoever finds my phone"
+  ],
+  "main_failure": "reply-guy anecdotes too formulaic"
+ },
+ "c16": {
+  "believable": 2,
+  "interest": 2,
+  "joke": 2,
+  "deadpan": 3,
+  "overall": 2,
+  "repost": false,
+  "best_lines": [
+   "#7: i thought physical numbers was something you only got once, like an actual piece of wood",
+   "#13: you have 450,000 numbers and a program called a phonebook in your head, and you think you are special?",
+   "#16: i just thought it was called the phonebook"
+  ],
+  "main_failure": "drops the premise for nonsense riffing"
+ },
+ "c25": {
+  "believable": 2,
+  "interest": 4,
+  "joke": 3,
+  "deadpan": 1,
+  "overall": 4,
+  "repost": true,
+  "best_lines": [
+   "#18: then who the fuck left the stove on",
+   "#9: look at the timestamps. you've been standing at that window for almost four hours.",
+   "#24: every single one of you check your stoves right now. mine just started clicking."
+  ],
+  "main_failure": "muddled twist logic, too-scripted posters"
+ }
+}
