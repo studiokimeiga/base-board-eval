@@ -70,3 +70,28 @@ left, right, both good or neither, and the tags include "all gas no brakes" and 
 ## Cost
 
 About $0.40 per arm ($0.80 in total), going by the 2026-11-05 gemini9neutral rep.
+
+## Mechanical results (2026-11-06, before the owner read anything)
+
+Both arms ran to 8 threads: moves10 cost $0.27. The plain control had one withheld post, so that opener's
+pair ("the guy who sits behind me…") is left out, and the owner sees 7 pairs.
+
+| | moves10 | plain (fresh rep) |
+|---|---:|---:|
+| non-OP replies under 40 characters | 30% | 21% |
+| over 250 characters | **22%** | 0% |
+| median length | 83 | 79 |
+| "reminds me of / happened to my" pattern | 0% | 0% |
+
+1. **Short replies: held.** Exactly 30% are under 40 characters. React posts have a median of 13 characters
+   ("lmao", "run dude", "calvin you alive?").
+2. **Fewer long replies: failed, badly.** Two moves wrote essays: riff (median 512 characters, ignoring
+   "a short paragraph at most") and straight (median 327). The opener draw also put 6 riffs in the
+   dad-emails thread.
+3. **Anecdotes: held by the regex, but it undercounts.** Riffs bring back the "my uncle / my grandfather /
+   my dad did this" story, phrased in ways the pattern misses.
+4. **Misread and tangent read as people, not as glitches.** Examples: "Wait, so you DO have a stove?
+   Make sure you submit a maintenance ticket…", and a toaster-recall derail answered with "i made the
+   toaster up". None of the 12 read broken.
+
+If the owner prefers moves10, the next round caps riff and straight length first.

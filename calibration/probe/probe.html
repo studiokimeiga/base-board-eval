@@ -60,7 +60,7 @@ main { padding: 0 16px 40px; max-width: 1280px; }
 <body>
 <header>
   <h1>Taste probe: which one would you rather have on the board?</h1>
-  <p>14 pairs. Both threads in a pair start from the same opening post and differ in one thing, so
+  <p>Both threads in a pair start from the same opening post and differ in one thing, so
   your pick settles one design decision. Read the first 12 posts (more if you want), then pick.
   <b>Click a post</b> to star a line you liked. Tags are optional. Gut calls are the point: don't deliberate.</p>
   <p class="hint">Keys: <b>1</b> left, <b>2</b> right, <b>3</b> both good, <b>4</b> neither, <b>→</b>/<b>←</b> next/previous.
@@ -83,9 +83,10 @@ main { padding: 0 16px 40px; max-width: 1280px; }
 </div>
 <script>
 "use strict";
-const STORE = "probe-answers-v1";
+const SET = new URLSearchParams(location.search).get("set") === "moves" ? "moves" : "probe";
+const STORE = SET === "moves" ? "probe-answers-moves-v1" : "probe-answers-v1";
 const TAGS = {
-  en: ["funny", "deadpan / sincerely wrong", "creepy (good)", "builds lore", "too random", "too polished / AI-ish", "too wordy", "too creepy"],
+  en: ["funny", "deadpan / sincerely wrong", "creepy (good)", "builds lore", "too random", "too polished / AI-ish", "too wordy", "too creepy", "all gas no brakes", "too flat / boring"],
   ja: ["funny", "natural / real 5ch", "easy to follow", "good for learning", "creepy (good)", "too much slang", "too polished / textbook", "too random"],
 };
 let pairs = [], at = 0, answers = {};
@@ -176,12 +177,12 @@ function pick(v) {
 }
 
 function exportAll() {
-  const out = { exported: new Date().toISOString(), probe: "calibration/probe", answers };
+  const out = { exported: new Date().toISOString(), probe: "calibration/probe", set: SET, answers };
   const blob = new Blob([JSON.stringify(out, null, 1)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  link.download = "probe-" + new Date().toISOString().slice(0, 10) + ".json";
+  link.download = (SET === "moves" ? "moves-" : "probe-") + new Date().toISOString().slice(0, 10) + ".json";
   document.body.appendChild(link); link.click(); link.remove();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
@@ -200,7 +201,7 @@ document.addEventListener("keydown", e => {
   else if (e.key === "ArrowLeft") document.getElementById("prev").click();
 });
 
-fetch("private/items-probe.json").then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(d => {
+fetch(SET === "moves" ? "private/items-moves.json" : "private/items-probe.json").then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(d => {
   pairs = d.pairs;
   const first = pairs.findIndex(p => !(answers[p.id] && answers[p.id].pick));
   at = first < 0 ? 0 : first;
