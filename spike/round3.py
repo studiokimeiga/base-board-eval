@@ -281,9 +281,10 @@ def hermes_arm(penalties, guard, pick):
     return complete
 
 
-def gemini_arm(temperature=1.0, roles=False, short=False, finish=False):
+def gemini_arm(temperature=1.0, roles=False, short=False, finish=False, moves=False):
     """finish=True (round 9) logs the API's finish_reason as the post's stop ("length" = cut off
-    by max_tokens); earlier rounds logged "eos" for every post."""
+    by max_tokens); earlier rounds logged "eos" for every post. moves=True (round 10) tells each
+    non-OP post what kind of post it is, drawn per post (MOVES)."""
     def complete(port, prompt, stops):
         m = HEADER.search(prompt)
         doc, author = prompt[:m.start()], m.group(1)
@@ -296,6 +297,11 @@ def gemini_arm(temperature=1.0, roles=False, short=False, finish=False):
                     ask += " " + ROLE_LENGTH[ROLES.index(role)]
             elif short:
                 ask += " Keep it as long as a real post would be: usually a sentence or two."
+        if moves:
+            op = FIRST_POSTER.search(prompt)
+            if not (op and op.group(1) == author):
+                ask += " This post is %s. Don't announce it; just post." % move_at(
+                    opener_index(opener_of(prompt)), post_number(prompt))[2]
         body = {"model": "google/gemini-3.8-flash", "max_tokens": 1200, "temperature": temperature,
                 "reasoning": {"effort": "low"}, "usage": {"include": True},
                 "messages": [{"role": "user", "content": ask}]}
@@ -373,7 +379,33 @@ def gemini_pick_arm():
 # it enters the context, as jp_bakeoff.py and live_board.py do; rounds 3-8 gated only the saved file.
 X_HEADER, NEUTRAL_HEADER = G.BOARD_HEADER, "thread 4471"
 R9 = {"gemini9": X_HEADER, "rolesshort9": X_HEADER, "rolesshort9naif": X_HEADER,
-      "gemini9neutral": NEUTRAL_HEADER, "rolesshort9neutral": NEUTRAL_HEADER}
+      "gemini9neutral": NEUTRAL_HEADER, "rolesshort9neutral": NEUTRAL_HEADER,
+      "moves10": NEUTRAL_HEADER}      # round 10 (spike/MOVES.md) reuses round 9's bookkeeping
+
+# ---- round 10: what kind of post comes next, drawn per post rather than per poster ----
+# Plain Gemini threads were "all gas, no brakes": almost every reply was a bit, each topping the
+# last. Real threads have reactions, plain questions and straight answers between the jokes.
+# The draw depends only on (opener, post number), never on model output.
+MOVES_SEED = 1010
+MOVES = [  # (name, weight, what the post is)
+    ("react", 20, "a quick reaction: a few words at most (laughing, shocked, unimpressed, or just "
+                  "following along), with no joke of its own"),
+    ("ask", 17, "a plain question to the OP or whoever posted last, asked because they want to know, "
+                "not as a joke"),
+    ("straight", 17, "a sincere, literal answer or piece of advice that takes the thread at face value "
+                     "and isn't trying to be funny"),
+    ("doubt", 10, "blunt doubt or a nitpick about something someone said"),
+    ("tangent", 7, "a small tangent: latching onto a minor detail or drifting slightly off topic"),
+    ("misread", 5, "a reply from someone who skimmed and got the wrong idea, posted sincerely"),
+    ("joke", 18, "a joke, one or two lines"),
+    ("riff", 6, "a longer bit, if something funny or strange is building: run with it, but a short "
+                "paragraph at most"),
+]
+
+
+def move_at(oi, n):
+    rng = random.Random(MOVES_SEED * 10000 + oi * 100 + n)
+    return rng.choices(MOVES, weights=[w for _, w, _ in MOVES])[0]
 WITHHELD = "[post withheld]"
 GEMINI_LABEL = "google/gemini-3.8-flash"
 NAIF_LABEL = G.VOICES["gemma"]["label"] + ", XTC + DRY"
@@ -469,6 +501,8 @@ def build(arm):
         G.BOARD_HEADER = R9[arm]
         if arm == "rolesshort9naif":
             return gate_first(occasional_naif_arm(), arm), 1      # one llama-server slot
+        if arm == "moves10":
+            return gate_first(gemini_arm(finish=True, moves=True), arm), 4
         roles = arm.startswith("rolesshort")
         return gate_first(gemini_arm(roles=roles, short=roles, finish=True), arm), 4
     if arm == "geminipick":
@@ -549,6 +583,8 @@ def main():
             if arm in R9:     # gen_thread labels posts by scaffold voice; record who really wrote them
                 p.pop("arm")
                 p["model"] = NAIF_LABEL if p["n"] in naif_at.get(text, ()) else GEMINI_LABEL
+                if arm == "moves10" and p["who"] != t["posts"][0]["who"]:
+                    p["move"] = move_at(oi, p["n"])[0]
                 if p["stop"].startswith("withheld"):
                     p["withheld"] = True
         if arm in R9:
