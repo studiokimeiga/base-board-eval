@@ -64,3 +64,18 @@ screen calvin").
 them. One was wrong, "gets promoted to Senior Ines" (a title), and the title check now keeps it.
 
 The second run writes to `spike/remote/r11/`.
+
+## Second run result
+
+The second run cost $0.35. It stripped 10 names, every one of them a real form of address ("delete this
+marcus", "calvin tell me you're not still in the house"), and re-rolled 0 posts.
+
+Against round 10's plain rep, on the same openers:
+
+| | addressing someone by name | addressing the poster right above | "dumbass" |
+|---|---:|---:|---:|
+| plain | 7% | 4% | 5 |
+| tidy11 | 6% | 0% | 0 |
+
+The insult re-roll never fired in either run: this time Gemini didn't open with stefan's "dumbass". It is
+tested offline with a stub writer. **Carry both fixes into the board.**
