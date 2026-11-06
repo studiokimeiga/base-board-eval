@@ -83,8 +83,8 @@ main { padding: 0 16px 40px; max-width: 1280px; }
 </div>
 <script>
 "use strict";
-const SET = new URLSearchParams(location.search).get("set") === "moves" ? "moves" : "probe";
-const STORE = SET === "moves" ? "probe-answers-moves-v1" : "probe-answers-v1";
+const SET = ["moves", "think"].includes(new URLSearchParams(location.search).get("set")) ? new URLSearchParams(location.search).get("set") : "probe";
+const STORE = SET === "probe" ? "probe-answers-v1" : "probe-answers-" + SET + "-v1";
 const TAGS = {
   en: ["funny", "deadpan / sincerely wrong", "creepy (good)", "builds lore", "too random", "too polished / AI-ish", "too wordy", "too creepy", "all gas no brakes", "too flat / boring"],
   ja: ["funny", "natural / real 5ch", "easy to follow", "good for learning", "creepy (good)", "too much slang", "too polished / textbook", "too random"],
@@ -182,7 +182,7 @@ function exportAll() {
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  link.download = (SET === "moves" ? "moves-" : "probe-") + new Date().toISOString().slice(0, 10) + ".json";
+  link.download = SET + "-" + new Date().toISOString().slice(0, 10) + ".json";
   document.body.appendChild(link); link.click(); link.remove();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
@@ -201,7 +201,7 @@ document.addEventListener("keydown", e => {
   else if (e.key === "ArrowLeft") document.getElementById("prev").click();
 });
 
-fetch(SET === "moves" ? "private/items-moves.json" : "private/items-probe.json").then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(d => {
+fetch("private/items-" + SET + ".json").then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(d => {
   pairs = d.pairs;
   const first = pairs.findIndex(p => !(answers[p.id] && answers[p.id].pick));
   at = first < 0 ? 0 : first;

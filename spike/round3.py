@@ -281,7 +281,7 @@ def hermes_arm(penalties, guard, pick):
     return complete
 
 
-def gemini_arm(temperature=1.0, roles=False, short=False, finish=False, moves=False):
+def gemini_arm(temperature=1.0, roles=False, short=False, finish=False, moves=False, effort="low"):
     """finish=True (round 9) logs the API's finish_reason as the post's stop ("length" = cut off
     by max_tokens); earlier rounds logged "eos" for every post. moves=True (round 10) tells each
     non-OP post what kind of post it is, drawn per post (MOVES)."""
@@ -303,12 +303,16 @@ def gemini_arm(temperature=1.0, roles=False, short=False, finish=False, moves=Fa
                 ask += " This post is %s. Don't announce it; just post." % move_at(
                     opener_index(opener_of(prompt)), post_number(prompt))[2]
         body = {"model": "google/gemini-3.8-flash", "max_tokens": 1200, "temperature": temperature,
-                "reasoning": {"effort": "low"}, "usage": {"include": True},
+                "reasoning": {"effort": effort}, "usage": {"include": True},
                 "messages": [{"role": "user", "content": ask}]}
         d = retrying(lambda: post_json("https://openrouter.ai/api/v1/chat/completions",
                                        ENV["OPENROUTER_API_KEY"], body))
         with LOCK:
-            SPEND["usd"] += (d.get("usage") or {}).get("cost", 0) or 0
+            u = d.get("usage") or {}
+            SPEND["usd"] += u.get("cost", 0) or 0
+            SPEND["think_tokens"] = SPEND.get("think_tokens", 0) + \
+                ((u.get("completion_tokens_details") or {}).get("reasoning_tokens") or 0)
+            SPEND["posts"] = SPEND.get("posts", 0) + 1
         text = cut(clean_chat(d["choices"][0]["message"].get("content") or ""), stops).strip()
         return text, (d["choices"][0].get("finish_reason") or "?") if finish else "eos"
     return complete
@@ -381,7 +385,9 @@ X_HEADER, NEUTRAL_HEADER = G.BOARD_HEADER, "thread 4471"
 R9 = {"gemini9": X_HEADER, "rolesshort9": X_HEADER, "rolesshort9naif": X_HEADER,
       "gemini9neutral": NEUTRAL_HEADER, "rolesshort9neutral": NEUTRAL_HEADER,
       "moves10": NEUTRAL_HEADER,      # round 10 (spike/MOVES.md) reuses round 9's bookkeeping
-      "tidy11": NEUTRAL_HEADER}       # round 11 (spike/TIDY.md)
+      "tidy11": NEUTRAL_HEADER,       # round 11 (spike/TIDY.md)
+      # round 12 (spike/THINKING.md): the live board's prompt and tidy fixes at three thinking levels
+      "think12min": NEUTRAL_HEADER, "think12low": NEUTRAL_HEADER, "think12high": NEUTRAL_HEADER}
 
 # ---- round 10: what kind of post comes next, drawn per post rather than per poster ----
 # Plain Gemini threads were "all gas, no brakes": almost every reply was a bit, each topping the
@@ -542,6 +548,9 @@ def build(arm):
             return gate_first(gemini_arm(finish=True, moves=True), arm), 4
         if arm == "tidy11":
             return gate_first(tidy_arm(gemini_arm(finish=True), arm), arm), 4
+        if arm.startswith("think12"):
+            effort = {"think12min": "minimal", "think12low": "low", "think12high": "high"}[arm]
+            return gate_first(tidy_arm(gemini_arm(finish=True, effort=effort), arm), arm), 4
         roles = arm.startswith("rolesshort")
         return gate_first(gemini_arm(roles=roles, short=roles, finish=True), arm), 4
     if arm == "geminipick":
