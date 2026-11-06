@@ -95,3 +95,19 @@ pair ("the guy who sits behind me…") is left out, and the owner sees 7 pairs.
    toaster up". None of the 12 read broken.
 
 If the owner prefers moves10, the next round caps riff and straight length first.
+
+## Owner result (2026-11-06)
+
+The owner picked a side in 4 of the 7 pairs: plain 4, moves 0. Their words: "nvm i guess vanilla is best".
+Under the rule above, 4–0 falls one short of the 5 picks needed, so it reads as split. With the owner
+saying it outright, **moves10 is dropped** and the board stays on plain Gemini. Their favourite line
+came from the plain side of the barista pair.
+
+Feedback on plain Gemini, for the next round:
+- **Posters name each other too much**, even when replying to the post directly above. Measured over
+  805 plain-Gemini posts from five runs (the "saying my name" opener left out): about 10% address
+  someone by name, 5% the poster directly above.
+- **"dumbass" keeps coming back.** 11 posts, and 10 of them are in the "group chat renamed itself"
+  thread, mostly stefan (7 in one run). Post 2 there has the same prompt in every run, so his first
+  "dumbass" recurs, and then he keeps it as a catchphrase. It's one poster's tic, not Gemini's
+  insult of choice.
