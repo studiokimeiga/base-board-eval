@@ -42,3 +42,25 @@ Cost: about $0.30.
 ```
 BAKEOFF_OUT=spike/remote/r10 py -3.12 spike/round3.py tidy11
 ```
+
+## First run, and a change before the second (2026-11-06)
+
+**The first run** (`spike/remote/r10/bakeoff-tidy11.json`, $0.34) made only 2 name changes and 0
+re-rolls. stefan said "dumbass" just once that run, and paloma once.
+
+The name rule was too cautious. A trailing name was only stripped from a question or an order, and a
+leading name only before a short list of words. So it missed "wash your own shit javier", "whenever
+you're ready javier" and "ines he has you on an algorithm". It also ignored the commonest case in the
+creepy threads: everyone addressing the OP ("calvin don't look up", "check the reflection in your
+screen calvin").
+
+**Changes for the second run:**
+- A trailing name is stripped unless the word before it makes it an object ("hand erik", "ask
+  stefan") or a title ("Senior Ines").
+- A pronoun after a leading name counts as address ("ines he…", "brenda she's…").
+- The OP's name is stripped as well as the name of the poster directly above.
+
+**Dry run** on 966 posts (six plain runs, "my name" opener excluded): 42 changed. Claude read all of
+them. One was wrong, "gets promoted to Senior Ines" (a title), and the title check now keeps it.
+
+The second run writes to `spike/remote/r11/`.

@@ -407,7 +407,7 @@ MOVES = [  # (name, weight, what the post is)
 def tidy_arm(complete, arm):
     """Round 11: plain Gemini's posts, with two fixes that leave its prompt alone (spike/tidy.py).
     A post that would use the poster's pet insult a third time is written again (twice at most);
-    a name only used to address the poster right above is dropped. Every change is logged, with
+    a name only used to address the poster right above, or the OP, is dropped. Every change is logged, with
     the text before it, to a private file next to the arm's output."""
     import tidy
     path = os.path.join(out_dir(), "tidy-%s.jsonl" % arm)
@@ -428,11 +428,12 @@ def tidy_arm(complete, arm):
             log(kind="reroll", opener=opener_of(prompt), n=post_number(prompt), who=author, word=word, text=text)
             text, why = complete(port, prompt, stops)
         if earlier and "my name" not in earlier[0][1].lower():   # names are the joke in that opener
-            above = earlier[-1][0]
-            if above != author:
-                new = tidy.strip_vocative(text, above)
+            for name in dict.fromkeys([earlier[-1][0], earlier[0][0]]):   # the poster above, then the OP
+                if name == author:
+                    continue
+                new = tidy.strip_vocative(text, name)
                 if new != text:
-                    log(kind="name", opener=opener_of(prompt), n=post_number(prompt), who=author, name=above,
+                    log(kind="name", opener=opener_of(prompt), n=post_number(prompt), who=author, name=name,
                         text=text, new=new)
                     text = new
         return text, why

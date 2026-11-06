@@ -1,8 +1,8 @@
 """Round 11 (spike/TIDY.md): two fixes to plain Gemini that leave its prompt alone.
 
-  strip_vocative   drop the name of the poster right above when a reply only uses it to address
-                   them ("stefan, check the log" -> "check the log"). A name that points at someone
-                   ("stefan is right", "ask stefan") stays.
+  strip_vocative   drop a name a reply only uses to address someone ("stefan, check the log" ->
+                   "check the log"); the caller passes the poster right above and the OP. A name
+                   that points at someone ("stefan is right", "ask stefan") stays.
   overused         the pet insult a poster would be using for the third time in a thread, so the
                    caller can re-roll that one post.
 
@@ -19,13 +19,9 @@ ADDRESS_NEXT = ("you|your|you're|youre|ur|u|do|don't|dont|stop|what|why|how|wher
                 "run|check|tell|calm|please|pls|listen|look|leave|open|close|turn|answer|wake|lmao|lol|"
                 "bro|dude|man|wtf|holy|honestly|seriously|literally|no|yes|yeah|ok|okay|wait|relax|"
                 "chill|shut|read|unlock|take|grab|put|walk|drive|reply|send|delete|"
-                "throw|stay|keep|hold|never|i|i'm|im|we|this|that")
-# A trailing name with no comma is only stripped from a question or an order ("what does it say ines",
-# "check your own throat hakim"); in a statement it's too often an object.
-QUESTION_START = {"what", "why", "how", "where", "who", "when", "did", "do", "does", "is", "are", "can",
-                  "could", "would", "will", "have", "has", "check", "tell", "pull", "throw", "get", "go",
-                  "run", "stop", "look", "open", "close", "turn", "put", "take", "grab", "leave", "shut",
-                  "answer", "send", "delete", "unlock", "drive", "walk", "stay", "keep", "hold", "read"}
+                "throw|stay|keep|hold|never|i|i'm|im|we|this|that|wash|offer|whenever|need|"
+                # a pronoun straight after a name makes it address: "ines he has you on an algorithm"
+                "he|she|they|it|there|someone|everyone|nobody")
 # Before a trailing name without a comma, a word that makes the name an object ("i blame marcus",
 # "ask stefan"), so it stays.
 OBJECT_BEFORE = {"to", "with", "at", "for", "from", "blame", "ask", "asked", "tell", "told", "like",
@@ -65,9 +61,8 @@ def strip_vocative(text, name):
         new = re.sub(r"\s*,\s*%s([.!?]*)$" % n, r"\1", stripped, flags=re.I)
     if new == stripped:
         m = re.search(r"(\S+)\s+%s([.!?]*)$" % n, stripped, flags=re.I)
-        first = stripped.split()[0].lower().strip(".,!?\"'")
-        asks = stripped.endswith("?") or first in QUESTION_START
-        if m and asks and m.group(1).lower().strip(".,!?") not in OBJECT_BEFORE and len(stripped.split()) >= 3:
+        titled = m and m.group(1)[:1].isupper() and not re.search(r"[.!?]$", m.group(1))  # "Senior Ines"
+        if m and not titled and m.group(1).lower().strip(".,!?") not in OBJECT_BEFORE and len(stripped.split()) >= 3:
             new = stripped[:m.start()] + m.group(1) + m.group(2)
     if new == stripped or len(new.split()) < 1 or not re.search(r"\w", new):
         return text
