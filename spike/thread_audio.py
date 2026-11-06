@@ -56,10 +56,25 @@ SCRIPTS = {
         "edits": {19: "i am not biting the mugs. but if i come in on monday and find a chipped saucer in "
                       "the breakroom i'm holding you personally responsible"},
     },
+    "post": {
+        "opener": "someone else's post",
+        "cast": {"kenji": "Chris", "tomas": "Callum", "mira": "Sarah", "javier": "Liam",
+                 "hiro": "Eric", "emeka": "Adam", "bridget": "Laura"},
+        "tags": {1: "[sheepish]", 2: "[snorts]", 3: "[eager]", 4: "[mock-serious]", 5: "[quietly]",
+                 6: "[scheming]", 7: "[uneasy]", 8: "[practical]", 9: "[guilty]", 10: "[softly, moved]",
+                 11: "[shaken]", 12: "[urgent]", 13: "[sarcastic]", 14: "[slowly, realizing]",
+                 15: "[urgent, piecing it together]", 17: "[stunned whisper]", 18: "[urgent]",
+                 19: "[quietly]", 20: "[darkly amused]", 21: "[focused]", 22: "[alarmed]",
+                 23: "[determined]", 24: "[dry]"},
+        "edits": {4: "U.S.P.I.S. does not play games anon. you're gonna get raided by guys in windbreakers "
+                     "over bed bath and beyond coupons"},
+    },
 }
 
 
 def speakable(text):
+    # board quote links (>>4471) aren't spoken
+    text = "\n".join(l for l in text.split("\n") if not l.strip().startswith(">>"))
     text = text.replace("’", "'").strip().strip('"')
     return re.sub(r"\s+", " ", text)
 
@@ -101,7 +116,7 @@ def main():
     client = ElevenLabs()   # reads ELEVENLABS_API_KEY
     with open(a.file, encoding="utf-8") as f:
         thread = next(t for t in json.load(f)["threads"] if cfg["opener"] in t["opener"])
-    posts = [p for p in thread["posts"] if p.get("text") and not p.get("withheld")]
+    posts = [p for p in thread["posts"] if p.get("text") and not p.get("withheld") and speakable(p["text"])]
 
     # premade voices only: the free plan can't use library voices through the API
     voices = {v.name.split(" - ")[0]: v.voice_id for v in client.voices.get_all().voices if v.category == "premade"}
