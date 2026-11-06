@@ -21,3 +21,5 @@ INTEGRATION.md
 moderation/private/
 # Withheld posts with their text, wherever a run's output goes (spike/pubgate.py)
 *quarantine.jsonl*
+# Local secrets written by `elevenlabs onboard`
+/.env.local
