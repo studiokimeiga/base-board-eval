@@ -4,223 +4,383 @@
    "arm": "low",
    "file": "bakeoff-think12low.json",
    "posts": 24,
-   "sha256": "5add005d77dbee766c0c98da85e734340aef96a94d60b45147295850f6eca9f4"
+   "sha256": "e04bd97a55fa110805adacc0b9e759bd8f49fe6b29ef9523a6ee069687ec2bb0"
   },
   "B": {
    "arm": "minimal",
    "file": "bakeoff-think12min.json",
    "posts": 24,
-   "sha256": "e5f7a15c6ce983c7c1c7ec1ade565d226c0451c71e4222454127b14c0a2c39ff"
+   "sha256": "8a12ae01e407bb4a6dee58c96f956473851aba1e9667e4da96ff8fd19242dc82"
   },
   "compare": "minimal",
-  "opener": "our group chat renamed itself and nobody will say who did it"
+  "opener": "just got a text from my own number asking if i left the stove on"
  },
  "k02": {
-  "A": {
-   "arm": "low",
-   "file": "bakeoff-think12low.json",
-   "posts": 24,
-   "sha256": "dd2c72a06bbf2f5978bd38aaac57e75bcab1e131cb14b63cb047c8711557611a"
-  },
-  "B": {
-   "arm": "minimal",
-   "file": "bakeoff-think12min.json",
-   "posts": 24,
-   "sha256": "1fd8f799ef9f4f17f648cfb3638de57fafb3fc7de1a55ad2ce1f4593705590af"
-  },
-  "compare": "minimal",
-  "opener": "the barista has written a different name on my cup three times this week"
- },
- "k03": {
-  "A": {
-   "arm": "minimal",
-   "file": "bakeoff-think12min.json",
-   "posts": 24,
-   "sha256": "11d253d982080b9d4585a9d39c22214e07b72fac1e9e6c850b9bc25b4c9055e5"
-  },
-  "B": {
-   "arm": "low",
-   "file": "bakeoff-think12low.json",
-   "posts": 24,
-   "sha256": "632c58133d0a93017de55f19a1a83ba854e73cca4c683247a443ae9529534731"
-  },
-  "compare": "minimal",
-  "opener": "someone at work keeps taking my mug, washing it, and putting it back in a different cupboard"
- },
- "k04": {
-  "A": {
-   "arm": "minimal",
-   "file": "bakeoff-think12min.json",
-   "posts": 24,
-   "sha256": "f05523d2951b0e360bf8fcced52f29cdc8c6028318864f3b16ec286593c58fd3"
-  },
-  "B": {
-   "arm": "low",
-   "file": "bakeoff-think12low.json",
-   "posts": 24,
-   "sha256": "8556d6f761f89d95aa6f17414f3b9974e8f8d16340783c5c3552793df3f849e2"
-  },
-  "compare": "minimal",
-  "opener": "the guy who sits behind me has started answering questions that people asked me"
- },
- "k05": {
   "A": {
    "arm": "high",
    "file": "bakeoff-think12high.json",
    "posts": 24,
-   "sha256": "ad2d15ed42069695f43f56ffe0c0aee4a3a01446f0d717b4176cf595ae9166da"
+   "sha256": "f691afd6fa23ae686982d961a648e584b5c95762cef8060b094bc424e65766ff"
   },
   "B": {
    "arm": "low",
    "file": "bakeoff-think12low.json",
    "posts": 24,
-   "sha256": "dd2c72a06bbf2f5978bd38aaac57e75bcab1e131cb14b63cb047c8711557611a"
+   "sha256": "143895a735712259a6e4b8bd603bfe958d8a7cf85ad873eaef9a7bbbf2940e7b"
   },
   "compare": "high",
+  "opener": "my dad has started forwarding me his own emails"
+ },
+ "k03": {
+  "A": {
+   "arm": "low",
+   "file": "bakeoff-think12low.json",
+   "posts": 24,
+   "sha256": "c7a85e7b6cb47d0f935328443beffb2c160cb988cbfe20188391455ff1b52f2d"
+  },
+  "B": {
+   "arm": "minimal",
+   "file": "bakeoff-think12min.json",
+   "posts": 24,
+   "sha256": "7661d1271f14a48cbad59449ecb58e9c0a4f0a2e9219fed902410818d60a30ea"
+  },
+  "compare": "minimal",
   "opener": "the barista has written a different name on my cup three times this week"
+ },
+ "k04": {
+  "A": {
+   "arm": "low",
+   "file": "bakeoff-think12low.json",
+   "posts": 24,
+   "sha256": "8984f8fe8e3fa0a98c85cff64b4b2bb0ce8859237544ba092dfee1bbac8cef75"
+  },
+  "B": {
+   "arm": "high",
+   "file": "bakeoff-think12high.json",
+   "posts": 24,
+   "sha256": "dd2d0be9229f87f4fd2f19b5996ab1ee3d097a06a9c3afc617c3f3ddb14c4615"
+  },
+  "compare": "high",
+  "opener": "i've been getting someone else's post for a year and i've started reading it"
+ },
+ "k05": {
+  "A": {
+   "arm": "minimal",
+   "file": "bakeoff-think12min.json",
+   "posts": 24,
+   "sha256": "fbf839a45d47d1e2b27b128f947b849ccabe497e05b0cf0de1cf4ab9687376f7"
+  },
+  "B": {
+   "arm": "low",
+   "file": "bakeoff-think12low.json",
+   "posts": 24,
+   "sha256": "a1ddd2d683eb54166d6eaf589142aa3280dea90b3f94d40daa6de9e3994d059d"
+  },
+  "compare": "minimal",
+  "opener": "our group chat renamed itself and nobody will say who did it"
  },
  "k06": {
   "A": {
    "arm": "low",
    "file": "bakeoff-think12low.json",
    "posts": 24,
-   "sha256": "6c3f4fec694146f8529d9486fd5a027e1f1f6babf4dc2ce31cb446a23ec92b3f"
+   "sha256": "8a9b948727a1f27a2974b0ee96843130503cdc4e4871805fade27e3221c3bec8"
   },
   "B": {
    "arm": "minimal",
    "file": "bakeoff-think12min.json",
    "posts": 24,
-   "sha256": "5046d6fc6a9d7eb5bc596d48703444130f65067154dbc9720e8bfaeaef0f34e7"
+   "sha256": "7608364d2fcd499ec98ac60e024d0ecd8f72cc1859e0a566584008c6878073ce"
   },
   "compare": "minimal",
-  "opener": "my dad has started forwarding me his own emails"
+  "opener": "someone at work keeps taking my mug, washing it, and putting it back in a different cupboard"
  },
  "k07": {
   "A": {
    "arm": "high",
    "file": "bakeoff-think12high.json",
    "posts": 24,
-   "sha256": "55d2d84b2ac8b3b2a40418a77423b41704e2e920775fe862440d02ff7f99b39c"
+   "sha256": "19436d08596445a15fb56ad184cfa78c7ed76a3e2f83bedbfae6b2595cb7122d"
   },
   "B": {
    "arm": "low",
    "file": "bakeoff-think12low.json",
    "posts": 24,
-   "sha256": "8556d6f761f89d95aa6f17414f3b9974e8f8d16340783c5c3552793df3f849e2"
+   "sha256": "e04bd97a55fa110805adacc0b9e759bd8f49fe6b29ef9523a6ee069687ec2bb0"
   },
   "compare": "high",
-  "opener": "the guy who sits behind me has started answering questions that people asked me"
+  "opener": "just got a text from my own number asking if i left the stove on"
  },
  "k08": {
   "A": {
+   "arm": "mix",
+   "file": "bakeoff-think12mix.json",
+   "posts": 24,
+   "sha256": "de98dec1c3e215f49f9ed4c7118ef0228f4e73e16e91822037bdfd93f6d7a069"
+  },
+  "B": {
    "arm": "low",
    "file": "bakeoff-think12low.json",
    "posts": 24,
-   "sha256": "21d3a5b51591b12cd49915ecf2d0ae3a24c847ee3e913c121ae8b754d3e3d6a0"
+   "sha256": "c7a85e7b6cb47d0f935328443beffb2c160cb988cbfe20188391455ff1b52f2d"
   },
-  "B": {
-   "arm": "minimal",
-   "file": "bakeoff-think12min.json",
-   "posts": 24,
-   "sha256": "c6291e65f17a0c073977442efe9b6c4046ea21dfe4679db2cecef43876d0b3e6"
-  },
-  "compare": "minimal",
-  "opener": "just got a text from my own number asking if i left the stove on"
+  "compare": "mix",
+  "opener": "the barista has written a different name on my cup three times this week"
  },
  "k09": {
   "A": {
+   "arm": "mix",
+   "file": "bakeoff-think12mix.json",
+   "posts": 24,
+   "sha256": "f742bda8e7270bb2a8bf447212fa7f85ccd7918b81d6408a7391468348653348"
+  },
+  "B": {
    "arm": "low",
    "file": "bakeoff-think12low.json",
    "posts": 24,
-   "sha256": "68c9c3d4ca13d3c6e7348eb8acb94367eb3714121cd48e1717987371f2dea46c"
+   "sha256": "8984f8fe8e3fa0a98c85cff64b4b2bb0ce8859237544ba092dfee1bbac8cef75"
   },
-  "B": {
-   "arm": "high",
-   "file": "bakeoff-think12high.json",
-   "posts": 24,
-   "sha256": "d2358e975cb0ed6980ff168a66d62a8fd5b05817a28c33315049cdd1b7b34623"
-  },
-  "compare": "high",
-  "opener": "my friend has started saying my name at the end of every sentence"
+  "compare": "mix",
+  "opener": "i've been getting someone else's post for a year and i've started reading it"
  },
  "k10": {
   "A": {
    "arm": "low",
    "file": "bakeoff-think12low.json",
    "posts": 24,
-   "sha256": "cd02f15eb81e0516b47c3670f9475364ccf0091b75e3ee52057e2ff66ee0d8dd"
+   "sha256": "0fc0e00964753cc9416e654ea9e9a1cdb0c907ccbd62a60a32d6a42ad7c4d498"
   },
   "B": {
-   "arm": "minimal",
-   "file": "bakeoff-think12min.json",
+   "arm": "high",
+   "file": "bakeoff-think12high.json",
    "posts": 24,
-   "sha256": "910fe4b52344e25c34edb9eed6f26dad9609314788712dd61378b3891ec76c2b"
+   "sha256": "71612c21c9f649043bdc3a97d17f41e4aa8bfbcc88852378ef497a9100811a8a"
   },
-  "compare": "minimal",
-  "opener": "i've been getting someone else's post for a year and i've started reading it"
+  "compare": "high",
+  "opener": "the guy who sits behind me has started answering questions that people asked me"
  },
  "k11": {
   "A": {
-   "arm": "high",
-   "file": "bakeoff-think12high.json",
-   "posts": 24,
-   "sha256": "429ce1b3d0568a39d38d9367fd441808daedc9a8537dcb116182e1b57b0d1e0b"
-  },
-  "B": {
    "arm": "low",
    "file": "bakeoff-think12low.json",
    "posts": 24,
-   "sha256": "6c3f4fec694146f8529d9486fd5a027e1f1f6babf4dc2ce31cb446a23ec92b3f"
+   "sha256": "0fc0e00964753cc9416e654ea9e9a1cdb0c907ccbd62a60a32d6a42ad7c4d498"
   },
-  "compare": "high",
-  "opener": "my dad has started forwarding me his own emails"
+  "B": {
+   "arm": "mix",
+   "file": "bakeoff-think12mix.json",
+   "posts": 24,
+   "sha256": "965cc4a7783d8b93dac608bf7965b41251ebe27e079e68dcbae14b0dffd07404"
+  },
+  "compare": "mix",
+  "opener": "the guy who sits behind me has started answering questions that people asked me"
  },
  "k12": {
   "A": {
-   "arm": "low",
-   "file": "bakeoff-think12low.json",
-   "posts": 24,
-   "sha256": "21d3a5b51591b12cd49915ecf2d0ae3a24c847ee3e913c121ae8b754d3e3d6a0"
-  },
-  "B": {
    "arm": "high",
    "file": "bakeoff-think12high.json",
    "posts": 24,
-   "sha256": "4367ab3998a8442ebd1d286fd3951854beae8901d4586c82a0dfaf78ec687177"
+   "sha256": "ccb39b073667a0538436efe4e181664c4859f84132456daabe45a2919f8479fe"
+  },
+  "B": {
+   "arm": "low",
+   "file": "bakeoff-think12low.json",
+   "posts": 24,
+   "sha256": "8a9b948727a1f27a2974b0ee96843130503cdc4e4871805fade27e3221c3bec8"
   },
   "compare": "high",
-  "opener": "just got a text from my own number asking if i left the stove on"
+  "opener": "someone at work keeps taking my mug, washing it, and putting it back in a different cupboard"
  },
  "k13": {
+  "A": {
+   "arm": "mix",
+   "file": "bakeoff-think12mix.json",
+   "posts": 24,
+   "sha256": "427b3979c502dd027fa6a46354ade0959dee5cded64e59dd5772b92b6cf2fe4b"
+  },
+  "B": {
+   "arm": "low",
+   "file": "bakeoff-think12low.json",
+   "posts": 24,
+   "sha256": "e04bd97a55fa110805adacc0b9e759bd8f49fe6b29ef9523a6ee069687ec2bb0"
+  },
+  "compare": "mix",
+  "opener": "just got a text from my own number asking if i left the stove on"
+ },
+ "k14": {
   "A": {
    "arm": "low",
    "file": "bakeoff-think12low.json",
    "posts": 24,
-   "sha256": "cd02f15eb81e0516b47c3670f9475364ccf0091b75e3ee52057e2ff66ee0d8dd"
+   "sha256": "a1ddd2d683eb54166d6eaf589142aa3280dea90b3f94d40daa6de9e3994d059d"
   },
   "B": {
-   "arm": "high",
-   "file": "bakeoff-think12high.json",
+   "arm": "mix",
+   "file": "bakeoff-think12mix.json",
    "posts": 24,
-   "sha256": "9ca24b05c7b78c1264093f7bc1a831af99644237226e7310afdd2dfba64c2660"
+   "sha256": "fed2b4554a3bfac619506a2e358a7c1d81b72a42b1b36fc32bd384a2f6985b73"
   },
-  "compare": "high",
-  "opener": "i've been getting someone else's post for a year and i've started reading it"
+  "compare": "mix",
+  "opener": "our group chat renamed itself and nobody will say who did it"
  },
- "k14": {
+ "k15": {
   "A": {
    "arm": "minimal",
    "file": "bakeoff-think12min.json",
    "posts": 24,
-   "sha256": "13c3b74879c79807b23ad9d065b2b254955e83ac4ac4b8e6181fba987748b8cc"
+   "sha256": "99c8ba174c1416becbaf007bf5bae1b9fe235ee709acea970badd0e1e14329e7"
   },
   "B": {
    "arm": "low",
    "file": "bakeoff-think12low.json",
    "posts": 24,
-   "sha256": "68c9c3d4ca13d3c6e7348eb8acb94367eb3714121cd48e1717987371f2dea46c"
+   "sha256": "0fc0e00964753cc9416e654ea9e9a1cdb0c907ccbd62a60a32d6a42ad7c4d498"
+  },
+  "compare": "minimal",
+  "opener": "the guy who sits behind me has started answering questions that people asked me"
+ },
+ "k16": {
+  "A": {
+   "arm": "low",
+   "file": "bakeoff-think12low.json",
+   "posts": 24,
+   "sha256": "146785e8b7eda0c7d9f7929014056c8fd4faac4aa9d5c408f434aea43ff3a58a"
+  },
+  "B": {
+   "arm": "high",
+   "file": "bakeoff-think12high.json",
+   "posts": 24,
+   "sha256": "ec08d5e3af49f81b8b74042ad9f01157f0f0ada6fc4b9fda037507c06d798539"
+  },
+  "compare": "high",
+  "opener": "my friend has started saying my name at the end of every sentence"
+ },
+ "k17": {
+  "A": {
+   "arm": "low",
+   "file": "bakeoff-think12low.json",
+   "posts": 24,
+   "sha256": "c7a85e7b6cb47d0f935328443beffb2c160cb988cbfe20188391455ff1b52f2d"
+  },
+  "B": {
+   "arm": "high",
+   "file": "bakeoff-think12high.json",
+   "posts": 24,
+   "sha256": "6f3bc72b1aea6ca22d8df0b818fcf323e65b1b0a97ada07facbde0c09ad1423c"
+  },
+  "compare": "high",
+  "opener": "the barista has written a different name on my cup three times this week"
+ },
+ "k18": {
+  "A": {
+   "arm": "low",
+   "file": "bakeoff-think12low.json",
+   "posts": 24,
+   "sha256": "146785e8b7eda0c7d9f7929014056c8fd4faac4aa9d5c408f434aea43ff3a58a"
+  },
+  "B": {
+   "arm": "mix",
+   "file": "bakeoff-think12mix.json",
+   "posts": 24,
+   "sha256": "c31015fb748a1261a22da5ced8e08dbd52de23bbbc936b346c18ec6db4d8e2de"
+  },
+  "compare": "mix",
+  "opener": "my friend has started saying my name at the end of every sentence"
+ },
+ "k19": {
+  "A": {
+   "arm": "minimal",
+   "file": "bakeoff-think12min.json",
+   "posts": 24,
+   "sha256": "e171f4800e22e41386266be28c7da49bf1e32d85885e37386b856b983baecc82"
+  },
+  "B": {
+   "arm": "low",
+   "file": "bakeoff-think12low.json",
+   "posts": 24,
+   "sha256": "146785e8b7eda0c7d9f7929014056c8fd4faac4aa9d5c408f434aea43ff3a58a"
   },
   "compare": "minimal",
   "opener": "my friend has started saying my name at the end of every sentence"
+ },
+ "k20": {
+  "A": {
+   "arm": "minimal",
+   "file": "bakeoff-think12min.json",
+   "posts": 24,
+   "sha256": "e0f86bc755f39ba507cbfd0702b98d02cd56d02111bb5c01a9cee6eceb980b8a"
+  },
+  "B": {
+   "arm": "low",
+   "file": "bakeoff-think12low.json",
+   "posts": 24,
+   "sha256": "143895a735712259a6e4b8bd603bfe958d8a7cf85ad873eaef9a7bbbf2940e7b"
+  },
+  "compare": "minimal",
+  "opener": "my dad has started forwarding me his own emails"
+ },
+ "k21": {
+  "A": {
+   "arm": "high",
+   "file": "bakeoff-think12high.json",
+   "posts": 24,
+   "sha256": "ab63df862b49dd5ff2bd115d7b78a47c45d75423706655ebf2b3376659da4a96"
+  },
+  "B": {
+   "arm": "low",
+   "file": "bakeoff-think12low.json",
+   "posts": 24,
+   "sha256": "a1ddd2d683eb54166d6eaf589142aa3280dea90b3f94d40daa6de9e3994d059d"
+  },
+  "compare": "high",
+  "opener": "our group chat renamed itself and nobody will say who did it"
+ },
+ "k22": {
+  "A": {
+   "arm": "low",
+   "file": "bakeoff-think12low.json",
+   "posts": 24,
+   "sha256": "143895a735712259a6e4b8bd603bfe958d8a7cf85ad873eaef9a7bbbf2940e7b"
+  },
+  "B": {
+   "arm": "mix",
+   "file": "bakeoff-think12mix.json",
+   "posts": 24,
+   "sha256": "eb311602e03769cf5dda0561dd06a4e820348a93afded20bb3dae1957a50b96e"
+  },
+  "compare": "mix",
+  "opener": "my dad has started forwarding me his own emails"
+ },
+ "k23": {
+  "A": {
+   "arm": "mix",
+   "file": "bakeoff-think12mix.json",
+   "posts": 24,
+   "sha256": "5836bddc37802a8eb551001eaedf3e567b88daefc638a9d851adeeece0d4b638"
+  },
+  "B": {
+   "arm": "low",
+   "file": "bakeoff-think12low.json",
+   "posts": 24,
+   "sha256": "8a9b948727a1f27a2974b0ee96843130503cdc4e4871805fade27e3221c3bec8"
+  },
+  "compare": "mix",
+  "opener": "someone at work keeps taking my mug, washing it, and putting it back in a different cupboard"
+ },
+ "k24": {
+  "A": {
+   "arm": "low",
+   "file": "bakeoff-think12low.json",
+   "posts": 24,
+   "sha256": "8984f8fe8e3fa0a98c85cff64b4b2bb0ce8859237544ba092dfee1bbac8cef75"
+  },
+  "B": {
+   "arm": "minimal",
+   "file": "bakeoff-think12min.json",
+   "posts": 24,
+   "sha256": "c0bf90136e574915cf89e46f5d6ad4acce4f748a003db39e960f87c3e67a068c"
+  },
+  "compare": "minimal",
+  "opener": "i've been getting someone else's post for a year and i've started reading it"
  }
 }

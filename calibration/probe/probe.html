@@ -84,7 +84,7 @@ main { padding: 0 16px 40px; max-width: 1280px; }
 <script>
 "use strict";
 const SET = ["moves", "think"].includes(new URLSearchParams(location.search).get("set")) ? new URLSearchParams(location.search).get("set") : "probe";
-const STORE = SET === "probe" ? "probe-answers-v1" : "probe-answers-" + SET + "-v1";
+const STORE = SET === "probe" ? "probe-answers-v1" : "probe-answers-" + SET + (SET === "think" ? "-v2" : "-v1");   // think v2: the first build was discarded
 const TAGS = {
   en: ["funny", "deadpan / sincerely wrong", "creepy (good)", "builds lore", "too random", "too polished / AI-ish", "too wordy", "too creepy", "all gas no brakes", "too flat / boring"],
   ja: ["funny", "natural / real 5ch", "easy to follow", "good for learning", "creepy (good)", "too much slang", "too polished / textbook", "too random"],

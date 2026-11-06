@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Round 12's owner A/B (spike/THINKING.md): Gemini's thinking level. Per opener, minimal vs low and
-high vs low, sides shuffled and the pairs in a shuffled order, shown in probe.html?set=think.
+"""Round 12's owner A/B (spike/THINKING.md): Gemini's thinking level. Per opener, minimal, high and
+mix each against low, sides shuffled and the pairs in a shuffled order, shown in probe.html?set=think.
 
   python calibration/probe/build_think.py            build the pairs
   python calibration/probe/build_think.py stats      lengths and thinking tokens per arm
   python calibration/probe/build_think.py analyze    the owner's picks (latest think-*.json export)
 
-Reads spike/remote/r12/bakeoff-think12{min,low,high}.json. Writes private/items-think.json and
+Reads spike/remote/r12/bakeoff-think12{min,low,high,mix}.json. Writes private/items-think.json and
 key-think.json; a pair whose thread can't be shown (build.screen) is left out and reported.
 """
 import glob, json, os, random, statistics, sys
@@ -20,8 +20,9 @@ import build as B
 SEED = 20261112
 SHOW = 12
 R12 = os.path.join(ROOT, "spike", "remote", "r12")
-ARMS = {"minimal": "bakeoff-think12min.json", "low": "bakeoff-think12low.json", "high": "bakeoff-think12high.json"}
-COMPARE = ["minimal", "high"]          # each against low
+ARMS = {"minimal": "bakeoff-think12min.json", "low": "bakeoff-think12low.json", "high": "bakeoff-think12high.json",
+        "mix": "bakeoff-think12mix.json"}
+COMPARE = ["minimal", "high", "mix"]   # each against low
 
 
 def load(arm):

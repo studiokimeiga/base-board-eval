@@ -79,7 +79,10 @@ def screen(t):
     if any(p.get("withheld") or (p.get("text") or "").startswith("[post withheld") for p in posts):
         return "has withheld posts"
     blob = "\n".join(p.get("text") or "" for p in posts)
-    if any(h in blob.lower() for h in GATE):
+    low = blob.lower()
+    # a single word counts as a whole word (with -s/-es/-ed/-ing); a phrase counts anywhere. Matching
+    # inside words screened out threads for "scraped", "raccoon" and "suspicious" (round 12).
+    if any(re.search(r"\b%s(?:s|es|ed|ing)?\b" % re.escape(h), low) if " " not in h else h in low for h in GATE):
         return "gate term"
     m = EXCLUDE.search(blob)
     return "excluded word %r" % m.group(0).lower() if m else None

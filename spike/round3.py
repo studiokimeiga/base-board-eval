@@ -281,10 +281,12 @@ def hermes_arm(penalties, guard, pick):
     return complete
 
 
-def gemini_arm(temperature=1.0, roles=False, short=False, finish=False, moves=False, effort="low"):
+def gemini_arm(temperature=1.0, roles=False, short=False, finish=False, moves=False, effort="low", live=False):
     """finish=True (round 9) logs the API's finish_reason as the post's stop ("length" = cut off
     by max_tokens); earlier rounds logged "eos" for every post. moves=True (round 10) tells each
-    non-OP post what kind of post it is, drawn per post (MOVES)."""
+    non-OP post what kind of post it is, drawn per post (MOVES). live=True (round 12) uses the live
+    board's budget: thinking comes out of max_tokens, and at 1200 a third of high-effort posts were
+    cut off (spike/THINKING.md), so 3000, and a cut-off post is written again once."""
     def complete(port, prompt, stops):
         m = HEADER.search(prompt)
         doc, author = prompt[:m.start()], m.group(1)
@@ -302,17 +304,24 @@ def gemini_arm(temperature=1.0, roles=False, short=False, finish=False, moves=Fa
             if not (op and op.group(1) == author):
                 ask += " This post is %s. Don't announce it; just post." % move_at(
                     opener_index(opener_of(prompt)), post_number(prompt))[2]
-        body = {"model": "google/gemini-3.8-flash", "max_tokens": 1200, "temperature": temperature,
-                "reasoning": {"effort": effort}, "usage": {"include": True},
+        body ={"model": "google/gemini-3.8-flash", "max_tokens": 3000 if live else 1200,
+                "temperature": temperature, "usage": {"include": True},
+                "reasoning": {"effort": effort(author, prompt) if callable(effort) else effort},
                 "messages": [{"role": "user", "content": ask}]}
-        d = retrying(lambda: post_json("https://openrouter.ai/api/v1/chat/completions",
-                                       ENV["OPENROUTER_API_KEY"], body))
         with LOCK:
-            u = d.get("usage") or {}
-            SPEND["usd"] += u.get("cost", 0) or 0
-            SPEND["think_tokens"] = SPEND.get("think_tokens", 0) + \
-                ((u.get("completion_tokens_details") or {}).get("reasoning_tokens") or 0)
             SPEND["posts"] = SPEND.get("posts", 0) + 1
+        for attempt in range(2 if live else 1):
+            d = retrying(lambda: post_json("https://openrouter.ai/api/v1/chat/completions",
+                                           ENV["OPENROUTER_API_KEY"], body))
+            cut_off = d["choices"][0].get("finish_reason") == "length"
+            with LOCK:
+                u = d.get("usage") or {}
+                SPEND["usd"] += u.get("cost", 0) or 0
+                SPEND["think_tokens"] = SPEND.get("think_tokens", 0) + \
+                    ((u.get("completion_tokens_details") or {}).get("reasoning_tokens") or 0)
+                SPEND["cut_retries"] = SPEND.get("cut_retries", 0) + (cut_off and attempt == 0 and live)
+            if not cut_off:
+                break
         text = cut(clean_chat(d["choices"][0]["message"].get("content") or ""), stops).strip()
         return text, (d["choices"][0].get("finish_reason") or "?") if finish else "eos"
     return complete
@@ -387,7 +396,32 @@ R9 = {"gemini9": X_HEADER, "rolesshort9": X_HEADER, "rolesshort9naif": X_HEADER,
       "moves10": NEUTRAL_HEADER,      # round 10 (spike/MOVES.md) reuses round 9's bookkeeping
       "tidy11": NEUTRAL_HEADER,       # round 11 (spike/TIDY.md)
       # round 12 (spike/THINKING.md): the live board's prompt and tidy fixes at three thinking levels
-      "think12min": NEUTRAL_HEADER, "think12low": NEUTRAL_HEADER, "think12high": NEUTRAL_HEADER}
+      "think12min": NEUTRAL_HEADER, "think12low": NEUTRAL_HEADER, "think12high": NEUTRAL_HEADER,
+      "think12mix": NEUTRAL_HEADER}
+
+# round 12's mix arm: a third of each thread's posters (never the OP) think hard, the rest at low.
+# A trait of the poster, not of the post: within a thread the same people are sharp in every reply.
+# Who: the posters with the lowest fixed per-name score, so the same names tend to be the sharp ones
+# across threads, while every thread gets exactly its third (a plain per-name coin gave 17 of 23
+# posts in one thread and none in another).
+MIX_SEED = 1212
+_MIX = {}
+
+
+def mix_high(opener):
+    if opener not in _MIX:
+        real = G.complete
+        G.complete = lambda port, prompt, stops: ("", "dry run")    # who posts never depends on output
+        try:
+            with contextlib.redirect_stdout(io.StringIO()):
+                posts = G.gen_thread(opener_index(opener), 0, 0)["posts"]
+        finally:
+            G.complete = real
+        op = posts[0]["who"]
+        others = sorted({p["who"] for p in posts} - {op},
+                        key=lambda w: random.Random("%d:%s" % (MIX_SEED, w)).random())
+        _MIX[opener] = set(others[:max(1, round(len(others) / 3))])
+    return _MIX[opener]
 
 # ---- round 10: what kind of post comes next, drawn per post rather than per poster ----
 # Plain Gemini threads were "all gas, no brakes": almost every reply was a bit, each topping the
@@ -516,6 +550,14 @@ def occasional_naif_arm():
     return complete
 
 
+def gate_hits(text):
+    """GATE terms in a post. Round 12 on: a single word only counts as a whole word (with -s, -es,
+    -ed or -ing), so "retardant" and "scraper" no longer read as slurs; a phrase counts anywhere.
+    Rounds 3-11 matched every term anywhere in the text."""
+    low = text.lower()
+    return [h for h in GATE if (re.search(r"\b%s(?:s|es|ed|ing)?\b" % re.escape(h), low) if " " not in h else h in low)]
+
+
 def gate_first(complete, arm):
     """Withhold a post before it enters the context. The withheld text goes to a private quarantine
     file next to the arm's output, so the gate's false positives can be counted later."""
@@ -523,7 +565,7 @@ def gate_first(complete, arm):
 
     def gated(port, prompt, stops):
         text, why = complete(port, prompt, stops)
-        hits = [h for h in GATE if h in text.lower()]
+        hits = gate_hits(text)
         if not hits:
             return text, why
         with LOCK:
@@ -548,9 +590,13 @@ def build(arm):
             return gate_first(gemini_arm(finish=True, moves=True), arm), 4
         if arm == "tidy11":
             return gate_first(tidy_arm(gemini_arm(finish=True), arm), arm), 4
+        if arm == "think12mix":
+            for text in OPENER_PICKS:      # before any worker starts: the dry run swaps G.complete
+                mix_high(text)
         if arm.startswith("think12"):
-            effort = {"think12min": "minimal", "think12low": "low", "think12high": "high"}[arm]
-            return gate_first(tidy_arm(gemini_arm(finish=True, effort=effort), arm), arm), 4
+            effort = {"think12min": "minimal", "think12low": "low", "think12high": "high",
+                      "think12mix": lambda who, prompt: "high" if who in mix_high(opener_of(prompt)) else "low"}[arm]
+            return gate_first(tidy_arm(gemini_arm(finish=True, effort=effort, live=True), arm), arm), 4
         roles = arm.startswith("rolesshort")
         return gate_first(gemini_arm(roles=roles, short=roles, finish=True), arm), 4
     if arm == "geminipick":
@@ -626,7 +672,7 @@ def main():
         t0 = time.time()
         t = G.gen_thread(oi, 0, i + 1)
         for p in t["posts"][1:]:
-            if any(h in p["text"].lower() for h in GATE):
+            if gate_hits(p["text"]):
                 p.update(text="[post withheld]", withheld=True)
             if arm in R9:     # gen_thread labels posts by scaffold voice; record who really wrote them
                 p.pop("arm")
