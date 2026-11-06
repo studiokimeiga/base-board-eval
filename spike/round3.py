@@ -380,7 +380,8 @@ def gemini_pick_arm():
 X_HEADER, NEUTRAL_HEADER = G.BOARD_HEADER, "thread 4471"
 R9 = {"gemini9": X_HEADER, "rolesshort9": X_HEADER, "rolesshort9naif": X_HEADER,
       "gemini9neutral": NEUTRAL_HEADER, "rolesshort9neutral": NEUTRAL_HEADER,
-      "moves10": NEUTRAL_HEADER}      # round 10 (spike/MOVES.md) reuses round 9's bookkeeping
+      "moves10": NEUTRAL_HEADER,      # round 10 (spike/MOVES.md) reuses round 9's bookkeeping
+      "tidy11": NEUTRAL_HEADER}       # round 11 (spike/TIDY.md)
 
 # ---- round 10: what kind of post comes next, drawn per post rather than per poster ----
 # Plain Gemini threads were "all gas, no brakes": almost every reply was a bit, each topping the
@@ -401,6 +402,41 @@ MOVES = [  # (name, weight, what the post is)
     ("riff", 6, "a longer bit, if something funny or strange is building: run with it, but a short "
                 "paragraph at most"),
 ]
+
+
+def tidy_arm(complete, arm):
+    """Round 11: plain Gemini's posts, with two fixes that leave its prompt alone (spike/tidy.py).
+    A post that would use the poster's pet insult a third time is written again (twice at most);
+    a name only used to address the poster right above is dropped. Every change is logged, with
+    the text before it, to a private file next to the arm's output."""
+    import tidy
+    path = os.path.join(out_dir(), "tidy-%s.jsonl" % arm)
+
+    def log(**kw):
+        with LOCK:
+            with open(path, "a", encoding="utf-8") as f:
+                f.write(json.dumps(kw, ensure_ascii=False) + "\n")
+
+    def tidied(port, prompt, stops):
+        author = HEADER.search(prompt).group(1)
+        earlier = tidy.posts_in(prompt)
+        text, why = complete(port, prompt, stops)
+        for _ in range(2):
+            word = tidy.overused(text, author, earlier)
+            if not word:
+                break
+            log(kind="reroll", opener=opener_of(prompt), n=post_number(prompt), who=author, word=word, text=text)
+            text, why = complete(port, prompt, stops)
+        if earlier and "my name" not in earlier[0][1].lower():   # names are the joke in that opener
+            above = earlier[-1][0]
+            if above != author:
+                new = tidy.strip_vocative(text, above)
+                if new != text:
+                    log(kind="name", opener=opener_of(prompt), n=post_number(prompt), who=author, name=above,
+                        text=text, new=new)
+                    text = new
+        return text, why
+    return tidied
 
 
 def move_at(oi, n):
@@ -503,6 +539,8 @@ def build(arm):
             return gate_first(occasional_naif_arm(), arm), 1      # one llama-server slot
         if arm == "moves10":
             return gate_first(gemini_arm(finish=True, moves=True), arm), 4
+        if arm == "tidy11":
+            return gate_first(tidy_arm(gemini_arm(finish=True), arm), arm), 4
         roles = arm.startswith("rolesshort")
         return gate_first(gemini_arm(roles=roles, short=roles, finish=True), arm), 4
     if arm == "geminipick":
