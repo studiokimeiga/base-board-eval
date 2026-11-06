@@ -82,4 +82,13 @@ so nothing from the discarded first build carries over.
 
 ## Results
 
-(filled in after the owner's picks)
+Partial: the owner rated 4 of 24 pairs (answers/think-2026-11-06.json), well short of the 8 per
+comparison the rule needs, so no comparison is decided.
+
+- minimal vs low: low 1, both good 1 (both tagged too creepy). Stars on low's barista thread
+  ("today it literally just said Custard", "i answered like a trained dog").
+- high vs low: low 1, neither 1 (high tagged too polished / AI-ish, low tagged too wordy).
+- mix vs low: not rated.
+
+`low` lost no pair. Nothing here argues for changing the live board, and `high` would have to win
+clearly to justify ~4.3x the cost.
