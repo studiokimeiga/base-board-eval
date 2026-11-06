@@ -83,7 +83,7 @@ main { padding: 0 16px 40px; max-width: 1280px; }
 </div>
 <script>
 "use strict";
-const SET = ["moves", "think"].includes(new URLSearchParams(location.search).get("set")) ? new URLSearchParams(location.search).get("set") : "probe";
+const SET = ["moves", "think", "thinkmix"].includes(new URLSearchParams(location.search).get("set")) ? new URLSearchParams(location.search).get("set") : "probe";
 const STORE = SET === "probe" ? "probe-answers-v1" : "probe-answers-" + SET + (SET === "think" ? "-v2" : "-v1");   // think v2: the first build was discarded
 const TAGS = {
   en: ["funny", "deadpan / sincerely wrong", "creepy (good)", "builds lore", "too random", "too polished / AI-ish", "too wordy", "too creepy", "all gas no brakes", "too flat / boring"],

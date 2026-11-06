@@ -57,6 +57,10 @@ def build():
     os.makedirs(os.path.join(HERE, "private"), exist_ok=True)
     with open(os.path.join(HERE, "private", "items-think.json"), "w", encoding="utf-8", newline="\n") as f:
         json.dump({"pairs": items}, f, ensure_ascii=False, indent=1)
+    # the mix pairs alone (same ids), for probe.html?set=thinkmix: the owner rated a few of the full
+    # set and then just the untested arm
+    with open(os.path.join(HERE, "private", "items-thinkmix.json"), "w", encoding="utf-8", newline="\n") as f:
+        json.dump({"pairs": [p for p in items if key[p["id"]]["compare"] == "mix"]}, f, ensure_ascii=False, indent=1)
     with open(os.path.join(HERE, "key-think.json"), "w", encoding="utf-8", newline="\n") as f:
         json.dump(key, f, ensure_ascii=False, indent=1, sort_keys=True)
         f.write("\n")
@@ -78,13 +82,15 @@ def stats():
 def analyze():
     with open(os.path.join(HERE, "key-think.json"), encoding="utf-8") as f:
         key = json.load(f)
-    exports = sorted(glob.glob(os.path.join(HERE, "answers", "think-*.json")), key=os.path.getmtime)
-    if len(sys.argv) > 2:
-        exports = [sys.argv[2]]
-    if not exports:
-        raise SystemExit("no think-*.json export in calibration/probe/answers/")
-    with open(exports[-1], encoding="utf-8") as f:
-        answers = json.load(f)["answers"]
+    # the latest full-set export and the latest mix-only export, merged (pair ids are shared)
+    answers = {}
+    for pattern in ("think-*.json", "thinkmix-*.json"):
+        exports = sorted(glob.glob(os.path.join(HERE, "answers", pattern)), key=os.path.getmtime)
+        if exports:
+            with open(exports[-1], encoding="utf-8") as f:
+                answers.update({k: v for k, v in json.load(f)["answers"].items() if v.get("pick")})
+    if not answers:
+        raise SystemExit("no think-*.json or thinkmix-*.json export in calibration/probe/answers/")
     for arm in COMPARE:
         wins = {arm: 0, "low": 0}
         other = {"both": 0, "neither": 0}
