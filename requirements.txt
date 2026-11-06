@@ -1,0 +1,3 @@
+# The repo itself is stdlib-only. Optional extras:
+elevenlabs  # spike/thread_audio.py (reading threads aloud)
+python-dotenv  # loads .env.local for the above
